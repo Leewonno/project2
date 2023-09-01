@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="/socket.io/socket.io.js"></script>
+        <title>Document</title>
+        <style>
+            #body {
+                width: 100%;
+                height: 70vh;
+                position: relative;
+                background: #8ae4bc;
+            }
+            #chat {
+                position: absolute;
+                bottom: 0px;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+            #chat input {
+                width: 80%;
+            }
+            .my-chat {
+                display: flex;
+                justify-content: end;
+                padding: 2px 0px;
+            }
+            .my-chat p {
+                margin: 0;
+                padding: 10px;
+                background: yellow;
+                border-radius: 10px;
+                margin-right: 10px;
+            }
+            .other-chat {
+                display: flex;
+                justify-content: start;
+                padding: 2px 0px;
+            }
+            .other-chat p {
+                margin: 0;
+                padding: 10px;
+                background: white;
+                border-radius: 10px;
+                margin-left: 10px;
+            }
+            #notice {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                color: gray;
+            }
+            #notice p {
+                margin: 0;
+            }
+            .secret-chat p {
+                background: pink;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <form id="room">
+                <input type="text" id="roomName" placeholder="채팅방 만들기" />
+                <input type="text" id="userName" placeholder="사용자 이름 입력" />
+                <button>만들기</button>
+            </form>
+            <ul id="lists"></ul>
+        </div>
+        <div id="body" hidden>
+            <div id="msg">
+                <div id="notice"></div>
+                <!-- <div class="my-chat">
+                    <p>채팅테스트(나)</p>
+                </div>
+                <div class="other-chat">
+                    <p>채팅테스트(상대방)</p>
+                </div> -->
+            </div>
+            <form id="chat">
+                <select id="userList"></select>
+                <input type="text" id="message" placeholder="메세지 입력" />
+                <button>입력</button>
+            </form>
+        </div>
+
+        <script>
+            const socket = io();
+            const roomForm = document.querySelector('#room');
+            const chatForm = document.querySelector('#chat');
+            const msg = document.querySelector('#msg');
+            const notice = document.querySelector('#notice');
+
+            let myName;
+
+            //룸리스트
+            socket.on('roomList', (roomLists) => {
+                console.log(roomLists);
+                const lists = document.querySelector('#lists');
+                lists.textContent = '';
+                roomLists.forEach((roomList) => {
+                    const li = document.createElement('li');
+                    li.textContent = `${roomList} 와 닉네임 입력 후 입장`;
+                    lists.appendChild(li);
+                });
+            });
+
+            //사용자 리스트
+            socket.on('userList', (userLists) => {
+                console.log(userLists);
+                const lists = document.querySelector('#userList');
+                lists.textContent = '';
+                let options = `<option value="all">전체</option>`;
+                for (let i of userLists) {
+                    options += `<option value="${i.key}">${i.name}</option>`;
+                }
+                lists.innerHTML = options;
+            });
+            //메세지 띄우기
+            socket.on('newMessage', (message, nick, bool) => {
+                console.log(message, nick);
+                const div = document.createElement('div');
+                const p = document.createElement('p');
+                if (myName === nick) {
+                    //내가입력한 텍스트
+                    div.classList.add('my-chat');
+                } else {
+                    div.classList.add('other-chat');
+                }
+                //개인메세지일때 bool이 true
+                if (bool) {
+                    div.classList.add('secret-chat');
+                }
+
+                //채팅 텍스트
+                p.textContent = bool ? `(귓속말) ${nick} : ${message}` : `${nick} : ${message}`;
+                div.appendChild(p);
+                msg.appendChild(div);
+            });
+            //입장 메세지 이벤트
+            socket.on('notice', (message) => {
+                const div = document.createElement('div');
+                const p = document.createElement('p');
+                p.textContent = message;
+                div.appendChild(p);
+                notice.appendChild(div);
+            });
+
+            ///폼 이벤트
+            roomForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const roomName = roomForm.querySelector('#roomName');
+                const userName = roomForm.querySelector('#userName');
+                if (roomName.value === '' || userName.value === '') {
+                    alert('방이름과 닉네임 적어주세요');
+                    return;
+                }
+                socket.emit('create', roomName.value, userName.value, () => {
+                    const main = document.querySelector('#main');
+                    const body = document.querySelector('#body');
+                    main.hidden = true;
+                    body.hidden = false;
+                    //전역변수에 입력한 닉네임을 저장
+                    myName = userName.value;
+                });
+            });
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const user = document.querySelector('#userList');
+                const message = document.querySelector('#message');
+                console.log(user.value);
+                const msg = {
+                    nick: myName,
+                    user: user.value,
+                    message: message.value,
+                };
+                socket.emit('sendMessage', msg);
+                message.value = '';
+            });
+        </script>
+    </body>
+</html>
