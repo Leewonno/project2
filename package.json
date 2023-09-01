@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"cross-env NODE_ENV=development node index.js",
-    "start:prod":"cross-env NODE_ENV=production node index.js",
+    "start": "cross-env NODE_ENV=development node index.js",
+    "start:prod": "cross-env NODE_ENV=production node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +14,7 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cross-env": "^7.0.3",
+    "docenv": "^2.0.6",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-cookie": "^4.17.1",
@@ -21,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "sequelize": "^6.32.1",
-    "sequelize-cli": "^6.6.1"
+    "sequelize-cli": "^6.6.1",
+    "socket.io": "^4.7.2"
   }
 }
