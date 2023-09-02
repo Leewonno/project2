@@ -7,6 +7,8 @@ const db = {};
 
 let sequelize = new Sequelize(config.database, config.username, config.password, config);
 
+db.Visitor = require("./Visitor")(sequelize, Sequelize);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
