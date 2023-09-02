@@ -1,3 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .loginMain {
     display: flex;
     justify-content: center;
@@ -25,13 +31,18 @@
 
 .loginCover {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
     width: 400px;
     height: 200px;
     background-color: rgb(179, 182, 182);
+    
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
 }
 
 #id, #pw {
