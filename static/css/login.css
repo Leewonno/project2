@@ -1,11 +1,11 @@
-main {
-    margin-top: 100px;
-    margin-bottom: 50px;
+.loginMain {
     display: flex;
     justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
 }
 
-.signin {
+.loginPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@ main {
     
 }
 
-.logo{
+.loginLogo{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +23,7 @@ main {
     height: 200px;
 }
 
-.cover {
+.loginCover {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,16 +39,15 @@ main {
     height: 50px;
 }
 
-.buttons {
+.loginPageBtns {
     display: flex;
     justify-content: space-between;
-    position: absolute;
+    margin-top: 400px;
 }
 
 #loginBtn, #signupBtn {
     width: 180px;
     height: 70px;
     margin: 20px;
-    margin-top: 430px;
 }
 
