@@ -1,0 +1,62 @@
+main{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.column_first{
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.column_first .recent_music{
+    background-color: lightgray;
+    width: 100%;
+    height: 45%;
+}
+
+.column_first .genre_music{
+    background-color: lightgray;
+    width: 100%;
+    height: 45%;
+}
+
+.column_second{
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.column_second .talk_room{
+    background-color: lightgray;
+    width: 100%;
+    height: 45%;
+}
+
+.column_second .recomand_playlist{
+    background-color: lightgray;
+    width: 100%;
+    height: 45%;
+}
+
+.column_third{
+    width: 400px;
+    height: 500px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.column_third .popular_music{
+    background-color: lightgray;
+    width: 100%;
+    height: 100%;
+}
