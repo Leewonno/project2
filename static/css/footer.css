@@ -1,5 +1,26 @@
 footer{
     width: 100%;
     height: 100px;
-    background-color: black;
+    background-color: rgb(176, 176, 176);
+    margin-bottom: 100px;
+}
+
+footer .left{
+
+}
+
+footer .left .team{
+    color: white;
+}
+
+footer .left .team_member{
+    color: white;
+}
+
+footer .left .notice{
+
+}
+
+footer .right{
+
 }

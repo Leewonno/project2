@@ -9,3 +9,7 @@ exports.header = (req, res)=>{
 exports.footer = (req, res)=>{
     res.render("footer");
 }
+
+exports.playbar = (req, res)=>{
+    res.render("playbar");
+}
