@@ -1,7 +1,6 @@
 // visitor에 대한 테이블 정의
+// visitor는 예시
 const Visitor = function (sequelize, DataTypes){
-    // sequelize는 models/index.js에 있는 sequelize (소문자)
-    // DataTypes는 models/index.js에 있는 Sequelize (대문자)
     const model = sequelize.define(
         'visitor',
         {
