@@ -14,10 +14,10 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-app.use('/static/audio', express.static(__dirname + '/audio'));
-app.use('/static/img', express.static(__dirname + '/img'));
-app.use('/static/css', express.static(__dirname + '/css'));
-app.use('/static/js', express.static(__dirname + '/js'));
+app.use('/audio', express.static('./static/audio'));
+app.use('/img', express.static('./static/img'));
+app.use('/css', express.static('./static/css'));
+app.use('/js', express.static('./static/js'));
 
 const socketRouter = require('./router/socket');
 socketRouter(io);
