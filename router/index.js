@@ -5,6 +5,7 @@ const controller = require("../controller/Cmain");
 router.get("/", controller.main);
 router.get("/html/header", controller.header);
 router.get("/html/footer", controller.footer);
+router.get("/html/playbar", controller.playbar)
 
 
 // 임시
