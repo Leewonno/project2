@@ -1,9 +1,35 @@
+*{
+    margin: 0;
+}
+
 #body {
     width: 100%;
-    height: 70vh;
+    height: 100vh;
     position: relative;
-    background: #8ae4bc;
+    background: #dbdbdb;
 }
+
+#msg::-webkit-scrollbar {
+    width: 0px;
+}
+#msg::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 20px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+#msg::-webkit-scrollbar-track {
+    display: none;
+    /* background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white; */
+}
+
+#msg{
+    height: 100vh;
+    overflow-y: scroll;
+}
+
 #chat {
     position: absolute;
     bottom: 0px;

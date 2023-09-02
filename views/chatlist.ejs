@@ -14,12 +14,29 @@
 
     </header>
 
+    <main>
+        <section class="talk_list">
+            <div class="column_first">
+                <div class="my_talk">
+                    <a href="#" onclick="talk()">참여중인 톡방</a>
+                </div>
+            </div>
 
+            <div class="column_second">
+                <div class="category_talk">주제별 톡방</div>
+                <div class="recommand_talk">톡방 추천</div>
+            </div>
+        </section>
+    </main>
 
 
     <footer>
 
     </footer>
+
+    <div id="playbar">
+
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     
@@ -29,7 +46,15 @@
             });
             $("footer").load("/html/footer", function () {
             });
+            $("#playbar").load("/html/playbar", function () {
+            });
         })
+    </script>
+
+    <script>
+        function talk(){
+            window.open('/chat', "Child", "width=400, height=500, top=50, left=50")
+        }
     </script>
 </body>
 </html>

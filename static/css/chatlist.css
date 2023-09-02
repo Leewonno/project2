@@ -1,0 +1,40 @@
+main{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.talk_list{
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+}
+
+.talk_list .column_first{
+    margin-bottom: 20px;
+}
+
+.talk_list .column_first .my_talk{
+    background-color: lightgray;
+    width: 100%;
+    height: 300px;
+}
+
+.talk_list .column_second{
+    display: flex;
+    justify-content: space-between;
+}
+
+.talk_list .column_second .category_talk{
+    background-color: lightgray;
+    width: 590px;
+    height: 300px;
+}
+
+.talk_list .column_second .recommand_talk{
+    background-color: lightgray;
+    width: 590px;
+    height: 300px;
+}
+
