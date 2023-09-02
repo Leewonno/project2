@@ -1,0 +1,54 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.signupMain {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.signupPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 850px;
+    background-color: lightgray;
+}
+
+.signupLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin-top: 25px;
+}
+
+.signupCover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 500px;
+    height: 700px;
+    background-color: rgb(179, 182, 182);
+}
+
+.signupForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#userid, #pw, #pw2, #mail, #name, #gender, #nick {
+    width: 300px;
+    height: 50px;
+}
+
+.signupBtn {
+    width: 300px;
+    height: 80px;
+}

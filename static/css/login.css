@@ -1,11 +1,17 @@
-main {
-    margin-top: 100px;
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: center;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.signin {
+.loginMain {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.loginPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +21,7 @@ main {
     
 }
 
-.logo{
+.loginLogo{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,15 +29,20 @@ main {
     height: 200px;
 }
 
-.cover {
+.loginCover {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
     width: 400px;
     height: 200px;
     background-color: rgb(179, 182, 182);
+    
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
 }
 
 #id, #pw {
@@ -39,16 +50,15 @@ main {
     height: 50px;
 }
 
-.buttons {
+.loginPageBtns {
     display: flex;
     justify-content: space-between;
-    position: absolute;
+    margin-top: 400px;
 }
 
 #loginBtn, #signupBtn {
     width: 180px;
     height: 70px;
     margin: 20px;
-    margin-top: 430px;
 }
 
