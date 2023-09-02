@@ -3,9 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <title>메인페이지</title>
 </head>
 <body>
-    <h1>메인</h1>
+    <header>
+
+    </header>
+
+    <main>
+        <section class="column_first">
+            <div class="recent_music">
+                최신 발매 음악
+            </div>
+            <div class="genre_music">
+                장르 음악
+            </div>
+        </section>
+
+        <section class="column_second">
+            <div class="talk_room">
+                아티스트 톡 채널
+            </div>
+            <div class="recomand_playlist">
+                추천 플레이리스트
+            </div>
+        </section>
+
+        <section class="column_third">
+            <div class="popular_music">
+                인기순 음악
+            </div>
+        </section>
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+    <!-- 제이쿼리 -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    
+    <!-- header/footer 추가 -->
+    <script>
+        $(document).ready(function () {
+            $("header").load("/html/header", function () {
+            });
+            $("footer").load("/html/footer", function () {
+            });
+        })
+    </script>
 </body>
 </html>
