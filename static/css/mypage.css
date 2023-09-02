@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.mypageMain {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.mypage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:500px;
+    height:600px;
+    background-color: lightgray;
+}
+
+.mypageCover {
+    width: 400px;
+    height: 500px;
+    padding: 24px;
+    background-color: rgb(179, 182, 182);
+    position: absolute;   
+}
+
+.profilePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: aquamarine;
+}
+    
+.img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+}
+
+.mypageForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#nickname, #pw, #pw2, .mainBtn {
+    width: 300px;
+    height: 50px;
+}
+
+.mypageBtns {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.deleteBtn, .cancelBtn {
+    width: 142px;
+    height: 40px;
+}
+    
