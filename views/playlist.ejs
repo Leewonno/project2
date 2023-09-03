@@ -10,9 +10,7 @@
     <title>플레이리스트 목록</title>
 </head>
 <body>
-    <header>
-
-    </header>
+    <%- contentFor('body') %>
 
     <div id="cont-wrap">
             <div id="my_playlist">
@@ -145,22 +143,13 @@
 
 
 
+    <%- contentFor('player') %>
     <div id="playbar">
-
+        playerbar
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    
     <script>
-        $(document).ready(function () {
-            $("header").load("/html/header", function () {
-            });
-            $("footer").load("/html/footer", function () {
-            });
-            $("#playbar").load("/html/playbar", function () {
-            });
-        })
+    
     </script>
 </body>
 </html>
