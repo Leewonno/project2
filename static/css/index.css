@@ -1,7 +1,13 @@
 main{
-    margin-top: 100px;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
+    margin-bottom: 100px;
+}
+
+.main_page{
+    width: auto;
+    display: flex;
 }
 
 .column_first{
