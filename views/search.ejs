@@ -4,38 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/search.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/playbar.css">
     <title>검색</title>
 </head>
 <body>
-    <header>
+    <%- contentFor('body') %>
 
-    </header>
-    
-    
-    
-    
-    <footer>
-
-    </footer>
-
+    <%- contentFor('player') %>
     <div id="playbar">
-
+        playerbar
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    
     <script>
-        $(document).ready(function () {
-            $("header").load("/html/header", function () {
-            });
-            $("footer").load("/html/footer", function () {
-            });
-            $("#playbar").load("/html/playbar", function () {
-            });
-        })
+    
     </script>
 </body>
 </html>

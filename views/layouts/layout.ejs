@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/playbar.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <header>
+        <div class="left">
+            <div class="logo"><a href="/">MangoZ</a></div>
+        </div>
+        <div class="right">
+            <div class="go">
+                <a href="/sort">최신음악</a>
+                <a href="/sort">장르음악</a>
+                <a href="/chat/list">아티스트 톡방</a>
+            </div>
+            <div class="search">
+                검색
+            </div>
+            <div class="user">
+                <a href="/signin">로그인</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <%- defineContent('body') %>
+    </main>
+
+    <footer>
+        <div class="left">
+            <div class="team"> 포스코 코딩온 웹 풀스택 과정 프로젝트2 6조</div>
+            <div class="team_member">박가현, 서채영, 이우종, 이원노, 황동하</div>
+            <div class="notice"><a href="/notice">공지사항</a></div>
+        </div>
+        <div class="right">
+            <div></div>
+        </div>
+    </footer>
+
+    <section>
+        <%- defineContent('player') %>
+    </section>
+
+    <%- script %>
+
+</body>
+</html>
