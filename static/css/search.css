@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.searchPage{
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+}
+
+.searchCover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1000px;
+    height: 650px;
+    background-color: lightgray;
+    gap: 30px;
+}
+
+.searchResult {
+    padding-right: 580px;
+}
+
+.talkSearch, .titleSearch, .artistSearch, .lyricsSearch {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 900px;
+    height: 100px;
+    background-color: antiquewhite;
+    gap: 50px;
+}
+
+.talkSearchResult {
+    display: flex;
+    gap: 10px;
+}
+
+
+.talkSearchLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: coral;
+}
