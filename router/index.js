@@ -31,7 +31,7 @@ router.get('/song/upload', (req, res)=>{
 })
 
 router.get('/playlist', (req, res)=>{
-    res.render("mypage");
+    res.render("playlist");
 })
 
 router.get('/chat/list', (req, res)=>{
