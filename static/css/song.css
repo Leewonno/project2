@@ -1,0 +1,58 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.songMain1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 30px;
+}
+
+.albumImg {
+    width: 200px;
+    height: 120px;
+    background-color: lightgray;
+}
+
+.albumInfor {
+    width:500px;
+    height: 120px;
+    background-color: lightgray;
+}
+
+.talk {
+    width: 200px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: lightgray;
+}
+
+.songMain2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.lyrics {
+    width: 958px;
+    height: 300px;
+    background-color: lightgray;
+}
+
+.anotherSong {
+    width: 958px;
+    height: 100px;
+    background-color: lightgray;
+}
+
+.songComment {
+    width: 958px;
+    height: 80px;
+    background-color: lightgray;
+    margin-bottom: 20px;
+}
