@@ -17,7 +17,7 @@
     
     <main>
         <section>
-            <form>
+            <form class="song_upload">
                 <input type="text" id="title" placeholder="곡 제목">
                 <input type="text" id="artist" placeholder="아티스트 명">
                 <input type="text" id="album" placeholder="앨범 명">
@@ -40,9 +40,11 @@
                     <option>재즈</option>
                     <option>CCM</option>
                 </select>
+                <input type="text" id="playtile" placeholder="재생시간">
+                <input type="date" id="release_date" placeholder="발매일">
                 <!-- 노래 커버 이미지 업로드 -->
-                <input type="file" id="cover_url">
-                
+                <input type="file" id="cover">
+                <input type="file" id="song">
             </form>
         </section>
     </main>

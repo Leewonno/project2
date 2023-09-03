@@ -1,0 +1,8 @@
+.song_upload{
+    display: flex;
+    flex-direction: column;
+}
+
+.song_upload > input, .song_upload > select, .song_upload > textarea{
+    width: 200px;
+}
