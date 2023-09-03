@@ -1,0 +1,57 @@
+#cont-wrap{
+    margin: 0 auto;
+    max-width: 1200px; 
+    padding: 20px; 
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#my_playlist {
+    margin-bottom: 30px;
+}
+
+.my_list {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+li {
+    list-style: none;
+}
+
+.page_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.page_header .title {
+    margin-right: 10px;
+}
+
+.my_list li:not(.page_header) {
+    margin-right: 20px;
+}
+
+.my_list_album {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    height: 250px;
+    margin-left: 50%;
+}
+
+.list_image {
+    margin-bottom: 10px;
+}
+
+.my_list_text {
+    
+}
+
+
+
