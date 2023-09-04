@@ -11,8 +11,13 @@
     
 }
 
-button {
+.playbar button {
     background-color:transparent;
+}
+
+.song_info a {
+    text-decoration: none;
+    color: white;
 }
 
 .player_controller button {

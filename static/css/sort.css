@@ -28,6 +28,7 @@
 }
 
 /*테이블*/
+
 .sort_section table {
     display: inline-block;
     text-align: left;
@@ -53,6 +54,7 @@
 }
 
 .sort_section .wrap {
+
     display: flex;
     align-items: center;
     justify-content: center;
