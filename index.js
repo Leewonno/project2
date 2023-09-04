@@ -2,6 +2,7 @@ const http = require('http');
 const express = require("express");
 const SocketIO = require('socket.io');
 const expressLayouts = require('express-ejs-layouts');
+const db = require("./database/db");
 
 const app = express();
 const PORT = 8000;
@@ -41,6 +42,8 @@ app.use('/chat', (req, res)=>{
     res.render("chat");
 })
 
-server.listen(8000, () => {
-    console.log(`http://localhost:${PORT}`);
-});
+db.sequelize.sync({ force: true }).then( () => {
+    app.listen(8000, () => {
+        console.log(`http://localhost:${PORT}`);
+    });
+})
