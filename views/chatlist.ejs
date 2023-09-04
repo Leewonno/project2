@@ -8,23 +8,23 @@
 </head>
 <body>
     <%- contentFor('body') %>
-    <main>
-        <section class="talk_list">
-            <div class="column_first">
-                <div class="my_talk">
-                    <a href="#" onclick="talk()">참여중인 톡방</a>
-                </div>
-            </div>
 
-            <div class="column_second">
-                <div class="category_talk">주제별 톡방</div>
-                <div class="recommand_talk">톡방 추천</div>
+    <section class="talk_list">
+        <div class="column_first">
+            <div class="my_talk">
+                <a href="#" onclick="talk()">참여중인 톡방</a>
             </div>
-        </section>
-    </main>
+        </div>
+
+        <div class="column_second">
+            <div class="category_talk">주제별 톡방</div>
+            <div class="recommand_talk">톡방 추천</div>
+        </div>
+    </section>
+
 
     <%- contentFor('player') %>
-    <div id="playbar">playerbar</div>
+   
 
     <script>
         function talk(){

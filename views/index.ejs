@@ -7,40 +7,33 @@
     <title>메인페이지</title>
 </head>
 <body>
-    <main>
-        <%- contentFor('body') %>
-            <section class="main_page">
-                <div class="column_first">
-                    <div class="recent_music">
-                        최신 발매 음악
-                    </div>
-                    <div class="genre_music">
-                        장르 음악
-                    </div>
+    <%- contentFor('body') %>
+        <section class="main_page">
+            <div class="column_first">
+                <div class="recent_music">
+                    최신 발매 음악
                 </div>
-
-                <div class="column_second">
-                    <div class="talk_room">
-                        아티스트 톡 채널
-                    </div>
-                    <div class="recommand_playlist">
-                        추천 플레이리스트
-                    </div>
+                <div class="genre_music">
+                    장르 음악
                 </div>
+            </div>
 
-                <div class="column_third">
-                    <div class="popular_music">
-                        인기순 음악
-                    </div>
+            <div class="column_second">
+                <div class="talk_room">
+                    아티스트 톡 채널
                 </div>
-            </section>
-    </main>
+                <div class="recommand_playlist">
+                    추천 플레이리스트
+                </div>
+            </div>
 
-    <%- contentFor('player') %>
-    <div id="playbar">
-        playerbar
-    </div>
-
+            <div class="column_third">
+                <div class="popular_music">
+                    인기순 음악
+                </div>
+            </div>
+        </section>
+    
     <script>
     
     </script>

@@ -10,72 +10,72 @@
 
     <%- contentFor('body') %>
     <div class="song_category">
-    <div class="menu">
-        <ul class="lay_menu">
-            <li>
-                <a href="#" onclick="sortSongs('latest')">
-                    <span>최신곡</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" onclick="sortSongs('popular')">
-                    <span>인기곡</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" onclick="sortSongs('genre')">
-                    <span>장르별</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+        <div class="menu">
+            <ul class="lay_menu">
+                <li>
+                    <a href="#" onclick="sortSongs('latest')">
+                        <span>최신곡</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="sortSongs('popular')">
+                        <span>인기곡</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="sortSongs('genre')">
+                        <span>장르별</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-    <table class="list">
-        <thead>
-            <tr class="defult">
-                <th>
-                    <div class="wrap">
-                        <span class="rank">순위</span>
-                    </div>
-                </th>
-                <th>
-                    <div class="wrap_song">
-                        <span class="song">곡 정보</span>
-                    </div>
-                </th>
-            </tr>
-        </thead>
-        <tbody class="song">
-            <tr class="song_detail">
-                <td>
-                    <div class="wrap">
-                        <span class="ranck">1</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="wrap_song">
-                        <a href="#">
-                            <img src="#" alt="곡사진">
-                        </a>
-                    </div>
-                </td>
-                <td>
-                    <div class="wrap_song">
-                        <div class="song_name">
-                            <span>
-                                <a href="#">노래제목</a>
-                            </span>
+        <table class="list">
+            <thead>
+                <tr class="defult">
+                    <th>
+                        <div class="wrap">
+                            <span class="rank">순위</span>
                         </div>
-                        <br />
-                        <div class="artist">
-                            <a href="#">아티스트</a>
+                    </th>
+                    <th>
+                        <div class="wrap_song">
+                            <span class="song">곡 정보</span>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="song">
+                <tr class="song_detail">
+                    <td>
+                        <div class="wrap">
+                            <span class="ranck">1</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="wrap_song">
+                            <a href="#">
+                                <img src="#" alt="곡사진">
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="wrap_song">
+                            <div class="song_name">
+                                <span>
+                                    <a href="#">노래제목</a>
+                                </span>
+                            </div>
+                            <br />
+                            <div class="artist">
+                                <a href="#">아티스트</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
    
 
     <div class="song_category">
@@ -147,9 +147,7 @@
         </table>
     </div>
 
-    <div id="playbar">
-        playerbar
-    </div>
+    <%- contentFor('player') %>
 
     <script>
 

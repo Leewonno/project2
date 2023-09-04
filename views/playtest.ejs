@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스트리밍 테스트</title>
+  </head>
+  <body>
+    <button type="button" onclick="music('audio/O.O.mp3')">O.O</button>
+    <button type="button" onclick="music('audio/DICE.mp3')">DICE</button>
+
+    <audio controls id="musicplayer">
+      <source src="" type="audio/mpeg" />
+    </audio>
+
+    <script>
+      function music(route) {
+        const now = document.getElementById('musicplayer');
+        now.src = '/stream?name=' + route;
+        now.play();
+      }
+    </script>
+  </body>
+</html>

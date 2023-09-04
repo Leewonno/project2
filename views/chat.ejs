@@ -80,6 +80,7 @@
                 div.appendChild(p);
                 msg.appendChild(div);
             });
+            
             //입장 메세지 이벤트
             socket.on('notice', (message) => {
                 const div = document.createElement('div');

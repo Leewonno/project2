@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws": "^0.0.3-2",
+    "aws-sdk": "^2.1450.0",
     "bcrypt": "^5.1.1",
     "cross-env": "^7.0.3",
     "docenv": "^2.0.6",
