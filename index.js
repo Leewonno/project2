@@ -44,8 +44,8 @@ app.use('/chat', (req, res) => {
   res.render('chat');
 });
 
-db.sequelize.sync({ force: true }).then( () => {
+db.sequelize.sync({ force: false }).then( () => {
     app.listen(8000, () => {
         console.log(`http://localhost:${PORT}`);
     });
-})
+});
