@@ -1,7 +1,54 @@
-#playbar{
+.playbar{
     background-color: black;
     width: 100%;
     height: 100px;
     position: fixed;
     bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+button {
+    background-color:transparent;
+}
+
+.player_controller button {
+    background-color:transparent;
+    width: 70px;
+    height: 50px;
+    border: none;
+    font-size: 30px;
+}
+
+.player_song {
+    display: flex;
+    align-items: center; 
+}
+
+.song_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.song_img {
+    margin-right: 10px;
+}
+
+.player_side_rigth button{
+    background-color:transparent;
+    border: none;
+    width: 70px;
+    height: 50px;
+    font-size: 30px;
+}
+
+.volume {
+    display: flex;
+}
+
+.volume_button + .volume_bar {
+    margin-left: 1px;
 }
