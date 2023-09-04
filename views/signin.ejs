@@ -3,30 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/css/signin.css">
     <title>로그인</title>
 </head>
 <body>
     <%- contentFor('body') %>
-    <main class="loginMain">
-        <div class="loginLogo">LOGO</div><br>
+    <main>
+        <div class="signinMain">
+            <div class="signinLogo">LOGO</div><br>
 
-        <section class="loginPage">
-            <div class="loginCover">
-                <form class="loginForm">
-                    <input type="text" id="id" placeholder="아이디"><br>
-                    <input type="password" id="pw" placeholder="비밀번호">
-                </form>
-            </div>
-            <div class="loginPageBtns">
-                <button type="button" id="loginBtn">로그인</button><br>
-                <button type="button" id="signupBtn">회원가입</button>
-            </div>
-        </section>
+            <section class="signinPage">
+                <div class="signinCover">
+                    <form name="signinForm" class="signinForm">
+                        <input type="text" id="id" placeholder="아이디"><br>
+                        <input type="password" id="pw" placeholder="비밀번호">
+                    </form>
+                </div>
+                <div class="signinPageBtns">
+                    <button type="button" id="signinBtn" onclick="signin()">로그인</button><br>
+                    <button type="button" id="signupBtn" onclick="signup()">회원가입</button>
+                </div>
+            </section>
+        </div>
     </main>
     
     <script>
-    
+        async function signin() {
+            const form = document.forms["signinForm"];
+            const id = document.querySelector("#id");
+            const pw = document.querySelector("#pw");
+            if(id.value === "" || pw.value === "") {
+                alert("아이디와 비밀번호를 입력해주세요.");
+            };
+            
+            const res = await axios({
+                method: "post",
+                url: "/signin",
+                data: {
+                    id: form.id.value,
+                    pw: form.pw.value
+                }
+            });
+
+            if(res.data.result) {
+                alert("로그인이 되었습니다");
+                document.location.href = "/";
+            } else {
+                alert(`error message : ${res.data.message}`);
+                document.location.reload();
+            };
+        };
+
+        function signup() {
+            document.location.href = "/signup";
+        }
     </script>
 </body>
 </html>

@@ -4,14 +4,14 @@
     box-sizing: border-box;
 }
 
-.loginMain {
+.signinMain {
     display: flex;
     justify-content: center;
     margin-top: 100px;
     margin-bottom: 50px;
 }
 
-.loginPage {
+.signinPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +21,7 @@
     
 }
 
-.loginLogo{
+.signinLogo{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +29,7 @@
     height: 200px;
 }
 
-.loginCover {
+.signinCover {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,7 +40,7 @@
     
 }
 
-.loginForm {
+.signinForm {
     display: flex;
     flex-direction: column;
 }
@@ -50,13 +50,13 @@
     height: 50px;
 }
 
-.loginPageBtns {
+.signinPageBtns {
     display: flex;
     justify-content: space-between;
     margin-top: 400px;
 }
 
-#loginBtn, #signupBtn {
+#signinBtn, #signupBtn {
     width: 180px;
     height: 70px;
     margin: 20px;
