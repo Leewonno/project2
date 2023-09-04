@@ -1,3 +1,3 @@
-exports.getPlayListPage = (req, res)=>{
-    res.render("playlist");
-}
+exports.getPlayListPage = (req, res) => {
+  res.render('playlist');
+};
