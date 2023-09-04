@@ -9,7 +9,6 @@ const P_like = function (sequelize, DataTypes) {
         // userid: {
         //     type: DataTypes.STRING(50),
         //     allowNull: false,
-        //     unique: true,
         // }
       
     }, {
