@@ -7,20 +7,20 @@ const ChatRoom = function (sequelize, DataTypes) {
             allowNull: false, 
         },
         name: {
-            type: DataTypes.STRING, // 데이터 유형을 정수로 지정
-            allowNull: false, // null이 아닌 값이어야 함
+            type: DataTypes.STRING,
+            allowNull: false, 
         },
         tag: {
             type: DataTypes.STRING, // 데이터 유형을 정수로 지정
             allowNull: true, 
         },
         member: {
-            type: DataTypes.INTEGER, // 데이터 유형을 정수로 지정
-            allowNull: true, // null이 아닌 값이어야 함
+            type: DataTypes.INTEGER, 
+            allowNull: true, 
         },
         cover_img: {
-            type: DataTypes.BIGINT, // 데이터 유형을 정수로 지정
-            allowNull: trun, // null이 아닌 값이어야 함
+            type: DataTypes.BIGINT, 
+            allowNull: true, 
         }
       
     }, {
