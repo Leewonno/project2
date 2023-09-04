@@ -11,7 +11,6 @@ const Playlist = function (sequelize, DataTypes) {
           // userid: {
         //     type: DataTypes.STRING(50),
         //     allowNull: false,
-        //     unique: true,
         // },
         name: {
             type: DataTypes.STRING,
@@ -22,12 +21,12 @@ const Playlist = function (sequelize, DataTypes) {
             allowNull: false,
         },
         create_date: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: true
         },
         update_date: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: true
         }
@@ -38,7 +37,7 @@ const Playlist = function (sequelize, DataTypes) {
         charset: 'utf8',
         collate: 'utf8_general_ci',
     });
-    
+
     return model;
 }
 

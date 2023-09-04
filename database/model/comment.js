@@ -8,22 +8,22 @@ const Comment = function (sequelize, DataTypes) {
             allowNull: false,
         },
         song_id: {
-            type: DataTypes.INTEGER, // 데이터 유형을 정수로 지정
-            primaryKey: true, // 기본 키로 지정
-            autoIncrement: true, // 자동 증가 기능 사용
-            allowNull: false, // null이 아닌 값이어야 함
+            type: DataTypes.INTEGER, 
+            primaryKey: true,
+            autoIncrement: true, 
+            allowNull: false, 
         },
         content: {
             type: DataTypes.TEXT('tiny'),
             allowNull: false
         },
         create_date: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: true
         },
         update_date: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: true
         }
