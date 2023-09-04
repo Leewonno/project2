@@ -9,10 +9,26 @@
 <body>
     <%- contentFor('body') %>
 
+    <main>
+        <section class="searchPage">
+            <div class="searchCover">
+                <div class="searchResult">검색결과(톡방/플레이리스트/아티스트/가사)</div>
+                <div class="talkSearch">
+                    <div class="talkSearchResult">
+                        <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="#"></a>
+                        <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="#"></a>
+                        <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="#"></a>
+                        <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="#"></a>
+                    </div>
+                </div>
+                <div class="titleSearch"></div>
+                <div class="artistSearch"></div>
+                <div class="lyricsSearch"></div>
+            </div>
+        </section>
+    </main>
+
     <%- contentFor('player') %>
-    <div id="playbar">
-        playerbar
-    </div>
 
     <script>
     
