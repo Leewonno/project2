@@ -11,7 +11,7 @@
     margin-bottom: 50px;
 }
 
-.signinPage {
+.signinMain .signinPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +21,7 @@
     
 }
 
-.signinLogo{
+.signinMain .signinLogo{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +29,7 @@
     height: 200px;
 }
 
-.signinCover {
+.signinMain .signinCover {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,23 +40,23 @@
     
 }
 
-.signinForm {
+.signinMain .signinForm {
     display: flex;
     flex-direction: column;
 }
 
-#id, #pw {
+.signinMain #id, .signinMain #pw {
     width: 300px;
     height: 50px;
 }
 
-.signinPageBtns {
+.signinMain .signinPageBtns {
     display: flex;
     justify-content: space-between;
     margin-top: 400px;
 }
 
-#signinBtn, #signupBtn {
+.signinMain #signinBtn, .signinMain #signupBtn {
     width: 180px;
     height: 70px;
     margin: 20px;
