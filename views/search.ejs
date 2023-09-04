@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/search.css">
+    
     <title>검색</title>
 </head>
 <body>
     <%- contentFor('body') %>
 
-    <main>
-        <section class="searchPage">
+    <section>
+        <div class="searchPage">
             <div class="searchCover">
                 <div class="searchResult">검색결과(톡방/플레이리스트/아티스트/가사)</div>
                 <div class="talkSearch">
@@ -25,8 +25,8 @@
                 <div class="artistSearch"></div>
                 <div class="lyricsSearch"></div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <%- contentFor('player') %>
 

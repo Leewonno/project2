@@ -82,12 +82,13 @@
                 url: "/signup",
                 data: {
                     userid: form.userid.value,
-                    password: form.pw.value,
-                    password2: form.pw2.value,
-                    mail: form.mail.value,
+                    pw: form.pw.value,
+                    pw2: form.pw2.value,
+                    email: form.mail.value,
                     name: form.name.value,
                     gender: form.gender.value,
-                    nickname: form.nick.value
+                    nickname: form.nick.value,
+                    grade: "n",
                 }
             });
             
@@ -95,7 +96,7 @@
                 alert("회원가입을 축하합니다.");
                 document.location.href = "/";
             } else {
-                alert(`${res.data.message}`);
+                alert(`error message : ${res.data.message}`);
                 document.location.reload();
             }
         };
