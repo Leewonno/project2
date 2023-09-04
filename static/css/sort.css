@@ -28,37 +28,37 @@
 }
 
 /*테이블*/
-table {
+.song_category table {
     display: inline-block;
     text-align: left;
     padding:  0px 20px;
 }
 
-.defult {
+.song_category .defult {
     font-size: medium;
 }
 
-.list {
+.song_category .list {
     margin: 0 auto;
     border-collapse: collapse;
     width: 80%; 
 }
 
-.list th, .list td {
+.song_category .list th, .list td {
     padding: 10px; 
 }
 
-.list td {
+.song_category .list td {
     text-align: center;
 }
 
-.wrap {
+.song_category .wrap {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.wrap_song {
+.song_category .wrap_song {
     display: flex;
     flex-direction: column;
     align-items: center;

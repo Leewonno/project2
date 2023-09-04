@@ -12,12 +12,12 @@ header{
     align-items: center;
 }
 
-a {
+header a {
     text-decoration: none;
     color: white;
 }
 
-.logo {
+header .logo {
     font-family: 'EBSHMJESaeronRA';
     margin-left: 20px;
     font-size: 35px;
@@ -68,7 +68,7 @@ header .right .search{
     opacity: 1;
 }
 
-.search-bar {
+header .search-bar {
     width: 220px;
     height: 27px;
     border-radius: 5px;
@@ -80,7 +80,7 @@ header .right .search{
     opacity: 1;
   }
 
-input {
+header input {
     background-color: transparent;
     border: none;
     text-align: center;
