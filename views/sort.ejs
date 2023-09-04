@@ -4,11 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/sort.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
     <title>정렬</title>
 </head>
 <body>
+
+    <%- contentFor('body') %>
+    <div class="song_category">
+    <div class="menu">
+        <ul class="lay_menu">
+            <li>
+                <a href="#" onclick="sortSongs('latest')">
+                    <span>최신곡</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="sortSongs('popular')">
+                    <span>인기곡</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="sortSongs('genre')">
+                    <span>장르별</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <table class="list">
+        <thead>
+            <tr class="defult">
+                <th>
+                    <div class="wrap">
+                        <span class="rank">순위</span>
+                    </div>
+                </th>
+                <th>
+                    <div class="wrap_song">
+                        <span class="song">곡 정보</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="song">
+            <tr class="song_detail">
+                <td>
+                    <div class="wrap">
+                        <span class="ranck">1</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="wrap_song">
+                        <a href="#">
+                            <img src="#" alt="곡사진">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div class="wrap_song">
+                        <div class="song_name">
+                            <span>
+                                <a href="#">노래제목</a>
+                            </span>
+                        </div>
+                        <br />
+                        <div class="artist">
+                            <a href="#">아티스트</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+   
 
     <div class="song_category">
         <div class="menu">
@@ -80,20 +148,11 @@
     </div>
 
     <div id="playbar">
-
+        playerbar
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    
     <script>
-        $(document).ready(function () {
-            $("header").load("/html/header", function () {
-            });
-            $("footer").load("/html/footer", function () {
-            });
-            $("#playbar").load("/html/playbar", function () {
-            });
-        })
+
     </script>
 </body>
 </html>
