@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>망고즈</title>
+    
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/playbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <!-- 모든 CSS 레이아웃에서 불러오기 -->
     <link rel="stylesheet" href="/css/song.css">
     <link rel="stylesheet" href="/css/sort.css">
@@ -17,9 +18,12 @@
     <link rel="stylesheet" href="/css/song_upload.css">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/playlist.css">
+    <link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="/css/mypage.css">
+    <link rel="stylesheet" href="/css/signin.css">
     <%- style %>
     
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 </head>
 <body>
     <header>
@@ -30,16 +34,17 @@
             <div class="go">
                 <a href="/sort">최신음악</a>
                 <a href="/sort">장르음악</a>
-                <a href="/chat/list">아티스트 톡방</a>
+                <a href="/chat/list">아티스트Talk</a>
             </div>
             <div class="search">
-                <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
-                <input id="searchKey" type="text">
+                <form action="/search">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #000000; margin-right: -30px;"></i>
+                    <input type="text" class="search_bar" name="q">
+                </form>
             </div>
             <div class="user">
-                <a href="/signin">
-                    <i class="fa-regular fa-user" style="color: #000000;"></i>
-                </a>
+                <a href='/signin'>로그인</a>
+                <!-- <i class="fa-regular fa-user" style="color: #000000;"></i> -->
             </div>
         </div>
     </header>
@@ -76,8 +81,8 @@
                 <button type="button" class="button" id="pre">
                     <i class="fa-solid fa-backward-step" style="color: #ffffff;"></i>
                 </button>
-                <button type="button" class="button" id="play">
-                <i class="fa-regular fa-circle-play fa-lg" style="color: #ffffff;"></i>
+                <label for="play"><i class="fa-regular fa-circle-play fa-lg" style="color: #ffffff;" id="play_icon"></i></label>
+                <input type="checkbox" id="play" hidden>
                 </button>
                 <button type="button" class="button" id="next">
                     <i class="fa-solid fa-forward-step" style="color: #ffffff;"></i>
@@ -92,12 +97,14 @@
             </div>
             <div class="player_side_rigth">
                 <div class="volume">
+                    
                     <button type="button" class="volume_button">
                         <i class="fa-solid fa-volume-low" style="color: #ffffff;"></i>
                     </button>
-                    <button type="button" class="volume_bar" id="voulme_status">
+                    <input type="range" min="1" max="100" id="volume_status">
+                    <!-- <button type="button" class="volume_bar" id="voulme_status">
                         <i class="fa-solid fa-minus" style="color: #ffffff;"></i>
-                    </button>
+                    </button> -->
                     <button type="button" class="open_playlist">
                         <i class="fa-solid fa-sliders" style="color: #ffffff;"></i>
                     </button>
@@ -106,11 +113,12 @@
         </div>
     </section>
 
-    <audio controls>
+    <audio id="player">
         <source src="/audio/O.O.mp3">
     </audio>
 
     <%- script %>
     <script src="/js/pageload.js"></script>
+    <script src="/js/playbar.js"></script>
 </body>
 </html>

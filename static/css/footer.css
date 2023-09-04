@@ -1,11 +1,11 @@
 footer{
-    width: 80%;
+    width: 1200px;
     height: 100px;
     margin: 0 auto;
     background-color: #ffffff; 
     border-top: 1px solid #000000; 
     padding: 20px 0px 100px 0px; 
-    font-family: 'NanumSquareNeo-Variable';
+    margin-bottom: 100px;
 }
 @font-face {
     font-family: 'NanumSquareNeo-Variable';
@@ -29,6 +29,10 @@ footer .left .team{
 
 footer .left .team_member{
     color: rgb(0, 0, 0);
+}
+
+footer .left .notice{
+    margin-top: 20px;
 }
 
 footer .left .notice a{

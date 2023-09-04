@@ -20,12 +20,28 @@
     color: white;
 }
 
+.player_controller{
+    display: flex;
+}
+
 .player_controller button {
-    background-color:transparent;
+    background-color: transparent;
     width: 70px;
     height: 50px;
     border: none;
     font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player_controller > label {
+    width: 50px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .player_song {
