@@ -15,8 +15,17 @@ const Chat = function (sequelize, DataTypes) {
         create_date: {
             type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            primaryKey: true, 
             allowNull: true
         },
+        content: {
+            type: DataTypes.TEXT('tiny'),
+            allowNull: false
+        },
+        type: {
+            type: DataTypes.STRING(5),
+            allowNull: false,
+        }
     }, {
         tableName: 'chat',
         timestamps: false,
