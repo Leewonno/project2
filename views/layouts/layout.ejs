@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/playbar.css">
+    <!-- 모든 CSS 레이아웃에서 불러오기 -->
+    <link rel="stylesheet" href="/css/song.css">
+    <link rel="stylesheet" href="/css/sort.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/chatlist.css">
+    <link rel="stylesheet" href="/css/song_upload.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/playlist.css">
     <%- style %>
     
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
@@ -31,7 +39,7 @@
             </div>
         </div>
     </header>
-
+    
     <main>
         <%- defineContent('body') %>
     </main>
@@ -51,7 +59,11 @@
         <div id="playbar">playerbar</div>
     </section>
 
-    <%- script %>
+    <audio controls>
+        <source src="/audio/O.O.mp3">
+    </audio>
 
+    <%- script %>
+    <script src="/js/pageload.js"></script>
 </body>
 </html>

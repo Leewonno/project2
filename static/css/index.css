@@ -1,4 +1,4 @@
-main{
+.index_section {
     margin-top: 50px;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@ main{
     display: flex;
 }
 
-.column_first{
+.index_section .column_first{
     width: 400px;
     height: 500px;
     display: flex;
@@ -20,19 +20,19 @@ main{
     margin-right: 10px;
 }
 
-.column_first .recent_music{
+.index_section .column_first .recent_music{
     background-color: lightgray;
     width: 100%;
     height: 240px;
 }
 
-.column_first .genre_music{
+.index_section .column_first .genre_music{
     background-color: lightgray;
     width: 100%;
     height: 240px;
 }
 
-.column_second{
+.index_section .column_second{
     width: 400px;
     height: 500px;
     display: flex;
@@ -42,82 +42,82 @@ main{
     margin-right: 10px;
 }
 
-.column_second .talk_room{
+.index_section .column_second .talk_room{
     background-color: lightgray;
     width: 100%;
     height: 240px;
 }
 
-.column_second .recommand_playlist{
+.index_section .column_second .recommand_playlist{
     background-color: lightgray;
     width: 100%;
     height: 240px;
 }
 
-.column_third{
+.index_section .column_third{
     width: 400px;
     height: 500px;
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.column_third .popular_music{
+.index_section .column_third .popular_music{
     background-color: lightgray;
     width: 100%;
     height: 100%;
 }
 
 @media screen and (max-width: 650px) {
-    main{
+    .index_section{
         
     }
     
-    .main_page{
+    .index_section .main_page{
         flex-direction: column;
         width: 100%;
         align-items: center;
     }
     
-    .column_first{
+    .index_section .column_first{
         width: 90%;
         height: auto;
         justify-content: normal;
         margin-bottom: 20px;
     }
 
-    .column_first > div, .column_second > div, .column_third > div{
+    .index_section .column_first > div, .column_second > div, .column_third > div{
         margin-bottom: 20px;
     }
     
-    .column_first .recent_music{
+    .index_section .column_first .recent_music{
         height: 200px;
     }
     
-    .column_first .genre_music{
+    .index_section .column_first .genre_music{
         height: 200px;
     }
     
-    .column_second{
+    .index_section .column_second{
         width: 90%;
         height: auto;
         justify-content: normal;
         margin-bottom: 20px;
     }
     
-    .column_second .talk_room{
+    .index_section .column_second .talk_room{
         height: 200px;
     }
     
-    .column_second .recommand_playlist{
+    .index_section .column_second .recommand_playlist{
         height: 200px;
     }
     
-    .column_third{
+    .index_section .column_third{
         width: 90%;
         height: auto;
     }
     
-    .column_third .popular_music{
+    .index_section .column_third .popular_music{
         height: 500px;
     }
 }
