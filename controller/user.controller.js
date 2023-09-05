@@ -21,6 +21,7 @@ exports.getSignupPage = (req, res) => {
 };
 
 exports.getProfilePage = (req, res) => {
+
   console.log('token', req.query.token);
   if (req.query.token == undefined) {
     console.log('n');
@@ -33,6 +34,7 @@ exports.getProfilePage = (req, res) => {
       res.render('mypage');
     });
   }
+
 };
 
 exports.getSortPage = (req, res) => {
