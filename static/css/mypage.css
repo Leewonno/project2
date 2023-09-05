@@ -62,7 +62,7 @@
     align-items: center;
 }
 
-.mypageMain #nickname, .mypageMain #pw, .mypageMain #pw2, .mypageMain .mainBtn {
+.mypageMain #name , .mypageMain #nickname, .mypageMain #pw, .mypageMain #pw2, .mypageMain .mainBtn {
     width: 300px;
     height: 50px;
 }
@@ -77,4 +77,3 @@
     width: 142px;
     height: 40px;
 }
-    
