@@ -8,17 +8,26 @@ exports.getSongUploadPage = (req, res)=>{
     res.render("song_upload");
 }
 
+exports.uploadImg = (req, res) => {
+  console.log(req.file);
+  res.send(req.file);
+}
+
+exports.uploadSong = (req, res) => {
+  console.log(req.file);
+  res.send(req.file);
+}
+
 exports.insertSongByAdmin = async (req, res) => {
   try {
 
     // 곡 제목, 아티스트명, 앨범명, 가사, 작사가, 작곡가, 장르, 재생시간, 발매일, 커버 사진(url), 음원 파일(url)
     const { title, artist, album, lyrics, 
       writer, composer, genre, playtime, 
-      release_date, song, cover } = req.body;
-
+      release_date, song_url, cover_url } = req.body;
     const songData = await db.Song.create({title, artist, album, 
       lyrics, writer, composer, genre, playtime, release_date, 
-      song_url: song, cover_url: cover});
+      song_url, cover_url});
     res.send(songData)
   } catch (error) {
     console.log(error)
