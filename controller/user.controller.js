@@ -19,7 +19,7 @@ exports.getSignupPage = (req, res) => {
 };
 
 exports.getProfilePage = (req, res) => {
-  res.render('mypage');
+  res.render('profile');
 };
 
 exports.getSortPage = (req, res) => {
