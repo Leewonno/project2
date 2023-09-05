@@ -25,3 +25,15 @@ exports.insertSongByAdmin = async (req, res) => {
     res.send({message: error});
   }
 }
+
+exports.getSongInfo = async (req, res) => {
+  try {
+    const id = req.query.id;
+    console.log(id);
+    const songData = await db.Song.findOne({where: {id: id}});
+    res.send(songData)
+  } catch (error) {
+    console.log(error)
+    res.send({message: error});
+  }
+}

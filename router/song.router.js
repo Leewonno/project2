@@ -12,6 +12,6 @@ router.get('/song/upload', controller.getSongUploadPage);
 // 기능 개발
 router.post('/song/upload', controller.insertSongByAdmin);
 //  upload.fields([{ name: 'song' },  { name: 'cover' }]), 
-
+router.get('/song/detail', controller.getSongInfo);
 
 module.exports = router;
