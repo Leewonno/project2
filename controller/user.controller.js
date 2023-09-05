@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken');
 const secret = 'asdfasdfa';
 //암호화
 const bcryptPassword = (password) => {
-  return bcrypt.hashSync(password, 10);
+  return bcrypt.hash(password, 10);
 };
 //비교
 const comparePassword = (password, dbPassword) => {
-  return bcrypt.compareSync(password, dbPassword);
+  return bcrypt.compare(password, dbPassword);
 };
 
 exports.getSigninPage = (req, res) => {
@@ -51,7 +51,6 @@ exports.postSignIn = async (req, res) => {
     return;
   }
   const ans = comparePassword(req.body.pw, user.pw);
-  console.log(user.pw);
   if (ans) {
     const token = jwt.sign({ userid: user.userid }, secret);
     res.json({ result: true, token });

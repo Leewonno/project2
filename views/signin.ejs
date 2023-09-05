@@ -48,6 +48,7 @@
         });
 
         if (res.data.result) {
+          window.localStorage.setItem("token", res.data.token)
           alert('로그인이 되었습니다');
           document.location.href = '/';
         } else {
