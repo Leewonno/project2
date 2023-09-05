@@ -20,8 +20,8 @@
                         </form>
                     </div>
                     <div class="welcome">
-                        <p class="welcomePara">ooo님 환영합니다.</p>
-                        <p class="welcomeId">ID</p>
+                        <p class="welcomePara"></p>
+                        <p class="welcomeId"></p>
                     </div>
                 </section>
                 <br>
@@ -30,7 +30,7 @@
                     <input type="text" id="nickname" placeholder="닉네임"><br>
                     <input type="password" id="pw" placeholder="비밀번호"><br>
                     <input type="password" id="pw2" placeholder="비밀번호확인"><br>
-                    <button class="mainBtn" onclick="edit()">회원정보변경</button>
+                    <button type="button" class="mainBtn" onclick="edit()">회원정보변경</button>
                 </form><br><br>
                 <section class="mypageBtns">
                     <button class="deleteBtn" onclick="destroy()">회원탈퇴</button>
@@ -50,38 +50,50 @@
                 token:localStorage.getItem('token')
             }
         }).then((res)=>{
-            console.log(res);
+            const name = document.querySelector("#name");
+            const nick = document.querySelector("#nickname");
+            const path = document.querySelector('.progileImg');
+
+            name.value = res.data.name;
+            nick.value = res.data.nickname;
+            path.src = res.data.profile_img;
+            document.querySelector(".welcomePara").textContent = nick.value + "님 환영합니다.";
+            document.querySelector(".welcomeId").textContent = res.data.userid;
         });
 
         async function edit() {
             const form = document.forms['mypageForm'];
             const pw = document.querySelector("#pw");
             const pw2 = document.querySelector("#pw2");
-            const path = document.querySelector('.progileImg')
+            const path = document.querySelector('.progileImg');
+            const name = document.querySelector("#name");
+            const nick = document.querySelector("#nickname");
 
             if(pw.value.length === 0 ) {
-                const Nopw = await axios({
+                const res1 = await axios({
                     method: 'PATCH',
                     url: '/profile',
                     data: {
-                    name: form.name.value,
-                    nickname: form.nickname.value,
-                    profile_img: path.src
+                        name:name.value,
+                        nickname:nick.value,
+                        profile_img: path.src,
+                        token:localStorage.getItem('token')
+                    }
+                });
+
+                if(res1.data.result) {
+                    alert("회원정보 수정이 완료되었습니다.");
+                    document.location.href = "/";
+                    return;
+                }else{
+                    alert("에러 발생");
+                    return;
                 }
-            });
-
-            if(res.data.result) {
-                alert("회원정보 수정이 완료되었습니다.");
-                document.location.href = "/";
-                return;
-            } else {
-                alert(`error message : ${res.data.message}`);
-                return;
             }
-            };
 
+            let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
             if(!pwPattern.test(pw.value, pw2.value)) {
-            alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+                alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
             }
             if(pw.value !== pw2.value ) {
                 alert("비밀번호를 확인해주세요");
@@ -92,64 +104,66 @@
                 alert("비밀번호가 일치합니다.");
             };
             
+            console.log(path.src);
             const res = await axios({
                 method: 'PATCH',
-                url: '/profile/profile_pw',
+                url: '/profile/pw',
                 data: {
-                    name: form.document.value,
-                    nickname: form.nickname.value,
-                    pw: form.pw.value,
-                    pw2: form.pw2.value,
-                    profile_img: path.src
+                    name:name.value,
+                    nickname:nick.value,
+                    profile_img: path.src,
+                    pw: pw.value,
+                    token:localStorage.getItem('token')
                 }
-                });
-                if(res.data.result) {
-                    alert("회원정보 수정이 완료되었습니다.");
-                    document.location.href = "/";
-                } else {
-                    alert(`error message : ${res.data.message}`);
-                    document.location.reload();
-                };
-            };
-
-            //회원탈퇴
-            function destroy() {
-                if (!confirm('회원탈퇴 하시겠습니까?')) {
-                    return;
-                }
-                axios({
-                    method: 'DELETE',
-                    url: '/profile',
-                    data: {
-                        id: document.querySelector('#id').value,
-                    },
-                }).then((res) => {
-                    if (res.data.result) {
-                        alert('회원탈퇴 완료되었습니다');
-                        document.location.href = '/';
-                    }
-                });
-            }
-            //취소
-            function move() {
+            });
+            console.log(res.data.result);
+            if(res.data.result) {
+                alert("회원정보 수정이 완료되었습니다.");
                 document.location.href = "/";
-            }
+            } else {
+                alert(`error message : ${res.data.message}`);
+                document.location.reload();
+            };
+        };
 
-            //프로필사진 변경
-            const img = document.querySelector('.progileImg');
-            async function imgupload(e) {
-                event.preventDefault(e);
-                const file = document.querySelector('#profileimg');
-                const res = await axios({
-                    method: 'POST',
-                    url: '/profile',
-                    data: formdata,
-                    headers: {
-                        'Content-Type' : 'multipart/form-data',
-                    },
-                });
-                img.src = res.data.location;
+        //회원탈퇴
+        function destroy() {
+            if (!confirm('회원탈퇴 하시겠습니까?')) {
+                return;
             }
+            axios({
+                method: 'DELETE',
+                url: '/profile',
+                data: {
+                    id: document.querySelector('#id').value,
+                },
+            }).then((res) => {
+                if (res.data.result) {
+                    alert('회원탈퇴 완료되었습니다');
+                    document.location.href = '/';
+                }
+            });
+        }
+        //취소
+        function move() {
+            document.location.href = "/";
+        }
+
+        //프로필사진 변경
+        const img = document.querySelector('.progileImg');
+        async function imgupload(e) {
+            event.preventDefault(e);
+            const file = document.querySelector('#profileimg');
+            const res = await axios({
+                method: 'POST',
+                url: '/profile',
+                data: formdata,
+                headers: {
+                    'Content-Type' : 'multipart/form-data',
+                },
+            });
+            img.src = res.data.location;
+        }
     </script>
     
 </body>

@@ -74,6 +74,7 @@ exports.postSignIn = async (req, res) => {
 
 exports.updateProfile = (req, res) => {
   let token = jwt.decode(req.body.token);
+  console.log(token);
   models.Profile.update(
     {
       name: req.body.name,
@@ -84,29 +85,37 @@ exports.updateProfile = (req, res) => {
     }
   ).then(() => {
     res.json({ result: true });
+  }).catch((err)=>{
+    res.json({ result: false });
+    console.log(err);
   });
 };
 
 exports.updateProfile_pw = async (req, res) => {
   // console.log('pw', bcryptPassword(String(req.body.pw)));
-  console.log(typeof req.body.pw);
   let token = jwt.decode(req.body.token);
-  const user = await models.User.update(
-    {
-      pw: await bcryptPassword(req.body.pw),
-    },
-    {
-      where: { userid: token.userid },
-    }
-  );
-  await models.Profile.update(
-    {
-      name: req.body.name,
-      nickname: req.body.nickname,
-    },
-    {
-      where: { userid: token.userid },
-    }
-  );
+  try{
+    await models.User.update(
+      {
+        pw: await bcryptPassword(req.body.pw),
+      },
+      {
+        where: { userid: token.userid },
+      }
+    );
+    await models.Profile.update(
+      {
+        name: req.body.name,
+        nickname: req.body.nickname,
+      },
+      {
+        where: { userid: token.userid },
+      }
+    );
+  }
+  catch(err){
+    console.log(err);
+    res.json({ result: false });
+  }
   res.json({ result: true });
 };
