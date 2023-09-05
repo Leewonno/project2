@@ -44,6 +44,12 @@
     justify-content: center;
 }
 
+.player_side{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
 .player_song {
     display: flex;
     align-items: center; 

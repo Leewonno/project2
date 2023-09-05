@@ -37,10 +37,8 @@
                 <a href="/chat/list">아티스트Talk</a>
             </div>
             <div class="search">
-                <form action="/search">
-                    <i class="fa-solid fa-magnifying-glass" style="color: #000000; margin-right: -30px;"></i>
-                    <input type="text" class="search_bar" name="q">
-                </form>
+                <i class="fa-solid fa-magnifying-glass" style="color: #000000; margin-right: -30px;"></i>
+                <input type="text" class="search_bar">
             </div>
             <div class="user">
                 <a href='/signin'>로그인</a>
@@ -87,21 +85,23 @@
                 <button type="button" class="button" id="next">
                     <i class="fa-solid fa-forward-step" style="color: #ffffff;"></i>
                 </button>
-            </div>
-            <div class="player_side">
-                <div class="player_time">
-                    <span class="player_time_current" style="color:white">00:04</span>
-                    <span class="player_time_duration" style="color:white">/</span>
-                    <span class="player_time_duration" style="color:white">03:56</span>
+
+                <div class="player_side">
+                    <div class="player_time">
+                        <span class="player_time_current" style="color:white">00:04</span>
+                        <span class="player_time_duration" style="color:white">/</span>
+                        <span class="player_time_duration" style="color:white">03:56</span>
+                    </div>
                 </div>
             </div>
+            
             <div class="player_side_rigth">
                 <div class="volume">
                     
                     <button type="button" class="volume_button">
                         <i class="fa-solid fa-volume-low" style="color: #ffffff;"></i>
                     </button>
-                    <input type="range" min="1" max="100" id="volume_status">
+                    <input type="range" min="0" max="100" id="volume_status">
                     <!-- <button type="button" class="volume_bar" id="voulme_status">
                         <i class="fa-solid fa-minus" style="color: #ffffff;"></i>
                     </button> -->

@@ -13,4 +13,14 @@ $(document).ready(function(){
         $('main').load(location.href+ " main>section");
         
     })
+
+    $(".search_bar").on('keydown', function(e){
+        var search_term = document.querySelector(".search_bar").value;
+        if(e.keyCode == 13){
+            let move_href = "/search?q=" + search_term;
+            console.log(move_href);
+            history.pushState(null, null, move_href);
+            $('main').load(move_href+ " main>section");
+        }
+    })
 })
