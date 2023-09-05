@@ -14,4 +14,7 @@ router.get('/sort', controller.getSortPage);
 router.post('/signup', controller.postSignUp);
 router.post('/signin', controller.postSignIn);
 
+router.patch('/profile', controller.updateProfile);
+router.patch('/profile/pw', controller.updateProfile_pw);
+
 module.exports = router;

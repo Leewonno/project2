@@ -23,6 +23,34 @@
 .player_controller{
     display: flex;
 }
+.music_bar[type=range] {
+    -webkit-appearance: none;
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    right: 0px;
+    bottom: 95px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.music_bar[type='range']::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    background-color: #FCD06B;
+    cursor: pointer;
+}
+
+.music_bar[type="range"]::-webkit-slider-thumb {
+    border: 3px solid #dd9e0a;
+    height: 15px;
+    width: 10px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5px;
+}
 
 .player_controller button {
     background-color: transparent;
@@ -70,6 +98,15 @@
     width: 70px;
     height: 50px;
     font-size: 30px;
+}
+.player_side_rigth >.volume > label {
+    background-color:transparent;
+    border: none;
+    width: 70px;
+    height: 50px;
+    font-size: 30px;
+    padding-top: 10px;
+    padding-left: 25px;
 }
 
 .volume {

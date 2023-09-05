@@ -41,6 +41,18 @@
     </section>
 
     <script>
+        // console.log(localStorage.getItem('token'));
+
+        axios({
+            method: 'GET',
+            url: '/profile',
+            params: {
+                token:localStorage.getItem('token')
+            }
+        }).then((res)=>{
+            console.log(res);
+        });
+
         async function edit() {
             const form = document.forms['mypageForm'];
             const pw = document.querySelector("#pw");
@@ -90,15 +102,15 @@
                     pw2: form.pw2.value,
                     profile_img: path.src
                 }
-            });
-            if(res.data.result) {
-                alert("회원정보 수정이 완료되었습니다.");
-                document.location.href = "/";
-            } else {
-                alert(`error message : ${res.data.message}`);
-                document.location.reload();
+                });
+                if(res.data.result) {
+                    alert("회원정보 수정이 완료되었습니다.");
+                    document.location.href = "/";
+                } else {
+                    alert(`error message : ${res.data.message}`);
+                    document.location.reload();
+                };
             };
-        };
 
             //회원탈퇴
             function destroy() {

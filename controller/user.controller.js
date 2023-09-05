@@ -2,6 +2,7 @@ const models = require('../database/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secret = 'asdfasdfa';
+
 //암호화
 const bcryptPassword = (password) => {
   return bcrypt.hash(password, 10);
@@ -20,7 +21,19 @@ exports.getSignupPage = (req, res) => {
 };
 
 exports.getProfilePage = (req, res) => {
-  res.render('profile');
+  console.log('token', req.query.token);
+  if (req.query.token == undefined) {
+    console.log('n');
+    res.render('profile');
+  } else {
+    let token = jwt.decode(req.query.token);
+    models.Profile.findOne({
+      where: { userid: token.userid },
+    }).then((result) => {
+      console.log(result.dataValues);
+      res.json(result.dataValues);
+    });
+  }
 };
 
 exports.getSortPage = (req, res) => {
@@ -30,7 +43,7 @@ exports.getSortPage = (req, res) => {
 exports.postSignUp = async (req, res) => {
   const user = await models.User.create({
     userid: req.body.userid,
-    pw: bcryptPassword(req.body.pw),
+    pw: await bcryptPassword(req.body.pw),
     email: req.body.email,
     grade: req.body.grade,
   });
@@ -57,4 +70,43 @@ exports.postSignIn = async (req, res) => {
   } else {
     res.json({ result: false });
   }
+};
+
+exports.updateProfile = (req, res) => {
+  let token = jwt.decode(req.body.token);
+  models.Profile.update(
+    {
+      name: req.body.name,
+      nickname: req.body.nickname,
+    },
+    {
+      where: { userid: token.userid },
+    }
+  ).then(() => {
+    res.json({ result: true });
+  });
+};
+
+exports.updateProfile_pw = async (req, res) => {
+  // console.log('pw', bcryptPassword(String(req.body.pw)));
+  console.log(typeof req.body.pw);
+  let token = jwt.decode(req.body.token);
+  const user = await models.User.update(
+    {
+      pw: await bcryptPassword(req.body.pw),
+    },
+    {
+      where: { userid: token.userid },
+    }
+  );
+  await models.Profile.update(
+    {
+      name: req.body.name,
+      nickname: req.body.nickname,
+    },
+    {
+      where: { userid: token.userid },
+    }
+  );
+  res.json({ result: true });
 };

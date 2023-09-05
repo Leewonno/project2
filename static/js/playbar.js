@@ -7,7 +7,7 @@ const volume_icon = document.getElementById("volume_button");
 const volume_bar = document.getElementById("volume_status");
 const currentTime = document.querySelector(".player_time_current");
 const totalTime = document.querySelector(".player_time_total");
-
+const timelineBar = document.querySelector(".music_bar");
 
 
 let volume = audio.volume;
@@ -60,9 +60,16 @@ const formatTime = (seconds) => new Date(seconds * 1000).toISOString().substr(14
 audio.addEventListener("loadeddata", function(e) {
     totalTime.innerText = formatTime(Math.floor(audio.duration));
     audio.currentTime.max = Math.floor(audio.duration);
+    timelineBar.max = Math.floor(audio.duration);
 })
 
 audio.addEventListener("timeupdate", function(e) {
     currentTime.innerText = formatTime(Math.floor(audio.currentTime));
     audio.currentTime.value = Math.floor(audio.currentTime);
+    timelineBar.value = Math.floor(audio.currentTime);
+})
+
+timelineBar.addEventListener("click", function(e) {
+    const {target: {value}} = e;
+    audio.currentTime = value;
 })
