@@ -2,38 +2,33 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
 
-const fileValidator = (req, file, cb) => {
-    const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg'];
-
-    if (allowedFormats.includes(file.mimetype)) {
-        return cb(null, true);
-    }
-    return cb(null, false);
-}
-
 const s3 = new aws.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGOIN
+    region: "ap-northeast-2"
 });
 
-
-const storage = multerS3({
+const imageStorage = multerS3({
     s3: s3,
     bucket: process.env.AWS_BUCKET,
-    acl: 'public-read', 
-  
+    acl: 'public-read',
     key: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-            let temp = "img/";
-            if(ext == ".mp3"){
-                temp = "audio/"
-            }
-            cb(null, temp + Date.now().toString() + "-" + file.originalname);
+        const uniqueFileName = Date.now().toString() + "-" + file.originalname.toString('utf8');
+        cb(null, "img/" + uniqueFileName); 
     }
+});
 
+const audioStorage = multerS3({
+    s3: s3,
+    bucket: process.env.AWS_BUCKET,
+    acl: 'public-read',
+    key: (req, file, cb) => {
+        const uniqueFileName = Date.now().toString() + "-" + file.originalname.toString('utf8');
+        cb(null, "audio/" + uniqueFileName); 
+    }
 });
 
 const limits = { fileSize: 1024 * 1024 * 5 };
 
-module.exports = multer({ storage, fileFilter: fileValidator, limits });
+module.exports.uploadImage = multer({ storage: imageStorage, limits }).single('imgfile');
+module.exports.uploadAudio = multer({ storage: audioStorage, limits }).single('songfile');
