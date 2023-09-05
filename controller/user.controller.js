@@ -73,7 +73,7 @@ exports.postSignIn = async (req, res) => {
 };
 
 exports.updateProfile = (req, res) => {
-  let token = jwt.decode(req.query.token);
+  let token = jwt.decode(req.body.token);
   models.Profile.update(
     {
       name: req.body.name,
@@ -90,7 +90,7 @@ exports.updateProfile = (req, res) => {
 exports.updateProfile_pw = async (req, res) => {
   // console.log('pw', bcryptPassword(String(req.body.pw)));
   console.log(typeof req.body.pw);
-  let token = jwt.decode(req.query.token);
+  let token = jwt.decode(req.body.token);
   const user = await models.User.update(
     {
       pw: await bcryptPassword(req.body.pw),
