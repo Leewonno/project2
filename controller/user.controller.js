@@ -21,20 +21,19 @@ exports.getSignupPage = (req, res) => {
 };
 
 exports.getProfilePage = (req, res) => {
-
   console.log('token', req.query.token);
   if (req.query.token == undefined) {
     console.log('n');
-    res.render('mypage');
+    res.render('profile');
   } else {
     let token = jwt.decode(req.query.token);
     models.Profile.findOne({
       where: { userid: token.userid },
     }).then((result) => {
-      res.render('mypage');
+      console.log(result.dataValues);
+      res.json(result.dataValues);
     });
   }
-
 };
 
 exports.getSortPage = (req, res) => {
