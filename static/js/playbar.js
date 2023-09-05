@@ -31,6 +31,7 @@ play.addEventListener('click', (e)=>{
 
 mute.addEventListener("click", (e) => {
     if(mute.checked == true) {
+        volume = audio.volume;
         volume_stick = volume_bar.value;
         audio.volume = 0;
         volume_bar.value = 0;
@@ -59,13 +60,13 @@ const formatTime = (seconds) => new Date(seconds * 1000).toISOString().substr(14
 
 audio.addEventListener("loadeddata", function(e) {
     totalTime.innerText = formatTime(Math.floor(audio.duration));
-    audio.currentTime.max = Math.floor(audio.duration);
+    // audio.currentTime.max = Math.floor(audio.duration);
     timelineBar.max = Math.floor(audio.duration);
 })
 
 audio.addEventListener("timeupdate", function(e) {
     currentTime.innerText = formatTime(Math.floor(audio.currentTime));
-    audio.currentTime.value = Math.floor(audio.currentTime);
+    // audio.currentTime.value = Math.floor(audio.currentTime);
     timelineBar.value = Math.floor(audio.currentTime);
 })
 
