@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>곡 업로드</title>
 </head>
 <body>
@@ -32,18 +31,21 @@
                 <option>재즈</option>
                 <option>CCM</option>
             </select>
-            <input type="text" id="playtile" placeholder="재생시간">
+            <input type="text" id="playtime" placeholder="재생시간">
             <input type="date" id="release_date" placeholder="발매일">
             <!-- 노래 커버 이미지 업로드 -->
             <input type="file" id="cover">
             <input type="file" id="song">
         </form>
+        <button type="button" onclick="upload()">업로드</button>
     </section>
 
     <%- contentFor('player') %>
 
     <script>
-    
+        function upload(){
+            console.log("실행");
+        }
     </script>
 </body>
 </html>
