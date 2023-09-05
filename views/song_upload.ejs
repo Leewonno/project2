@@ -34,8 +34,8 @@
             <input type="text" id="playtime" placeholder="재생시간">
             <input type="date" id="release_date" placeholder="발매일">
             <!-- 노래 커버 이미지 업로드 -->
-            <input type="file" id="cover">
-            <input type="file" id="song">
+            <input type="file" id="cover"><button type="button" onclick="imgUpload()">업로드</button>
+            <input type="file" id="song"><button type="button" onclick="audioUpload()">업로드</button>
         </form>
         <button type="button" onclick="upload()">업로드</button>
     </section>
@@ -43,7 +43,90 @@
     <%- contentFor('player') %>
 
     <script>
-        function upload(){
+        let img_url;
+        let audio_url;
+
+        async function imgUpload(event) {
+            const file = document.querySelector('#cover');
+            console.log(file.files[0]);
+
+            const formData = new FormData();
+            //append(key, value)
+            //!중요: 파일은 항상 제일 마지막에 선언
+            formData.append('imgfile', file.files[0]);
+
+            const res = await axios({
+                method: 'POST',
+                url: '/dynamic',
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('res', res);
+            img_url = res.data.location;
+        }
+
+        async function audioUpload(event) {
+            const file = document.querySelector('#song');
+            console.log(file.files[0]);
+
+            const formData = new FormData();
+            //append(key, value)
+            //!중요: 파일은 항상 제일 마지막에 선언
+            formData.append('songfile', file.files[0]);
+
+            const res = await axios({
+                method: 'POST',
+                url: '/dynamic',
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('res', res);
+            audio_url = res.data.location;
+        }
+
+        async function upload(){
+            const title = document.getElementById("title").value;
+            const artist = document.getElementById("artist").value;
+            const album = document.getElementById("album").value;
+            const lyrics = document.getElementById("lyrics").value;
+            const writer = document.getElementById("writer").value;
+            const composer = document.getElementById("composer").value;
+            const genre = document.getElementById("genre").value;
+            const playtile = document.getElementById("playtime").value;
+            const release_date = document.getElementById("release_date").value;
+            const cover_url = img_url;
+            const song_url = audio_url;
+            // const song_url
+
+            // const test = "https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/audio/DICE.mp3"
+            // const test2 = test.split("/")
+            // console.log(test2[3] + "/" + test2[4]);
+
+            try{
+                const res = await axios({
+                    method: 'POST',
+                    url: '/song/upload',
+                    data: {
+                        title, artist, album, lyrics, writer, composer, genre, playtile, release_date, cover_url, song_url
+                    }
+                });
+                console.log(res);
+                if(res){
+                    alert("완료");
+                }
+                else{
+                    alert("실패");
+                }
+            }catch(err){
+                console.log(err);
+            }
+            
+
+
             console.log("실행");
         }
     </script>
