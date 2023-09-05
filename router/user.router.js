@@ -12,5 +12,6 @@ router.get('/sort', controller.getSortPage);
 
 // 기능 개발
 router.post('/signup', controller.postSignUp);
+router.post('/signin', controller.postSignIn);
 
 module.exports = router;

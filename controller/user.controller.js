@@ -1,6 +1,7 @@
 const models = require('../database/db');
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
+const secret = 'asdfasdfa';
 //암호화
 const bcryptPassword = (password) => {
   return bcrypt.hashSync(password, 10);
@@ -39,4 +40,22 @@ exports.postSignUp = async (req, res) => {
     nickname: req.body.nickname,
     gender: req.body.gender,
   });
+};
+
+exports.postSignIn = async (req, res) => {
+  const user = await models.User.findOne({
+    where: { userid: req.body.userid },
+  });
+  if (!user) {
+    res.json({ result: false, message: '아이디 없음' });
+    return;
+  }
+  const ans = comparePassword(req.body.pw, user.pw);
+  console.log(user.pw);
+  if (ans) {
+    const token = jwt.sign({ userid: user.userid }, secret);
+    res.json({ result: true, token });
+  } else {
+    res.json({ result: false });
+  }
 };
