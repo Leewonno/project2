@@ -66,12 +66,15 @@
             }
             if(!pwPattern.test(pw.value, pw2.value)) {
                 alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+                return;
             }
             if(pw.value !== pw2.value) {
                 alert("비밀번호를 확인해주세요");
                 pw.focus();
+                return;
             } else if(pw.value === "" || pw2.value === "") {
                 alert("비밀번호를 입력해주세요");
+                return;
             } else {
                 alert("비밀번호가 일치합니다.");
             }
