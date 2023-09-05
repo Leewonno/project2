@@ -1,124 +1,131 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>망고즈</title>
-    
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/playbar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/playbar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <!-- 모든 CSS 레이아웃에서 불러오기 -->
-    <link rel="stylesheet" href="/css/song.css">
-    <link rel="stylesheet" href="/css/sort.css">
-    <link rel="stylesheet" href="/css/search.css">
-    <link rel="stylesheet" href="/css/chatlist.css">
-    <link rel="stylesheet" href="/css/song_upload.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/playlist.css">
-    <link rel="stylesheet" href="/css/signup.css">
-    <link rel="stylesheet" href="/css/mypage.css">
-    <link rel="stylesheet" href="/css/signin.css">
+    <link rel="stylesheet" href="/css/song.css" />
+    <link rel="stylesheet" href="/css/sort.css" />
+    <link rel="stylesheet" href="/css/search.css" />
+    <link rel="stylesheet" href="/css/chatlist.css" />
+    <link rel="stylesheet" href="/css/song_upload.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/playlist.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
+    <link rel="stylesheet" href="/css/mypage.css" />
+    <link rel="stylesheet" href="/css/signin.css" />
     <%- style %>
-    
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="left">
-            <div class="logo"><a href="/">MangoZ</a></div>
+      <div class="left">
+        <div class="logo"><a href="/">MangoZ</a></div>
+      </div>
+      <div class="right">
+        <div class="go">
+          <a href="/sort">최신음악</a>
+          <a href="/sort">장르음악</a>
+          <a href="/chat/list">아티스트Talk</a>
         </div>
-        <div class="right">
-            <div class="go">
-                <a href="/sort">최신음악</a>
-                <a href="/sort">장르음악</a>
-                <a href="/chat/list">아티스트Talk</a>
-            </div>
-            <div class="search">
-                <i class="fa-solid fa-magnifying-glass" style="color: #000000; margin-right: -30px;"></i>
-                <input type="text" class="search_bar">
-            </div>
-            <div class="user">
-                <a href='/signin'>로그인</a>
-                <!-- <i class="fa-regular fa-user" style="color: #000000;"></i> -->
-            </div>
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass" style="color: #000000; margin-right: -30px"></i>
+          <input type="text" class="search_bar" />
         </div>
+        <div class="user">
+          <a href="/signin">로그인</a>
+          <!-- <i class="fa-regular fa-user" style="color: #000000;"></i> -->
+        </div>
+      </div>
     </header>
-    
-    <main>
-        <%- defineContent('body') %>
-    </main>
+
+    <main><%- defineContent('body') %></main>
 
     <footer>
-        <div class="left">
-            <div class="team"> 포스코 코딩온 웹 풀스택 과정 프로젝트2 6조</div>
-            <div class="team_member">박가현, 서채영, 이우종, 이원노, 황동하</div>
-            <div class="notice"><a href="/notice">공지사항</a></div>
-        </div>
-        <div class="right">
-            <div></div>
-        </div>
+      <div class="left">
+        <div class="team">포스코 코딩온 웹 풀스택 과정 프로젝트2 6조</div>
+        <div class="team_member">박가현, 서채영, 이우종, 이원노, 황동하</div>
+        <div class="notice"><a href="/notice">공지사항</a></div>
+      </div>
+      <div class="right">
+        <div></div>
+      </div>
     </footer>
 
     <section>
+      <div class="playbar_wrapper">
+        <div class="musicbar_wrapper">
+          <input type="range" class="music_bar" step="1" value="0" , min="0" />
+          <div class="musicbar_background"></div>
+        </div>
         <div class="playbar">
-            <div class="player_song">
-                <div class="song_img">
-                    <a href="#">
-                        <img src="#" alt="앨범사진">
-                    </a>
-                </div>
-                <div class="song_info">
-                    <a class="song_title" href="#">자나깨나 (Feat. 조이 of Red Velvet)</a>
-                    <a class="artist_name" href="#">크러쉬</a>
-                </div>
+          <div class="player_song">
+            <div class="song_img">
+              <a href="#">
+                <img src="#" alt="앨범사진" />
+              </a>
             </div>
-            <div class="player_controller">
-                <input type="range" class="music_bar" step="1" value="0", min="0">
-                <button type="button" class="button" id="pre">
-                    <i class="fa-solid fa-backward-step" style="color: #ffffff;"></i>
-                </button>
-                <label for="play"><i class="fa-regular fa-circle-play fa-lg" style="color: #ffffff;" id="play_icon"></i></label>
-                <input type="checkbox" id="play" hidden>
-
-                <button type="button" class="button" id="next">
-                    <i class="fa-solid fa-forward-step" style="color: #ffffff;"></i>
-                </button>
-
-                <div class="player_side">
-                    <div class="player_time">
-                        <span class="player_time_current" style="color:white">00:00</span>
-                        <span class="player_time_duration" style="color:white">/</span>
-                        <span class="player_time_total" style="color:white">00:00</span>
-                    </div>
-                </div>
+            <div class="song_info">
+              <a class="song_title" href="#">자나깨나 (Feat. 조이 of Red Velvet)</a>
+              <a class="artist_name" href="#">크러쉬</a>
             </div>
-            
-            <div class="player_side_rigth">
-                <div class="volume">
-                    <label for="mute_button"><i class="fa-solid fa-volume-low" style="color: #ffffff;" id="volume_button"></i></label>
-                    <input type="checkbox" id="mute_button" hidden>
-                    <input type="range" min="0" max="100" id="volume_status">
-                    <!-- <button type="button" class="volume_bar" id="voulme_status">
+          </div>
+          <div class="player_controller">
+            <button type="button" class="button" id="pre">
+              <i class="fa-solid fa-backward-step" style="color: #ffffff"></i>
+            </button>
+            <label for="play"
+              ><i class="fa-regular fa-circle-play fa-lg" style="color: #ffffff" id="play_icon"></i
+            ></label>
+            <input type="checkbox" id="play" hidden />
+
+            <button type="button" class="button" id="next">
+              <i class="fa-solid fa-forward-step" style="color: #ffffff"></i>
+            </button>
+
+            <div class="player_side">
+              <div class="player_time">
+                <span class="player_time_current" style="color: white">00:00</span>
+                <span class="player_time_duration" style="color: white">/</span>
+                <span class="player_time_total" style="color: white">00:00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="player_side_rigth">
+            <div class="volume">
+              <label for="mute_button"
+                ><i class="fa-solid fa-volume-low" style="color: #ffffff" id="volume_button"></i
+              ></label>
+              <input type="checkbox" id="mute_button" hidden />
+              <input type="range" min="0" max="100" id="volume_status" />
+              <!-- <button type="button" class="volume_bar" id="voulme_status">
                         <i class="fa-solid fa-minus" style="color: #ffffff;"></i>
                     </button> -->
-                    <button type="button" class="open_playlist">
-                        <i class="fa-solid fa-sliders" style="color: #ffffff;"></i>
-                    </button>
-                </div>
+              <button type="button" class="open_playlist">
+                <i class="fa-solid fa-sliders" style="color: #ffffff"></i>
+              </button>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <audio id="player">
-        <source src="/audio/O.O.mp3">
+      <source src="/audio/O.O.mp3" />
     </audio>
 
     <%- script %>
     <script src="/js/pageload.js"></script>
     <script src="/js/playbar.js"></script>
-</body>
+  </body>
 </html>
