@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="/css/signup.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    
     <title>회원가입</title>
 </head>
 <body>
     <header>
 
     <%- contentFor('body') %>
-    <main class="signupMain">
+    <section class="signupMain">
         <div class="signupLogo">LOGO</div><br>
 
             <section class="signupPage">
@@ -31,7 +29,7 @@
                 </div>
             </section>
         </div>
-    </main>
+    </section>
     
     
     
@@ -68,12 +66,15 @@
             }
             if(!pwPattern.test(pw.value, pw2.value)) {
                 alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+                return;
             }
             if(pw.value !== pw2.value) {
                 alert("비밀번호를 확인해주세요");
                 pw.focus();
+                return;
             } else if(pw.value === "" || pw2.value === "") {
                 alert("비밀번호를 입력해주세요");
+                return;
             } else {
                 alert("비밀번호가 일치합니다.");
             }
@@ -82,12 +83,13 @@
                 url: "/signup",
                 data: {
                     userid: form.userid.value,
-                    password: form.pw.value,
-                    password2: form.pw2.value,
-                    mail: form.mail.value,
+                    pw: form.pw.value,
+                    pw2: form.pw2.value,
+                    email: form.mail.value,
                     name: form.name.value,
                     gender: form.gender.value,
-                    nickname: form.nick.value
+                    nickname: form.nick.value,
+                    grade: "n",
                 }
             });
             
@@ -95,7 +97,7 @@
                 alert("회원가입을 축하합니다.");
                 document.location.href = "/";
             } else {
-                alert(`${res.data.message}`);
+                alert(`error message : ${res.data.message}`);
                 document.location.reload();
             }
         };

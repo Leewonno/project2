@@ -1,8 +1,22 @@
 footer{
-    width: 100%;
+    width: 1200px;
     height: 100px;
-    background-color: rgb(176, 176, 176);
+    margin: 0 auto;
+    background-color: #ffffff; 
+    border-top: 1px solid #000000; 
+    padding: 20px 0px 100px 0px; 
     margin-bottom: 100px;
+}
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
 }
 
 footer .left{
@@ -10,15 +24,20 @@ footer .left{
 }
 
 footer .left .team{
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 footer .left .team_member{
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 footer .left .notice{
+    margin-top: 20px;
+}
 
+footer .left .notice a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
 }
 
 footer .right{

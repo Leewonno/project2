@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/song.css">
+    
     <title>곡정보</title>
 </head>
 <body>
+    
+    
     <%- contentFor('body') %>
-    <section class="songMain1">
-        <div class="albumImg"></div>
-        <div class="albumInfor"></div>
-        <div class="talk"></div>
-    </section><br>
-    <section class="songMain2">
-        <div class="lyrics"></div>
-        <div class="anotherSong"></div>
-        <div class="songComment"></div>
+    <section>
+        <div class="songMain1">
+            <div class="albumImg"></div>
+            <div class="albumInfor"></div>
+            <div class="talk"></div>
+        </div><br>
+        <div class="songMain2">
+            <div class="lyrics"></div>
+            <div class="anotherSong"></div>
+            <div class="songComment"></div>
+        </div>
     </section>
 
     <%- contentFor('player') %>

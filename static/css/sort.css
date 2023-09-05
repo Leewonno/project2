@@ -1,4 +1,4 @@
-.menu {
+.sort_section .menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,65 +7,67 @@
     margin-bottom: 20px;
 }
 
-.menu ul.lay_menu {
+.sort_section .menu ul.lay_menu {
     list-style: none;
     display: flex;
 }
 
-.menu ul.lay_menu li {
+.sort_section .menu ul.lay_menu li {
     margin-right: 20px;
 }
 
-.menu ul.lay_menu li a {
+.sort_section .menu ul.lay_menu li a {
     text-decoration: none;
     color: #333;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
-.menu ul.lay_menu li a:hover {
+.sort_section .menu ul.lay_menu li a:hover {
     color: #1dbb52;
 }
 
 /*테이블*/
-table {
+
+.sort_section table {
     display: inline-block;
     text-align: left;
     padding:  0px 20px;
 }
 
-.defult {
+.sort_section .defult {
     font-size: medium;
 }
 
-.list {
+.sort_section .list {
     margin: 0 auto;
     border-collapse: collapse;
     width: 80%; 
 }
 
-.list th, .list td {
+.sort_section .list th, .list td {
     padding: 10px; 
 }
 
-.list td {
+.sort_section .list td {
     text-align: center;
 }
 
-.wrap {
+.sort_section .wrap {
+
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.wrap_song {
+.sort_section .wrap_song {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.song_name,
-.artist {
+.sort_section .song_name,
+.sort_section .artist {
     display: flex;
     flex-direction: column;
     align-items: center;

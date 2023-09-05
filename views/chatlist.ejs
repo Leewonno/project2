@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/chatlist.css">
+    
     <title>채팅방 목록</title>
 </head>
 <body>
     <%- contentFor('body') %>
-
-    <section class="talk_list">
-        <div class="column_first">
-            <div class="my_talk">
-                <a href="#" onclick="talk()">참여중인 톡방</a>
+    <section class="talk_section">
+        <div class="talk_list">
+            <div class="column_first">
+                <div class="my_talk">
+                    <a href="" onclick="talk()">참여중인 톡방</a>
+                </div>
             </div>
-        </div>
 
-        <div class="column_second">
-            <div class="category_talk">주제별 톡방</div>
-            <div class="recommand_talk">톡방 추천</div>
+            <div class="column_second">
+                <div class="category_talk">주제별 톡방</div>
+                <div class="recommand_talk">톡방 추천</div>
+            </div>
         </div>
     </section>
 

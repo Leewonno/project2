@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/song_upload.css">
     <title>곡 업로드</title>
 </head>
 <body>
@@ -38,12 +37,15 @@
             <input type="file" id="cover">
             <input type="file" id="song">
         </form>
+        <button type="button" onclick="upload()">업로드</button>
     </section>
 
     <%- contentFor('player') %>
 
     <script>
-    
+        function upload(){
+            console.log("실행");
+        }
     </script>
 </body>
 </html>

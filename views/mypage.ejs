@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/mypage.css">
+    
     <title>마이페이지(개인정보 수정)</title>
 </head>
 <body>
     <%- contentFor('body') %>
-    <main class="mypageMain">
+    <section class="mypageMain">
         <div class="mypage">
             <div class="mypageCover">
                 <section class="profilePage">
@@ -25,18 +25,60 @@
                     <input type="text" id="nickname" placeholder="닉네임"><br>
                     <input type="password" id="pw" placeholder="비밀번호"><br>
                     <input type="password" id="pw2" placeholder="비밀번호확인"><br>
-                    <button class="mainBtn">회원정보변경</button>
+                    <button class="mainBtn" onclick="edit()">회원정보변경</button>
                 </form><br><br>
                 <section class="mypageBtns">
-                    <button class="deleteBtn">회원탈퇴</button>
-                    <button class="cancelBtn">취소</button>
+                    <button class="deleteBtn" onclick="destroy()">회원탈퇴</button>
+                    <button class="cancelBtn" onclick="move()">취소</button>
                 </section>
             </div>
         </div>
-    </main>
+    </section>
 
     <script>
-    
+        // function edit() {
+        //         const form = document.forms['mypageForm'];
+        //         axios({
+        //             method: 'PATCH',
+        //             url: '/profile/edit',
+        //             data: {
+        //                 id: Number(form.id.value),
+        //                 userid: form.userid.value,
+        //                 name: form.name.value,
+        //                 pw: form.pw.value,
+        //             },
+        //             headers: {
+        //                 Authorization: `Bearer ${localStorage.getItem('token')}`,
+        //             },
+        //         }).then((res) => {
+        //             if (res.data.result) {
+        //                 document.location.reload();
+        //             }
+        //         });
+        //     }
+        //     //회원탈퇴
+        //     function destroy() {
+        //         if (!confirm('회원탈퇴 하시겠습니까?')) {
+        //             return;
+        //         }
+
+        //         axios({
+        //             method: 'DELETE',
+        //             url: '/destroy',
+        //             data: {
+        //                 id: Number(document.querySelector('#id').value),
+        //             },
+        //         }).then((res) => {
+        //             if (res.data.result) {
+        //                 alert('회원탈퇴 완료되었습니다');
+        //                 document.location.href = '/';
+        //             }
+        //         });
+        //     }
+        //     //취소
+        //     function move() {
+                
+        //     }
     </script>
     
 </body>
