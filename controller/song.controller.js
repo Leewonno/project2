@@ -27,7 +27,7 @@ exports.insertSongByAdmin = async (req, res) => {
       release_date, song_url, cover_url } = req.body;
     const songData = await db.Song.create({title, artist, album, 
       lyrics, writer, composer, genre, playtime, release_date, 
-      song_url, cover_url});
+      song_url, cover_url, like: 0});
     res.send(songData)
   } catch (error) {
     console.log(error)
