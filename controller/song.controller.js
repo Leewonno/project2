@@ -49,7 +49,7 @@ exports.getSongInfo = async (req, res) => {
 
 exports.getSongBySortInMain = async (req, res) => {
   try {
-    const sort = req.query;
+    const sort = req.query.sort;
     console.log('req.query', sort);
     const limit = 5;
     const whereClause = {};
