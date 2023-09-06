@@ -11,25 +11,41 @@
     <header>
 
     <%- contentFor('body') %>
-    <section class="signupMain">
-        <div class="signupLogo">LOGO</div><br>
+    <main>
+        <section class="signupMain">
+            <div class="signupLogo">LOGO</div><br>
 
-            <section class="signupPage">
-                <div class="signupCover">
-                    <form name="signupForm" class="signupForm">
-                        <input type="text" id="userid" placeholder="아이디"><br>
-                        <input type="password" id="pw" placeholder="비밀번호"><br>
-                        <input type="password" id="pw2" placeholder="비밀번호확인"><br>
-                        <input type="text" id="mail" placeholder="이메일"><br>
-                        <input type="text" id="name" placeholder="이름"><br>
-                        <input type="text" id="gender" placeholder="성별"><br>
-                        <input type="text" id="nick" placeholder="닉네임"><br><br>
-                        <button  type="button" class="signupBtn" onclick="signup()">회원가입</button>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </section>
+                <section class="signupPage">
+                    <div class="signupCover">
+                        <form name="signupForm" class="signupForm">
+                            <input type="text" id="userid" placeholder="아이디"><br>
+                            <input type="password" id="pw" placeholder="비밀번호"><br>
+                            <input type="password" id="pw2" placeholder="비밀번호확인"><br>
+                            <input type="text" id="mail" placeholder="이메일"><br>
+                            <input type="text" id="name" placeholder="이름"><br>
+                            <input type="text" id="nick" placeholder="닉네임"><br>
+                            <div class="all_gender">
+                                <div class="man_class">
+                                    <label for="man">남자</label>
+                                    <input type="radio" id="man" name="gender" value="남자" checked><br>
+                                </div>
+                                <div class="woman_class">
+                                    <label for="woman">여자</label>
+                                    <input type="radio" id="woman" name="gender" value="여자"><br>
+                                </div>
+                            </div><br>
+                            <div class="day">
+                                <label for="birth">생년월일</label>
+                                <input type="date" id="birth">
+                            </div><br><br>
+                            
+                            <button  type="button" class="signupBtn" onclick="signup()">회원가입</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
     
     
     
@@ -47,7 +63,7 @@
             $("footer").load("/html/footer", function () {
             });
         });
-
+        
         async function signup() {
             const form = document.forms["signupForm"];
             const id = document.querySelector("#userid");
@@ -55,6 +71,8 @@
             const pw2 = document.querySelector("#pw2");
             const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
             let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+            console.log("birth", form.birth.value)
+            console.log("gender", form.gender.value)
             if(idPattern.test(id.value)) {
                 alert("ID를 사용하셔도 됩니다");
                 id.style.color = "blue"
@@ -89,10 +107,11 @@
                     name: form.name.value,
                     gender: form.gender.value,
                     nickname: form.nick.value,
+                    birth: form.birth.value,
                     grade: "n",
                 }
             });
-            
+            console.log("birth", form.birth.value);
             if(res.data.result) {
                 alert("회원가입을 축하합니다.");
                 document.location.href = "/";
