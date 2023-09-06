@@ -41,6 +41,7 @@ exports.getSortPage = (req, res) => {
 };
 
 exports.postSignUp = async (req, res) => {
+  const img = 'https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png';
   const user = await models.User.create({
     userid: req.body.userid,
     pw: await bcryptPassword(req.body.pw),
@@ -52,6 +53,7 @@ exports.postSignUp = async (req, res) => {
     name: req.body.name,
     nickname: req.body.nickname,
     gender: req.body.gender,
+    profile_img: img,
   });
 };
 
@@ -74,27 +76,32 @@ exports.postSignIn = async (req, res) => {
 
 exports.updateProfile = (req, res) => {
   let token = jwt.decode(req.body.token);
+  console.log('file', req.body.profile_img);
   console.log(token);
   models.Profile.update(
     {
       name: req.body.name,
       nickname: req.body.nickname,
+      profile_img: req.body.profile_img,
     },
     {
       where: { userid: token.userid },
     }
-  ).then(() => {
-    res.json({ result: true });
-  }).catch((err)=>{
-    res.json({ result: false });
-    console.log(err);
-  });
+  )
+    .then(() => {
+      res.json({ result: true });
+    })
+    .catch((err) => {
+      res.json({ result: false });
+      console.log(err);
+    });
 };
 
 exports.updateProfile_pw = async (req, res) => {
   // console.log('pw', bcryptPassword(String(req.body.pw)));
+
   let token = jwt.decode(req.body.token);
-  try{
+  try {
     await models.User.update(
       {
         pw: await bcryptPassword(req.body.pw),
@@ -107,13 +114,25 @@ exports.updateProfile_pw = async (req, res) => {
       {
         name: req.body.name,
         nickname: req.body.nickname,
+        profile_img: req.body.profile_img,
       },
       {
         where: { userid: token.userid },
       }
     );
+  } catch (err) {
+    console.log(err);
+    res.json({ result: false });
   }
-  catch(err){
+  res.json({ result: true });
+};
+
+exports.deleteProfile = async (req, res) => {
+  let token = jwt.decode(req.body.token);
+  try {
+    await models.User.destroy({ where: { userid: token.userid } });
+    await models.Profile.destroy({ where: { userid: token.userid } });
+  } catch (err) {
     console.log(err);
     res.json({ result: false });
   }
