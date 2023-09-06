@@ -41,39 +41,40 @@
                         </th>
                         <th>
                             <div class="wrap_song">
+                                <span class="song">앨범</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="wrap_song">
                                 <span class="song">곡 정보</span>
                             </div>
                         </th>
                     </tr>
                 </thead>
                 <tbody class="song">
-                    <tr class="song_detail">
+                    <!-- <tr class="song_detail">
                         <td>
                             <div class="wrap">
-                                <span class="ranck">1</span>
+                                <span class="ranck"></span>
                             </div>
                         </td>
                         <td>
                             <div class="wrap_song">
-                                <a href="#">
-                                    <img src="#" alt="곡사진">
-                                </a>
+                                <a href="#" class="song_image"></a>
                             </div>
                         </td>
                         <td>
                             <div class="wrap_song">
                                 <div class="song_name">
-                                    <span>
-                                        <a href="#">노래제목</a>
-                                    </span>
+                                    <a href="#"></a>
                                 </div>
                                 <br />
                                 <div class="artist">
-                                    <a href="#">아티스트</a>
+                                    <a href="#"></a>
                                 </div>
                             </div>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -82,7 +83,46 @@
     <%- contentFor('player') %>
 
     <script>
-
+        const body = document.querySelector("tbody");
+        axios ({
+            method:"get",
+            url:"/song/sort",
+            params:{
+                sort:"date"
+            }
+        }).then((res) => {
+            console.log("aa",res.data)
+            for(let i = 0; i < res.data.length; i++) {
+            const html = `
+            <tr class="song_detail">
+                        <td>
+                            <div class="wrap">
+                                <span class="ranck">${i+1}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wrap_song">
+                                <a href="#">
+                                    <img src=${res.data[i].cover_url}>
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wrap_song">
+                                <div class="song_name">
+                                    ${res.data[i].title}
+                                </div>
+                                <br />
+                                <div class="artist">
+                                    ${res.data[i].artist}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>`;
+                    body.insertAdjacentHTML("beforeend", html)
+            }
+            
+        })
     </script>
 </body>
 </html>
