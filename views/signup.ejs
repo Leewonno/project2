@@ -29,6 +29,63 @@
                 </div>
             </section>
         </div>
+
+        <script>
+            async function signup() {
+                const form = document.forms["signupForm"];
+                const id = document.querySelector("#userid");
+                const pw = document.querySelector("#pw");
+                const pw2 = document.querySelector("#pw2");
+                const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
+                let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+                if(idPattern.test(id.value)) {
+                    alert("ID를 사용하셔도 됩니다");
+                    id.style.color = "blue"
+                    id.textContent = "Strong"
+                } else {
+                    alert(`ID를 다시 입력해주세요.\nID는 영어 소문자와 숫자로 구성되어야 합니다`);
+                    id.style.color = "red"
+                    id.focus();
+                }
+                if(!pwPattern.test(pw.value, pw2.value)) {
+                    alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+                    return;
+                }
+                if(pw.value !== pw2.value) {
+                    alert("비밀번호를 확인해주세요");
+                    pw.focus();
+                    return;
+                } else if(pw.value === "" || pw2.value === "") {
+                    alert("비밀번호를 입력해주세요");
+                    return;
+                } else {
+                    alert("비밀번호가 일치합니다.");
+                }
+                const res = await axios ({
+                    method: "post",
+                    url: "/signup",
+                    data: {
+                        userid: form.userid.value,
+                        pw: form.pw.value,
+                        pw2: form.pw2.value,
+                        email: form.mail.value,
+                        name: form.name.value,
+                        gender: form.gender.value,
+                        nickname: form.nick.value,
+                        grade: "n",
+                    }
+                });
+                
+                if(res.data.result) {
+                    alert("회원가입을 축하합니다.");
+                    document.location.href = "/";
+                } else {
+                    alert(`error message : ${res.data.message}`);
+                    document.location.reload();
+                }
+            };
+    
+        </script>
     </section>
     
     
@@ -37,71 +94,6 @@
     <footer>
 
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     
-    <script>
-        $(document).ready(function () {
-            $("header").load("/html/header", function () {
-            });
-            $("footer").load("/html/footer", function () {
-            });
-        });
-
-        async function signup() {
-            const form = document.forms["signupForm"];
-            const id = document.querySelector("#userid");
-            const pw = document.querySelector("#pw");
-            const pw2 = document.querySelector("#pw2");
-            const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
-            let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-            if(idPattern.test(id.value)) {
-                alert("ID를 사용하셔도 됩니다");
-                id.style.color = "blue"
-                id.textContent = "Strong"
-            } else {
-                alert(`ID를 다시 입력해주세요.\nID는 영어 소문자와 숫자로 구성되어야 합니다`);
-                id.style.color = "red"
-                id.focus();
-            }
-            if(!pwPattern.test(pw.value, pw2.value)) {
-                alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
-                return;
-            }
-            if(pw.value !== pw2.value) {
-                alert("비밀번호를 확인해주세요");
-                pw.focus();
-                return;
-            } else if(pw.value === "" || pw2.value === "") {
-                alert("비밀번호를 입력해주세요");
-                return;
-            } else {
-                alert("비밀번호가 일치합니다.");
-            }
-            const res = await axios ({
-                method: "post",
-                url: "/signup",
-                data: {
-                    userid: form.userid.value,
-                    pw: form.pw.value,
-                    pw2: form.pw2.value,
-                    email: form.mail.value,
-                    name: form.name.value,
-                    gender: form.gender.value,
-                    nickname: form.nick.value,
-                    grade: "n",
-                }
-            });
-            
-            if(res.data.result) {
-                alert("회원가입을 축하합니다.");
-                document.location.href = "/";
-            } else {
-                alert(`error message : ${res.data.message}`);
-                document.location.reload();
-            }
-        };
-
-    </script>
 </body>
 </html>

@@ -75,3 +75,9 @@ timelineBar.addEventListener("click", function(e) {
     const {target: {value}} = e;
     audio.currentTime = value;
 })
+
+function music(route){
+    const now = document.getElementById("player");
+    now.src = "/stream?name=" + route;
+    now.play();
+}
