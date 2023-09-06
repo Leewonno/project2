@@ -26,7 +26,7 @@ app.use('/img', express.static('./static/img'));
 app.use('/css', express.static('./static/css'));
 app.use('/js', express.static('./static/js'));
 
-const socketRouter = require('./router/socket');
+const socketRouter = require('./router/chat.router');
 socketRouter(io);
 
 const appRouter = require('./router/app.router');

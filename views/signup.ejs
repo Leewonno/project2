@@ -11,82 +11,106 @@
     <header>
 
     <%- contentFor('body') %>
-    <section class="signupMain">
-        <div class="signupLogo">LOGO</div><br>
+    <main>
+        <section class="signupMain">
+            <div class="signupLogo">LOGO</div><br>
 
             <section class="signupPage">
-                <div class="signupCover">
-                    <form name="signupForm" class="signupForm">
-                        <input type="text" id="userid" placeholder="아이디"><br>
-                        <input type="password" id="pw" placeholder="비밀번호"><br>
-                        <input type="password" id="pw2" placeholder="비밀번호확인"><br>
-                        <input type="text" id="mail" placeholder="이메일"><br>
-                        <input type="text" id="name" placeholder="이름"><br>
-                        <input type="text" id="gender" placeholder="성별"><br>
-                        <input type="text" id="nick" placeholder="닉네임"><br><br>
-                        <button  type="button" class="signupBtn" onclick="signup()">회원가입</button>
-                    </form>
-                </div>
-            </section>
-        </div>
+                    <div class="signupCover">
+                        <form name="signupForm" class="signupForm">
+                            <input type="text" id="userid" placeholder="아이디"><br>
+                            <input type="password" id="pw" placeholder="비밀번호"><br>
+                            <input type="password" id="pw2" placeholder="비밀번호확인"><br>
+                            <input type="text" id="mail" placeholder="이메일"><br>
+                            <input type="text" id="name" placeholder="이름"><br>
+                            <input type="text" id="nick" placeholder="닉네임"><br>
+                            <div class="all_gender">
+                                <div class="man_class">
+                                    <label for="man">남자</label>
+                                    <input type="radio" id="man" name="gender" value="남자" checked><br>
+                                </div>
+                                <div class="woman_class">
+                                    <label for="woman">여자</label>
+                                    <input type="radio" id="woman" name="gender" value="여자"><br>
+                                </div>
+                            </div><br>
+                            <div class="day">
+                                <label for="birth">생년월일</label>
+                                <input type="date" id="birth">
+                            </div><br><br>
+                            
+                            <button  type="button" class="signupBtn" onclick="signup()">회원가입</button>
+                        </form>
+                    </div>
 
         <script>
-            async function signup() {
-                const form = document.forms["signupForm"];
-                const id = document.querySelector("#userid");
-                const pw = document.querySelector("#pw");
-                const pw2 = document.querySelector("#pw2");
-                const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
-                let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-                if(idPattern.test(id.value)) {
-                    alert("ID를 사용하셔도 됩니다");
-                    id.style.color = "blue"
-                    id.textContent = "Strong"
-                } else {
-                    alert(`ID를 다시 입력해주세요.\nID는 영어 소문자와 숫자로 구성되어야 합니다`);
-                    id.style.color = "red"
-                    id.focus();
+        $(document).ready(function () {
+            $("header").load("/html/header", function () {
+            });
+            $("footer").load("/html/footer", function () {
+            });
+        });
+        
+        async function signup() {
+            const form = document.forms["signupForm"];
+            const id = document.querySelector("#userid");
+            const pw = document.querySelector("#pw");
+            const pw2 = document.querySelector("#pw2");
+            const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
+            let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+            console.log("birth", form.birth.value)
+            console.log("gender", form.gender.value)
+            if(idPattern.test(id.value)) {
+                alert("ID를 사용하셔도 됩니다");
+                id.style.color = "blue"
+                id.textContent = "Strong"
+            } else {
+                alert(`ID를 다시 입력해주세요.\nID는 영어 소문자와 숫자로 구성되어야 합니다`);
+                id.style.color = "red"
+                id.focus();
+            }
+            if(!pwPattern.test(pw.value, pw2.value)) {
+                alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+                return;
+            }
+            if(pw.value !== pw2.value) {
+                alert("비밀번호를 확인해주세요");
+                pw.focus();
+                return;
+            } else if(pw.value === "" || pw2.value === "") {
+                alert("비밀번호를 입력해주세요");
+                return;
+            } else {
+                alert("비밀번호가 일치합니다.");
+            }
+            const res = await axios ({
+                method: "post",
+                url: "/signup",
+                data: {
+                    userid: form.userid.value,
+                    pw: form.pw.value,
+                    pw2: form.pw2.value,
+                    email: form.mail.value,
+                    name: form.name.value,
+                    gender: form.gender.value,
+                    nickname: form.nick.value,
+                    birth: form.birth.value,
+                    grade: "n",
                 }
-                if(!pwPattern.test(pw.value, pw2.value)) {
-                    alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
-                    return;
-                }
-                if(pw.value !== pw2.value) {
-                    alert("비밀번호를 확인해주세요");
-                    pw.focus();
-                    return;
-                } else if(pw.value === "" || pw2.value === "") {
-                    alert("비밀번호를 입력해주세요");
-                    return;
-                } else {
-                    alert("비밀번호가 일치합니다.");
-                }
-                const res = await axios ({
-                    method: "post",
-                    url: "/signup",
-                    data: {
-                        userid: form.userid.value,
-                        pw: form.pw.value,
-                        pw2: form.pw2.value,
-                        email: form.mail.value,
-                        name: form.name.value,
-                        gender: form.gender.value,
-                        nickname: form.nick.value,
-                        grade: "n",
-                    }
-                });
-                
-                if(res.data.result) {
-                    alert("회원가입을 축하합니다.");
-                    document.location.href = "/";
-                } else {
-                    alert(`error message : ${res.data.message}`);
-                    document.location.reload();
-                }
-            };
-    
-        </script>
+            });
+            console.log("birth", form.birth.value);
+            if(res.data.result) {
+                alert("회원가입을 축하합니다.");
+                document.location.href = "/";
+            } else {
+                alert(`error message : ${res.data.message}`);
+                document.location.reload();
+            }
+        };
+
+    </script>
     </section>
+
     
     
     

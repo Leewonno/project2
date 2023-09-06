@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/song.controller');
+const { controller } = require('../controller/song.controller');
 const upload = require('../utils/upload');
 // 음악 관련
 
 // 렌더링 
-router.get('/song', controller.getSongInfoPage); 
+router.get('/song', controller.getSongBySortInMain); 
 router.get('/song/upload', controller.getSongUploadPage);
 
 // 앨범 커버, 음악 파일 업로드
@@ -22,5 +22,8 @@ router.get('/song/detail', controller.getSongInfo);
 router.get('/song/sort', controller.getSongBySortInMain);
 
 // 곡 정렬 - 2. 전체 곡 정렬 
+
+// 좋아요 토글
+router.post('/song/like', controller.likeToggle);
 
 module.exports = router;

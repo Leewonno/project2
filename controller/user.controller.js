@@ -52,6 +52,7 @@ exports.postSignUp = async (req, res) => {
     userid: req.body.userid,
     name: req.body.name,
     nickname: req.body.nickname,
+    birth: req.body.birth,
     gender: req.body.gender,
     profile_img: img,
   });
@@ -61,13 +62,19 @@ exports.postSignIn = async (req, res) => {
   const user = await models.User.findOne({
     where: { userid: req.body.userid },
   });
+  const profile = await models.Profile.findOne({
+    where: { userid: req.body.userid },
+  });
   if (!user) {
     res.json({ result: false, message: '아이디 없음' });
     return;
   }
+
   const ans = comparePassword(req.body.pw, user.pw);
   if (ans) {
-    const token = jwt.sign({ userid: user.userid }, secret);
+    const token = jwt.sign({ userid: user.userid, nickname: profile.dataValues.nickname }, secret);
+    console.log('pro', profile.dataValues.nickname);
+    console.log('nick', token);
     res.json({ result: true, token });
   } else {
     res.json({ result: false });
