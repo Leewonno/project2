@@ -135,11 +135,12 @@
                 method: 'DELETE',
                 url: '/profile',
                 data: {
-                    id: document.querySelector('#id').value,
+                    token:localStorage.getItem('token')
                 },
             }).then((res) => {
                 if (res.data.result) {
                     alert('회원탈퇴 완료되었습니다');
+                    window.localStorage.removeItem('token')
                     document.location.href = '/';
                 }
             });
@@ -150,7 +151,7 @@
         }
 
         //프로필사진 변경
-        const img = document.querySelector('.progileImg');
+        const img = document.querySelector('.profileImg');
         async function imgupload(e) {
             event.preventDefault(e);
             const file = document.querySelector('#profileimg');
@@ -162,6 +163,7 @@
                     'Content-Type' : 'multipart/form-data',
                 },
             });
+            console.log(res.data.location)
             img.src = res.data.location;
         }
     </script>

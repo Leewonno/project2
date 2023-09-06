@@ -71,7 +71,8 @@ exports.controller = {
         id: song.id,
         title: song.title,
         artist: song.artist,
-        cover_url: song.cover_url
+        cover_url: song.cover_url,
+        song_url: song.song_url
       })
     }
   
@@ -110,5 +111,4 @@ exports.controller = {
       res.send({message: error});
     }
   }
-
 }

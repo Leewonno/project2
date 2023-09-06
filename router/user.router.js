@@ -1,7 +1,7 @@
 const express = require('express');
 const controller = require('../controller/user.controller');
 const router = express.Router();
-
+const upload = require('../utils/upload');
 // 유저 관련
 
 // 렌더링
@@ -16,5 +16,7 @@ router.post('/signin', controller.postSignIn);
 
 router.patch('/profile', controller.updateProfile);
 router.patch('/profile/pw', controller.updateProfile_pw);
+
+router.delete('/profile', controller.deleteProfile);
 
 module.exports = router;
