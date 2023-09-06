@@ -28,7 +28,7 @@ const audioStorage = multerS3({
     }
 });
 
-const limits = { fileSize: 1024 * 1024 * 5 };
+const limits = { fileSize: 1024 * 1024 * 10 };
 
 module.exports.uploadImage = multer({ storage: imageStorage, limits }).single('imgfile');
 module.exports.uploadAudio = multer({ storage: audioStorage, limits }).single('songfile');

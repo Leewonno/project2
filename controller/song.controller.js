@@ -46,3 +46,39 @@ exports.getSongInfo = async (req, res) => {
     res.send({message: error});
   }
 }
+
+exports.getSongBySortInMain = async (req, res) => {
+  try {
+    const sort = req.query;
+    console.log('req.query', sort);
+    const limit = 5;
+    const whereClause = {};
+    let order = [];
+    const resultSong = [];
+
+    if (sort === 'date') {
+      order = [['release_date', 'DESC']];
+    } 
+    const songs = await db.Song.findAndCountAll({
+      where: whereClause,
+      limit,
+      order: order
+    })
+      
+    for (const song of songs.rows) {
+
+    resultSong.push( {
+      id: song.id,
+      title: song.title,
+      artist: song.artist,
+      cover_url: song.cover_url
+    })
+  }
+
+    res.send(resultSong);
+
+  } catch (error) {
+     console.log(error)
+    res.send({message: error});
+  }
+}
