@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/song.controller');
+const { controller } = require('../controller/song.controller');
 const upload = require('../utils/upload');
 // 음악 관련
 
 // 렌더링 
-router.get('/song', controller.getSongInfoPage); 
+router.get('/song', controller.getSongBySortInMain); 
 router.get('/song/upload', controller.getSongUploadPage);
 
 // 앨범 커버, 음악 파일 업로드
