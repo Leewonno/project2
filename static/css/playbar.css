@@ -2,6 +2,7 @@
     position: fixed;
     width: 100%;
     bottom: 0;
+    z-index: 500;
   }
 
 .playbar{
@@ -147,3 +148,32 @@
 .volume_button + .volume_bar {
     margin-left: 1px;
 }
+
+/* playlist창 띄우기 */
+.modal_open {
+    position: fixed;
+    left: 0;
+    bottom: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: bottom 0.3s ease;
+  }
+  
+.modal_open .modal {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+.modal_open .modal .button_close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  
