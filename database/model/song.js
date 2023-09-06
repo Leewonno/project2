@@ -52,6 +52,10 @@ const Song = function (sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      like: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
     },
     {
       tableName: 'song',
