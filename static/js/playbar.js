@@ -76,6 +76,20 @@ timelineBar.addEventListener("click", function(e) {
     audio.currentTime = value;
 })
 
+
+// playlist창 띄우기
+function openModal() {
+    const modal = document.querySelector('.modal_open');
+    modal.style.bottom = '0';
+    modal.removeAttribute('hidden');
+  };
+  
+function closeModal() {
+    const modal = document.querySelector('.modal_open');
+    modal.style.bottom = '-100%';
+    modal.setAttribute('hidden', 'true');
+  };
+
 function music(route){
     const now = document.getElementById("player");
     now.src = "/stream?name=" + route;
