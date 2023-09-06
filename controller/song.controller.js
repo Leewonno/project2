@@ -1,3 +1,4 @@
+const { S_like } = require('../database/db');
 const db = require('../database/db')
 
 exports.getSongInfoPage = (req, res)=>{
@@ -79,6 +80,34 @@ exports.getSongBySortInMain = async (req, res) => {
 
   } catch (error) {
      console.log(error)
+    res.send({message: error});
+  }
+}
+
+exports.likeToggle = async (req, res) => {
+  try {
+    const {id, userid} = req.body;
+    console.log(id, userid);
+
+    const existLike = await db.S_like.findOne({ where: { song_id: id, userid: userid } });
+    console.log('existLike', existLike);
+    const song = await db.Song.findOne({ where: { id }});
+    console.log('song', song)
+
+    if(existLike) {
+      await db.S_like.destroy({ where: { song_id: id, userid: userid } });
+      song.like -= 1;
+      await song.save();
+      res.send({ liked: false, message: "like cancel success" });
+    } else {
+      await db.S_like.create({ song_id: id, userid: userid });
+      song.like += 1;
+      await song.save();
+      res.send({ liekd: true, message: "like success" });
+    }
+
+  } catch (error) {
+    console.log(error)
     res.send({message: error});
   }
 }

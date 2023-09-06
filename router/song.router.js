@@ -23,4 +23,7 @@ router.get('/song/sort', controller.getSongBySortInMain);
 
 // 곡 정렬 - 2. 전체 곡 정렬 
 
+// 좋아요 토글
+router.post('/song/like', controller.likeToggle);
+
 module.exports = router;
