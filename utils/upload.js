@@ -13,7 +13,7 @@ const imageStorage = multerS3({
     bucket: process.env.AWS_BUCKET,
     acl: 'public-read',
     key: (req, file, cb) => {
-        const uniqueFileName = Date.now().toString() + "-" + file.originalname.toString('utf8');
+        const uniqueFileName = Date.now().toString() + "-" + Buffer.from(file.originalname, 'latin1').toString('utf8');
         cb(null, "img/" + uniqueFileName); 
     }
 });
@@ -23,7 +23,7 @@ const audioStorage = multerS3({
     bucket: process.env.AWS_BUCKET,
     acl: 'public-read',
     key: (req, file, cb) => {
-        const uniqueFileName = Date.now().toString() + "-" + file.originalname.toString('utf8');
+        const uniqueFileName = Date.now().toString() + "-" + Buffer.from(file.originalname, 'latin1').toString('utf8');
         cb(null, "audio/" + uniqueFileName); 
     }
 });
