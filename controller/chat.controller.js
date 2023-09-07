@@ -1,14 +1,38 @@
 const jwt = require('jsonwebtoken');
-
+const models = require('../database/db');
 const roomList = [];
 
 let room;
+let chatRoom;
 
-exports.chat = (req, res) => {
+exports.chat = async (req, res) => {
   room = req.query.room;
   console.log(room);
+  chatRoom = await models.ChatRoom.findOne({
+    where: { name: room },
+  });
+
+  // console.log(chatRoom.tag);
   res.render('chat');
 };
+
+exports.chat_upload_render = (req, res) => {
+  res.render('chat_upload');
+};
+
+exports.chat_upload = async (req, res) => {
+  console.log('name', req.body.name);
+  try {
+    const chatRoom = await models.ChatRoom.create({
+      name: req.body.name,
+      tag: req.body.tag,
+      cover_img: req.body.cover_img,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 exports.connection = (io, socket) => {
   console.log('room', room);
   console.log('접속');
@@ -16,7 +40,8 @@ exports.connection = (io, socket) => {
   // socket.emit('roomList', roomList);
 
   //채팅방 만들기 생성
-  socket.on('create', (userNick, cb) => {
+  socket.on('create', async (userNick, cb) => {
+    // console.log(chatRoom.tag);
     //join(방이름) 해당 방이름으로 없다면 생성. 존재하면 입장
     //socket.rooms에 socket.id값과 방이름 확인가능
     socket.join(room);
@@ -25,6 +50,7 @@ exports.connection = (io, socket) => {
     socket.room = room;
     socket.user = jwt.decode(userNick).nickname;
     console.log('nick', socket.user);
+    console.log('room', socket.room);
 
     socket.to(room).emit('notice', `${socket.user}님이 입장하셨습니다`);
 
@@ -41,13 +67,7 @@ exports.connection = (io, socket) => {
 
   socket.on('sendMessage', (message) => {
     console.log(message);
-    if (message.user === 'all') {
-      io.to(socket.room).emit('newMessage', message.message, message.nick, false);
-    } else {
-      io.to(message.user).emit('newMessage', message.message, message.nick, true);
-      //자기자신에게 메세지 띄우기
-      socket.emit('newMessage', message.message, message.nick, true);
-    }
+    io.to(socket.room).emit('newMessage', message.message, message.nick, false);
   });
 
   socket.on('disconnect', () => {

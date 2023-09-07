@@ -60,7 +60,7 @@
         lists.innerHTML = options;
       });
       //메세지 띄우기
-      socket.on('newMessage', (message, nick, bool) => {
+      socket.on('newMessage', (message, nick) => {
         console.log(message, nick);
         const div = document.createElement('div');
         const p = document.createElement('p');
@@ -89,7 +89,6 @@
       ///폼 이벤트
       chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const user = document.querySelector('#userList');
         const message = document.querySelector('#message');
         console.log(user.value);
         const msg = {
