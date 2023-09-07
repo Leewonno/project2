@@ -11,7 +11,6 @@
     <header>
 
     <%- contentFor('body') %>
-    <main>
         <section class="signupMain">
             <div class="signupLogo">LOGO</div><br>
 
@@ -42,14 +41,17 @@
                             <button  type="button" class="signupBtn" onclick="signup()">회원가입</button>
                         </form>
                     </div>
+    </section>
 
-        <script>
-        $(document).ready(function () {
-            $("header").load("/html/header", function () {
-            });
-            $("footer").load("/html/footer", function () {
-            });
-        });
+    
+    
+    
+    
+    <footer>
+
+    </footer>
+
+    <script id="sc">
         
         async function signup() {
             const form = document.forms["signupForm"];
@@ -108,15 +110,6 @@
         };
 
     </script>
-    </section>
-
-    
-    
-    
-    
-    <footer>
-
-    </footer>
     
 </body>
 </html>
