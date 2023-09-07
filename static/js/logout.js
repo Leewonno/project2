@@ -2,11 +2,11 @@ const token = window.localStorage.getItem('token')
 const signin = document.querySelector('#signin');
 
 if (token!=null) {
-    signin.textContent = 'logout';
+    signin.textContent = 'LOGOUT';
     signin.href = '#';
     signin.setAttribute('onclick', 'logout()');
 } else {
-    signin.textContent = 'login'
+    signin.textContent = 'LOGIN'
 };
 
 function logout() {

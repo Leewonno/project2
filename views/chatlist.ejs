@@ -21,16 +21,17 @@
                 <div class="recommand_talk">톡방 추천</div>
             </div>
         </div>
+        <script>
+            function talk(){
+                window.open('/chat', "Child", "width=400, height=500, top=50, left=50")
+            }
+        </script>
     </section>
 
 
     <%- contentFor('player') %>
    
 
-    <script>
-        function talk(){
-            window.open('/chat', "Child", "width=400, height=500, top=50, left=50")
-        }
-    </script>
+   
 </body>
 </html>

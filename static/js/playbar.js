@@ -94,4 +94,6 @@ function music(route){
     const now = document.getElementById("player");
     now.src = "/stream?name=" + route;
     now.play();
+    play.checked = true;
+    play_icon.className = "fa-solid fa-pause";
 }
