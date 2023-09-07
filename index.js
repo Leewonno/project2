@@ -34,15 +34,16 @@ const userRouter = require('./router/user.router');
 const songRouter = require('./router/song.router');
 const playlistRouter = require('./router/playlist.router');
 const playRouter = require('./router/play.router');
+const chatRouter = require('./router/chat.router');
 app.use('/', appRouter);
 app.use('/', userRouter);
 app.use('/', songRouter);
 app.use('/', playlistRouter);
 app.use('/', playRouter);
-
-app.use('/chat', (req, res) => {
-  res.render('chat');
-});
+app.use('/', chatRouter);
+// app.get('/:roomname', (req, res) => {
+//   res.render('chat');
+// });
 
 db.sequelize.sync({ force: false }).then(() => {
   server.listen(8000, () => {

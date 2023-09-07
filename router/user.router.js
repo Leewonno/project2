@@ -1,7 +1,6 @@
 const express = require('express');
 const controller = require('../controller/user.controller');
 const router = express.Router();
-const upload = require('../utils/upload');
 // 유저 관련
 
 // 렌더링
