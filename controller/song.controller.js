@@ -1,11 +1,8 @@
-const { S_like } = require('../database/db');
-const db = require('../database/db')
+const { Song, S_like, User } = require('../database/db');
+const jwt = require('jsonwebtoken');
+const secret = 'asdfasdfa';
 
 exports.controller = {
-
-  getSongInfoPage: (req, res) => {
-    res.render("song");
-  },
 
   getSongUploadPage: (req, res)=>{
     res.render("song_upload");
@@ -20,6 +17,24 @@ exports.controller = {
     console.log(req.file);
     res.send(req.file);
   }, 
+
+  getSongInfoPage: async (req, res) => { try {
+   
+    const id = req.query.id;
+    console.log(id);
+    const songData = await Song.findOne({ where: { id: id } });
+  
+     console.log(songData.dataValues)
+
+     res.render('song', { data: songData.dataValues });
+  } catch (error) {
+    console.error(error);
+    // 기타 오류
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+
+  },
+
   insertSongByAdmin: async (req, res) => {
     try {
   
@@ -27,26 +42,17 @@ exports.controller = {
       const { title, artist, album, lyrics, 
         writer, composer, genre, playtime, 
         release_date, song_url, cover_url } = req.body;
-      const songData = await db.Song.create({title, artist, album, 
+      const songData = await Song.create({title, artist, album, 
         lyrics, writer, composer, genre, playtime, release_date, 
         song_url, cover_url, like: 0});
       res.send(songData)
     } catch (error) {
       console.log(error)
-      res.send({message: error});
+      // 기타 오류
+      res.status(500).send({ message: 'Internal Server Error' });
     }
   },
-  getSongInfo: async (req, res) => {
-    try {
-      const id = req.query.id;
-      console.log(id);
-      const songData = await db.Song.findOne({where: {id: id}});
-      res.send(songData)
-    } catch (error) {
-      console.log(error)
-      res.send({message: error});
-    }
-  }, 
+
   getSongBySortInMain: async (req, res) => {
     try {
       const sort = req.query.sort;
@@ -59,7 +65,7 @@ exports.controller = {
       if (sort === 'date') {
         order = [['release_date', 'DESC']];
       } 
-      const songs = await db.Song.findAndCountAll({
+      const songs = await Song.findAndCountAll({
         where: whereClause,
         limit,
         order: order
@@ -79,36 +85,43 @@ exports.controller = {
       res.send(resultSong);
   
     } catch (error) {
-       console.log(error)
-      res.send({message: error});
+      console.log(error)
+      // 기타 오류
+      res.status(500).send({ message: 'Internal Server Error' });
     }
   },
   
   likeToggle: async (req, res) => {
     try {
-      const {id, userid} = req.body;
-      console.log(id, userid);
+     
+       const token = jwt.verify(req.query.token, secret);
+       const user = await User.findOne({
+          where: { userid: token.userid },})  
+      
+      const { id } = req.body;
+      console.log(id, user.userid);
   
-      const existLike = await db.S_like.findOne({ where: { song_id: id, userid: userid } });
+      const existLike = await S_like.findOne({ where: { song_id: id, userid: user.userid } });
       console.log('existLike', existLike);
-      const song = await db.Song.findOne({ where: { id }});
+      const song = await Song.findOne({ where: { id }});
       console.log('song', song)
   
       if(existLike) {
-        await db.S_like.destroy({ where: { song_id: id, userid: userid } });
+        await S_like.destroy({ where: { song_id: id, userid: user.userid } });
         song.like -= 1;
         await song.save();
-        res.send({ liked: false, message: "like cancel success" });
+        res.send({ count: song.like, liked: false, message: "like cancel success" });
       } else {
-        await db.S_like.create({ song_id: id, userid: userid });
+        await S_like.create({ song_id: id, userid: user.userid });
         song.like += 1;
         await song.save();
-        res.send({ liekd: true, message: "like success" });
+        res.send({ count: song.like, liked: true, message: "like success" });
       }
   
     } catch (error) {
       console.log(error)
-      res.send({message: error});
+      // 기타 오류
+      res.status(500).send({ message: 'Internal Server Error' });
     }
   }
 }
