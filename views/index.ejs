@@ -11,7 +11,8 @@
     <section class="index_section">
       <div class="main_page">
         <div class="column_first">
-          <div class="recent_music">최신 발매 음악</div>
+          <div class="recent_music" id="recent_music">
+          </div>
           <div class="genre_music">장르 음악</div>
         </div>
 
@@ -24,8 +25,41 @@
           <div class="popular_music">인기순 음악</div>
         </div>
       </div>
+
+      <script>
+        $(document).ready(function(){
+          axios({
+            method:"GET",
+            url:"/song/sort",
+            params:{
+              sort:"date"
+            }
+          }).then((res)=>{
+            console.log(res.data[0]);
+            for(let i = 0; i < res.data.length; i++){
+              let s_url = res.data[i].song_url;
+              console.log(s_url)
+              let temp = s_url.split('/');
+              temp = temp[3] + "/" + temp[4];
+              const html = `
+              <div class="recent_element">
+                  <img src="${res.data[i].cover_url}" onclick="music('${temp}')">
+                  <a class="recent_title" href="/song/detail?id=${res.data[i].id}">${res.data[i].title}<a>
+                  <div class="artist">${res.data[i].artist}</div>
+              </div>`
+    
+              $('#recent_music').append(html);
+            }
+          }).catch((err)=>{
+            console.log(err);
+          })
+        });
+      </script>
     </section>
 
-    <script></script>
+    <script>
+      
+    </script>
+    
   </body>
 </html>

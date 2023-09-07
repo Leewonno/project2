@@ -111,17 +111,27 @@
               <!-- <button type="button" class="volume_bar" id="voulme_status">
                         <i class="fa-solid fa-minus" style="color: #ffffff;"></i>
                     </button> -->
-              <button type="button" class="open_playlist">
+              <button type="button" onclick="openModal()" class="open_playlist">
                 <i class="fa-solid fa-sliders" style="color: #ffffff"></i>
               </button>
+              <!--  -->
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- playlist창 -->
+    <div class="modal_open" hidden>
+      <div class="modal">
+        <p class="modal_text">modal</p>
+        <button class="button_close" onclick="closeModal()">X</button>
+      </div>
+    </div>
+    <!-- playlist창 끝 -->
+
     <audio id="player">
-      <source src="/audio/O.O.mp3" />
+      <source src="" type="audio/mpeg">
     </audio>
 
     <%- script %>

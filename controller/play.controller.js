@@ -32,42 +32,48 @@ exports.getPlaySong = (req, res) => {
       res.status(500).send('스트리밍 중 오류가 발생했습니다.');
       return;
     }
+    try{
+      const fileSize = data.ContentLength; // 파일 크기 (바이트 단위)
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
 
-    const fileSize = data.ContentLength; // 파일 크기 (바이트 단위)
-    const parts = range.replace(/bytes=/, '').split('-');
-    const start = parseInt(parts[0], 10);
+      const MAX_CHUNK_SIZE = 200 * 1000;
+      const _end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+      const end = Math.min(_end, start + MAX_CHUNK_SIZE - 1);
 
-    const MAX_CHUNK_SIZE = 15 * 1000;
-    const _end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-    const end = Math.min(_end, start + MAX_CHUNK_SIZE - 1);
+      const chunkSize = end - start + 1;
 
-    const chunkSize = end - start + 1;
+      // Content-Type 설정
+      const headers = {
+        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Type': 'audio/mpeg',
+        'Content-Length': chunkSize,
+        Connection: 'keep-alive',
+      };
 
-    // Content-Type 설정
-    const headers = {
-      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-      'Accept-Ranges': 'bytes',
-      'Content-Type': 'audio/mpeg',
-      'Content-Length': chunkSize,
-      Connection: 'keep-alive',
-    };
+      // HTTP 206 Partial Content로 응답
+      res.writeHead(206, headers);
 
-    // HTTP 206 Partial Content로 응답
-    res.writeHead(206, headers);
+      // S3에서 부분 스트리밍
+      const s3Params = {
+        Bucket: 'kdt-wonno2',
+        Key: fileName,
+        Range: `bytes=${start}-${end}`,
+      };
 
-    // S3에서 부분 스트리밍
-    const s3Params = {
-      Bucket: 'kdt-wonno2',
-      Key: fileName,
-      Range: `bytes=${start}-${end}`,
-    };
+      const s3Stream = s3.getObject(s3Params).createReadStream();
+      s3Stream.on('error', (err) => {
+        console.error('S3 스트리밍 중 오류 발생:', err);
+        res.status(500).send('스트리밍 중 오류가 발생했습니다.');
+      });
 
-    const s3Stream = s3.getObject(s3Params).createReadStream();
-    s3Stream.on('error', (err) => {
-      console.error('S3 스트리밍 중 오류 발생:', err);
-      res.status(500).send('스트리밍 중 오류가 발생했습니다.');
-    });
-
-    s3Stream.pipe(res);
+    
+      s3Stream.pipe(res);
+    }
+    catch(err){
+      console.log(err);
+    }
+    
   });
 };
