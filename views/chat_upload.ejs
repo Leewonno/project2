@@ -1,78 +1,76 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>채팅방 만들기</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- contentFor('body') %>
     <section class="talk_section">
-        <div class="talk_cover">
-            <form name="create_talk" class="create_talk">
-                <input type="file" class="profile_upload"><br>
-                <button type="button" class="talk_upload_button" onclick="upload_img()">이미지 업로드</button><br><br>
-                <input type="text" class="talk_name" placeholder="talk방 이름"><br>
-                <input type="text" class="talk_tag" placeholder="talk방 태그"><br>
-                <button type="button" class="talk_create_button" onclick="create_room()">생성</button>
-            </form>
-        </div>
+      <div class="talk_cover">
+        <form name="create_talk" class="create_talk">
+          <input type="file" class="profile_upload" /><br />
+          <button type="button" class="talk_upload_button" onclick="upload_img()">이미지 업로드</button><br /><br />
+          <input type="text" class="talk_name" placeholder="talk방 이름" /><br />
+          <input type="text" class="talk_tag" placeholder="talk방 태그" /><br />
+          <button type="button" class="talk_create_button" onclick="create_room()">생성</button>
+        </form>
+      </div>
     </section>
 
     <%- contentFor('player') %>
 
     <script>
-        let img_url = "";
-        async function upload_img(event) {
-            try {
-                const file = document.querySelector('.profile_upload');
-                console.log("file",file.files[0]);
+      let img_url = '';
+      async function upload_img(event) {
+        try {
+          const file = document.querySelector('.profile_upload');
+          console.log('file', file.files[0]);
 
-                const formData = new FormData();
-                formData.append('imgfile', file.files[0]);
+          const formData = new FormData();
+          formData.append('imgfile', file.files[0]);
 
-                const res = await axios({
-                    method: 'post',
-                    url: '/dynamic/img',
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                console.log('res', res.data.data);
-                img_url = res.data.location;
-            } catch (error) {
-                console.log(error)
-            }
-        
+          const res = await axios({
+            method: 'post',
+            url: '/dynamic/img',
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          console.log('res', res);
+          img_url = res.data.location;
+        } catch (error) {
+          console.log(error);
         }
+      }
 
+      async function create_room() {
+        try {
+          const form = document.forms['create_talk'];
 
-        async function create_room() {
-            try {
-                const form = document.forms["create_talk"];
-
-                const res = await axios({
-                    method:"post",
-                    url:"",
-                    data: {
-                        name: document.querySelector(".talk_name"),
-                        tag: document.querySelector(".talk_tag"),
-                        cover_img: img_url
-                    }
-                });
-            console.log("res", res.data.data);
-            if(res.data.result) {
-                document.location.href = '/';
-            } else {
-                alert(`error message : ${res.data.message}`);
-                document.location.reload();
-            }
-            } catch (error) {
-                console.log(error);
-            };
-        };
+          const res = await axios({
+            method: 'post',
+            url: '/chat/upload',
+            data: {
+              name: document.querySelector('.talk_name').value,
+              tag: document.querySelector('.talk_tag').value,
+              cover_img: img_url,
+            },
+          });
+          console.log('res', res.data.data);
+          if (res.data.result) {
+            document.location.href = '/';
+          } else {
+            alert(`error message : ${res.data.message}`);
+            document.location.reload();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
     </script>
-</body>
+  </body>
 </html>
