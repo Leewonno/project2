@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>곡정보</title>
 </head>
 <body>
@@ -12,13 +12,24 @@
     <%- contentFor('body') %>
     <section>
         <div class="songMain1">
-            <div class="albumImg"></div>
-            <div class="albumInfor"></div>
+            <div class="albumImg"><img class="cover" src="<%= data.cover_url %>"></div>
+            <div class="albumInfor">
+                <div class="title">[EP] <%= data.title %></div>
+                <div class="artist"><%= data.artist %></div>
+                <div class="album"><%= data.album %></div>
+                <div class="writer">작사 <%= data.writer %></div>
+                <div class="composer">작곡 <%= data.composer %></div>
+                <div class="genre">장르 <%= data.genre %></div>
+                <div class="playtime"><%= data.playtime %></div>
+                <div class="release_date">발매일 <%= data.release_date %></div>
+                <div class="like" onclick="likeBtn()"><i class="fa-regular fa-heart"  style="color: #ff6666;"></i><%= data.like %></div>
+            </div>
             <div class="talk"></div>
         </div><br>
         <div class="songMain2">
             <div class="lyrics"></div>
-            <div class="anotherSong"></div>
+            <div class="anotherSong">
+            </div>
             <div class="songComment"></div>
         </div>
     </section>
@@ -26,7 +37,34 @@
     <%- contentFor('player') %>
 
     <script>
-    
-    </script>
+        const pushLike = document.querySelector(".like");
+        const id = new URLSearchParams(window.location.search).get('id');
+      
+        async function likeBtn() {
+          try {
+            const response = await axios.post('/song/like', {
+                id: id,
+            }, {
+                params: {
+                    token:localStorage.getItem('token')
+                }
+            });
+            
+            console.log(response)
+            if (response.data.liked) {
+                console.log(response.data.liked)
+                // 좋아요가 토글되었을 때 아이콘을 채워진 하트로 변경
+                pushLike.innerHTML = '<i class="fa-solid fa-heart" style="color: #ff6666;" ></i> ' + response.data.count;
+            } else {
+                console.log(response.data.liked)
+              // 좋아요가 취소되었을 때 아이콘을 빈 하트로 변경
+              pushLike.innerHTML = '<i class="fa-regular fa-heart" style="color: #ff6666;"></i> ' + response.data.count;
+            }
+          } catch (error) {
+            console.error('좋아요 토글에 실패했습니다.', error);
+          }
+        }
+      </script>
+      
 </body>
 </html>
