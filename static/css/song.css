@@ -9,24 +9,38 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    gap: 30px;
+    /* gap: 30px; */
 }
 
 .albumImg {
     width: 200px;
-    height: 120px;
+    height: 200px;
     background-color: lightgray;
+}
+.albumImg img {
+    width: 200px;
+    height: 200px;
 }
 
 .albumInfor {
-    width:500px;
-    height: 120px;
+    width: 570px;
+    height: 200px;
     background-color: lightgray;
 }
 
+.albumInfor div {
+    margin: 4px;
+}
+
+.albumInfor .like i{
+    
+    margin-right: 6px;
+}
+
 .talk {
-    width: 200px;
-    height: 120px;
+    margin-left: 30px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     background-color: lightgray;
 }

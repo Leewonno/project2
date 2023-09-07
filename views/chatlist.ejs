@@ -22,16 +22,21 @@
           <div class="category_talk">주제별 톡방</div>
           <div class="recommand_talk">톡방 추천</div>
         </div>
-      </div>
+
+        <script>
+            const socket = io();
+            function talk(roomname) {
+            window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
+        }
+        </script>
+
     </section>
 
     <%- contentFor('player') %>
 
-    <script>
-      const socket = io();
-      function talk(roomname) {
-        window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
-      }
-    </script>
-  </body>
+
+
+   
+</body>
 </html>
+
