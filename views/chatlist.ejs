@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/socket.io/socket.io.js"></script>
     <title>채팅방 목록</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- contentFor('body') %>
     <section class="talk_section">
-        <div class="talk_list">
-            <div class="column_first">
-                <div class="my_talk">
-                    <a href="" onclick="talk()">참여중인 톡방</a>
-                </div>
-            </div>
-
-            <div class="column_second">
-                <div class="category_talk">주제별 톡방</div>
-                <div class="recommand_talk">톡방 추천</div>
-            </div>
+      <div class="talk_list">
+        <div class="column_first">
+          <div class="my_talk">
+            <a href="" onclick="talk(roomname)">참여중인 톡방</a>
+            <a href="" onclick="talk(`NMIXX`)">NMIXX</a>
+            <a href="" onclick="talk(`newjeans`)">newjeans</a>
+          </div>
         </div>
+
+        <div class="column_second">
+          <div class="category_talk">주제별 톡방</div>
+          <div class="recommand_talk">톡방 추천</div>
+        </div>
+
         <script>
-            function talk(){
-                window.open('/chat', "Child", "width=400, height=500, top=50, left=50")
-            }
+            const socket = io();
+            function talk(roomname) {
+            window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
+        }
         </script>
+
     </section>
 
-
     <%- contentFor('player') %>
-   
+
+
 
    
 </body>
 </html>
+

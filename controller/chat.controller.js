@@ -2,31 +2,41 @@ const jwt = require('jsonwebtoken');
 
 const roomList = [];
 
+let room;
+
+exports.chat = (req, res) => {
+  room = req.query.room;
+  console.log(room);
+  res.render('chat');
+};
 exports.connection = (io, socket) => {
+  console.log('room', room);
   console.log('접속');
   //채팅방 목록 보내기
-  socket.emit('roomList', roomList);
+  // socket.emit('roomList', roomList);
 
   //채팅방 만들기 생성
-  socket.on('create', (roomName, userName, cb) => {
+  socket.on('create', (userNick, cb) => {
     //join(방이름) 해당 방이름으로 없다면 생성. 존재하면 입장
     //socket.rooms에 socket.id값과 방이름 확인가능
-    socket.join(roomName);
-    //socket은 객체이며 원하는 값을 할당할 수 있음
-    socket.room = roomName;
-    socket.user = userName;
+    socket.join(room);
 
-    socket.to(roomName).emit('notice', `${socket.id}님이 입장하셨습니다`);
+    //socket은 객체이며 원하는 값을 할당할 수 있음
+    socket.room = room;
+    socket.user = jwt.decode(userNick).nickname;
+    console.log('nick', socket.user);
+
+    socket.to(room).emit('notice', `${socket.user}님이 입장하셨습니다`);
 
     //채팅방 목록 갱신
-    if (!roomList.includes(roomName)) {
-      roomList.push(roomName);
-      //갱신된 목록은 전체가 봐야함
-      io.emit('roomList', roomList);
-    }
-    const usersInRoom = getUsersInRoom(roomName);
-    io.to(roomName).emit('userList', usersInRoom);
-    cb();
+    // if (!roomList.includes(roomName)) {
+    //   roomList.push(roomName);
+    //   //갱신된 목록은 전체가 봐야함
+    //   io.emit('roomList', roomList);
+    // }
+    // const usersInRoom = getUsersInRoom(roomName);
+    // io.to(roomName).emit('userList', usersInRoom);
+    // cb();
   });
 
   socket.on('sendMessage', (message) => {
