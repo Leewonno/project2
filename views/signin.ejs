@@ -22,51 +22,49 @@
             </form>
           </div>
           <div class="signinPageBtns">
-            <button type="button" id="signinBtn" onclick="signin()">로그인</button><br />
-            <button type="button" id="signupBtn" onclick="signup()">회원가입</button>
+            <button type="button" id="signinBtn" onclick="signinF()" style="font-size: 16px">로그인</button><br />
+            <a href="/signup" class="roadSignup" style="color:black">회원가입</a>
           </div>
         </section>
       </div>
-
-      <script>
-        const getDataLocalStorage = (name) => {
-          let localData = JSON.parse(localStorage.getItem(name));
-          return localData;
-        };
-  
-        async function signin() {
-          const form = document.forms['signinForm'];
-          const id = document.querySelector('#id');
-          const pw = document.querySelector('#pw');
-          if (id.value === '' || pw.value === '') {
-            alert('아이디와 비밀번호를 입력해주세요.');
-          }
-  
-          const res = await axios({
-            method: 'post',
-            url: '/signin',
-            data: {
-              userid: form.id.value,
-              pw: form.pw.value,
-            },
-          });
-  
-          if (res.data.result) {
-            window.localStorage.setItem('token', res.data.token);
-            alert('로그인이 되었습니다');
-            document.location.href = '/';
-          } else {
-            alert(`error message : ${res.data.message}`);
-            document.location.reload();
-          }
-        }
-  
-        function signup() {
-          document.location.href = '/signup';
-        }
-      </script>
     </section>
 
-    
+    <script id="sc">
+      const getDataLocalStorage = (name) => {
+        let localData = JSON.parse(localStorage.getItem(name));
+        return localData;
+      };
+
+      async function signinF() {
+        const form = document.forms['signinForm'];
+        const id = document.querySelector('#id');
+        const pw = document.querySelector('#pw');
+        if (id.value === '' || pw.value === '') {
+          alert('아이디와 비밀번호를 입력해주세요.');
+        }
+
+        const res = await axios({
+          method: 'post',
+          url: '/signin',
+          data: {
+            userid: form.id.value,
+            pw: form.pw.value,
+          },
+        });
+
+        if (res.data.result) {
+          window.localStorage.setItem('token', res.data.token);
+          alert('로그인이 되었습니다');
+          document.location.href = '/';
+        } else {
+          alert(`error message : ${res.data.message}`);
+          document.location.reload();
+        }
+      }
+
+      function signup() {
+        document.location.href = '/signup';
+      }
+    </script>
   </body>
 </html>

@@ -11,7 +11,6 @@
     <header>
 
     <%- contentFor('body') %>
-    <main>
         <section class="signupMain">
             <div class="signupLogo">LOGO</div><br>
 
@@ -42,14 +41,18 @@
                             <button  type="button" class="signupBtn" onclick="signup()">회원가입</button>
                         </form>
                     </div>
+            </section>
 
-        <script>
-        $(document).ready(function () {
-            $("header").load("/html/header", function () {
-            });
-            $("footer").load("/html/footer", function () {
-            });
-        });
+
+    
+    
+    
+    
+    <footer>
+
+    </footer>
+
+    <script id="sc">
         
         async function signup() {
             const form = document.forms["signupForm"];
@@ -58,8 +61,6 @@
             const pw2 = document.querySelector("#pw2");
             const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
             let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-            console.log("birth", form.birth.value)
-            console.log("gender", form.gender.value)
             if(idPattern.test(id.value)) {
                 alert("ID를 사용하셔도 됩니다");
                 id.style.color = "blue"
@@ -97,7 +98,7 @@
                     grade: "n",
                 }
             });
-            console.log("birth", form.birth.value);
+            
             if(res.data.result) {
                 alert("회원가입을 축하합니다.");
                 document.location.href = "/";
@@ -108,15 +109,6 @@
         };
 
     </script>
-    </section>
-
-    
-    
-    
-    
-    <footer>
-
-    </footer>
     
 </body>
 </html>

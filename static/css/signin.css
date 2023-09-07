@@ -17,7 +17,7 @@
     align-items: center;
     width:500px;
     height:600px;
-    background-color: lightgray;
+    background-color: #FCD06B;
     
 }
 
@@ -34,9 +34,10 @@
     justify-content: center;
     align-items: center;
     position: absolute;
+    border: 1px solid black;
     width: 400px;
     height: 200px;
-    background-color: rgb(179, 182, 182);
+    background-color: #e8b631;
     
 }
 
@@ -56,9 +57,18 @@
     margin-top: 400px;
 }
 
-.signinMain #signinBtn, .signinMain #signupBtn {
+.signinMain #signinBtn, .roadSignup {
     width: 180px;
     height: 70px;
     margin: 20px;
+    background-color: #FCD06B;
+    border: 1px solid black;
+}
+
+.roadSignup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }
 
