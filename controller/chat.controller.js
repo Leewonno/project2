@@ -4,18 +4,22 @@ const roomList = [];
 
 let room;
 let chatRoom;
-
 exports.chat = async (req, res) => {
-  room = req.query.room;
-  console.log(room);
-  chatRoom = await models.ChatRoom.findOne({
-    where: { name: room },
-  });
-
+  room = await req.query.room;
+  console.log('dd', room);
+  // const n = window.localStorage.getItem('token');
+  try {
+    chatRoom = await models.ChatRoom.findOne({
+      where: { name: room },
+    });
   // console.log("app",app.locals.layout);
   res.locals.layout = 'layouts/layout2';
   // console.log(chatRoom.tag);
-  res.render('chat');
+  res.render('chat', { data: chatRoom });
+    } catch (error) {
+    console.log(error);
+  }
+
 };
 
 exports.chat_upload_render = (req, res) => {
@@ -50,11 +54,12 @@ exports.connection = (io, socket) => {
 
     //socket은 객체이며 원하는 값을 할당할 수 있음
     socket.room = room;
-    socket.user = jwt.decode(userNick).nickname;
+    // socket.user = jwt.decode(userNick).nickname;
+    socket.user = userNick;
     console.log('nick', socket.user);
     console.log('room', socket.room);
 
-    socket.to(room).emit('notice', `${socket.user}님이 입장하셨습니다`, socket.user);
+    socket.to(room).emit('notice', `${socket.user}님이 입장하셨습니다`);
 
     //채팅방 목록 갱신
     // if (!roomList.includes(roomName)) {
@@ -67,9 +72,20 @@ exports.connection = (io, socket) => {
     // cb();
   });
 
-  socket.on('sendMessage', (message) => {
-    console.log(message);
-    io.to(socket.room).emit('newMessage', message.message, message.nick, false);
+  socket.on('sendMessage', async (message) => {
+    console.log('sd', message);
+    console.log(chatRoom.id);
+    const userInfo = await models.Profile.findOne({
+      where: { userid: message.nick },
+    });
+    const userChat = await models.Chat.create({
+      chatroom_id: chatRoom.id,
+      userid: message.nick,
+      nickname: userInfo.nickname,
+      content: message.message,
+      type: 'u',
+    });
+    io.to(socket.room).emit('newMessage', message.message, message.nick);
   });
 
   socket.on('disconnect', () => {
