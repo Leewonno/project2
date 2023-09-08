@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/signup.css" />
     <link rel="stylesheet" href="/css/mypage.css" />
     <link rel="stylesheet" href="/css/signin.css" />
+    <link rel="stylesheet" href="/css/chat_upload.css" />
     <%- style %>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -114,7 +115,6 @@
               <button type="button" onclick="openModal()" class="open_playlist">
                 <i class="fa-solid fa-sliders" style="color: #ffffff"></i>
               </button>
-              <!--  -->
             </div>
           </div>
         </div>
@@ -124,8 +124,50 @@
     <!-- playlist창 -->
     <div class="modal_open" hidden>
       <div class="modal">
-        <p class="modal_text">modal</p>
-        <button class="button_close" onclick="closeModal()">X</button>
+        <button class="button_close" onclick="closeModal()">
+          <i class="fa-solid fa-x" style="color: #ffffff;"></i>
+        </button>
+        <div class="modal_left">
+          <div class="content_box">
+            <a href="#" class="song_title">
+              <span class="song_name">자나깨나 (Feat. 조이 of Red Velvet)</span>
+            </a>
+            <a href="#" class="song_artist">
+              <span class="song_singer">Crush</span>
+            </a>
+            <a href="#" class="song_img">
+              <img src="https://image.bugsm.co.kr/album/images/1000/203260/20326024.jpg" alt="앨범사진">
+            </a>
+          </div>
+        </div>
+        <div class="modal_right">
+          <div class="playlistname">MY playlist 청량한 여름 노래</div>
+          <div class="wrap">
+            <div class="modal_search">
+              <i class="fa-solid fa-magnifying-glass" style="color: #000000; margin-right: -30px"></i>
+              <input type="text" class="modal_search_bar" placeholder="재생목록에서 검색해주세요" />
+            </div>
+            <div class="edit">
+              <button class="song_edit">
+                <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+              </button>
+            </div>
+          </div>
+          <div class="modal_palylist_songs">
+            <ul class="modal_playlist_song">
+              <li class="modal_playlist_detail">
+                <a class="modal_playlist_detail_imgs" href="#">
+                  <img class="modal_playlist_detail_img" src="https://image.bugsm.co.kr/album/images/1000/203260/20326024.jpg" alt="앨범커버사진">
+                </a>
+                <a class="modal_playlist_detail_titles" href="#">
+                  <span class="modal_playlist_detail_title">자나깨나 (Feat. 조이 of Red Velvet)</span>
+                  <span class="modal_playlist_detail_artist">Crush</span>
+                </a>
+                <button class="songInfo">자세히</button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <!-- playlist창 끝 -->

@@ -83,6 +83,7 @@
     background-color: #20248e;
     z-index: 1;
 } */
+
 .musicbar_wrapper:hover .music_bar[type=range]{
     top: 0px;
     transition: all 0.3s;
@@ -192,16 +193,189 @@
   }
   
 .modal_open .modal {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+    /* text-align: center; */
+    width: 100%;
+    height: 100%;
   }
-  
+
+.modal_open a {
+    text-decoration: none;
+    color: white;
+}
+
 .modal_open .modal .button_close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 22px;
+    right: 22px;
     cursor: pointer;
+    width: 28px;
+    height: 23px;
+    background-color: transparent;
+    border: none; 
+    color: #000;
+  }
+
+.modal_open .modal .button_close i {
+    font-size: 23px;
+}
+
+.modal_open .modal .modal_left {
+    width: 50%;
+    float: left;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    flex-direction: column;
+    min-height: 460px;
+    text-align: center;
+  }
+
+.modal_open .modal .modal_left .content_box {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+}
+
+.modal_open .modal .modal_left .content_box .song_title {
+    width: 100%;
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 25px;
+    color: #fff;
+}
+
+.modal_open .modal .modal_left .content_box .song_artist {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-bottom: 15px;
+}
+
+.modal_open .modal .modal_left .content_box img {
+    width: 50%;
+    height: 50%;
+    margin: 20px 20px;
+}
+
+.modal_open .modal .modal_right {
+    width: 50%;
+    float: right;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+}
+
+.modal_open .modal .modal_right .playlistname{
+    display: block;
+    text-overflow: ellipsis;
+    width: 360px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.modal_search {
+    margin-top: 13px;
+    margin-right: 10px;
+    position: relative;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 240px;
+    padding: 6px 10px;
+    background: hsla(0,0%,100%,.05);
+    border-radius: 1000px;
+}
+
+.modal_search i {
+    width: 24px;
+    height: 24px;
+    fill: none;
+}
+
+.modal_right .modal_search input {
+    width: 195px;
+    font-size: 12px;
+    color: #fff;
+    background: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: 0px 0px 5px 40px;
+    border: 0;
+}
+
+.modal_search ::placeholder {
+    color: #333;
+  }
+
+.modal_right .modal_palylist_songs {
+    background-color: #333;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.edit {
+    margin-right: 50px;
+    margin-left: 50%;
+}
+
+.edit button {
+    padding: 0;
+    font-family: inherit;
+    vertical-align: middle;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 14px;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: none; 
+}
+
+.edit i {
+    font-size: 24px;
+    align-items: center;
+    justify-items: center;
+}
+
+.modal_playlist_detail {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
   
+.modal_playlist_detail_img {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .modal_playlist_detail_titles {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .songInfo {
+    background-color:  rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none; 
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 18px;
+  }

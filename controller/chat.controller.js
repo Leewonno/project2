@@ -1,43 +1,73 @@
 const jwt = require('jsonwebtoken');
-
+const models = require('../database/db');
 const roomList = [];
 
+let room;
+let chatRoom;
+
+exports.chat = async (req, res) => {
+  room = req.query.room;
+  console.log(room);
+  chatRoom = await models.ChatRoom.findOne({
+    where: { name: room },
+  });
+
+  // console.log(chatRoom.tag);
+  res.render('chat');
+};
+
+exports.chat_upload_render = (req, res) => {
+  res.render('chat_upload');
+};
+
+exports.chat_upload = async (req, res) => {
+  console.log('name', req.body.name);
+  try {
+    const chatRoom = await models.ChatRoom.create({
+      name: req.body.name,
+      tag: req.body.tag,
+      cover_img: req.body.cover_img,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 exports.connection = (io, socket) => {
+  console.log('room', room);
   console.log('접속');
   //채팅방 목록 보내기
-  socket.emit('roomList', roomList);
+  // socket.emit('roomList', roomList);
 
   //채팅방 만들기 생성
-  socket.on('create', (roomName, userName, cb) => {
+  socket.on('create', async (userNick, cb) => {
+    // console.log(chatRoom.tag);
     //join(방이름) 해당 방이름으로 없다면 생성. 존재하면 입장
     //socket.rooms에 socket.id값과 방이름 확인가능
-    socket.join(roomName);
-    //socket은 객체이며 원하는 값을 할당할 수 있음
-    socket.room = roomName;
-    socket.user = userName;
+    socket.join(room);
 
-    socket.to(roomName).emit('notice', `${socket.id}님이 입장하셨습니다`);
+    //socket은 객체이며 원하는 값을 할당할 수 있음
+    socket.room = room;
+    socket.user = jwt.decode(userNick).nickname;
+    console.log('nick', socket.user);
+    console.log('room', socket.room);
+
+    socket.to(room).emit('notice', `${socket.user}님이 입장하셨습니다`);
 
     //채팅방 목록 갱신
-    if (!roomList.includes(roomName)) {
-      roomList.push(roomName);
-      //갱신된 목록은 전체가 봐야함
-      io.emit('roomList', roomList);
-    }
-    const usersInRoom = getUsersInRoom(roomName);
-    io.to(roomName).emit('userList', usersInRoom);
-    cb();
+    // if (!roomList.includes(roomName)) {
+    //   roomList.push(roomName);
+    //   //갱신된 목록은 전체가 봐야함
+    //   io.emit('roomList', roomList);
+    // }
+    // const usersInRoom = getUsersInRoom(roomName);
+    // io.to(roomName).emit('userList', usersInRoom);
+    // cb();
   });
 
   socket.on('sendMessage', (message) => {
     console.log(message);
-    if (message.user === 'all') {
-      io.to(socket.room).emit('newMessage', message.message, message.nick, false);
-    } else {
-      io.to(message.user).emit('newMessage', message.message, message.nick, true);
-      //자기자신에게 메세지 띄우기
-      socket.emit('newMessage', message.message, message.nick, true);
-    }
+    io.to(socket.room).emit('newMessage', message.message, message.nick, false);
   });
 
   socket.on('disconnect', () => {

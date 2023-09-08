@@ -1,5 +1,4 @@
-const { Song } = require('../database/db');
-
+const { Song, ChatRoom } = require('../database/db');
 
 exports.controller = {
     mainPage: async (req, res) => {
@@ -72,8 +71,16 @@ exports.controller = {
             // 오류 처리
         }
     },
-    getChatListPage: (req, res) => {
-        res.render("chatlist");
+    getChatListPage: async (req, res) => {
+        const acr = [];
+        const allChatRoom = await ChatRoom.findAll().then((result) => {
+          for (let i = 0; i < result.length; i++) {
+            acr.push(result[i].dataValues.name);
+          }
+          console.log(acr);
+          res.render('chatlist', { data: acr });
+        });
+        //   console.log(allChatRoom.dataValues.name);
     },
     getSearchPage: (req, res) => {
         res.render("search");
