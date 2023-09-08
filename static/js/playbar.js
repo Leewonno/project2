@@ -97,3 +97,12 @@ function music(route){
     play.checked = true;
     play_icon.className = "fa-solid fa-pause";
 }
+
+$('.modal_open').click(function(e) {
+    if(!$(e.target).hasClass("toggle")) {
+        // var toggle = document.querySelector(".toggle");
+        // toggle.checked
+        console.log(e.target);
+        $("input[type=checkbox]").prop("checked", false);
+    }
+});
