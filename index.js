@@ -3,6 +3,7 @@ const express = require('express');
 const SocketIO = require('socket.io');
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./database/db');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = 8000;
@@ -25,6 +26,7 @@ app.use('/audio', express.static('./static/audio'));
 app.use('/img', express.static('./static/img'));
 app.use('/css', express.static('./static/css'));
 app.use('/js', express.static('./static/js'));
+app.use(cookieParser());
 
 const socketRouter = require('./router/chat.router');
 socketRouter(io);
