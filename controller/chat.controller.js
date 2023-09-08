@@ -40,7 +40,7 @@ exports.connection = (io, socket) => {
   // socket.emit('roomList', roomList);
 
   //채팅방 만들기 생성
-  socket.on('create', async (userNick, cb) => {
+  socket.on('create', (userNick) => {
     // console.log(chatRoom.tag);
     //join(방이름) 해당 방이름으로 없다면 생성. 존재하면 입장
     //socket.rooms에 socket.id값과 방이름 확인가능
@@ -52,7 +52,7 @@ exports.connection = (io, socket) => {
     console.log('nick', socket.user);
     console.log('room', socket.room);
 
-    socket.to(room).emit('notice', `${socket.user}님이 입장하셨습니다`);
+    socket.to(room).emit('notice', `${socket.user}님이 입장하셨습니다`, socket.user);
 
     //채팅방 목록 갱신
     // if (!roomList.includes(roomName)) {
