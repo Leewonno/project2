@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
+<<<<<<< HEAD
+const { controller } = require("../controller/main.controller");
+=======
 const controller = require('../controller/main.controller');
 const controller1 = require('../controller/chat.controller');
+>>>>>>> develop
 
 router.get('/', controller.mainPage);
 router.get('/chat/list', controller.getChatListPage);

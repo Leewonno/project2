@@ -11,9 +11,25 @@
     <section class="index_section">
       <div class="main_page">
         <div class="column_first">
-          <div class="recent_music" id="recent_music">
+          <div class="recent_music" id="recent_music">최신순 음악
+            <% for (let i = 0; i < data.recent.length; i++) { %>
+              <div class="recent_element">
+                <img src="<%= data.recent[i].cover_url %>" onclick="music()">
+                <a class="recent_title" href="/song/detail?id=<%= data.recent[i].id %>"><%= data.recent[i].title %></a>
+                <div class="artist"><%= data.recent[i].artist %></div>
+              </div>
+            <% } %>
           </div>
-          <div class="genre_music">장르 음악</div>
+          <div class="genre_music">장르 음악
+            <div clss="genre_dance">록/메탈</div>
+            <% for (let i = 0; i < data.genre.length; i++) { %>
+              <div class="genre_element">
+                <img src="<%= data.genre[i].cover_url %>" onclick="music()">
+                <a class="recent_title" href="/song/detail?id=<%= data.genre[i].id %>"><%= data.genre[i].title %></a>
+                <div class="artist"><%= data.genre[i].artist %></div>
+              </div>
+            <% } %>
+          </div>
         </div>
 
         <div class="column_second">
@@ -22,11 +38,54 @@
         </div>
 
         <div class="column_third">
-          <div class="popular_music">인기순 음악</div>
+          <div class="popular_music">인기순 음악
+            <% for (let i = 0; i < data.like.length; i++) { %>
+              <div class="popular_element">
+                <img src="<%= data.like[i].cover_url %>" onclick="music()">
+                <a class="popular_title" href="/song/detail?id=<%= data.like[i].id %>"><%= data.like[i].title %></a>
+                <div class="popular_artist"><%= data.like[i].artist %></div>
+              </div>
+            <% } %>
+          </div>
         </div>
       </div>
     </section>
 
+<<<<<<< HEAD
+      <script>
+        // $(document).ready(function(){
+        //   axios({
+        //     method:"GET",
+        //     url:"/song/sort",
+        //     params:{
+        //       sort:"date"
+        //     }
+        //   }).then((res)=>{
+        //     console.log(res.data[0]);
+        //     for(let i = 0; i < res.data.length; i++){
+        //       let s_url = res.data[i].song_url;
+        //       console.log(s_url)
+        //       let temp = s_url.split('/');
+        //       temp = temp[3] + "/" + temp[4];
+        //       const html = `
+        //       <div class="recent_element">
+        //           <img src="${res.data[i].cover_url}" onclick="music('${temp}')">
+        //           <a class="recent_title" href="/song/detail?id=${res.data[i].id}">${res.data[i].title}<a>
+        //           <div class="artist">${res.data[i].artist}</div>
+        //       </div>`
+    
+        //       $('#recent_music').append(html);
+        //     }
+        //   }).catch((err)=>{
+        //     console.log(err);
+        //   })
+        // });
+      </script>
+    </section>
+
+    <script>
+      
+=======
     <script id="sc">
         $(document).ready(function(){
           axios({
@@ -55,6 +114,7 @@
             console.log(err);
           })
         });
+>>>>>>> develop
     </script>
     
   </body>
