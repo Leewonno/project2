@@ -78,9 +78,10 @@
       });
 
       //입장 메세지 이벤트
-      socket.on('notice', (message) => {
+      socket.on('notice', (message, username) => {
         const div = document.createElement('div');
         const p = document.createElement('p');
+        myName = username;
         p.textContent = message;
         div.appendChild(p);
         notice.appendChild(div);
@@ -90,10 +91,9 @@
       chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const message = document.querySelector('#message');
-        console.log(user.value);
+        console.log(myName);
         const msg = {
           nick: myName,
-          user: user.value,
           message: message.value,
         };
         socket.emit('sendMessage', msg);
