@@ -12,11 +12,14 @@ exports.chat = async (req, res) => {
     chatRoom = await models.ChatRoom.findOne({
       where: { name: room },
     });
-
-    res.render('chat', { data: chatRoom });
-  } catch (error) {
+  // console.log("app",app.locals.layout);
+  res.locals.layout = 'layouts/layout2';
+  // console.log(chatRoom.tag);
+  res.render('chat', { data: chatRoom });
+    } catch (error) {
     console.log(error);
   }
+
 };
 
 exports.chat_upload_render = (req, res) => {

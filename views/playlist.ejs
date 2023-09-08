@@ -13,7 +13,8 @@
             <div id="my_playlist">
                 <div class="page_header">
                     <h3 class="title">My Palylist</h3>
-                    <button>새 palylist 만들기</button>
+                    <label for="new_playlist">새 palylist 만들기</label>
+                    <input type="checkbox" id="new_playlist" hidden>
                 </div>
                 <ul class="my_list">
                     <li>
@@ -131,12 +132,31 @@
                 </ul>
             </div>
         </div>
+
+        <div class="new_pl_md">
+            <div class="new_pl_close">X</div>
+            <div class="new_pl_input">
+                <label for="pl_name">플레이리스트 이름</label>
+                <input type="text" id="pl_name">
+            </div>
+            <button type="button">생성</button>
+        </div>
     </section>
 
     <%- contentFor('player') %>
 
-    <script>
+    <script id="sc">
+        const new_pl = document.getElementById("new_playlist");
+        const new_pl_md = document.querySelector(".new_pl_md");
+        const new_pl_md_close = document.querySelector(".new_pl_close");
 
+        new_pl.addEventListener('click', (e)=>{
+            new_pl_md.style.display = "flex";
+        })
+
+        new_pl_md_close.addEventListener('click', (e)=>{
+            new_pl_md.style.display = "none";
+        })
     </script>
 </body>
 </html>

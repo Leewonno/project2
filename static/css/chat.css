@@ -2,12 +2,6 @@
     margin: 0;
 }
 
-#body {
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    background: #dbdbdb;
-}
 
 #msg::-webkit-scrollbar {
     width: 0px;
@@ -40,39 +34,95 @@
 #chat input {
     width: 80%;
 }
-.my-chat {
+
+.talk_header {
     display: flex;
-    justify-content: end;
-    padding: 2px 0px;
+    width: 300px;
+    background-color: blueviolet;
+    padding: 3px;
 }
-.my-chat p {
-    margin: 0;
-    padding: 10px;
-    background: yellow;
-    border-radius: 10px;
-    margin-right: 10px;
-}
-.other-chat {
+
+.header_name {
     display: flex;
-    justify-content: start;
-    padding: 2px 0px;
+    justify-content: flex-start;
+    gap: 10px;
 }
-.other-chat p {
-    margin: 0;
+
+.header_button {
+    display: flex;
+    justify-content:flex-end;
+    gap: 10px;
+    width: 150px;
+}
+
+.infor_message {
+    text-align: center;
     padding: 10px;
-    background: white;
-    border-radius: 10px;
-    margin-left: 10px;
 }
-#notice {
+
+.talk_main {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 300px;
+    top: 503px;
+}
+
+.talk_message {
+    width: 270px;
+}
+
+/* hidden talk_menu */
+
+.talk_menu_bar {
+    margin-left: 80px;
+    width: 220px;
+    height: 503px;
+    background-color: beige;
+    position: fixed;
+    z-index: 1;
+}
+
+.menu_main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+}
+
+.share_button {
+    display: flex;
+    justify-content: space-between;
+    width: 220px;
+    height: auto;
+}
+
+.talk_profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: brown;
     text-align: center;
-    color: gray;
 }
-#notice p {
-    margin: 0;
+
+.talk_members {
+    width: 150px;
+    height: 200px;
+    background-color:chartreuse;
 }
-.secret-chat p {
-    background: pink;
+
+.hello {
+    display: flex;
+    justify-content: flex-end;
+    background-color: yellow;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.hellow {
+    display: flex;
+    justify-content: flex-start;
+    background-color: beige;
+    width: fit-content;
 }
