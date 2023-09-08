@@ -395,13 +395,11 @@
     background-color: transparent;
 }
 
-.container .label .icon{
-    width: calc(var(--btn-height) * 0.4);
-    height: calc(var(--btn-height) * 0.4);
+.container .label i{
     border-radius: 100%;
     position: relative;
     transition: 0.3s ease-in-out;
-    font-size: 26px;
+    font-size: 28px;
 }
 
 .menu {
@@ -450,7 +448,7 @@
 }
 
 .toggle:checked ~ .label > i{
-    transform: rotate(180deg);
+    /* transform: rotate(180deg); */
 }
 
 .menu .menu-item i {
