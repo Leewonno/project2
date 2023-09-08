@@ -56,17 +56,17 @@
                         </th>
                         <th>
                             <div class="wrap_song">
+                                <span class="song">재생시간</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="wrap_song">
                                 <span class="song">듣기</span>
                             </div>
                         </th>
                         <th>
                             <div class="wrap_song">
                                 <span class="song">재생목록</span>
-                            </div>
-                        </th>
-                        <th>
-                            <div class="wrap_song">
-                                <span class="song">내 리스트</span>
                             </div>
                         </th>
                     </tr>
@@ -139,6 +139,27 @@
                                 <div class="artist">
                                     ${res.data[i].artist}
                                 </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wrap_song">
+                                <div class="replay time">
+                                    3:59
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wrap_song">
+                                <button type-"button" class="song_detail_button">
+                                    <i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wrap_song">
+                                <button type-"button" class="song_list_button">
+                                    <i class="fa-solid fa-bars" style="color: #FCD06B"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>`;
