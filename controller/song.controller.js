@@ -19,14 +19,26 @@ exports.controller = {
   }, 
 
   getSongInfoPage: async (req, res) => { try {
-   
+    console.log(req.userid);
+    let likeResult = false;
+    
     const id = req.query.id;
+   
     console.log(id);
     const songData = await Song.findOne({ where: { id: id } });
-  
+    if(req.userid) {
+
+      const likeData = await S_like.findOne({ where: { song_id: songData.id, userid: req.userid } })
+    
+      if(likeData) {
+        likeResult = true;
+      } 
+    }
      console.log(songData.dataValues)
 
-     res.render('song', { data: songData.dataValues });
+     console.log(likeResult);
+
+     res.render('song', { data: songData.dataValues, likeResult: likeResult });
   } catch (error) {
     console.error(error);
     // 기타 오류
@@ -93,26 +105,28 @@ exports.controller = {
   
   likeToggle: async (req, res) => {
     try {
-     
-       const token = jwt.verify(req.query.token, secret);
+      // if(!req.userid) {
+      //   likeResult = false;
+      // }
+      //  const token = jwt.verify(req.query.token, secret);
        const user = await User.findOne({
-          where: { userid: token.userid },})  
+          where: { userid: req.userid },})  
       
       const { id } = req.body;
-      console.log(id, user.userid);
+      console.log(id, req.userid);
   
-      const existLike = await S_like.findOne({ where: { song_id: id, userid: user.userid } });
+      const existLike = await S_like.findOne({ where: { song_id: id, userid: req.userid } });
       console.log('existLike', existLike);
       const song = await Song.findOne({ where: { id }});
       console.log('song', song)
   
       if(existLike) {
-        await S_like.destroy({ where: { song_id: id, userid: user.userid } });
+        await S_like.destroy({ where: { song_id: id, userid: req.userid } });
         song.like -= 1;
         await song.save();
         res.send({ count: song.like, liked: false, message: "like cancel success" });
       } else {
-        await S_like.create({ song_id: id, userid: user.userid });
+        await S_like.create({ song_id: id, userid: req.userid });
         song.like += 1;
         await song.save();
         res.send({ count: song.like, liked: true, message: "like success" });

@@ -30,10 +30,10 @@
     </section>
 
     <script id="sc">
-      const getDataLocalStorage = (name) => {
-        let localData = JSON.parse(localStorage.getItem(name));
-        return localData;
-      };
+      // const getDataLocalStorage = (name) => {
+      //   let localData = JSON.parse(localStorage.getItem(name));
+      //   return localData;
+      // };
 
       async function signinF() {
         const form = document.forms['signinForm'];
@@ -53,7 +53,7 @@
         });
 
         if (res.data.result) {
-          window.localStorage.setItem('token', res.data.token);
+          //window.localStorage.setItem('token', res.data.token);
           alert('로그인이 되었습니다');
           document.location.href = '/';
         } else {

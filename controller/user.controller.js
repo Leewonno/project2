@@ -1,7 +1,8 @@
 const models = require('../database/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secret = 'asdfasdfa';
+const { createJwtToken, verifyJwtToken } = require('../utils/jwt');
+// const secret = 'asdfasdfa';
 
 //암호화
 const bcryptPassword = (password) => {
@@ -21,19 +22,21 @@ exports.getSignupPage = (req, res) => {
 };
 
 exports.getProfilePage = (req, res) => {
-  console.log('token', req.query.token);
-  if (req.query.token == undefined) {
-    console.log('n');
-    res.render('profile');
-  } else {
-    let token = jwt.decode(req.query.token);
-    models.Profile.findOne({
-      where: { userid: token.userid },
-    }).then((result) => {
-      console.log(result.dataValues);
-      res.json(result.dataValues);
-    });
-  }
+
+   console.log(req.userid);
+    if(!req.userid) {
+      res.render('signin');
+    } else { 
+
+      models.Profile.findOne({
+        where: { userid: req.userid },
+      }).then((result) => {
+        console.log(result.dataValues);
+  
+        res.render('profile', { data: result.dataValues})
+      });
+    }
+      
 };
 
 exports.getSortPage = (req, res) => {
@@ -72,61 +75,68 @@ exports.postSignIn = async (req, res) => {
 
   const ans = comparePassword(req.body.pw, user.pw);
   if (ans) {
-    const token = jwt.sign({ userid: user.userid, nickname: profile.dataValues.nickname }, secret);
+    const token = createJwtToken(user.userid, profile.dataValues.nickname);
     console.log('pro', profile.dataValues.nickname);
     console.log('nick', token);
-    res.json({ result: true, token });
+    res.cookie('token', token).json({ result: true });
   } else {
     res.json({ result: false });
   }
 };
 
 exports.updateProfile = (req, res) => {
-  let token = jwt.decode(req.body.token);
-  console.log('file', req.body.profile_img);
-  console.log(token);
-  models.Profile.update(
-    {
-      name: req.body.name,
-      nickname: req.body.nickname,
-      profile_img: req.body.profile_img,
-    },
-    {
-      where: { userid: token.userid },
-    }
-  )
-    .then(() => {
-      res.json({ result: true });
-    })
-    .catch((err) => {
-      res.json({ result: false });
-      console.log(err);
-    });
-};
+  console.log(req.userid);
+  if(!req.userid) {
+    res.render('signin');
+  } else {
 
-exports.updateProfile_pw = async (req, res) => {
-  // console.log('pw', bcryptPassword(String(req.body.pw)));
-
-  let token = jwt.decode(req.body.token);
-  try {
-    await models.User.update(
-      {
-        pw: await bcryptPassword(req.body.pw),
-      },
-      {
-        where: { userid: token.userid },
-      }
-    );
-    await models.Profile.update(
+    models.Profile.update(
       {
         name: req.body.name,
         nickname: req.body.nickname,
         profile_img: req.body.profile_img,
       },
       {
-        where: { userid: token.userid },
+        where: { userid: req.userid },
       }
-    );
+    ).then(() => {
+        res.json({ result: true });
+      })
+      .catch((err) => {
+        res.json({ result: false });
+        console.log(err);
+      });
+  }
+
+};
+
+exports.updateProfile_pw = async (req, res) => {
+
+  try {
+    console.log(req.userid);
+    if(!req.userid) {
+      res.render('signin');
+    } else {
+
+      await models.User.update(
+        {
+          pw: await bcryptPassword(req.body.pw),
+        },
+        {
+          where: { userid: req.userid },
+        }
+      );
+      await models.Profile.update(
+        {
+          name: req.body.name,
+          nickname: req.body.nickname,
+          profile_img: req.body.profile_img,
+        },
+        {
+          where: { userid: req.userid },
+        }
+      );
+    }
   } catch (err) {
     console.log(err);
     res.json({ result: false });
@@ -135,10 +145,15 @@ exports.updateProfile_pw = async (req, res) => {
 };
 
 exports.deleteProfile = async (req, res) => {
-  let token = jwt.decode(req.body.token);
   try {
-    await models.User.destroy({ where: { userid: token.userid } });
-    await models.Profile.destroy({ where: { userid: token.userid } });
+    console.log(req.userid);
+    if(!req.userid) {
+      res.render('signin');
+    } else {
+
+      await models.User.destroy({ where: { userid: req.userid } });
+      await models.Profile.destroy({ where: { userid: req.userid } });
+    }
   } catch (err) {
     console.log(err);
     res.json({ result: false });

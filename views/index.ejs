@@ -51,35 +51,35 @@
       </div>
     </section>
 
-    <script id="sc">
-        $(document).ready(function(){
-          axios({
-            method:"GET",
-            url:"/song/sort",
-            params:{
-              sort:"date"
-            }
-          }).then((res)=>{
-            console.log(res.data[0]);
-            for(let i = 0; i < res.data.length; i++){
-              let s_url = res.data[i].song_url;
-              console.log(s_url)
-              let temp = s_url.split('/');
-              temp = temp[3] + "/" + temp[4];
-              const html = `
-              <div class="recent_element">
-                  <img src="${res.data[i].cover_url}" onclick="music('${temp}')">
-                  <a class="recent_title" href="/song/detail?id=${res.data[i].id}">${res.data[i].title}<a>
-                  <div class="artist">${res.data[i].artist}</div>
-              </div>`
+      <script>
+        // $(document).ready(function(){
+        //   axios({
+        //     method:"GET",
+        //     url:"/song/sort",
+        //     params:{
+        //       sort:"date"
+        //     }
+        //   }).then((res)=>{
+        //     console.log(res.data[0]);
+        //     for(let i = 0; i < res.data.length; i++){
+        //       let s_url = res.data[i].song_url;
+        //       console.log(s_url)
+        //       let temp = s_url.split('/');
+        //       temp = temp[3] + "/" + temp[4];
+        //       const html = `
+        //       <div class="recent_element">
+        //           <img src="${res.data[i].cover_url}" onclick="music('${temp}')">
+        //           <a class="recent_title" href="/song/detail?id=${res.data[i].id}">${res.data[i].title}<a>
+        //           <div class="artist">${res.data[i].artist}</div>
+        //       </div>`
     
-              $('#recent_music').append(html);
-            }
-          }).catch((err)=>{
-            console.log(err);
-          })
-        });
-    </script>
-    
+        //       $('#recent_music').append(html);
+        //     }
+        //   }).catch((err)=>{
+        //     console.log(err);
+        //   })
+        // });
+      </script>
+    </section>
   </body>
 </html>
