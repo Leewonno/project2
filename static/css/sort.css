@@ -42,7 +42,7 @@
 .sort_section .list {
     margin: 0 auto;
     border-collapse: collapse;
-    width: 80%; 
+    width: 80%;
 }
 
 .sort_section .list th, .list td {
@@ -59,7 +59,7 @@
     justify-content: center;
 }
 
-.sort_section .wrap_song, .sort_section .wrap_songinfor {
+.sort_section .wrap_song, .wrap_song_album, .sort_section .wrap_songinfor {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,7 +76,7 @@
 }
 
 .wrap_song {
-    width: 100px;
+    width: 170px;
     height: 100px;
     text-align: center;
 }
@@ -84,4 +84,12 @@
 .wrap_song img{
     width:100px;
     height: 100px;
+}
+
+.wrap_song_album {
+    width: 170px;
+}
+
+.wrap > .rank {
+    width: 35px;
 }

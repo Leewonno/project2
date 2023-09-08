@@ -40,13 +40,33 @@
                             </div>
                         </th>
                         <th>
-                            <div class="wrap_song">
+                            <div class="wrap_song_album">
                                 <span class="song">앨범</span>
                             </div>
                         </th>
                         <th>
                             <div class="wrap_song">
-                                <span class="song">곡 정보</span>
+                                <span class="song">곡이름</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="wrap_song">
+                                <span class="song">아티스트</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="wrap_song">
+                                <span class="song">듣기</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="wrap_song">
+                                <span class="song">재생목록</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="wrap_song">
+                                <span class="song">내 리스트</span>
                             </div>
                         </th>
                     </tr>
@@ -94,7 +114,7 @@
             console.log("aa",res.data)
             for(let i = 0; i < res.data.length; i++) {
             const html = `
-            <tr class="song_detail">
+                    <tr class="song_detail">
                         <td>
                             <div class="wrap">
                                 <span class="ranck">${i+1}</span>
@@ -112,7 +132,10 @@
                                 <div class="song_name">
                                     ${res.data[i].title}
                                 </div>
-                                <br />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wrap_song">
                                 <div class="artist">
                                     ${res.data[i].artist}
                                 </div>
