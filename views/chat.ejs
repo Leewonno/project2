@@ -23,16 +23,15 @@
 
     <script>
       const socket = io();
-      const roomForm = document.querySelector('#room');
       const chatForm = document.querySelector('#chat');
       const msg = document.querySelector('#msg');
       const notice = document.querySelector('#notice');
-      // const roomName = roomForm.querySelector('#roomName');
-      let myName;
+
+      let userName = 'dldnwhd98';
+      let myName = 'dldnwhd98';
 
       (function () {
-        const userName = window.localStorage.getItem('token');
-
+        // userName = window.localStorage.getItem('token');
         socket.emit('create', userName);
       })();
 
@@ -78,10 +77,11 @@
       });
 
       //입장 메세지 이벤트
-      socket.on('notice', (message, username) => {
+      socket.on('notice', (message) => {
         const div = document.createElement('div');
         const p = document.createElement('p');
-        myName = username;
+
+        console.log('my', myName);
         p.textContent = message;
         div.appendChild(p);
         notice.appendChild(div);
@@ -90,8 +90,9 @@
       ///폼 이벤트
       chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        myName;
         const message = document.querySelector('#message');
-        console.log(myName);
+        console.log('cl', myName);
         const msg = {
           nick: myName,
           message: message.value,
