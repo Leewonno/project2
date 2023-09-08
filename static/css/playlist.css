@@ -53,5 +53,24 @@
     
 }
 
+.new_pl_md{
+    display: none;
+    position: absolute;
+    top: 70px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(193, 193, 193, 0.5);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.new_pl_close{
+    color: white;
+}
+
+.new_pl_input{
+    
+}
 
 

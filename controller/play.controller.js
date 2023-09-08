@@ -37,7 +37,7 @@ exports.getPlaySong = (req, res) => {
       const parts = range.replace(/bytes=/, '').split('-');
       const start = parseInt(parts[0], 10);
 
-      const MAX_CHUNK_SIZE = 200 * 1000;
+      const MAX_CHUNK_SIZE = 250 * 1000;
       const _end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
       const end = Math.min(_end, start + MAX_CHUNK_SIZE - 1);
 

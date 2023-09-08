@@ -12,6 +12,8 @@ exports.chat = async (req, res) => {
     where: { name: room },
   });
 
+  // console.log("app",app.locals.layout);
+  res.locals.layout = 'layouts/layout2';
   // console.log(chatRoom.tag);
   res.render('chat');
 };
