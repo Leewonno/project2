@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
-<<<<<<< HEAD
-const { controller } = require("../controller/main.controller");
-=======
-const controller = require('../controller/main.controller');
+const { controller } = require('../controller/main.controller');
 const controller1 = require('../controller/chat.controller');
->>>>>>> develop
 
 router.get('/', controller.mainPage);
 router.get('/chat/list', controller.getChatListPage);
@@ -17,4 +13,5 @@ router.get('/chat/upload', controller1.chat_upload_render);
 router.post('/chat/upload', controller1.chat_upload);
 
 router.get('/chat/', controller1.chat);
+
 module.exports = router;
