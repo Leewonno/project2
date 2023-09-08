@@ -25,7 +25,6 @@
     width: 100%;
     height: 240px;
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
 }
 
@@ -39,8 +38,8 @@
 }
 
 .index_section .column_first .recent_music .recent_element > img{
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
 }
 
 .index_section .column_first .recent_music .recent_title{
@@ -50,6 +49,18 @@
 .index_section .column_first .recent_music .recent_artist{
 
 }
+
+.index_section .column_first .genre_music .genre_element{
+    display: flex;
+}
+
+
+.index_section .column_first .genre_music .genre_element > img{
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+}
+
 
 .index_section .column_first .genre_music{
     background-color: lightgray;
@@ -90,6 +101,15 @@
     background-color: lightgray;
     width: 100%;
     height: 100%;
+}
+
+.index_section .column_third .popular_music .popular_element{
+    display: flex;
+}
+.index_section .column_third .popular_music .popular_element > img{
+    width: 50px;
+    height: 50px;
+    margin: 3px;
 }
 
 @media screen and (max-width: 650px) {

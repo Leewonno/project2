@@ -1,3 +1,8 @@
+.sort_section {
+    display: flex;
+    justify-content: center;
+}
+
 .sort_section .menu {
     display: flex;
     justify-content: space-between;
@@ -42,7 +47,7 @@
 .sort_section .list {
     margin: 0 auto;
     border-collapse: collapse;
-    width: 80%; 
+    width: 80%;
 }
 
 .sort_section .list th, .list td {
@@ -59,7 +64,7 @@
     justify-content: center;
 }
 
-.sort_section .wrap_song, .sort_section .wrap_songinfor {
+.sort_section .wrap_song, .wrap_song_album {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,7 +81,7 @@
 }
 
 .wrap_song {
-    width: 100px;
+    width: 130px;
     height: 100px;
     text-align: center;
 }
@@ -84,4 +89,19 @@
 .wrap_song img{
     width:100px;
     height: 100px;
+}
+
+.wrap_song_album {
+    width: 130px;
+}
+
+.wrap > .rank {
+    width: 35px;
+}
+
+.song_detail_button, .song_list_button, .song_mylist_button {
+    border: none;
+    background-color: #ffff;
+    cursor: pointer;
+    font-size: 23px;
 }

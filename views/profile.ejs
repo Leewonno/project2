@@ -13,21 +13,21 @@
             <div class="mypageCover">
                 <section class="profilePage">
                     <div class="avatar">
-                        <img class="progileImg" src="#">
+                        <img class="progileImg" src="<%= data.profile_img %>">
                         <form onsubmit="imgupload(e)">
                             <input type="file" id="profileimg"></form>
                             <button type="submit">upload</button>
                         </form>
                     </div>
                     <div class="welcome">
-                        <p class="welcomePara"></p>
-                        <p class="welcomeId"></p>
+                        <p class="welcomePara"><%= data.nickname %>님 환영합니다 !</p>
+                        <p class="welcomeId"><%= data.userid %></p>
                     </div>
                 </section>
                 <br>
                 <form class="mypageForm">
-                    <input type="text" id="name" placeholder="이름"><br>
-                    <input type="text" id="nickname" placeholder="닉네임"><br>
+                    <input type="text" id="name" placeholder="이름" value="<%= data.name %>"><br>
+                    <input type="text" id="nickname" placeholder="닉네임" value="<%= data.nickname %>"><br>
                     <input type="password" id="pw" placeholder="비밀번호"><br>
                     <input type="password" id="pw2" placeholder="비밀번호확인"><br>
                     <button type="button" class="mainBtn" onclick="edit()">회원정보변경</button>
@@ -40,26 +40,7 @@
         </div>
 
         <script>
-            // console.log(localStorage.getItem('token'));
-    
-            axios({
-                method: 'GET',
-                url: '/profile',
-                params: {
-                    token:localStorage.getItem('token')
-                }
-            }).then((res)=>{
-                const name = document.querySelector("#name");
-                const nick = document.querySelector("#nickname");
-                const path = document.querySelector('.progileImg');
-    
-                name.value = res.data.name;
-                nick.value = res.data.nickname;
-                path.src = res.data.profile_img;
-                document.querySelector(".welcomePara").textContent = nick.value + "님 환영합니다.";
-                document.querySelector(".welcomeId").textContent = res.data.userid;
-            });
-    
+
             async function edit() {
                 const form = document.forms['mypageForm'];
                 const pw = document.querySelector("#pw");
@@ -73,10 +54,10 @@
                         method: 'PATCH',
                         url: '/profile',
                         data: {
-                            name:name.value,
-                            nickname:nick.value,
+                            name: name.value,
+                            nickname: nick.value,
                             profile_img: path.src,
-                            token:localStorage.getItem('token')
+                            //token: localStorage.getItem('token')
                         }
                     });
     
@@ -108,11 +89,11 @@
                     method: 'PATCH',
                     url: '/profile/pw',
                     data: {
-                        name:name.value,
-                        nickname:nick.value,
+                        name: name.value,
+                        nickname: nick.value,
                         profile_img: path.src,
                         pw: pw.value,
-                        token:localStorage.getItem('token')
+                        //token:localStorage.getItem('token')
                     }
                 });
                 console.log(res.data.result);
@@ -134,12 +115,12 @@
                     method: 'DELETE',
                     url: '/profile',
                     data: {
-                        token:localStorage.getItem('token')
+                        //token:localStorage.getItem('token')
                     },
                 }).then((res) => {
                     if (res.data.result) {
                         alert('회원탈퇴 완료되었습니다');
-                        window.localStorage.removeItem('token')
+                        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; 
                         document.location.href = '/';
                     }
                 });
