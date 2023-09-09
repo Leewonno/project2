@@ -13,10 +13,11 @@
             <div class="mypageCover">
                 <section class="profilePage">
                     <div class="avatar">
-                        <img class="progileImg" src="<%= data.profile_img %>">
-                        <form onsubmit="imgupload(e)">
-                            <input type="file" id="profileimg"></form>
-                            <button type="submit">upload</button>
+                        <img class="profileImg" src="<%= data.profile_img %>">
+                        <label for="profileimg">변경</label>
+                        <form>
+                            <input type="file" id="profileimg" hidden>
+                            <button type="button" class="upload_btn" onclick="imgupload()">upload</button>
                         </form>
                     </div>
                     <div class="welcome">
@@ -48,7 +49,7 @@
             const form = document.forms['mypageForm'];
             const pw = document.querySelector("#pw");
             const pw2 = document.querySelector("#pw2");
-            const path = document.querySelector('.progileImg');
+            const path = document.querySelector('.profileImg');
             const name = document.querySelector("#name");
             const nick = document.querySelector("#nickname");
 
@@ -133,15 +134,18 @@
             document.location.href = "/";
         }
 
-        //프로필사진 변경
-        const img = document.querySelector('.profileImg');
-        async function imgupload(e) {
-            event.preventDefault(e);
+        // //프로필사진 변경
+        
+        async function imgupload() {
+            const img = document.querySelector('.profileImg');
             const file = document.querySelector('#profileimg');
+            const formData = new FormData();
+            formData.append('imgfile', file.files[0]);
+
             const res = await axios({
                 method: 'POST',
-                url: '/profile',
-                data: formdata,
+                url: '/dynamic/img',
+                data: formData,
                 headers: {
                     'Content-Type' : 'multipart/form-data',
                 },
