@@ -39,10 +39,6 @@ exports.getProfilePage = (req, res) => {
       
 };
 
-exports.getSortPage = (req, res) => {
-  res.render('sort');
-};
-
 exports.postSignUp = async (req, res) => {
   const img = 'https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png';
   const user = await models.User.create({

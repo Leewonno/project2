@@ -8,7 +8,6 @@ const { auth } = require('../middleware/auth.middleware')
 router.get('/signin', controller.getSigninPage);
 router.get('/signup', controller.getSignupPage);
 router.get('/profile', auth.verifyAuthentication, controller.getProfilePage);
-router.get('/sort', controller.getSortPage);
 
 // 기능 개발
 router.post('/signup', controller.postSignUp);

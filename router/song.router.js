@@ -17,7 +17,9 @@ router.post('/dynamic/song', upload.uploadAudio, controller.uploadSong);
 router.post('/song/upload', controller.insertSongByAdmin);
 
 // 곡 정렬 페이지
+router.get('/sort', controller.getSortPage);
 router.get('/song/sort', controller.getSongBySort);
+router.get('/song/sort/genre', controller.getSongByGenre);
 
 // 곡 재생 정보 반환
 router.get('/song/play', controller.getPlaySongData);

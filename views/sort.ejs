@@ -24,10 +24,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="sortSongs('genre')">
+                        <a href="#" onclick="startGenreToggle()">
                             <span>장르별</span>
                         </a>
                     </li>
+                </ul>
+            </div>
+            <div id="genre_menu" class="genre_menu" style="display: none;">
+                <ul class="genre_ul">
+                    <% for (let i = 0; i < genre.length; i++) { %>
+                        <li class="genre_li">
+                            <span class="genre_a" onclick="sortByGenre('<%= genre[i] %>');"><%= genre[i] %></span>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
 
@@ -72,7 +81,7 @@
                     </tr>
                 </thead>
                 <tbody class="song">
-                    <!-- <tr class="song_detail">
+                    <tr class="song_detail">
                         <td>
                             <div class="wrap">
                                 <span class="ranck"></span>
@@ -94,7 +103,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -103,56 +112,132 @@
     <%- contentFor('player') %>
 
     <script id="sc">
-        // Axios를 사용하여 노래를 정렬 및 표시하는 JavaScript 코드를 작성하세요.
+
         function sortSongs(sortBy) {
-    axios({
-        method: "get",
-        url: `/song/sort?sort=${sortBy}`, // 요청 주소에 정렬 기준을 포함합니다.
-    }).then((res) => {
-        // 테이블의 tbody 요소를 선택합니다.
-        const tbody = document.querySelector("tbody");
+            axios({
+                method: "get",
+                url: `/song/sort?sort=${sortBy}`,
+            }).then((res) => {
+                const tbody = document.querySelector("tbody");
 
-        console.log(tbody.firstChild)
-        // 현재 테이블의 내용을 모두 삭제합니다.
-        while (tbody.firstChild) {
-            tbody.removeChild(tbody.firstChild);
+                console.log(tbody.firstChild)
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+
+                for (let i = 0; i < res.data.length; i++) {
+                    const song = res.data[i];
+                    const row = document.createElement("tr");
+                    row.className = "song_detail";
+
+                    const rankCell = document.createElement("td");
+                    const albumCell = document.createElement("td");
+                    const titleCell = document.createElement("td");
+                    const artistCell = document.createElement("td");
+                    const playtimeCell = document.createElement("td");
+                    const listenButtonCell = document.createElement("td");
+                    const playlistButtonCell = document.createElement("td");
+
+                    rankCell.innerHTML = `<div class="wrap"><span class="ranck">${i + 1}</span></div>`;
+                    albumCell.innerHTML = `<div class="wrap_song"><a href="#"><img src="${song.cover_url}"></a></div>`;
+                    titleCell.innerHTML = `<div class="wrap_song"><div class="song_name">${song.title}</div></div>`;
+                    artistCell.innerHTML = `<div class="wrap_song"><div class="artist">${song.artist}</div></div>`;
+                    playtimeCell.innerHTML = `<div class="wrap_song"><div class="replay time">${song.playtime}</div></div>`;
+                    listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
+                    playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
+
+                    row.appendChild(rankCell);
+                    row.appendChild(albumCell);
+                    row.appendChild(titleCell);
+                    row.appendChild(artistCell);
+                    row.appendChild(playtimeCell);
+                    row.appendChild(listenButtonCell);
+                    row.appendChild(playlistButtonCell);
+
+                    tbody.appendChild(row);
+                }
+
+                const newURL = `/sort`;
+                window.history.pushState(null, null, newURL);
+            })
+        }
+        
+        function startGenreToggle() {
+            var genreMenu = document.getElementById("genre_menu");
+           
+            console.log("Before toggle: " + genreMenu.style.display);
+            if (genreMenu.style.display === "none" || genreMenu.style.display === "") {
+                genreMenu.style.display = "block";
+            } else {
+                genreMenu.style.display = "none";
+            }
+            console.log("After toggle: " + genreMenu.style.display);        
         }
 
-        for (let i = 0; i < res.data.length; i++) {
-            const song = res.data[i];
-            const row = document.createElement("tr");
-            row.className = "song_detail";
+        async function sortByGenre(genre) {
+            try {
 
-            // 각 셀을 생성하여 행에 추가합니다.
-            const rankCell = document.createElement("td");
-            const albumCell = document.createElement("td");
-            const titleCell = document.createElement("td");
-            const artistCell = document.createElement("td");
-            const playtimeCell = document.createElement("td");
-            const listenButtonCell = document.createElement("td");
-            const playlistButtonCell = document.createElement("td");
+                const encodedGenre = encodeURIComponent(genre);
 
-            rankCell.innerHTML = `<div class="wrap"><span class="ranck">${i + 1}</span></div>`;
-            albumCell.innerHTML = `<div class="wrap_song"><a href="#"><img src="${song.cover_url}"></a></div>`;
-            titleCell.innerHTML = `<div class="wrap_song"><div class="song_name">${song.title}</div></div>`;
-            artistCell.innerHTML = `<div class="wrap_song"><div class="artist">${song.artist}</div></div>`;
-            playtimeCell.innerHTML = `<div class="wrap_song"><div class="replay time">${song.playtime}</div></div>`;
-            listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
-            playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
+                console.log("Fetching data for genre: " + encodedGenre);
+                console.log(encodedGenre);
 
-            row.appendChild(rankCell);
-            row.appendChild(albumCell);
-            row.appendChild(titleCell);
-            row.appendChild(artistCell);
-            row.appendChild(playtimeCell);
-            row.appendChild(listenButtonCell);
-            row.appendChild(playlistButtonCell);
+                const res = await axios({
+                    method: "get",
+                    url: `/song/sort/genre?genre=${encodedGenre}`,
+                });
 
-            tbody.appendChild(row);
+                console.log(res);
+                const tbody = document.querySelector("tbody");
+
+                console.log('tbody.firstChild', tbody.firstChild);
+
+                const songDetailRows = document.querySelectorAll(".song_detail");
+                songDetailRows.forEach((row) => {
+                    tbody.removeChild(row);
+                });
+
+                for (let i = 0; i < res.data.length; i++) {
+                    const song = res.data[i];
+                    const row = document.createElement("tr");
+                    row.className = "song_detail";
+
+                    const rankCell = document.createElement("td");
+                    const albumCell = document.createElement("td");
+                    const titleCell = document.createElement("td");
+                    const artistCell = document.createElement("td");
+                    const playtimeCell = document.createElement("td");
+                    const listenButtonCell = document.createElement("td");
+                    const playlistButtonCell = document.createElement("td");
+
+                    rankCell.innerHTML = `<div class="wrap"><span class="rank">${i + 1}</span></div>`;
+                    albumCell.innerHTML = `<div class="wrap_song"><a href="#"><img src="${song.cover_url}"></a></div>`;
+                    titleCell.innerHTML = `<div class="wrap_song"><div class="song_name">${song.title}</div></div>`;
+                    artistCell.innerHTML = `<div class="wrap_song"><div class="artist">${song.artist}</div></div>`;
+                    playtimeCell.innerHTML = `<div class="wrap_song"><div class="replay time">${song.playtime}</div></div>`;
+                    listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
+                    playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
+
+                    row.appendChild(rankCell);
+                    row.appendChild(albumCell);
+                    row.appendChild(titleCell);
+                    row.appendChild(artistCell);
+                    row.appendChild(playtimeCell);
+                    row.appendChild(listenButtonCell);
+                    row.appendChild(playlistButtonCell);
+
+                    tbody.appendChild(row);
+                }
+
+              // URL 업데이트 및 히스토리 관리
+                const newURL = `/sort/${genre}`;
+                window.history.pushState(null, null, newURL);
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
-    })
-}
-        // 초기 페이지 로드 시 최신곡으로 정렬
+                // 초기 페이지 로드 시 최신곡으로 정렬
         window.onload = function() {
             sortSongs('date'); // 기본적으로 날짜 순으로 정렬
         }
