@@ -175,6 +175,7 @@ exports.controller = {
         const formattedDateTime = formatDateTime(comment.create_date);
 
         const resultCommet = {
+          id:comment.id,
           profile_img: user.profile_img,
           userid: user.userid,
           nickname: user.nickname,
@@ -195,17 +196,15 @@ exports.controller = {
   updateComment: async (req, res) => {
 
     try {
-          const id = req.query.id;
-          const song_id = req.query.song_id;
-          const { content } = req.body;
+          const {id, song_id, content} = req.body;
 
           if (req.userid) {
 
-            const comment = await Comment.findOne({ where: { id, song_id, userid: req.userid }});
+            const comment = await Comment.findOne({ where: { id }});
             if(comment) {
-              await Comment.update({ content: content, update_date: new Date()},{ where: { userid: req.userid } })
+              await Comment.update({ content: content, update_date: new Date()},{ where: { id } })
               const updateComment = await Comment.findOne(
-                { where: { id: id, song_id: song_id, userid: req.userid }}
+                { where: { id }}
               )
               const resultComment = {
                 id: updateComment.id,
@@ -227,15 +226,15 @@ exports.controller = {
   },
   deleteComment: async (req, res) => {
     try {
-      const id = req.query.id; 
-      const song_id = req.query.song_id;
+      const id = req.body.id; 
+      // const song_id = req.query.song_id;
 
       if (req.userid) {
 
-        const comment = await Comment.findOne({ where: { id, song_id, userid: req.userid }});
+        const comment = await Comment.findOne({ where: { id }});
         
         if(comment) {
-          await Comment.destroy({ where: { id: id, song_id } })
+          await Comment.destroy({ where: { id } })
           res.send({result: true, message: 'comment delete success'});
         } else {
           res.status(404).send({ message: 'Comment not found' });

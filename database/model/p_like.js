@@ -3,7 +3,7 @@ const P_like = function (sequelize, DataTypes) {
         p_id: {
             type: DataTypes.INTEGER, // 데이터 유형을 정수로 지정
             primaryKey: true, // 기본 키로 지정
-            autoIncrement: true, // 자동 증가 기능 사용
+            // autoIncrement: true, // 자동 증가 기능 사용
             allowNull: false, // null이 아닌 값이어야 함
         },
         // userid: {
