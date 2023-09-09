@@ -6,7 +6,7 @@ const { auth } = require('../middleware/auth.middleware')
 // 플레이리스트 관련
 
 // 렌더링
-router.get('/playlist', controller.getPlayListPage); // playlist 페이지
+router.get('/playlist', auth.verifyAuthentication, controller.getPlayListPage); // playlist 페이지
 router.post('/playlist', auth.verifyAuthentication, controller.postPlayListPage);
 
 // 기능 개발

@@ -3,10 +3,15 @@ const jwt = require("jsonwebtoken");
 
 exports.getPlayListPage = async (req, res) => {
   try {
-    const playlists = await models.Playlist.findAll();
+    const userId = req.userid;
+    console.log(userId);
+    const playlists = await models.Playlist.findAll({
+      where: {userid: userId},
+    });
     playlists.push({
       name: req.body.pl_name,
-    })
+    });
+    console.log(playlists);
     res.render('playlist',{playlists});
   } catch (error) {
     console.error(error);
