@@ -33,10 +33,43 @@
             <div class="talk"></div>
         </div><br>
         <div class="songMain2">
-            <div class="lyrics"></div>
-            <div class="anotherSong">
+            <div class="lyrics"><%= data.lyrics %></div>
+            <div class="anotherSong"></div>
+            <div class="songComment">
+                <form name="commentCreate">
+                    <label>댓글 </label>
+                    <br>
+
+                    <% if (user && user.userid) { %>
+                     
+                        <img class="comment_profile" src="<%= user.profile_img %>" alt="User Profile Img">
+                        <div class="comment_user"><%= user.nickname %>(<%= user.userid %>)</div>
+                        <input type="text" name="commentText" id="commentText" value="">
+                        <button type="button" id="submitBtn">등록</button>
+                    </form>
+                    <% } else { %>
+                        <img src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png" alt="User Profile Img">
+                        <div class="comment_user"></div>
+                        <input type="text" name="commentText" id="commentText" value="로그인 후 이용해주세요" disabled>
+                        <button type="button" id="submitBtn" disabled>등록</button>
+                    <% } %>
+
+                </form>
             </div>
-            <div class="songComment"></div>
+            <div class="songCommentList" id="commentList">
+                <% for (let i = 0; i < comments.length; i++) { %>
+                    <div class="commentItem">
+                        <div class="commentListImg"><img src="<%= comments[i].profile_img %>"></div>
+                        <div class="comment_user"><%= comments[i].nickname %>(<%= comments[i].userid %>)</div>
+                        <div class="commentList_date"><%= comments[i].create_date %></div>
+                        <input type="text" class="commentList_content" id="updateText" value="<%= comments[i].content %>" disabled>
+                        <% if (user && user.userid === comments[i].userid) { %>
+                            <button type="button" class="updateBtn">수정</button>
+                            <button type="button" class="deleteBtn">삭제</button>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
         </div>
     </section>
 
@@ -66,6 +99,44 @@
             console.error('좋아요 토글에 실패했습니다.', error);
           }
         }
+
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.addEventListener("click", function () {
+            createComment();
+        });
+
+        async function createComment() {
+            const commentText = document.getElementById("commentText").value;
+
+            try {
+                const response = await axios.post(`/song/comment?song_id=${id}`, { content: commentText });
+
+
+                if (response.status === 200) {
+                    const comment = response.data.comment;
+
+                    const commentList = document.getElementById("commentList");
+                    const newCommentItem = document.createElement("div");
+                    newCommentItem.classList.add("commentItem");
+                    newCommentItem.innerHTML = `
+                        <img src="${comment.profile_img}">
+                        <div class="comment_user">${comment.nickname}(${comment.userid})</div>
+                        <div class="commentList_date">${comment.create_date}</div>
+                        <input type="text" class="commentList_content" value="${comment.content}" readonly>
+                        <button type="button" id="updateButton">수정</button>
+                        <button type="button" id="deleteButton">삭제</button>
+                    `;
+                    commentList.appendChild(newCommentItem);
+                } else {
+                    // 오류 처리
+                    console.error("댓글 작성 실패");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
       </script>
       
 </body>
