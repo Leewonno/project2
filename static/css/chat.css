@@ -1,5 +1,7 @@
 *{
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
@@ -28,16 +30,19 @@
     position: absolute;
     bottom: 0px;
     display: flex;
-    justify-content: space-between;
     width: 100%;
 }
 #chat input {
-    width: 80%;
+    width: 90%;
+}
+
+.chat_send_message {
+    width: 10%;
 }
 
 .talk_header {
     display: flex;
-    width: 300px;
+    width: 100%;
     background-color: blueviolet;
     padding: 3px;
 }
@@ -52,7 +57,11 @@
     display: flex;
     justify-content:flex-end;
     gap: 10px;
-    width: 150px;
+    width: 100%;
+}
+
+.talk_name, .talk_member {
+    width: 70px;
 }
 
 .infor_message {
@@ -60,27 +69,16 @@
     padding: 10px;
 }
 
-.talk_main {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    width: 300px;
-    top: 503px;
-}
-
-.talk_message {
-    width: 270px;
-}
 
 /* hidden talk_menu */
 
 .talk_menu_bar {
-    margin-left: 80px;
-    width: 220px;
-    height: 503px;
+    width: 300px;
+    height: auto;
     background-color: beige;
     position: fixed;
     z-index: 1;
+    transform: translate(0, -112px);
 }
 
 .menu_main {
@@ -89,12 +87,13 @@
     justify-content: center;
     align-items: center;
     gap: 70px;
+    height: auto;
 }
 
 .share_button {
     display: flex;
     justify-content: space-between;
-    width: 220px;
+    width: 300px;
     height: auto;
 }
 
