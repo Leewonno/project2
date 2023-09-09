@@ -10,10 +10,9 @@ exports.controller = {
   getSortPage: async (req, res) => {
     const genres = await Song.findAll({
       attributes: ['genre'],
-      raw: true // raw: true를 설정하여 순수한 데이터 값만 가져옵니다.
+      raw: true
     });
     
-    // 중복 제거를 위해 Set을 사용합니다.
     const uniqueGenres = [...new Set(genres.map(song => song.genre))];
     
     console.log(uniqueGenres)
