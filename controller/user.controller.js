@@ -65,22 +65,22 @@ exports.postSignIn = async (req, res) => {
   const user = await models.User.findOne({
     where: { userid: req.body.userid },
   });
-  const profile = await models.Profile.findOne({
-    where: { userid: req.body.userid },
-  });
+
   if (!user) {
-    res.json({ result: false, message: '아이디 없음' });
+    res.json({ result: false, message: '아이디 혹은 비밀번호가 틀렸습니다.' });
     return;
   }
 
-  const ans = comparePassword(req.body.pw, user.pw);
+  const profile = await models.Profile.findOne({
+    where: { userid: req.body.userid },
+  });
+  
+  const ans = await comparePassword(req.body.pw, user.pw);
   if (ans) {
     const token = createJwtToken(user.userid, profile.dataValues.nickname);
-    console.log('pro', profile.dataValues.nickname);
-    console.log('nick', token);
     res.cookie('token', token).json({ result: true });
   } else {
-    res.json({ result: false });
+    res.json({ result: false, message: '아이디 혹은 비밀번호가 틀렸습니다2.' });
   }
 };
 
