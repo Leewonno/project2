@@ -139,7 +139,7 @@
                 <label for="pl_name">플레이리스트 이름</label>
                 <input type="text" id="pl_name">
             </div>
-            <button type="button">생성</button>
+            <button type="button" onclick="mn()">생성</button>
         </div>
     </section>
 
@@ -149,6 +149,7 @@
         const new_pl = document.getElementById("new_playlist");
         const new_pl_md = document.querySelector(".new_pl_md");
         const new_pl_md_close = document.querySelector(".new_pl_close");
+        const new_pl_name = document.querySelector("#pl_name")
 
         new_pl.addEventListener('click', (e)=>{
             new_pl_md.style.display = "flex";
@@ -157,6 +158,16 @@
         new_pl_md_close.addEventListener('click', (e)=>{
             new_pl_md.style.display = "none";
         })
+
+        async function mn() {
+            const res = await axios ({
+                method: "post",
+                url: "/playlist",
+                data: {
+                    pl_name: new_pl_name.value
+                }
+            }); console.log(data);
+        }
     </script>
 </body>
 </html>

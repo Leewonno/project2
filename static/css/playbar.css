@@ -374,8 +374,7 @@
   }
   
 .container {
-    padding: 5px 10px;
-    cursor: pointer;
+    /* padding: 5px 10px; */
     margin-right: 18px;
     position: relative;
     display: flex;
@@ -393,6 +392,8 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
+    padding: 10px;
+    cursor: pointer;
 }
 
 .container .label i{

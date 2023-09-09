@@ -100,10 +100,10 @@ function music(route){
 
 $('.modal_open').click(function(e) {
     if(!$(e.target).hasClass("toggle") && !$(e.target).hasClass("label")) {
+        console.log(e.target);
         $("input[type=checkbox]").prop("checked", false);
     }
 });
-
 
 
 
