@@ -40,7 +40,7 @@ db.Chat.belongsTo(db.User, { foreignKey: "userid", allowNull: false, primaryKey:
 
 // s_like (pk X)
 db.User.hasOne(db.S_like, { foreignKey: { name: "userid", allowNull: false}, sourceKey: "userid" });
-db.S_like.belongsTo(db.User, { foreignKey: "userid", allowNull: false, sourceKey: "userid" });
+db.S_like.belongsTo(db.User, { foreignKey: "userid", allowNull: false, primaryKey: true, sourceKey: "userid" });
 
 // p_like (pk X)
 db.User.hasOne(db.P_like, { foreignKey: { name: "userid", allowNull: false}, sourceKey: "userid" });
