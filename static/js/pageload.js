@@ -1,4 +1,4 @@
-$(document).ready(function(){
+
     $(document).on('click', 'a', function(e){
         history.pushState(null, null, e.target.href);
         scriptSend(e.target.href);
@@ -22,7 +22,7 @@ $(document).ready(function(){
             $('main').load(move_href+ " main>section");
         }
     })
-})
+
 
 function scriptSend(hrefs){
     $.get(hrefs, function(data) {
