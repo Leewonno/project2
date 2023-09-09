@@ -11,7 +11,7 @@
     <%- contentFor('body') %>
     <section class="sort_section">
         <div class="song_category">
-            <div class="menu">
+            <div class="sort_menu">
                 <ul class="lay_menu">
                     <li>
                         <a href="#" onclick="sortSongs('latest')">
@@ -102,8 +102,8 @@
 
     <%- contentFor('player') %>
 
-    <script>
-        const body = document.querySelector("tbody");
+    <script id="sc">
+        // const tbody = ;
         axios ({
             method:"get",
             url:"/song/sort",
@@ -163,7 +163,7 @@
                             </div>
                         </td>
                     </tr>`;
-                    body.insertAdjacentHTML("beforeend", html)
+                    document.querySelector("tbody").insertAdjacentHTML("beforeend", html)
             }
             
         })
