@@ -50,10 +50,9 @@
       const chatForm = document.querySelector('#chat');
       const msg = document.querySelector('#msg');
       const notice = document.querySelector('#notice');
+      let myName;
       // const roomName = roomForm.querySelector('#roomName');
-      let myName = (function () {
-        const userName = window.localStorage.getItem('token');
-        // console.log('nam', userName);
+      (function () {
         socket.emit('create');
       })();
 
