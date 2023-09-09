@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>곡정보</title>
 </head>
 <body>
@@ -43,10 +42,9 @@
     <%- contentFor('player') %>
 
     <script id="sc">
-        const pushLike = document.querySelector(".like");
-        const id = new URLSearchParams(window.location.search).get('id');
-      
         async function likeBtn() {
+            const pushLike = document.querySelector(".like");
+            const id = new URLSearchParams(window.location.search).get('id');
           try {
             const response = await axios.post('/song/like', {
                 id: id,
