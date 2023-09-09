@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/socket.io/socket.io.js"></script>
     <title>채팅방 목록</title>
   </head>
   <body>
@@ -26,8 +25,7 @@
 
     <%- contentFor('player') %>
    
-    <script>
-        const socket = io();
+    <script id="sc">
         function talk(roomname) {
           window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
         }

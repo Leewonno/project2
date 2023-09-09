@@ -78,6 +78,7 @@ exports.connection = (io, socket) => {
     const userInfo = await models.Profile.findOne({
       where: { userid: message.nick },
     });
+    console.log("user", userInfo.nickname)
     const userChat = await models.Chat.create({
       chatroom_id: chatRoom.id,
       userid: message.nick,
