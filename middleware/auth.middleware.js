@@ -14,6 +14,7 @@ exports.auth = {
             return next();
         }
         req.userid = verifyToken.userid;
+        req.nickname = verifyToken.nickname;
         return next();
     }
     
