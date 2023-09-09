@@ -73,4 +73,22 @@
     
 }
 
+/* 좋아요버튼 */
+.playlist_like {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: 150px;
+}
+
+.playlist_like_button {
+    border: none;
+    background-color: #ffff;
+    cursor: pointer;
+}
+
+.playlist_like_button:hover {
+    color: #FCD06B;
+}
+
 
