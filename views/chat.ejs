@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,34 +13,37 @@
             <div class="infor_message">입장안내메세지</div>
             <div class="hello">안녕하세요</div>
             <div class="hellow">반갑습니다</div>
+
+            <div class="talk_menu_bar" hidden>
+                <div class="share_button">
+                    <button type="button" onclick="close_menu()">메뉴닫기</button>
+                    <button>공유</button>
+                </div><br>
+                <div class="menu_main">
+                    <div class="talk_profile">톡방커버</div>
+                    <div class="talk_members">참여자정보</div>
+                    <button class="talk_out">나가기</button>
+                </div>
+            </div>
         </div>
         <form id="chat">
             <input type="text" id="message" placeholder="메세지 입력" />
-            <button>입력</button>
+            <button class="chat_send_message">입력</button>
         </form>
-        <div class="talk_menu_bar" hidden>
-            <div class="share_button">
-                <button type="button" onclick="close_menu()">메뉴닫기</button>
-                <button>공유</button>
-            </div><br>
-            <div class="menu_main">
-                <div class="talk_profile">톡방커버</div>
-                <div class="talk_members">참여자정보</div>
-                <button class="talk_out">나가기</button>
-            </div>
-        </div>
 
         <script>
             function open_menu() {
                 const menu_bar = document.querySelector(".talk_menu_bar");
+                menu_bar.style.right = '0';
                 menu_bar.removeAttribute("hidden")
             }
     
             function close_menu() {
                 const menu_bar = document.querySelector(".talk_menu_bar");
+                menu_bar.style.right = '-100%';
                 menu_bar.setAttribute("hidden", "true");
             }
-      </script>
+        </script>
 
         <script>
             const socket = io();
@@ -47,14 +51,12 @@
             const chatForm = document.querySelector('#chat');
             const msg = document.querySelector('#msg');
             const notice = document.querySelector('#notice');
+            let myName;
             // const roomName = roomForm.querySelector('#roomName');
-            let myName = "dldnjssh123";
-
-
             (function () {
-                const userName = document.cookie.indexOf("token");
-                socket.emit('create', userName);
+                socket.emit('create');
             })();
+
 
             //룸리스트
             // socket.on('roomList', (roomLists) => {
@@ -68,54 +70,67 @@
             //   });
             // });
 
+
             //사용자 리스트
-            socket.on('userList', (userLists) => {
-                console.log(userLists);
-                const lists = document.querySelector('#userList');
-                lists.textContent = '';
-                let options = `<option value="all">전체</option>`;
-                for (let i of userLists) {
-                    options += `<option value="${i.key}">${i.name}</option>`;
-                }
-                lists.innerHTML = options;
-            });
+            // socket.on('userList', (userLists) => {
+            //   console.log(userLists);
+            //   const lists = document.querySelector('#userList');
+            //   lists.textContent = '';
+            //   let options = `<option value="all">전체</option>`;
+            //   for (let i of userLists) {
+            //     options += `<option value="${i.key}">${i.name}</option>`;
+            //   }
+            //   lists.innerHTML = options;
+            // });
             //메세지 띄우기
-            socket.on('newMessage', (message, nick) => {
-                console.log(message, nick);
+            socket.on('newMessage', (message, userid) => {
+                console.log(message, userid);
                 const div = document.createElement('div');
                 const p = document.createElement('p');
-                if (myName === nick) {
-                    //내가입력한 텍스트
-                    div.classList.add('my-chat');
+                if (myName === userid) {
+                //내가입력한 텍스트
+                div.classList.add('hello');
                 } else {
-                    div.classList.add('other-chat');
+                div.classList.add('hellow');
                 }
+                p.textContent = `${userid} : ${message}`;
+                div.appendChild(p);
+                msg.appendChild(div);
             });
 
-        //입장 메세지 이벤트
-        socket.on('notice', (message) => {
-            const div = document.createElement('div');
-            const p = document.createElement('p');
+            //입장 메세지 이벤트
+            socket.on('notice', (message, userid) => {
+                const div = document.createElement('div');
+                const p = document.createElement('p');
 
-            console.log('my', myName);
-            p.textContent = message;
-            div.appendChild(p);
-            notice.appendChild(div);
-        });
+                // console.log('my', myName);
+                p.textContent = message;
+                div.appendChild(p);
+                notice.appendChild(div);
+            });
 
-        ///폼 이벤트
-        chatForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            myName;
-            const message = document.querySelector('#message');
-            console.log('cl', myName);
-            const msg = {
-            nick: myName,
-            message: message.value,
-            };
-            socket.emit('sendMessage', msg);
-            message.value = '';
-        });
-    </script>
+            ///폼 이벤트
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                axios({
+                    method: 'POST',
+                    url: '/chat',
+                    data: {
+                        //token:localStorage.getItem('token')
+                    },
+                }).then((res) => {
+                    myName = res.data.userid;
+                });
+                const message = document.querySelector('#message');
+                console.log('cl', myName);
+                const msg = {
+                    userid: myName,
+                    message: message.value,
+                };
+                socket.emit('sendMessage', msg);
+                message.value = '';
+            });
+
+        </script>
   </body>
 </html>

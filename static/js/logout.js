@@ -6,11 +6,13 @@ if (jwtCookie) {
   jwtToken = jwtCookie.split('=')[1];
 }
 const signin = document.querySelector('#signin');
+const user = document.querySelector('.user');
 
 if (jwtCookie!=null) {
     signin.textContent = 'LOGOUT';
     signin.href = '#';
     signin.setAttribute('onclick', 'logout()');
+    user.insertAdjacentHTML('afterbegin', `<a href="/profile">프로필</a>`)
 } else {
     signin.textContent = 'LOGIN'
 };

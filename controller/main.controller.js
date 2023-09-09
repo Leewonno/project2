@@ -1,4 +1,5 @@
 const { Song, ChatRoom } = require('../database/db');
+const jwt = require("jsonwebtoken");
 
 exports.controller = {
   mainPage: async (req, res) => {
@@ -65,6 +66,7 @@ exports.controller = {
       }
 
       console.log(data);
+      // console.log(jwt.decode(token))
 
       res.render('index', { data });
     } catch (error) {
