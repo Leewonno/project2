@@ -4,7 +4,8 @@ const development = {
   "password": process.env.DB_PW,
   "database": process.env.DB_DATABASE,
   "host": process.env.DB_HOST,
-  "dialect": "mysql"
+  "dialect": "mysql",
+  "timezone": "Asia/Seoul",
 }
 
 const test = {
