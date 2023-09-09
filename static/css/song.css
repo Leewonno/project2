@@ -70,3 +70,21 @@
     background-color: lightgray;
     margin-bottom: 20px;
 }
+
+.songComment img{
+    width: 50px;
+    height: 50px;
+}
+
+.commentItem {
+    width: 958px;
+    height: 80px;
+    background-color: lightgray;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.commentItem img {
+    width: 50px;
+    height: 50px;
+}

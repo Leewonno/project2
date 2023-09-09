@@ -6,6 +6,7 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
+
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 // model
@@ -30,16 +31,16 @@ db.User.hasOne(db.Playlist, { foreignKey: { name: 'userid', allowNull: false }, 
 db.Playlist.belongsTo(db.User, { foreignKey: 'userid', allowNull: false, sourceKey: 'userid' });
 
 // comment
-db.User.hasOne(db.Comment, { foreignKey: { name: 'userid', allowNull: false }, sourceKey: 'userid' });
-db.Comment.belongsTo(db.User, { foreignKey: 'userid', allowNull: false, primaryKey: true, sourceKey: 'userid' });
+db.User.hasOne(db.Comment, { foreignKey: { name: "userid", allowNull: false}, sourceKey: "userid" });
+db.Comment.belongsTo(db.User, { foreignKey: "userid", allowNull: false, sourceKey: "userid" });
 
 // chat
 db.User.hasOne(db.Chat, { foreignKey: { name: 'userid', allowNull: false }, sourceKey: 'userid' });
 db.Chat.belongsTo(db.User, { foreignKey: 'userid', allowNull: false, primaryKey: true, sourceKey: 'userid' });
 
-// s_like (pk X)
-db.User.hasOne(db.S_like, { foreignKey: { name: 'userid', allowNull: false }, sourceKey: 'userid' });
-db.S_like.belongsTo(db.User, { foreignKey: 'userid', allowNull: false, sourceKey: 'userid' });
+// s_like 
+db.User.hasOne(db.S_like, { foreignKey: { name: "userid", allowNull: false}, sourceKey: "userid" });
+db.S_like.belongsTo(db.User, { foreignKey: "userid", allowNull: false, primaryKey: true, sourceKey: "userid" });
 
 // p_like (pk X)
 db.User.hasOne(db.P_like, { foreignKey: { name: 'userid', allowNull: false }, sourceKey: 'userid' });
@@ -62,8 +63,8 @@ db.P_like.belongsTo(db.Playlist, { foreignKey: 'p_id', allowNull: false, primary
 db.Song.hasOne(db.S_like, { foreignKey: { name: 'song_id', allowNull: false }, sourceKey: 'id' });
 db.S_like.belongsTo(db.Song, { foreignKey: 'song_id', allowNull: false, primaryKey: true, sourceKey: 'song_id' });
 
-db.Song.hasOne(db.Comment, { foreignKey: { name: 'song_id', allowNull: false }, sourceKey: 'id' });
-db.Comment.belongsTo(db.Song, { foreignKey: 'song_id', allowNull: false, primaryKey: true, sourceKey: 'song_id' });
+db.Song.hasOne(db.Comment, { foreignKey: { name: "song_id", allowNull: false}, sourceKey: "id" });
+db.Comment.belongsTo(db.Song, { foreignKey: "song_id", allowNull: false, sourceKey: "song_id" });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
