@@ -28,7 +28,10 @@ exports.controller = {
     const id = req.query.id;
 
     const songData = await Song.findOne({ where: { id: id } });
-    const commentData = await Comment.findAll({ where: { song_id: songData.id }});
+    const commentData = await Comment.findAndCountAll({ 
+      where: { song_id: songData.id }, 
+      order: [['create_date', 'DESC']] 
+    });
     const resultComments = [];
 
     // 각 댓글 마다 사용자 정보 추가
@@ -85,6 +88,29 @@ exports.controller = {
         lyrics, writer, composer, genre, playtime, release_date, 
         song_url, cover_url, like: 0});
       res.send(songData)
+    } catch (error) {
+      console.log(error)
+      // 기타 오류
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  },
+
+  getPlaySongData: async (req, res) => {
+    try {
+      const id = req.query.id;
+
+      const song = await Song.findOne({ where: { id: id } });
+      const songResult = {
+        title: song.title, 
+        artist: song.artist, 
+        album: song.album, 
+        lyrics: song.lyrics, 
+        genre: song.genre, 
+        song_url: song.song_url,
+      }
+
+      res.send(songResult);
+
     } catch (error) {
       console.log(error)
       // 기타 오류

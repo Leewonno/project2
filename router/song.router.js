@@ -21,9 +21,13 @@ router.get('/song/sort', controller.getSongBySortInMain);
 
 // 곡 정렬 - 2. 전체 곡 정렬 
 
+// 곡 재생 정보 반환
+router.get('/song/play', controller.getPlaySongData);
+
 // 좋아요 토글
 router.post('/song/like', auth.verifyAuthentication, controller.likeToggle);
 
+// 댓글 
 router.post('/song/comment', auth.verifyAuthentication, controller.createComment);
 router.patch('/song/comment', auth.verifyAuthentication, controller.updateComment);
 router.delete('/song/comment', auth.verifyAuthentication, controller.deleteComment);
