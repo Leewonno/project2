@@ -43,7 +43,7 @@
                 menu_bar.style.right = '-100%';
                 menu_bar.setAttribute("hidden", "true");
             }
-      </script>
+        </script>
 
         <script>
             const socket = io();
@@ -51,107 +51,86 @@
             const chatForm = document.querySelector('#chat');
             const msg = document.querySelector('#msg');
             const notice = document.querySelector('#notice');
+            let myName;
             // const roomName = roomForm.querySelector('#roomName');
-            let myName = "dldnjssh123";
-
-
-      function close_menu() {
-        const menu_bar = document.querySelector('.talk_menu_bar');
-        menu_bar.setAttribute('hidden', 'true');
-      }
-    </script>
-
-    <script>
-      const socket = io();
-      const roomForm = document.querySelector('#room');
-      const chatForm = document.querySelector('#chat');
-      const msg = document.querySelector('#msg');
-      const notice = document.querySelector('#notice');
-      let myName;
-      // const roomName = roomForm.querySelector('#roomName');
-      (function () {
-        socket.emit('create');
-      })();
-
             (function () {
-                const userName = document.cookie.indexOf("token");
-                socket.emit('create', userName);
+                socket.emit('create');
             })();
 
 
-      //룸리스트
-      // socket.on('roomList', (roomLists) => {
-      //   console.log(roomLists);
-      //   const lists = document.querySelector('#lists');
-      //   lists.textContent = '';
-      //   roomLists.forEach((roomList) => {
-      //     const li = document.createElement('li');
-      //     li.textContent = `${roomList} 와 닉네임 입력 후 입장`;
-      //     lists.appendChild(li);
-      //   });
-      // });
+            //룸리스트
+            // socket.on('roomList', (roomLists) => {
+            //   console.log(roomLists);
+            //   const lists = document.querySelector('#lists');
+            //   lists.textContent = '';
+            //   roomLists.forEach((roomList) => {
+            //     const li = document.createElement('li');
+            //     li.textContent = `${roomList} 와 닉네임 입력 후 입장`;
+            //     lists.appendChild(li);
+            //   });
+            // });
 
 
-      //사용자 리스트
-      // socket.on('userList', (userLists) => {
-      //   console.log(userLists);
-      //   const lists = document.querySelector('#userList');
-      //   lists.textContent = '';
-      //   let options = `<option value="all">전체</option>`;
-      //   for (let i of userLists) {
-      //     options += `<option value="${i.key}">${i.name}</option>`;
-      //   }
-      //   lists.innerHTML = options;
-      // });
-      //메세지 띄우기
-      socket.on('newMessage', (message, userid) => {
-        console.log(message, userid);
-        const div = document.createElement('div');
-        const p = document.createElement('p');
-        if (myName === userid) {
-          //내가입력한 텍스트
-          div.classList.add('hello');
-        } else {
-          div.classList.add('hellow');
-        }
-        p.textContent = `${userid} : ${message}`;
-        div.appendChild(p);
-        msg.appendChild(div);
-      });
+            //사용자 리스트
+            // socket.on('userList', (userLists) => {
+            //   console.log(userLists);
+            //   const lists = document.querySelector('#userList');
+            //   lists.textContent = '';
+            //   let options = `<option value="all">전체</option>`;
+            //   for (let i of userLists) {
+            //     options += `<option value="${i.key}">${i.name}</option>`;
+            //   }
+            //   lists.innerHTML = options;
+            // });
+            //메세지 띄우기
+            socket.on('newMessage', (message, userid) => {
+                console.log(message, userid);
+                const div = document.createElement('div');
+                const p = document.createElement('p');
+                if (myName === userid) {
+                //내가입력한 텍스트
+                div.classList.add('hello');
+                } else {
+                div.classList.add('hellow');
+                }
+                p.textContent = `${userid} : ${message}`;
+                div.appendChild(p);
+                msg.appendChild(div);
+            });
 
-      //입장 메세지 이벤트
-      socket.on('notice', (message, userid) => {
-        const div = document.createElement('div');
-        const p = document.createElement('p');
+            //입장 메세지 이벤트
+            socket.on('notice', (message, userid) => {
+                const div = document.createElement('div');
+                const p = document.createElement('p');
 
-        // console.log('my', myName);
-        p.textContent = message;
-        div.appendChild(p);
-        notice.appendChild(div);
-      });
+                // console.log('my', myName);
+                p.textContent = message;
+                div.appendChild(p);
+                notice.appendChild(div);
+            });
 
-      ///폼 이벤트
-      chatForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        axios({
-          method: 'POST',
-          url: '/chat',
-          data: {
-            //token:localStorage.getItem('token')
-          },
-        }).then((res) => {
-          myName = res.data.userid;
-        });
-        const message = document.querySelector('#message');
-        console.log('cl', myName);
-        const msg = {
-          userid: myName,
-          message: message.value,
-        };
-        socket.emit('sendMessage', msg);
-        message.value = '';
-      });
+            ///폼 이벤트
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                axios({
+                    method: 'POST',
+                    url: '/chat',
+                    data: {
+                        //token:localStorage.getItem('token')
+                    },
+                }).then((res) => {
+                    myName = res.data.userid;
+                });
+                const message = document.querySelector('#message');
+                console.log('cl', myName);
+                const msg = {
+                    userid: myName,
+                    message: message.value,
+                };
+                socket.emit('sendMessage', msg);
+                message.value = '';
+            });
 
-    </script>
+        </script>
   </body>
 </html>
