@@ -6,6 +6,7 @@ let room;
 let chatRoom;
 let userID;
 let Rname;
+let chatInfo;
 exports.chat = async (req, res) => {
   room = await req.query.room;
   console.log('dd', room);
@@ -55,7 +56,7 @@ exports.connection = (io, socket) => {
   // socket.emit('roomList', roomList);
 
   //채팅방 만들기 생성
-  socket.on('create', () => {
+  socket.on('create', async () => {
     // console.log(chatRoom.tag);
     //join(방이름) 해당 방이름으로 없다면 생성. 존재하면 입장
     //socket.rooms에 socket.id값과 방이름 확인가능
@@ -70,6 +71,12 @@ exports.connection = (io, socket) => {
     console.log('userid', socket.user);
     console.log('room', socket.room);
 
+    chatInfo = await models.Chat.findAll({ raw: true, where: { chatroom_id: chatRoom.id } });
+    console.log('info', chatInfo.userid);
+    for (let i = 0; i < chatInfo.length; i++) {
+      console.log(i + '번쨰' + chatInfo[i].userid);
+      socket.emit('newMessage', chatInfo[i].content, chatInfo[i].userid);
+    }
     socket.to(socket.room).emit('notice', `${socket.user}님이 입장하셨습니다`, socket.user);
 
     //채팅방 목록 갱신
@@ -91,7 +98,7 @@ exports.connection = (io, socket) => {
     const userInfo = await models.Profile.findOne({
       where: { userid: socket.user },
     });
-    console.log("user", userInfo.nickname)
+    console.log('user', userInfo.nickname);
     const userChat = await models.Chat.create({
       chatroom_id: chatRoom.id,
       userid: socket.user,
