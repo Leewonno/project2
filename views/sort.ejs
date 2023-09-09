@@ -14,12 +14,12 @@
             <div class="sort_menu">
                 <ul class="lay_menu">
                     <li>
-                        <a href="#" onclick="sortSongs('latest')">
+                        <a href="#" onclick="sortSongs('date')">
                             <span>최신곡</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="sortSongs('popular')">
+                        <a href="#" onclick="sortSongs('like')">
                             <span>인기곡</span>
                         </a>
                     </li>
@@ -36,7 +36,7 @@
                     <tr class="defult">
                         <th>
                             <div class="wrap">
-                                <span class="rank">순위</span>
+                                <span class="rank">순서</span>
                             </div>
                         </th>
                         <th>
@@ -103,70 +103,59 @@
     <%- contentFor('player') %>
 
     <script id="sc">
-        // const tbody = ;
-        axios ({
-            method:"get",
-            url:"/song/sort",
-            params:{
-                sort:"date"
-            }
-        }).then((res) => {
-            console.log("aa",res.data)
-            for(let i = 0; i < res.data.length; i++) {
-            const html = `
-                    <tr class="song_detail">
-                        <td>
-                            <div class="wrap">
-                                <span class="ranck">${i+1}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="wrap_song">
-                                <a href="#">
-                                    <img src=${res.data[i].cover_url}>
-                                </a>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="wrap_song">
-                                <div class="song_name">
-                                    ${res.data[i].title}
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="wrap_song">
-                                <div class="artist">
-                                    ${res.data[i].artist}
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="wrap_song">
-                                <div class="replay time">
-                                    3:59
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="wrap_song">
-                                <button type-"button" class="song_detail_button">
-                                    <i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i>
-                                </button>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="wrap_song">
-                                <button type-"button" class="song_list_button">
-                                    <i class="fa-solid fa-bars" style="color: #FCD06B"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>`;
-                    document.querySelector("tbody").insertAdjacentHTML("beforeend", html)
-            }
-            
-        })
+        // Axios를 사용하여 노래를 정렬 및 표시하는 JavaScript 코드를 작성하세요.
+        function sortSongs(sortBy) {
+    axios({
+        method: "get",
+        url: `/song/sort?sort=${sortBy}`, // 요청 주소에 정렬 기준을 포함합니다.
+    }).then((res) => {
+        // 테이블의 tbody 요소를 선택합니다.
+        const tbody = document.querySelector("tbody");
+
+        console.log(tbody.firstChild)
+        // 현재 테이블의 내용을 모두 삭제합니다.
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+
+        for (let i = 0; i < res.data.length; i++) {
+            const song = res.data[i];
+            const row = document.createElement("tr");
+            row.className = "song_detail";
+
+            // 각 셀을 생성하여 행에 추가합니다.
+            const rankCell = document.createElement("td");
+            const albumCell = document.createElement("td");
+            const titleCell = document.createElement("td");
+            const artistCell = document.createElement("td");
+            const playtimeCell = document.createElement("td");
+            const listenButtonCell = document.createElement("td");
+            const playlistButtonCell = document.createElement("td");
+
+            rankCell.innerHTML = `<div class="wrap"><span class="ranck">${i + 1}</span></div>`;
+            albumCell.innerHTML = `<div class="wrap_song"><a href="#"><img src="${song.cover_url}"></a></div>`;
+            titleCell.innerHTML = `<div class="wrap_song"><div class="song_name">${song.title}</div></div>`;
+            artistCell.innerHTML = `<div class="wrap_song"><div class="artist">${song.artist}</div></div>`;
+            playtimeCell.innerHTML = `<div class="wrap_song"><div class="replay time">${song.playtime}</div></div>`;
+            listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
+            playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
+
+            row.appendChild(rankCell);
+            row.appendChild(albumCell);
+            row.appendChild(titleCell);
+            row.appendChild(artistCell);
+            row.appendChild(playtimeCell);
+            row.appendChild(listenButtonCell);
+            row.appendChild(playlistButtonCell);
+
+            tbody.appendChild(row);
+        }
+    })
+}
+        // 초기 페이지 로드 시 최신곡으로 정렬
+        window.onload = function() {
+            sortSongs('date'); // 기본적으로 날짜 순으로 정렬
+        }
     </script>
 </body>
 </html>

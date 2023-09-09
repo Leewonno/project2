@@ -118,7 +118,7 @@ exports.controller = {
     }
   },
 
-  getSongBySortInMain: async (req, res) => {
+  getSongBySort: async (req, res) => {
     try {
       const sort = req.query.sort;
       console.log('req.query', sort);
@@ -129,7 +129,9 @@ exports.controller = {
   
       if (sort === 'date') {
         order = [['release_date', 'DESC']];
-      } 
+      } else {
+        order = [['like', 'DESC']]
+      }
       const songs = await Song.findAndCountAll({
         where: whereClause,
         limit,
@@ -143,7 +145,8 @@ exports.controller = {
         title: song.title,
         artist: song.artist,
         cover_url: song.cover_url,
-        song_url: song.song_url
+        song_url: song.song_url,
+        playtime: song.playtime
       })
     }
   
