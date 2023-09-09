@@ -51,6 +51,13 @@
                                     <span>내 플레이리스트</span>
                                 </a>
                             </div>
+                            <div class="playlist_like" id="playlist_like" onclick="like()">
+                                <% if(result) { %>
+                                    <i class="fa-solid fa-heart" style = "color: #FCD06B";></i> <%= playlists.likes %>
+                                <% } else { %>
+                                    <i class="fa-regular fa-heart" style = "color: #FCD06B";></i> <%= playlists.likes %>
+                                <% } %>
+                            </div>
                         </div>
                     </li>
                     <li>
@@ -112,7 +119,7 @@
         const new_pl = document.getElementById("new_playlist");
         const new_pl_md = document.querySelector(".new_pl_md");
         const new_pl_md_close = document.querySelector(".new_pl_close");
-        const new_pl_name = document.querySelector("#pl_name")
+        const new_pl_name = document.querySelector("#pl_name");
 
         new_pl.addEventListener('click', (e)=>{
             new_pl_md.style.display = "flex";
@@ -133,6 +140,26 @@
             
             console.log(res);
         }
+
+        async function like() {
+            const like_element = document.querySelector(".playlist_like");
+            const id = 1 //테스트용
+            const res = await axios({
+                method: "post",
+                url: "/playlist",
+                data:{
+                    id
+                }
+            });
+            
+            console.log("res", res)
+            if(res.data.playlists.likes) {
+                like_element.innerHTML = '<i class="fa-solid fa-heart" style="color: #FCD06B;" ></i>' + res.data.count;
+            } else {
+                like_element.innerHTML = '<i class="fa-regular fa-heart" style="color: #FCD06B;"></i>' + res.data.count;
+            }
+        }
+        
     </script>
 </body>
 </html>
