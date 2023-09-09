@@ -17,6 +17,7 @@
                     <input type="checkbox" id="new_playlist" hidden>
                 </div>
                 <ul class="my_list">
+                    <% for (let i=0; i < playlists.length; i++) { %>
                     <li>
                         <div class="my_list_album">
                             <div class="list_image">
@@ -25,50 +26,12 @@
                             </div>
                             <div class="my_list_text">
                                 <a href="#">
-                                    <span>내 플레이리스트</span>
+                                    <span><%= playlists[i].name %></span>
                                 </a>
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <div class="my_list_album">
-                            <div class="list_image">
-                                <a href="#"></a>
-                                <img>
-                            </div>
-                            <div class="my_list_text">
-                                <a href="#">
-                                    <span>내 플레이리스트2</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="my_list_album">
-                            <div class="list_image">
-                                <a href="#"></a>
-                                <img>
-                            </div>
-                            <div class="my_list_text">
-                                <a href="#">
-                                    <span>내 플레이리스트3</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="my_list_album">
-                            <div class="list_image">
-                                <a href="#"></a>
-                                <img>
-                            </div>
-                            <div class="my_list_text">
-                                <a>
-                                    <span>내 플레이리스트4</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
+                    <% } %>
                 </ul>
             </div>
 
