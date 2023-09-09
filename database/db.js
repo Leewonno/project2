@@ -19,6 +19,7 @@ db.Playlist = require('./model/playlist')(sequelize, Sequelize);
 db.Comment = require('./model/comment')(sequelize, Sequelize);
 db.ChatRoom = require('./model/chatroom')(sequelize, Sequelize);
 db.Chat = require('./model/chat')(sequelize, Sequelize);
+db.Chat_member = require('./model/chat_member')(sequelize, Sequelize);
 
 // 관계형성
 
@@ -54,6 +55,12 @@ db.Chat.belongsTo(db.ChatRoom, {
   primaryKey: true,
   sourceKey: 'chatroom_id',
 });
+
+db.User.hasOne(db.Chat_member, { foreignKey: { name: 'userid', allowNull: false }, sourceKey: 'userid' });
+db.Chat_member.belongsTo(db.User, { foreignKey: 'userid', allowNull: false, primaryKey: true, sourceKey: 'userid' });
+
+db.ChatRoom.hasOne(db.Chat_member, { foreignKey: { name: 'chatroom_id', allowNull: false }, sourceKey: 'id' });
+db.Chat_member.belongsTo(db.ChatRoom, { foreignKey: 'chatroom_id', allowNull: false, primaryKey: true, sourceKey: 'chatroom_id' });
 
 // playlist join
 db.Playlist.hasOne(db.P_like, { foreignKey: { name: 'p_id', allowNull: false }, sourceKey: 'id' });
