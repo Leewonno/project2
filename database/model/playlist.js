@@ -8,7 +8,7 @@ const Playlist = function (sequelize, DataTypes) {
             autoIncrement: true, // 자동 증가 기능 사용
             allowNull: false, // null이 아닌 값이어야 함
         },
-          // userid: {
+        // userid: {
         //     type: DataTypes.STRING(50),
         //     allowNull: false,
         // },
@@ -18,7 +18,6 @@ const Playlist = function (sequelize, DataTypes) {
         }, 
         song_ids: {
             type: DataTypes.STRING,
-            allowNull: false,
         },
         create_date: {
             type: DataTypes.DATE,

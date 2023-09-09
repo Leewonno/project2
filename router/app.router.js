@@ -12,6 +12,7 @@ router.get('/chat/upload', controller1.chat_upload_render);
 
 router.post('/chat/upload', controller1.chat_upload);
 
-router.get('/chat/', controller1.chat);
+router.get('/chat', controller1.chat);
+router.post('/chat', controller1.chatP);
 
 module.exports = router;

@@ -13,10 +13,11 @@
             <div class="mypageCover">
                 <section class="profilePage">
                     <div class="avatar">
-                        <img class="progileImg" src="<%= data.profile_img %>">
-                        <form onsubmit="imgupload(e)">
-                            <input type="file" id="profileimg"></form>
-                            <button type="submit">upload</button>
+                        <img class="profileImg" src="<%= data.profile_img %>">
+                        <label for="profileimg">변경</label>
+                        <form>
+                            <input type="file" id="profileimg" hidden>
+                            <button type="button" class="upload_btn" onclick="imgupload()">upload</button>
                         </form>
                     </div>
                     <div class="welcome">
@@ -39,117 +40,120 @@
             </div>
         </div>
 
-        <script>
+        
+    </section>
 
-            async function edit() {
-                const form = document.forms['mypageForm'];
-                const pw = document.querySelector("#pw");
-                const pw2 = document.querySelector("#pw2");
-                const path = document.querySelector('.progileImg');
-                const name = document.querySelector("#name");
-                const nick = document.querySelector("#nickname");
-    
-                if(pw.value.length === 0 ) {
-                    const res1 = await axios({
-                        method: 'PATCH',
-                        url: '/profile',
-                        data: {
-                            name: name.value,
-                            nickname: nick.value,
-                            profile_img: path.src,
-                            //token: localStorage.getItem('token')
-                        }
-                    });
-    
-                    if(res1.data.result) {
-                        alert("회원정보 수정이 완료되었습니다.");
-                        document.location.href = "/";
-                        return;
-                    }else{
-                        alert("에러 발생");
-                        return;
-                    }
-                }
-    
-                let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-                if(!pwPattern.test(pw.value, pw2.value)) {
-                    alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
-                }
-                if(pw.value !== pw2.value ) {
-                    alert("비밀번호를 확인해주세요");
-                    pw.focus();
-                } else if(pw.value === "" || pw2.value === "") {
-                    alert("비밀번호를 입력해주세요");
-                } else {
-                    alert("비밀번호가 일치합니다.");
-                };
-                
-                console.log(path.src);
-                const res = await axios({
+    <script id="sc">
+
+        async function edit() {
+            const form = document.forms['mypageForm'];
+            const pw = document.querySelector("#pw");
+            const pw2 = document.querySelector("#pw2");
+            const path = document.querySelector('.profileImg');
+            const name = document.querySelector("#name");
+            const nick = document.querySelector("#nickname");
+
+            if(pw.value.length === 0 ) {
+                const res1 = await axios({
                     method: 'PATCH',
-                    url: '/profile/pw',
+                    url: '/profile',
                     data: {
                         name: name.value,
                         nickname: nick.value,
                         profile_img: path.src,
-                        pw: pw.value,
-                        //token:localStorage.getItem('token')
+                        //token: localStorage.getItem('token')
                     }
                 });
-                console.log(res.data.result);
-                if(res.data.result) {
+
+                if(res1.data.result) {
                     alert("회원정보 수정이 완료되었습니다.");
                     document.location.href = "/";
-                } else {
-                    alert(`error message : ${res.data.message}`);
-                    document.location.reload();
-                };
-            };
-    
-            //회원탈퇴
-            function destroy() {
-                if (!confirm('회원탈퇴 하시겠습니까?')) {
+                    return;
+                }else{
+                    alert("에러 발생");
                     return;
                 }
-                axios({
-                    method: 'DELETE',
-                    url: '/profile',
-                    data: {
-                        //token:localStorage.getItem('token')
-                    },
-                }).then((res) => {
-                    if (res.data.result) {
-                        alert('회원탈퇴 완료되었습니다');
-                        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; 
-                        document.location.href = '/';
-                    }
-                });
             }
-            //취소
-            function move() {
-                document.location.href = "/";
-            }
-    
-            //프로필사진 변경
-            const img = document.querySelector('.profileImg');
-            async function imgupload(e) {
-                event.preventDefault(e);
-                const file = document.querySelector('#profileimg');
-                const res = await axios({
-                    method: 'POST',
-                    url: '/profile',
-                    data: formdata,
-                    headers: {
-                        'Content-Type' : 'multipart/form-data',
-                    },
-                });
-                console.log(res.data.location)
-                img.src = res.data.location;
-            }
-        </script>
-    </section>
 
-    
+            let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+            if(!pwPattern.test(pw.value, pw2.value)) {
+                alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+            }
+            if(pw.value !== pw2.value ) {
+                alert("비밀번호를 확인해주세요");
+                pw.focus();
+            } else if(pw.value === "" || pw2.value === "") {
+                alert("비밀번호를 입력해주세요");
+            } else {
+                alert("비밀번호가 일치합니다.");
+            };
+            
+            console.log(path.src);
+            const res = await axios({
+                method: 'PATCH',
+                url: '/profile/pw',
+                data: {
+                    name: name.value,
+                    nickname: nick.value,
+                    profile_img: path.src,
+                    pw: pw.value,
+                    //token:localStorage.getItem('token')
+                }
+            });
+            console.log(res.data.result);
+            if(res.data.result) {
+                alert("회원정보 수정이 완료되었습니다.");
+                document.location.href = "/";
+            } else {
+                alert(`error message : ${res.data.message}`);
+                document.location.reload();
+            };
+        };
+
+        //회원탈퇴
+        function destroy() {
+            if (!confirm('회원탈퇴 하시겠습니까?')) {
+                return;
+            }
+            axios({
+                method: 'DELETE',
+                url: '/profile',
+                data: {
+                    //token:localStorage.getItem('token')
+                },
+            }).then((res) => {
+                if (res.data.result) {
+                    alert('회원탈퇴 완료되었습니다');
+                    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; 
+                    document.location.href = '/';
+                }
+            });
+        }
+        //취소
+        function move() {
+            document.location.href = "/";
+        }
+
+        // //프로필사진 변경
+        
+        async function imgupload() {
+            const img = document.querySelector('.profileImg');
+            const file = document.querySelector('#profileimg');
+            const formData = new FormData();
+            formData.append('imgfile', file.files[0]);
+
+            const res = await axios({
+                method: 'POST',
+                url: '/dynamic/img',
+                data: formData,
+                headers: {
+                    'Content-Type' : 'multipart/form-data',
+                },
+            });
+            console.log(res.data.location)
+            img.src = res.data.location;
+        }
+    </script>
     
 </body>
 </html>

@@ -43,6 +43,34 @@
     height: 80px;
     border-radius: 50%;
     background-color: aquamarine;
+    position: relative;
+}
+
+.mypageMain .avatar:hover label{
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    background-color: rgb(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.mypageMain .avatar .profileImg{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.mypageMain .avatar .upload_btn{
+    position:absolute;
+    bottom: 0;
+    right: -50px;
 }
     
 .mypageMain .img {
@@ -77,3 +105,4 @@
     width: 142px;
     height: 40px;
 }
+
