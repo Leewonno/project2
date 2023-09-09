@@ -3,33 +3,35 @@
     justify-content: center;
 }
 
-.sort_section .menu {
+.sort_section .sort_menu {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 20px;
-    background-color: #f0f0f0;
-    margin-bottom: 20px;
+    background-color: #ffff;
+    border-bottom:2px solid #FCD06B;
 }
 
-.sort_section .menu ul.lay_menu {
+.sort_section .sort_menu ul.lay_menu {
     list-style: none;
     display: flex;
+    justify-content: center;
 }
 
-.sort_section .menu ul.lay_menu li {
+.sort_section .sort_menu ul.lay_menu li {
+    width: 80px;
     margin-right: 20px;
 }
 
-.sort_section .menu ul.lay_menu li a {
+.sort_section .sort_menu ul.lay_menu li a {
     text-decoration: none;
     color: #333;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
-.sort_section .menu ul.lay_menu li a:hover {
-    color: #1dbb52;
+.sort_section .sort_menu ul.lay_menu li a:hover {
+    color: #FCD06B;
 }
 
 /*테이블*/
