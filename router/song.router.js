@@ -7,7 +7,7 @@ const { auth } = require('../middleware/auth.middleware')
 
 // 페이지 렌더링 
 router.get('/song/upload', controller.getSongUploadPage);
-router.get('/song', auth.verifyAuthentication, controller.getSongInfoPage); // 곡 상세 정보 렌더링 
+router.get('/song', auth.verifyAuthentication, controller.getSongInfoPage);
 
 // 앨범 커버, 음악 파일 업로드
 router.post('/dynamic/img', upload.uploadImage, controller.uploadImg);
@@ -23,5 +23,9 @@ router.get('/song/sort', controller.getSongBySortInMain);
 
 // 좋아요 토글
 router.post('/song/like', auth.verifyAuthentication, controller.likeToggle);
+
+router.post('/song/comment', auth.verifyAuthentication, controller.createComment);
+router.patch('/song/comment', auth.verifyAuthentication, controller.updateComment);
+router.delete('/song/comment', auth.verifyAuthentication, controller.deleteComment);
 
 module.exports = router;

@@ -2,9 +2,9 @@ const aws = require('aws-sdk'); //aws 설정을 위한 모듈
 
 // aws 설정
 aws.config.update({
-  accessKeyId: 'AKIA3BCD7COSYA3ZBUXS',
-  secretAccessKey: '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',
-  region: 'ap-northeast-2',
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGOIN,
 });
 
 const s3 = new aws.S3();
@@ -16,7 +16,7 @@ exports.getPlaytest = (req, res) => {
 exports.getPlaySong = (req, res) => {
   let fileName = req.query.name; //확장자 포함돼 있어야함
 
-  var params = { Bucket: 'kdt-wonno2', Key: fileName };
+  var params = { Bucket: process.env.AWS_BUCKET, Key: fileName };
 
   // 클라이언트로부터의 스트리밍 범위 요청
   const range = req.headers.range;

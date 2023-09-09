@@ -1,6 +1,5 @@
-const { Song, S_like, User } = require('../database/db');
-const jwt = require('jsonwebtoken');
-const secret = 'asdfasdfa';
+const { Song, S_like, User, Comment, Profile } = require('../database/db');
+const { formatDateTime } = require('../utils/formatToKST');
 
 exports.controller = {
 
@@ -19,26 +18,54 @@ exports.controller = {
   }, 
 
   getSongInfoPage: async (req, res) => { try {
-    console.log(req.userid);
     let likeResult = false;
-    
+    let resultUser = {
+      userid: null,
+      nickname: null,
+      profile_img: null
+    };
+
     const id = req.query.id;
-   
-    console.log(id);
+
     const songData = await Song.findOne({ where: { id: id } });
-    if(req.userid) {
+    const commentData = await Comment.findAll({ where: { song_id: songData.id }});
+    const resultComments = [];
 
-      const likeData = await S_like.findOne({ where: { song_id: songData.id, userid: req.userid } })
-    
-      if(likeData) {
-        likeResult = true;
-      } 
+    // 각 댓글 마다 사용자 정보 추가
+    for (const comment of commentData) {
+      const userProfile = await Profile.findOne({ where: { userid: comment.userid } });
+      comment.dataValues.nickname = userProfile.nickname;
+      comment.dataValues.profile_img = userProfile.profile_img;
+
+      const formattedDateTime = formatDateTime(comment.create_date);
+      console.log(comment.dataValues.profile_img)
+      resultComments.push({
+        id: comment.id,
+        profile_img: comment.dataValues.profile_img,
+        userid: comment.userid,
+        nickname: comment.dataValues.nickname,
+        content: comment.content,
+        create_date: formattedDateTime
+      });
     }
-     console.log(songData.dataValues)
-
-     console.log(likeResult);
-
-     res.render('song', { data: songData.dataValues, likeResult: likeResult });
+    
+    if (req.userid) {
+      const likeData = await S_like.findOne({ where: { song_id: songData.id, userid: req.userid } })
+      const userData = await Profile.findOne({ where: { userid: req.userid } });
+      
+      if (likeData) {
+        likeResult = true;
+      }
+    
+      resultUser = {
+        userid: userData.userid,
+        nickname: userData.nickname,
+        profile_img: userData.profile_img
+      }
+    }
+    
+    return res.render('song', { data: songData.dataValues, user: resultUser, likeResult: likeResult, comments: resultComments });
+    
   } catch (error) {
     console.error(error);
     // 기타 오류
@@ -105,11 +132,8 @@ exports.controller = {
   
   likeToggle: async (req, res) => {
     try {
-      // if(!req.userid) {
-      //   likeResult = false;
-      // }
-      //  const token = jwt.verify(req.query.token, secret);
-       const user = await User.findOne({
+
+      const user = await User.findOne({
           where: { userid: req.userid },})  
       
       const { id } = req.body;
@@ -137,5 +161,90 @@ exports.controller = {
       // 기타 오류
       res.status(500).send({ message: 'Internal Server Error' });
     }
+  },
+
+  createComment: async (req, res) => {
+    try {
+      const song_id = req.query.song_id;
+      const { content } = req.body;
+      console.log(req.userid)
+
+      if(req.userid) {
+        const comment = await Comment.create({ song_id, content, userid: req.userid });
+        const user = await Profile.findOne({ where: { userid: req.userid } })
+        const formattedDateTime = formatDateTime(comment.create_date);
+
+        const resultCommet = {
+          profile_img: user.profile_img,
+          userid: user.userid,
+          nickname: user.nickname,
+          content: comment.content,
+          create_date: formattedDateTime
+        }
+        res.send({ comment: resultCommet });
+      } else {
+        res.status(401).send({ message: "잘못된 접근입니다." });
+      }
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: 'Internal Server Error' });
   }
+  },
+
+  updateComment: async (req, res) => {
+
+    try {
+          const id = req.query.id;
+          const song_id = req.query.song_id;
+          const { content } = req.body;
+
+          if (req.userid) {
+
+            const comment = await Comment.findOne({ where: { id, song_id, userid: req.userid }});
+            if(comment) {
+              await Comment.update({ content: content, update_date: new Date()},{ where: { userid: req.userid } })
+              const updateComment = await Comment.findOne(
+                { where: { id: id, song_id: song_id, userid: req.userid }}
+              )
+              const resultComment = {
+                id: updateComment.id,
+                userid: updateComment.userid,
+                song_id: updateComment.song_id,
+                content: updateComment.content,
+                update_date: updateComment.update_date
+              }
+              res.send({result: true, comment: resultComment});
+            } else { 
+              res.status(404).send({ message: 'Comment not found' });
+            }
+          } 
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  
+  },
+  deleteComment: async (req, res) => {
+    try {
+      const id = req.query.id; 
+      const song_id = req.query.song_id;
+
+      if (req.userid) {
+
+        const comment = await Comment.findOne({ where: { id, song_id, userid: req.userid }});
+        
+        if(comment) {
+          await Comment.destroy({ where: { id: id, song_id } })
+          res.send({result: true, message: 'comment delete success'});
+        } else {
+          res.status(404).send({ message: 'Comment not found' });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  }
+
 }
