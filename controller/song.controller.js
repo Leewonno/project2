@@ -7,6 +7,19 @@ exports.controller = {
     res.render("song_upload");
   },
 
+  getSortPage: async (req, res) => {
+    const genres = await Song.findAll({
+      attributes: ['genre'],
+      raw: true // raw: true를 설정하여 순수한 데이터 값만 가져옵니다.
+    });
+    
+    // 중복 제거를 위해 Set을 사용합니다.
+    const uniqueGenres = [...new Set(genres.map(song => song.genre))];
+    
+    console.log(uniqueGenres)
+    res.render('sort', {genre: uniqueGenres});
+  },
+
   uploadImg: (req, res) => {
     console.log(req.file);
     res.send(req.file);
@@ -28,7 +41,10 @@ exports.controller = {
     const id = req.query.id;
 
     const songData = await Song.findOne({ where: { id: id } });
-    const commentData = await Comment.findAll({ where: { song_id: songData.id }});
+    const commentData = await Comment.findAndCountAll({ 
+      where: { song_id: songData.id }, 
+      order: [['create_date', 'DESC']] 
+    });
     const resultComments = [];
 
     // 각 댓글 마다 사용자 정보 추가
@@ -92,18 +108,43 @@ exports.controller = {
     }
   },
 
-  getSongBySortInMain: async (req, res) => {
+  getPlaySongData: async (req, res) => {
+    try {
+      const id = req.query.id;
+
+      const song = await Song.findOne({ where: { id: id } });
+      const songResult = {
+        title: song.title, 
+        artist: song.artist, 
+        album: song.album, 
+        lyrics: song.lyrics, 
+        genre: song.genre, 
+        song_url: song.song_url,
+      }
+
+      res.send(songResult);
+
+    } catch (error) {
+      console.log(error)
+      // 기타 오류
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  },
+
+  getSongBySort: async (req, res) => {
     try {
       const sort = req.query.sort;
       console.log('req.query', sort);
-      const limit = 5;
+      const limit = 10;
       const whereClause = {};
       let order = [];
       const resultSong = [];
   
       if (sort === 'date') {
         order = [['release_date', 'DESC']];
-      } 
+      } else {
+        order = [['like', 'DESC']]
+      }
       const songs = await Song.findAndCountAll({
         where: whereClause,
         limit,
@@ -117,7 +158,8 @@ exports.controller = {
         title: song.title,
         artist: song.artist,
         cover_url: song.cover_url,
-        song_url: song.song_url
+        song_url: song.song_url,
+        playtime: song.playtime
       })
     }
   
@@ -128,6 +170,40 @@ exports.controller = {
       // 기타 오류
       res.status(500).send({ message: 'Internal Server Error' });
     }
+  },
+
+  getSongByGenre: async (req, res) => {
+    try {
+      const sort = req.query.genre;
+      const limit = 10;
+      const whereClause = { genre: sort };
+
+      console.log(sort)
+
+      const songs = await Song.findAndCountAll({
+        where: whereClause,
+        limit,
+        order: [['release_date', 'DESC']]
+      })
+        
+      const resultSong = songs.rows.map((song) => ({
+        id: song.id,
+        title: song.title,
+        artist: song.artist,
+        cover_url: song.cover_url,
+        song_url: song.song_url,
+        playtime: song.playtime
+      }));
+  
+  console.log(resultSong)
+      res.send(resultSong);
+  
+    } catch (error) {
+      console.log(error)
+      // 기타 오류
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  
   },
   
   likeToggle: async (req, res) => {
