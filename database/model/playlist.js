@@ -18,7 +18,6 @@ const Playlist = function (sequelize, DataTypes) {
         }, 
         song_ids: {
             type: DataTypes.STRING,
-            allowNull: false,
         },
         create_date: {
             type: DataTypes.DATE,
