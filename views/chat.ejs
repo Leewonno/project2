@@ -13,31 +13,34 @@
             <div class="infor_message">입장안내메세지</div>
             <div class="hello">안녕하세요</div>
             <div class="hellow">반갑습니다</div>
+
+            <div class="talk_menu_bar" hidden>
+                <div class="share_button">
+                    <button type="button" onclick="close_menu()">메뉴닫기</button>
+                    <button>공유</button>
+                </div><br>
+                <div class="menu_main">
+                    <div class="talk_profile">톡방커버</div>
+                    <div class="talk_members">참여자정보</div>
+                    <button class="talk_out">나가기</button>
+                </div>
+            </div>
         </div>
         <form id="chat">
             <input type="text" id="message" placeholder="메세지 입력" />
-            <button>입력</button>
+            <button class="chat_send_message">입력</button>
         </form>
-        <div class="talk_menu_bar" hidden>
-            <div class="share_button">
-                <button type="button" onclick="close_menu()">메뉴닫기</button>
-                <button>공유</button>
-            </div><br>
-            <div class="menu_main">
-                <div class="talk_profile">톡방커버</div>
-                <div class="talk_members">참여자정보</div>
-                <button class="talk_out">나가기</button>
-            </div>
-        </div>
 
         <script>
             function open_menu() {
                 const menu_bar = document.querySelector(".talk_menu_bar");
+                menu_bar.style.right = '0';
                 menu_bar.removeAttribute("hidden")
             }
     
             function close_menu() {
                 const menu_bar = document.querySelector(".talk_menu_bar");
+                menu_bar.style.right = '-100%';
                 menu_bar.setAttribute("hidden", "true");
             }
       </script>
