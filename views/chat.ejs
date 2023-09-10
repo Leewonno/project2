@@ -58,38 +58,12 @@
         axios({
           method: 'POST',
           url: '/chat',
-          data: {
-            //token:localStorage.getItem('token')
-          },
         }).then((res) => {
           myName = res.data.userid;
         });
         socket.emit('create');
       })();
 
-      //룸리스트
-      // socket.on('roomList', (roomLists) => {
-      //   console.log(roomLists);
-      //   const lists = document.querySelector('#lists');
-      //   lists.textContent = '';
-      //   roomLists.forEach((roomList) => {
-      //     const li = document.createElement('li');
-      //     li.textContent = `${roomList} 와 닉네임 입력 후 입장`;
-      //     lists.appendChild(li);
-      //   });
-      // });
-
-      //사용자 리스트
-      // socket.on('userList', (userLists) => {
-      //   console.log(userLists);
-      //   const lists = document.querySelector('#userList');
-      //   lists.textContent = '';
-      //   let options = `<option value="all">전체</option>`;
-      //   for (let i of userLists) {
-      //     options += `<option value="${i.key}">${i.name}</option>`;
-      //   }
-      //   lists.innerHTML = options;
-      // });
       //메세지 띄우기
       socket.on('newMessage', (message, userid) => {
         console.log(message, userid);
