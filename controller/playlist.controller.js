@@ -12,12 +12,6 @@ exports.getPlayListPage = async (req, res) => {
 
     console.log(playlists);
 
-    // playlists.push({
-    //   name: req.body.pl_name,
-    // });
-    // console.log(playlists);
-    // res.render('playlist',{playlists});
-
     const playlistLikes = [];
 
     for (const playlist of playlists) {
@@ -32,67 +26,41 @@ exports.getPlayListPage = async (req, res) => {
       if(likePlaylists){
         result = true
       }
+
+      const likedPlaylists = await models.P_like.findAll({
+        where: {userid: userId},
+        where: {
+          userid: userId,
+        },
+        attributes: ['p_id'],
+      });
+      
+      const playlistLike = likedPlaylists.map(item => ({
+        playlist: null,
+        result: true,
+      }));
+
       const playlistInfo = {
         playlist,
         result,
+        playlistLike,
       }
 
       playlistLikes.push(playlistInfo);
 
       console.log(playlistLikes);
+
+      
+
+      console.log('선택된 p_id 값:', likedPlaylists.map(item => item.p_id));
+      
       res.render('playlist', {playlistLikes});
     }
-    // const p_id = res.id.values;
-    // console.log(p_id);
-    // const userid = req.userid;
-
-    // const likePlaylists = await models.P_like.findAll({
-    //   where: {userid: userid, p_id: p_id},
-    // });
-    // console.log(likePlaylists)
-    // res.json({ result: true, message: 'likePlaylists successfully' });
-
-    // if(!likePlaylists === 'null') {
-    //   return res.status(400).send({ message: 'likePlaylists undefined' });
-    // } else {
-    //   likePlaylists.push({
-    //     userid: req.body.userid,
-    //     p_id: req.body.id
-    //   });
-    //   console.log(likePlaylists);
-    //   res.render('likePlaylists',{likePlaylists});
-    // }
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving playlists');
   }
 };
-
-// exports.getPlayListLikepage = async (req,res) => {
-//   try{
-//     const p_id = req.id;
-//     const userid = req.userid;
-
-//     const likePlaylists = await models.P_like.findAll({
-//       where: {userid: userid, p_id: p_id},
-//     });
-//     res.json({ result: true, message: 'likePlaylists successfully' });
-
-//     if(!likePlaylists === 'null') {
-//       return res.status(400).send({ message: 'likePlaylists undefined' });
-//     } else {
-//       likePlaylists.push({
-//         userid: req.body.userid,
-//         p_id: req.body.id
-//       });
-//       console.log(likePlaylists);
-//       res.render('likePlaylists',{likePlaylists});
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// }
 
 exports.postPlayListLike = async (req, res) => {
   try {

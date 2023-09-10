@@ -47,7 +47,7 @@
                     <h3 class="title">좋아요한 Palylist</h3>
                 </div>
                 <ul class="my_list">
-                    <!-- < for (let i=0; i < playlistLikes.length; i++) { %> -->
+                    <% for (let i=0; i < playlistLikes.length; i++) { %>
                     <li>
                         <div class="my_list_album">
                             <div class="list_image">
@@ -56,22 +56,19 @@
                             </div>
                             <div class="my_list_text">
                                 <a href="#">
-                                    <!-- <span>< playlistLikes[i].likePlaylists.name %></span> -->
+                                    <span><%= playlistLikes[i].playlist.dataValues.name %></span>
                                 </a>
                             </div>
                             <div class="playlist_like" id="playlist_like" onclick="like()">
-
-                             
-                                <!-- < if(result) { %> -->
-                                    <!-- <i class="fa-solid fa-heart" style = "color: #FCD06B";></i> <= playlists.likes %> -->
-                                <!-- < } else { %> -->
-                                    <!-- <i class="fa-regular fa-heart" style = "color: #FCD06B";></i> <= playlists.likes %> -->
-                                <!-- < } %> -->
-
+                                <% if (playlistLikes[i].result) { %>
+                                    <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
+                                  <% } else { %>
+                                    <i class="fa-regular fa-heart" style="color: #FCD06B;"></i>
+                                <% } %>
                             </div>
                         </div>
                     </li>
-                    <!-- < } %> -->
+                    <% } %>
                 </ul>
             </div>
         </div>
