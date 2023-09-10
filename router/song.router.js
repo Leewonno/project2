@@ -7,6 +7,7 @@ const { auth } = require('../middleware/auth.middleware')
 
 // 페이지 렌더링 
 router.get('/song/upload', controller.getSongUploadPage);
+// 곡 상세 페이지 및 댓글 페이징 처리 
 router.get('/song', auth.verifyAuthentication, controller.getSongInfoPage);
 
 // 앨범 커버, 음악 파일 업로드
@@ -16,7 +17,7 @@ router.post('/dynamic/song', upload.uploadAudio, controller.uploadSong);
 // 곡 정보 업로드 (관리자)
 router.post('/song/upload', controller.insertSongByAdmin);
 
-// 곡 정렬 페이지
+// 곡 정렬 페이지 + 페이징 처리 -> 노션 확인
 router.get('/sort', controller.getSortPage);
 router.get('/song/sort', controller.getSongBySort);
 router.get('/song/sort/genre', controller.getSongByGenre);
