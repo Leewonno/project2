@@ -14,19 +14,19 @@
             <div class="sort_menu">
                 <ul class="lay_menu">
                     <li>
-                        <a href="#" onclick="sortSongs('date')">
-                            <span>최신곡</span>
-                        </a>
+                            <span onclick="sortSongs('date')">
+                                <span>최신곡</span>
+                            </span>
                     </li>
                     <li>
-                        <a href="#" onclick="sortSongs('like')">
-                            <span>인기곡</span>
-                        </a>
+                            <span onclick="sortSongs('like')">
+                                <span>인기곡</span>
+                            </span>
                     </li>
                     <li>
-                        <a href="#" onclick="startGenreToggle()">
-                            <span>장르별</span>
-                        </a>
+                            <span onclick="startGenreToggle()">
+                                <span>장르별</span>
+                            </span>
                     </li>
                 </ul>
             </div>
@@ -113,6 +113,14 @@
 
     <script id="sc">
 
+        sortSongs('date'); // 기본적으로 날짜 순으로 정렬
+
+        var sort = window.location.search; 
+        var string = new URLSearchParams(sort);
+        var sortBy = string.get("sort"); // "date"
+        console.log(sortBy);
+        sortSongs(sortBy)
+        
         function sortSongs(sortBy) {
             axios({
                 method: "get",
@@ -155,10 +163,11 @@
                     row.appendChild(playlistButtonCell);
 
                     tbody.appendChild(row);
+                    
                 }
 
-                const newURL = `/sort`;
-                window.history.pushState(null, null, newURL);
+                // const newURL = `/sort?sort=${sortBy}`;
+                // window.history.pushState(null, null, newURL);
             })
         }
         
@@ -237,10 +246,7 @@
                 console.error("Error fetching data:", error);
             }
         }
-                // 초기 페이지 로드 시 최신곡으로 정렬
-        window.onload = function() {
-            sortSongs('date'); // 기본적으로 날짜 순으로 정렬
-        }
+
     </script>
 </body>
 </html>
