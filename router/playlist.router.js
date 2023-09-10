@@ -6,9 +6,10 @@ const { auth } = require('../middleware/auth.middleware')
 // 플레이리스트 관련
 
 // 렌더링
-router.get('/playlist', auth.verifyAuthentication, controller.getPlayListPage); // playlist 페이지
+router.get('/playlist', auth.verifyAuthentication, controller.getPlayListPage); // playlist 페이지 
 router.post('/playlist', auth.verifyAuthentication, controller.postPlayListPage);
 router.post('/playlist/like', auth.verifyAuthentication, controller.postPlayListLike);
+router.delete('/playlist', auth.verifyAuthentication, controller.deletePlayList);
 
 // 기능 개발
 

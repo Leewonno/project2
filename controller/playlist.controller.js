@@ -5,19 +5,88 @@ exports.getPlayListPage = async (req, res) => {
   try {
     const userId = req.userid;
     console.log(userId);
+
     const playlists = await models.Playlist.findAll({
       where: {userid: userId},
     });
-    playlists.push({
-      name: req.body.pl_name,
-    });
+
     console.log(playlists);
-    res.render('playlist',{playlists});
+
+    // playlists.push({
+    //   name: req.body.pl_name,
+    // });
+    // console.log(playlists);
+    // res.render('playlist',{playlists});
+
+    const playlistLikes = [];
+
+    for (const playlist of playlists) {
+      const playlistId = playlist.id;
+
+      const likePlaylists = await models.P_like.findAll({
+        where: {userid: userId, p_id: playlistId },
+      });
+      const playlistInfo = {
+        playlist,
+        likePlaylists,
+      }
+
+      playlistLikes.push(playlistInfo);
+
+      console.log(playlistLikes);
+      res.render('playlist', {playlistLikes});
+    }
+    // const p_id = res.id.values;
+    // console.log(p_id);
+    // const userid = req.userid;
+
+    // const likePlaylists = await models.P_like.findAll({
+    //   where: {userid: userid, p_id: p_id},
+    // });
+    // console.log(likePlaylists)
+    // res.json({ result: true, message: 'likePlaylists successfully' });
+
+    // if(!likePlaylists === 'null') {
+    //   return res.status(400).send({ message: 'likePlaylists undefined' });
+    // } else {
+    //   likePlaylists.push({
+    //     userid: req.body.userid,
+    //     p_id: req.body.id
+    //   });
+    //   console.log(likePlaylists);
+    //   res.render('likePlaylists',{likePlaylists});
+    // }
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving playlists');
   }
 };
+
+// exports.getPlayListLikepage = async (req,res) => {
+//   try{
+//     const p_id = req.id;
+//     const userid = req.userid;
+
+//     const likePlaylists = await models.P_like.findAll({
+//       where: {userid: userid, p_id: p_id},
+//     });
+//     res.json({ result: true, message: 'likePlaylists successfully' });
+
+//     if(!likePlaylists === 'null') {
+//       return res.status(400).send({ message: 'likePlaylists undefined' });
+//     } else {
+//       likePlaylists.push({
+//         userid: req.body.userid,
+//         p_id: req.body.id
+//       });
+//       console.log(likePlaylists);
+//       res.render('likePlaylists',{likePlaylists});
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Internal Server Error' });
+//   }
+// }
 
 exports.postPlayListLike = async (req, res) => {
   try {
@@ -29,7 +98,7 @@ exports.postPlayListLike = async (req, res) => {
     }
 
     const [pLike, created] = await models.P_like.findOrCreate({
-      where: { p_id: id, userid: userId },
+      where: { p_id: id, userid: "gahyeon2" },
     });
 
     console.log(pLike, created);
@@ -54,6 +123,26 @@ exports.postPlayListLike = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
+exports.deletePlayList = async (req, res) => {
+  try {
+    const playlistId = req.body.id;
+
+    const playlist = await models.Playlist.findOne({ where: { id: playlistId } });
+
+    if (!playlist) {
+      return res.status(404).json({ message: 'Playlist not found' });
+    }
+
+    await playlist.destroy();
+
+    res.json({ result: true, message: 'Playlist deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 
 exports.postPlayListPage = async (req, res) => {
   try {
