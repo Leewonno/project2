@@ -38,33 +38,13 @@ exports.controller = {
     };
 
     const id = req.query.id;
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = 10;
 
     const songData = await Song.findOne({ where: { id: id } });
-    const commentData = await Comment.findAndCountAll({ 
-      where: { song_id: songData.id }, 
-      order: [['create_date', 'DESC']] 
-    });
-    
     const resultComments = [];
 
-    console.log(commentData);
-    // 각 댓글 마다 사용자 정보 추가
-    for (const comment of commentData["rows"]) {
-      const userProfile = await Profile.findOne({ where: { userid: comment.userid } });
-      comment.dataValues.nickname = userProfile.nickname;
-      comment.dataValues.profile_img = userProfile.profile_img;
-
-      const formattedDateTime = formatDateTime(comment.create_date);
-      console.log(comment.dataValues.profile_img)
-      resultComments.push({
-        id: comment.id,
-        profile_img: comment.dataValues.profile_img,
-        userid: comment.userid,
-        nickname: comment.dataValues.nickname,
-        content: comment.content,
-        create_date: formattedDateTime
-      });
-    }
+    const { comments, hasMore } = await getCommentsBySongId(songData.id, page, pageSize);
     
     if (req.userid) {
       const likeData = await S_like.findOne({ where: { song_id: songData.id, userid: req.userid } })
@@ -73,7 +53,6 @@ exports.controller = {
       if (likeData) {
         likeResult = true;
       }
-    
       resultUser = {
         userid: userData.userid,
         nickname: userData.nickname,
@@ -81,7 +60,7 @@ exports.controller = {
       }
     }
     
-    return res.render('song', { data: songData.dataValues, user: resultUser, likeResult: likeResult, comments: resultComments });
+    return res.render('song', { data: songData.dataValues, user: resultUser, likeResult: likeResult, comments, hasMore });
     
   } catch (error) {
     console.error(error);
@@ -135,12 +114,13 @@ exports.controller = {
 
   getSongBySort: async (req, res) => {
     try {
+      const page = parseInt(req.query.page) || 1;
       const sort = req.query.sort;
-      console.log('req.query', sort);
-      const limit = 10;
+      const pageSize = 10;
+      const limit = pageSize;
+      const offset = (page - 1) * pageSize;
       const whereClause = {};
       let order = [];
-      const resultSong = [];
   
       if (sort === 'date') {
         order = [['release_date', 'DESC']];
@@ -148,25 +128,21 @@ exports.controller = {
         order = [['like', 'DESC']]
       }
       const songs = await Song.findAndCountAll({
+        attributes: ['id', 'title', 'artist', 'cover_url', 'song_url', 'playtime'],
         where: whereClause,
         limit,
+        offset,
         order: order
       })
-        
-      for (const song of songs.rows) {
   
-      resultSong.push( {
-        id: song.id,
-        title: song.title,
-        artist: song.artist,
-        cover_url: song.cover_url,
-        song_url: song.song_url,
-        playtime: song.playtime
-      })
-    }
+      const totalRows = songs.count;
+      const totalPages = Math.ceil(totalRows / pageSize); 
+      const rowLength = songs.rows.length;
+      const hasMore = page < totalPages; 
   
-      res.send(resultSong);
+      console.log(rowLength, hasMore)
   
+      res.status(200).send({ hasMore: hasMore, songs: songs.rows,});
     } catch (error) {
       console.log(error)
       // 기타 오류
@@ -176,29 +152,40 @@ exports.controller = {
 
   getSongByGenre: async (req, res) => {
     try {
+      const page = parseInt(req.query.page) || 1;
       const sort = req.query.genre;
-      const limit = 10;
       const whereClause = { genre: sort };
+      const pageSize = 10;
+      const limit = pageSize;
+      const offset = (page - 1) * pageSize;
 
       console.log(sort)
 
       const songs = await Song.findAndCountAll({
+        attributes: ['id', 'title', 'artist', 'cover_url', 'song_url', 'playtime'],
         where: whereClause,
         limit,
+        offset,
         order: [['release_date', 'DESC']]
       })
         
-      const resultSong = songs.rows.map((song) => ({
-        id: song.id,
-        title: song.title,
-        artist: song.artist,
-        cover_url: song.cover_url,
-        song_url: song.song_url,
-        playtime: song.playtime
-      }));
+      // const resultSong = songs.rows.map((song) => ({
+      //   id: song.id,
+      //   title: song.title,
+      //   artist: song.artist,
+      //   cover_url: song.cover_url,
+      //   song_url: song.song_url,
+      //   playtime: song.playtime
+      // }));
   
-  console.log(resultSong)
-      res.send(resultSong);
+      const totalRows = songs.count;
+      const totalPages = Math.ceil(totalRows / pageSize); 
+      const rowLength = songs.rows.length;
+      const hasMore = page < totalPages; 
+  
+      console.log(rowLength, hasMore)
+  
+      res.status(200).send({ hasMore: hasMore, songs: songs.rows,});
   
     } catch (error) {
       console.log(error)
@@ -322,6 +309,54 @@ exports.controller = {
       console.log(error);
       res.status(500).send({ message: 'Internal Server Error' });
     }
+  },
+
+  getCommentsByPage: async (req, res) => {
+    try {
+      
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
   }
 
+}
+
+async function getCommentsBySongId(songId, page, pageSize) {
+  try {
+    const commentQuery = {
+      where: { song_id: songId },
+      order: [['create_date', 'DESC']],
+      limit: pageSize,
+      offset: (page - 1) * pageSize
+    };
+
+    const commentData = await Comment.findAndCountAll(commentQuery);
+    const resultComments = [];
+
+    for (const comment of commentData.rows) {
+      const userProfile = await Profile.findOne({ where: { userid: comment.userid } });
+      comment.dataValues.nickname = userProfile.nickname;
+      comment.dataValues.profile_img = userProfile.profile_img;
+
+      const formattedDateTime = formatDateTime(comment.create_date);
+      resultComments.push({
+        id: comment.id,
+        profile_img: comment.dataValues.profile_img,
+        userid: comment.userid,
+        nickname: comment.dataValues.nickname,
+        content: comment.content,
+        create_date: formattedDateTime
+      });
+    }
+
+    const totalRows = commentData.count;
+    const totalPages = Math.ceil(totalRows / pageSize);
+    const hasMore = page < totalPages;
+
+    return { comments: resultComments, hasMore, currentPage: page, totalPages };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
