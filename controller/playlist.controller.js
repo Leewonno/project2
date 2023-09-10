@@ -8,7 +8,6 @@ exports.getPlayListPage = async (req, res) => {
     const playlists = await models.Playlist.findAll({
       where: {userid: userId},
     });
-    console.log(playlists);
     playlists.push({
       name: req.body.pl_name,
     });

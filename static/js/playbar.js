@@ -90,12 +90,60 @@ function closeModal() {
     modal.setAttribute('hidden', 'true');
   };
 
-function music(route){
+async function music(song_id){
     const now = document.getElementById("player");
-    now.src = "/stream?name=" + route;
-    now.play();
-    play.checked = true;
-    play_icon.className = "fa-solid fa-pause";
+    const p_song_cover = document.querySelector(".song_cover");
+    const p_artist_name = document.querySelector(".song_singer");
+    const p_song_name = document.querySelector(".song_name");
+    const song_cover = document.querySelector(".m_song_cover");
+    const artist_name = document.querySelector(".song_info .artist_name");
+    const song_name = document.querySelector(".song_info .song_title");
+
+    const res = await axios({
+        method:"GET",
+        url:"/song/play",
+        params:{
+            id:song_id
+        }
+    })
+
+    if(res.data.result){
+        const {song_url, title, artist, album, lyrics, genre, cover_url} = res.data.songResult;
+
+        p_song_cover.src = cover_url;
+        p_artist_name.textContent = artist;
+        p_song_name.textContent = title;
+
+        song_cover.src = cover_url;
+        artist_name.textContent = artist;
+        song_name.textContent = title;
+
+        song_url_temp = song_url.split('/');
+        song_url_temp = song_url_temp[3] + "/" + song_url_temp[4];
+
+        now.src = "/stream?name=" + song_url_temp;
+        now.play();
+        play.checked = true;
+        play_icon.className = "fa-solid fa-pause";
+    }
+    else{
+        alert("재생 중 오류가 발생했습니다.")
+    }   
+}
+
+
+let now_play = 0;
+let pl =[];
+
+async function playlist(num){
+    // axios({
+    //     method:"get",
+    //     url:"/playlist"
+    // })
+    // 플리 받아왔다는 가정하에
+    pl = ["9", "14", "16"];
+    
+    
 }
 
 $('.modal_open').click(function(e) {

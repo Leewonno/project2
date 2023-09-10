@@ -13,7 +13,7 @@ exports.getPlaytest = (req, res) => {
   res.render('playtest');
 };
 
-exports.getPlaySong = (req, res) => {
+exports.getPlaySong = (req, res, next) => {
   let fileName = req.query.name; //확장자 포함돼 있어야함
 
   var params = { Bucket: process.env.AWS_BUCKET, Key: fileName };
@@ -70,6 +70,7 @@ exports.getPlaySong = (req, res) => {
 
     
       s3Stream.pipe(res);
+      next();
     }
     catch(err){
       console.log(err);
