@@ -7,6 +7,8 @@ let chatRoom;
 let userID;
 let Rname;
 let chatInfo;
+let chatJoin;
+
 exports.chat = async (req, res) => {
   room = await req.query.room;
   console.log('dd', room);
@@ -69,7 +71,7 @@ exports.connection = (io, socket) => {
     // console.log('so', socket);
     console.log('userid', socket.user);
     console.log('room', socket.room);
-    let chat_member = await models.Chat_member.findOne({ where: { userid: userID } });
+    let chat_member = await models.Chat_member.findOne({ where: { userid: userID, chatroom_id: socket.room } });
     if (!chat_member) {
       await models.Chat_member.create({
         userid: userID,
@@ -84,16 +86,6 @@ exports.connection = (io, socket) => {
       socket.emit('newMessage', chatInfo[i].content, chatInfo[i].userid);
     }
     socket.to(socket.room).emit('notice', `${socket.user}님이 입장하셨습니다`, socket.user);
-
-    //채팅방 목록 갱신
-    // if (!roomList.includes(roomName)) {
-    //   roomList.push(roomName);
-    //   //갱신된 목록은 전체가 봐야함
-    //   io.emit('roomList', roomList);
-    // }
-    // const usersInRoom = getUsersInRoom(roomName);
-    // io.to(roomName).emit('userList', usersInRoom);
-    // cb();
   });
 
   socket.on('sendMessage', async (message) => {
@@ -115,24 +107,6 @@ exports.connection = (io, socket) => {
     io.to(socket.room).emit('newMessage', message.message, socket.user);
   });
 
-  function getUsersInRoom(room) {
-    const users = [];
-    //채팅룸에 접속한 socket.id값을 찾아야함
-    const clients = io.sockets.adapter.rooms.get(room);
-    //console.log(clients);
-    if (clients) {
-      clients.forEach((socketId) => {
-        //io.sockets.sockets: socket.id가 할당한 변수들의 객체값
-        const userSocket = io.sockets.sockets.get(socketId);
-        //개별 사용자에게 메세지를 보내기 위해서 객체형태로 변경
-        //key: 소켓아이디, name:이름
-        const info = { name: userSocket.user, key: socketId };
-        users.push(info);
-      });
-    }
-    return users;
-  }
-
   socket.on('disconnect', async () => {
     console.log(userID + '나감');
     socket.leave(socket.room);
@@ -142,4 +116,18 @@ exports.connection = (io, socket) => {
       where: { userid: userID },
     });
   });
+};
+
+exports.chatJoin_info = async (req, res) => {
+  let id = req.body.token;
+  id = jwt.decode(id).userid;
+  const joinChatarray = [];
+  const joinchat = await models.Chat_member.findAll({ where: { userid: id } });
+  if (joinchat) {
+    for (let i = 0; i < joinchat.length; i++) {
+      let rName = await models.ChatRoom.findOne({ where: { id: joinchat[i].chatroom_id } });
+      joinChatarray.push(rName.name);
+    }
+  }
+  res.json({ result: joinChatarray });
 };
