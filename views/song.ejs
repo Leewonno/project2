@@ -121,7 +121,7 @@
                         <button type="button" onclick="updateComment('${comment.id}')">수정</button>
                         <button type="button" onclick="deleteComment('${comment.id}')">삭제</button>
                     `;
-                    commentList.appendChild(newCommentItem);
+                    commentList.insertBefore(newCommentItem, commentList.firstChild);
                 } else {
                     // 오류 처리
                     console.error("댓글 작성 실패");
