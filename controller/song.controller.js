@@ -44,10 +44,12 @@ exports.controller = {
       where: { song_id: songData.id }, 
       order: [['create_date', 'DESC']] 
     });
+    
     const resultComments = [];
 
+    console.log(commentData);
     // 각 댓글 마다 사용자 정보 추가
-    for (const comment of commentData) {
+    for (const comment of commentData["rows"]) {
       const userProfile = await Profile.findOne({ where: { userid: comment.userid } });
       comment.dataValues.nickname = userProfile.nickname;
       comment.dataValues.profile_img = userProfile.profile_img;
