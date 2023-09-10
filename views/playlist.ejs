@@ -29,6 +29,13 @@
                                     <span><%= playlistLikes[i].playlist.name %></span>
                                 </a>
                             </div>
+                            <div class="playlist_like" id="playlist_like" onclick="like('<%= playlistLikes[i].playlist.id %>')">
+                                <% if(playlistLikes[i].result) { %>
+                                    <i class="fa-solid fa-heart" style = "color: #FCD06B";></i>
+                                <% } else { %>
+                                    <i class="fa-regular fa-heart" style = "color: #FCD06B";></i>
+                                <% } %>
+                            </div>
                         </div>
                     </li>
                     <% } %>
@@ -40,7 +47,7 @@
                     <h3 class="title">좋아요한 Palylist</h3>
                 </div>
                 <ul class="my_list">
-                    <% for (let i=0; i < playlistLikes.likePlaylists.length; i++) { %>
+                    <!-- < for (let i=0; i < playlistLikes.length; i++) { %> -->
                     <li>
                         <div class="my_list_album">
                             <div class="list_image">
@@ -49,22 +56,22 @@
                             </div>
                             <div class="my_list_text">
                                 <a href="#">
-                                    <span><%= playlistLikes.likePlaylists[i].name %></span>
+                                    <!-- <span>< playlistLikes[i].likePlaylists.name %></span> -->
                                 </a>
                             </div>
                             <div class="playlist_like" id="playlist_like" onclick="like()">
 
                              
-                                <!-- if(result) {
-                                    <i class="fa-solid fa-heart" style = "color: #FCD06B";></i> <%= playlists.likes %>
-                                 } else { 
-                                    <i class="fa-regular fa-heart" style = "color: #FCD06B";></i> <%= playlists.likes %>
-                                 } -->
+                                <!-- < if(result) { %> -->
+                                    <!-- <i class="fa-solid fa-heart" style = "color: #FCD06B";></i> <= playlists.likes %> -->
+                                <!-- < } else { %> -->
+                                    <!-- <i class="fa-regular fa-heart" style = "color: #FCD06B";></i> <= playlists.likes %> -->
+                                <!-- < } %> -->
 
                             </div>
                         </div>
                     </li>
-                    <% } %>
+                    <!-- < } %> -->
                 </ul>
             </div>
         </div>
@@ -107,22 +114,22 @@
             console.log(res);
         }
 
-        async function like() {
+        async function like(num) {
             const like_element = document.querySelector(".playlist_like");
-            const id = 1 //테스트용
+            const id = num;
             const res = await axios({
                 method: "post",
-                url: "/playlist",
+                url: "/playlist/like",
                 data:{
                     id
                 }
             });
             
             console.log("res", res)
-            if(res.data.playlists.likes) {
-                like_element.innerHTML = '<i class="fa-solid fa-heart" style="color: #FCD06B;" ></i>' + res.data.count;
+            if(res.data.liked) {
+                like_element.innerHTML = '<i class="fa-solid fa-heart" style="color: #FCD06B;" ></i>'
             } else {
-                like_element.innerHTML = '<i class="fa-regular fa-heart" style="color: #FCD06B;"></i>' + res.data.count;
+                like_element.innerHTML = '<i class="fa-regular fa-heart" style="color: #FCD06B;"></i>'
             }
         }
         

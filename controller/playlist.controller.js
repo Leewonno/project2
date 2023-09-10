@@ -26,9 +26,15 @@ exports.getPlayListPage = async (req, res) => {
       const likePlaylists = await models.P_like.findAll({
         where: {userid: userId, p_id: playlistId },
       });
+
+      let result = false;
+
+      if(likePlaylists){
+        result = true
+      }
       const playlistInfo = {
         playlist,
-        likePlaylists,
+        result,
       }
 
       playlistLikes.push(playlistInfo);
@@ -98,7 +104,7 @@ exports.postPlayListLike = async (req, res) => {
     }
 
     const [pLike, created] = await models.P_like.findOrCreate({
-      where: { p_id: id, userid: "gahyeon2" },
+      where: { p_id: id, userid: userId },
     });
 
     console.log(pLike, created);
@@ -109,14 +115,14 @@ exports.postPlayListLike = async (req, res) => {
     console.log("pl", playlist);
 
     if (!created) {
-      await p_like.destroy();
+      await pLike.destroy();
       playlist.like -= 1;
       await playlist.save();
-      res.json({ count: playlist.like, liked: false, message: "like cancel success" });
+      res.json({ liked: false, message: "like cancel success" });
     } else {
       playlist.like += 1;
       await playlist.save();
-      res.json({ count: playlist.like, liked: true, message: "like success" });
+      res.json({ liked: true, message: "like success" });
     }
   } catch (error) {
     console.error(error);
