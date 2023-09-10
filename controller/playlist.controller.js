@@ -8,6 +8,7 @@ exports.getPlayListPage = async (req, res) => {
     const playlists = await models.Playlist.findAll({
       where: {userid: userId},
     });
+    console.log(playlists);
     playlists.push({
       name: req.body.pl_name,
     });
@@ -29,11 +30,15 @@ exports.postPlayListLike = async (req, res) => {
     }
 
     const [pLike, created] = await models.P_like.findOrCreate({
-      where: { p_id: id, userid: userId },
+      where: { p_id: id, userid: "gahyeon2" },
     });
+
+    console.log(pLike, created);
 
     const playlist = await models.Playlist.findOne({ where: { id } });
     console.log("playlist",playlist);
+
+    console.log("pl", playlist);
 
     if (!created) {
       await p_like.destroy();
@@ -50,6 +55,26 @@ exports.postPlayListLike = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
+exports.deletePlayList = async (req, res) => {
+  try {
+    const playlistId = req.body.id;
+
+    const playlist = await models.Playlist.findOne({ where: { id: playlistId } });
+
+    if (!playlist) {
+      return res.status(404).json({ message: 'Playlist not found' });
+    }
+
+    await playlist.destroy();
+
+    res.json({ result: true, message: 'Playlist deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 
 exports.postPlayListPage = async (req, res) => {
   try {
