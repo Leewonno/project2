@@ -142,7 +142,50 @@ async function playlist(num){
     // })
     // 플리 받아왔다는 가정하에
     now_play = 0;
-    pl = ["9", "14", "16"];
+    pl = ["9", "14", "16", "25", "26"];
+
+    for(let i = 0; i<pl.length; i++){
+        const res = await axios({
+            method:"GET",
+            url:"/song/play",
+            params:{
+                id:pl[i],
+            }
+        })
+
+        if(res.data.result){
+            const {song_url, title, artist, album, lyrics, genre, cover_url} = res.data.songResult;
+
+            const html = `
+            <li class="modal_playlist_detail">
+            <a class="modal_playlist_detail_imgs" href="#">
+              <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
+            </a>
+            <a class="modal_playlist_detail_titles">
+              <span class="modal_playlist_detail_title">${title}</span>
+              <span class="modal_playlist_detail_artist">${artist}</span>
+            </a>
+            <div class="container">
+              <input type="checkbox" class="toggle" id="toggle" hidden>
+              <label for="toggle" class="label" id="label">
+                <i class="fa-solid fa-ellipsis-vertical" style="color: #ffffff;"></i>
+              </label>
+              <ul class="menu">
+                  <li class="menu-item"><i class="fa-solid fa-music" style="color: #000000;"></i><a href="#" class="menu-name">곡 정보</a></li>
+                  <li class="menu-item"><i class="fa-solid fa-cart-plus" style="color: #000000;"></i><a href="#" class="menu-name">내 리스트에 담기</a></li>
+                  <li class="menu-item"><i class="fa-regular fa-heart" style="color: #000000;"></i><a href="#" class="menu-name">좋아요</a></li>
+                  <li class="menu-item"><i class="fa-solid fa-trash" style="color: #000000;"></i><a href="#" class="menu-name">삭제</a></li>
+              </ul>
+            </div>
+          </li>`
+
+          document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforebegin",html);
+        }
+        else{
+            alert("불러오는 중 오류가 발생했습니다.")
+        }   
+    }
+
     music(pl[now_play]);
 }
 
@@ -161,6 +204,12 @@ async function prevPlay(){
     }
     music(pl[now_play]);
 }
+
+// 노래 끝나면 다음 노래 재생
+audio.addEventListener("ended", function(){
+    console.log("실행")
+    nextPlay();
+});
 
 $('.modal_open').click(function(e) {
     if(!$(e.target).hasClass("toggle") && !$(e.target).hasClass("label")) {
