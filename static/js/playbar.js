@@ -106,6 +106,44 @@ $('.modal_open').click(function(e) {
 });
 
 
+/* -------------------------------------- 드래그 앤 드롭 움직이기 -------------------------------------- */ 
+let dragElement = null;
 
+// 드래그가 시작될 때 호출되는 함수
+function dragStart(e) {
+  dragElement = this;
+  this.style.opacity = '0.5';
 
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/html', this.innerHTML);
+}
 
+// 드래그 중 마우스 포인터 위치를 확인하여 순서 변경
+function handleDragOver(e) {
+  e.preventDefault();
+}
+
+// 드롭이 완료될 때 호출되는 함수
+function handleDrop(e) {
+  if (dragElement != this) {
+    console.log(this)
+    // 드래그한 요소와 드롭 대상 요소의 내용을 교체합니다.
+    const temp = this.innerHTML;
+    this.innerHTML = dragElement.innerHTML;
+    dragElement.innerHTML = temp;
+  }
+
+  // 드롭 완료 후 요소를 다시 표시하기 위해 opacity를 원래대로 설정
+  dragElement.style.opacity = '1';
+
+  return false;
+}
+
+const draggableElements = document.querySelectorAll('.modal_playlist_detail');
+
+draggableElements.forEach((elem) => {
+  elem.addEventListener('dragstart', dragStart);
+  elem.addEventListener('dragover', handleDragOver);
+  elem.addEventListener('dragenter', (e) => e.preventDefault());
+  elem.addEventListener('drop', handleDrop);
+});

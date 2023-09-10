@@ -8,6 +8,7 @@ exports.getPlayListPage = async (req, res) => {
     const playlists = await models.Playlist.findAll({
       where: {userid: userId},
     });
+    console.log(playlists);
     playlists.push({
       name: req.body.pl_name,
     });
@@ -32,7 +33,11 @@ exports.postPlayListLike = async (req, res) => {
       where: { p_id: id, userid: userId },
     });
 
+    console.log(pLike, created);
+
     const playlist = await models.Playlist.findOne({ where: { id } });
+
+    console.log("pl", playlist);
 
     if (!created) {
       await pLike.destroy();

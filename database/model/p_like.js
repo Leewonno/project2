@@ -10,7 +10,6 @@ const P_like = function (sequelize, DataTypes) {
         //     type: DataTypes.STRING(50),
         //     allowNull: false,
         // }
-      
     }, {
         tableName: 'p_like',
         timestamps: false,
