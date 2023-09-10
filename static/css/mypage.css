@@ -16,13 +16,13 @@
     justify-content: center;
     align-items: center;
     width:500px;
-    height:600px;
+    height:630px;
     background-color: lightgray;
 }
 
 .mypageMain .mypageCover {
     width: 400px;
-    height: 500px;
+    height: 550px;
     padding: 24px;
     background-color: rgb(179, 182, 182);
     position: absolute;   
@@ -103,6 +103,51 @@
 
 .mypageMain .deleteBtn, .mypageMain .cancelBtn {
     width: 142px;
-    height: 40px;
+    height: 50px;
 }
 
+@media screen and (max-width: 650px) {
+    .mypageMain .mypage {
+        width: 400px;
+        height: 530px;
+    }
+
+    .mypageMain .mypageCover {
+        width: 340px;
+        height: 410px;
+    }
+
+    .mypageMain .profilePage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .mypageMain .welcome {
+        font-size: 13px;
+    }
+
+    .mypageMain #name, .mypageMain #nickname, .mypageMain #pw, .mypageMain #pw2, .mypageMain .mainBtn {
+        width: 250px;
+        height: 30px;
+        border-radius: 10px;
+        border: 2px solid #FCD06B;
+    }
+
+    .mypageMain .mypageBtns {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        position: absolute;
+        transform: translate(-50%, 50%);
+        left: 170px;
+        bottom: 30px;
+    }
+
+    .mypageMain .deleteBtn, .mypageMain .cancelBtn {
+        width: 100px;
+        height: 30px;
+    }
+}

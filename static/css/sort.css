@@ -33,12 +33,14 @@
 
 .sort_section .sort_menu ul.lay_menu li {
     width: 80px;
-    margin-right: 20px;
+    text-align: center;
+    padding: 10px;
 }
 
 .sort_section .genre_menu ul.genre_ul li {
     width: 80px;
-    margin-right: 20px;
+    margin: 10px;
+    text-align: center;
 }
 
 .sort_section .sort_menu ul.lay_menu li span {
@@ -130,6 +132,7 @@
 
 .wrap > .rank {
     width: 35px;
+    text-align: center;
 }
 
 .song_detail_button, .song_list_button {
@@ -198,4 +201,80 @@
     border: none;
     background-color: #ffff;
     margin: 12px;
+}
+
+@media screen and (max-width: 650px) {
+    .song_category {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sort_section .sort_menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 500px;
+        background-color: #ffff;
+        border-bottom:2px solid #FCD06B;  
+    }
+
+    .sort_section .sort_menu ul.lay_menu {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
+
+    .sort_section .sort_menu ul.lay_menu li {
+        display: flex;
+        justify-content: center;
+        width: 80px;
+        margin: 10px;
+    }
+
+    .sort_section .genre_menu ul.genre_ul li {
+        display: flex;
+        justify-content: center;
+        width: 80px;
+        margin-right: 20px;
+    }
+
+    .sort_section .list {
+        width: auto;
+    }
+
+    .sort_section .list th, .list td {
+        padding-bottom: 20px;
+    }
+
+    .sort_section .list thead {
+        display: flex;
+        justify-content: center;
+    }
+
+    .sort_section .wrap_song, .wrap_song_album {
+        height: 40px;
+    }
+
+    .song_tbody {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrap_song_album {
+        width: auto;
+    }
+
+    .wrap_song {
+        width: 70px;
+        text-align: center;
+    }
+
+    .wrap_song img {
+        width: 60px;
+        height: 60px;
+    }
 }

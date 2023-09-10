@@ -28,6 +28,8 @@
     margin-top: 25px;
 }
 
+
+
 .signupMain .signupCover {
     display: flex;
     justify-content: center;
@@ -65,4 +67,38 @@
 .signupMain .signupBtn {
     width: 300px;
     height: 80px;
+}
+
+/* 반응형 */
+@media screen and (max-width: 650px) {
+    .signupMain .signupPage {
+        width: 470px;
+        height: 600px;
+        border-radius: 16px;
+    }
+
+    .signupMain .signupCover {
+        width: 380px;
+        height: 530px;
+    }
+
+    .signupMain .signupLogo {
+        margin-top: 10px;
+    }
+
+    .signupMain .signupForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signupMain #userid, .signupMain #pw, .signupMain #pw2, .signupMain #mail, .signupMain #name, .signupMain #nick {
+        width: 200px;
+        height: 30px;
+    }
+
+    .signupMain .signupBtn {
+        width: 200px;
+        height: 50px;
+    }
 }
