@@ -10,7 +10,7 @@
     <%- contentFor('body') %>
     <section>
         <div class="songMain1">
-            <div class="albumImg"><img class="cover" src="<%= data.cover_url %>"></div>
+            <div class="albumImg" onclick="music('<%= data.id %>')"><img class="cover" src="<%= data.cover_url %>"></div>
             <div class="albumInfor">
                 <div class="title">[EP] <%= data.title %></div>
                 <div class="artist"><%= data.artist %></div>

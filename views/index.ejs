@@ -9,12 +9,13 @@
   <body>
     <%- contentFor('body') %>
     <section class="index_section">
+      <button type="button" onclick="playlist('6')">플레이리스트 테스트</button>
       <div class="main_page">
         <div class="column_first">
           <div class="recent_music" id="recent_music">최신순 음악
             <% for (let i = 0; i < data.recent.length; i++) { %>
               <div class="recent_element">
-                <img src="<%= data.recent[i].cover_url %>" onclick="music()">
+                <img src="<%= data.recent[i].cover_url %>" onclick="music('<%= data.recent[i].id %>')">
                 <a class="recent_title" href="/song?id=<%= data.recent[i].id %>"><%= data.recent[i].title %></a>
                 <div class="artist"><%= data.recent[i].artist %></div>
               </div>
@@ -24,7 +25,7 @@
             <div clss="genre_dance">록/메탈</div>
             <% for (let i = 0; i < data.genre.length; i++) { %>
               <div class="genre_element">
-                <img src="<%= data.genre[i].cover_url %>" onclick="music()">
+                <img src="<%= data.genre[i].cover_url %>" onclick="music('<%= data.genre[i].id %>')">
                 <a class="recent_title" href="/song?id=<%= data.genre[i].id %>"><%= data.genre[i].title %></a>
                 <div class="artist"><%= data.genre[i].artist %></div>
               </div>
@@ -41,7 +42,7 @@
           <div class="popular_music">인기순 음악
             <% for (let i = 0; i < data.like.length; i++) { %>
               <div class="popular_element">
-                <img src="<%= data.like[i].cover_url %>" onclick="music()">
+                <img src="<%= data.like[i].cover_url %>" onclick="music('<%= data.like[i].id %>')">
                 <a class="popular_title" href="/song?id=<%= data.like[i].id %>"><%= data.like[i].title %></a>
                 <div class="popular_artist"><%= data.like[i].artist %></div>
               </div>

@@ -9,6 +9,7 @@ exports.getPlayListPage = async (req, res) => {
     const playlists = await models.Playlist.findAll({
       where: {userid: userId},
     });
+
     console.log(playlists);
 
     // playlists.push({
@@ -55,7 +56,6 @@ exports.getPlayListPage = async (req, res) => {
     //   console.log(likePlaylists);
     //   res.render('likePlaylists',{likePlaylists});
     // }
-
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving playlists');
