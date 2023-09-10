@@ -33,8 +33,8 @@ const Playlist = function (sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             defaultValue: 0,
             allowNull: false
-        }
-      
+        },
+
     }, {
         tableName: 'playlist',
         timestamps: false,

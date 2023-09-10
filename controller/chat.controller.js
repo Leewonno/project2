@@ -67,14 +67,20 @@ exports.connection = (io, socket) => {
     // console.log(cookie)
     socket.user = userID;
     // console.log('so', socket);
-    userID = socket.user;
     console.log('userid', socket.user);
     console.log('room', socket.room);
+    let chat_member = await models.Chat_member.findOne({ where: { userid: userID } });
+    if (!chat_member) {
+      await models.Chat_member.create({
+        userid: userID,
+        chatroom_id: chatRoom.id,
+      });
+    }
 
     chatInfo = await models.Chat.findAll({ raw: true, where: { chatroom_id: chatRoom.id } });
-    console.log('info', chatInfo.userid);
+    // console.log('info', chatInfo.userid);
     for (let i = 0; i < chatInfo.length; i++) {
-      console.log(i + '번쨰' + chatInfo[i].userid);
+      // console.log(i + '번쨰' + chatInfo[i].userid);
       socket.emit('newMessage', chatInfo[i].content, chatInfo[i].userid);
     }
     socket.to(socket.room).emit('notice', `${socket.user}님이 입장하셨습니다`, socket.user);
@@ -109,12 +115,6 @@ exports.connection = (io, socket) => {
     io.to(socket.room).emit('newMessage', message.message, socket.user);
   });
 
-  socket.on('disconnect', () => {
-    if (socket.room) {
-      socket.leave(socket.room);
-    }
-  });
-
   function getUsersInRoom(room) {
     const users = [];
     //채팅룸에 접속한 socket.id값을 찾아야함
@@ -132,4 +132,14 @@ exports.connection = (io, socket) => {
     }
     return users;
   }
+
+  socket.on('disconnect', async () => {
+    console.log(userID + '나감');
+    socket.leave(socket.room);
+  });
+  socket.on('deleteInfo', async () => {
+    await models.Chat_member.destroy({
+      where: { userid: userID },
+    });
+  });
 };

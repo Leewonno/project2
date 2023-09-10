@@ -36,11 +36,12 @@ exports.postPlayListLike = async (req, res) => {
     console.log(pLike, created);
 
     const playlist = await models.Playlist.findOne({ where: { id } });
+    console.log("playlist",playlist);
 
     console.log("pl", playlist);
 
     if (!created) {
-      await pLike.destroy();
+      await p_like.destroy();
       playlist.like -= 1;
       await playlist.save();
       res.json({ count: playlist.like, liked: false, message: "like cancel success" });
@@ -54,51 +55,6 @@ exports.postPlayListLike = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
-
-// exports.postPlayListLike = async (req, res) => {
-//   try {
-//     // const userId = req.userid; 
-//     const userid = "gahyeon2"
-
-//     const id = req.body.id ;
-//     // console.log(id, userId);
-
-//     if (typeof id === 'undefined' || id === null) {
-//       return res.status(400).send({ message: 'Invalid p_id' });
-//     }
-
-//     console.log(id, userid);
-
-//     // const [pLike, created] = await models.P_like.create({
-//     //   where: { p_id: id, userid },
-//     // });
-//     const [pLike, created] = await models.P_like.findOrCreate({
-//       where: { p_id: id, userid },
-//     });
-    
-
-//     console.log('pLike', pLike);
-
-//     const playlist = await models.Playlist.findOne({ where: { id } });
-//     console.log('playlist', playlist);
-
-//     if (!created) {
-//       await pLike.destroy();
-//       playlist.like -= 1;
-//       await playlist.save();
-//       res.send({ count: playlist.like, liked: false, message: "like cancel success" });
-//     } else {
-//       playlist.like += 1;
-//       await playlist.save();
-//       // res.send({ count: playlist.like, liked: true, message: "like success" });
-//       res.json({ count: playlist.like, liked: true, message: "like success" });
-
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send({ message: 'Internal Server Error' });
-//   }
-// };
 
 exports.postPlayListPage = async (req, res) => {
   try {

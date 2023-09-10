@@ -27,6 +27,7 @@
       </div>
     </div>
     <form id="chat">
+      <button onclick="leaveChat()">임시 채팅방 나가기 버튼</button>
       <input type="text" id="message" placeholder="메세지 입력" />
       <button class="chat_send_message">입력</button>
     </form>
@@ -132,6 +133,11 @@
         socket.emit('sendMessage', msg);
         message.value = '';
       });
+
+      const leaveChat = () => {
+        socket.emit('deleteInfo');
+        window.close();
+      };
     </script>
   </body>
 </html>

@@ -41,7 +41,7 @@
     margin-right: 20px;
 }
 
-.sort_section .sort_menu ul.lay_menu li a {
+.sort_section .sort_menu ul.lay_menu li span {
     text-decoration: none;
     color: #333;
     font-weight: bold;
@@ -56,8 +56,9 @@
 }
 
 
-.sort_section .sort_menu ul.lay_menu li a:hover {
+.sort_section .sort_menu ul.lay_menu li span:hover {
     color: #FCD06B;
+    cursor: pointer;
 }
 .sort_section .genre_menu ul.genre_ul li span:hover {
     cursor: pointer;
