@@ -3,6 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 } */
+img {
+    width: 70px;
+    height: 70px;
+}
 .searchPage{
     display: flex;
     justify-content: center;
@@ -15,8 +19,8 @@
     justify-content: center;
     align-items: center;
     width: 1000px;
-    height: 650px;
-    background-color: lightgray;
+    height: auto;
+    /* background-color: lightgray; */
     gap: 30px;
 }
 
@@ -24,7 +28,7 @@
     padding-right: 580px;
 }
 
-.talkSearch, .titleSearch, .artistSearch, .lyricsSearch {
+.talkSearch, .titleSearch, .artistSearch, .lyricsSearch, .playListSearch {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -38,8 +42,12 @@
     display: flex;
     gap: 10px;
 }
+/* .searchPage .searchCover .searchResult .artistSearch .artistSearchResult  */
 
-
+/* .searchPage .searchCover .artistSearchLink .artistSearchResult .artistSearchLink img{
+    width: 50px;
+    height: 50px;
+} */
 .talkSearchLink {
     display: flex;
     justify-content: center;
