@@ -8,7 +8,7 @@ const { auth } = require('../middleware/auth.middleware')
 // 렌더링
 router.get('/playlist', auth.verifyAuthentication, controller.getPlayListPage); // playlist 페이지
 router.post('/playlist', auth.verifyAuthentication, controller.postPlayListPage);
-// router.post('/playlist/like', auth.verifyAuthentication, controller.postPlayListLike);
+router.post('/playlist/like', auth.verifyAuthentication, controller.postPlayListLike);
 
 // 기능 개발
 

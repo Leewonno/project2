@@ -28,8 +28,12 @@ const Playlist = function (sequelize, DataTypes) {
             type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: true
-        }
-      
+        },
+        like: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: false
+        },
     }, {
         tableName: 'playlist',
         timestamps: false,
