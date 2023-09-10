@@ -13,17 +13,84 @@
         <div class="searchPage">
             <div class="searchCover">
                 <div class="searchResult">검색결과(톡방/플레이리스트/아티스트/가사)</div>
+
+                <div class="divName">ARTIST-TALK</div>
                 <div class="talkSearch">
-                    <div class="talkSearchResult">
-                        <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="#"></a>
-                        <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="#"></a>
-                        <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="#"></a>
-                        <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="#"></a>
-                    </div>
+                    <% if (data.chatroom.length === 0) { %>
+                        <div class="noResultsMessage">검색 내용을 찾을 수 없습니다.</div>
+                    <% } else { %>
+                        <% for (let i = 0; i < data.chatroom.length; i++) { %>
+                        <div class="talkSearchResult"> 
+                            <a href="#" class="talkSearchLink"><img class="talkSearchImg" src="<%= data.chatroom[i].cover_img %>"></a>
+                            <a href="#" class="talkSearchName"><%= data.chatroom[i].name %></a>
+                        </div>
+                        <% } %>
+                    <% } %>
                 </div>
-                <div class="titleSearch"></div>
-                <div class="artistSearch"></div>
-                <div class="lyricsSearch"></div>
+
+                <div class="divName">PLAYLIST</div>
+                <div class="playListSearch">
+                    <% if (data.playlist.length === 0) { %>
+                        <div class="noResultsMessage">검색 내용을 찾을 수 없습니다.</div>
+                    <% } else { %>
+                        <% for (let i = 0; i < data.playlist.length; i++) { %>
+                            <div class="playListSearchResult">
+                                <a href="#" class="playListSearchName"><%= data.playlist[i].name %></a>
+                                <a href="#" class="playListSearchUserId"><%= data.playlist[i].userid %></a>
+                                <a href="#" class="playListSearchLike"><%= data.playlist[i].like %></a>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
+
+                
+                <div class="divName">TITLE</div>
+                <div class="titleSearch">
+                    <% if (data.title.length === 0) { %>
+                        <div class="noResultsMessage">검색 내용을 찾을 수 없습니다.</div>
+                    <% } else { %>
+                        <% for (let i = 0; i < data.title.length; i++) { %>
+                            <div class="titleSearchResult">
+                                <a href="#" class="titleSearchLink"><img class="titleSearchImg" src="<%= data.title[i].cover_url %>"></a>
+                                <a href="#" class="titleSearchName"><%= data.title[i].name %></a>
+                                <a href="#" class="titleSearchTilte"><%= data.title[i].title %></a>
+                                <a href="#" class="titleArtist"><%= data.title[i].artist %></a>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
+
+                <div class="divName">ARTIST</div>
+                <div class="artistSearch">
+                    <% if (data.artist.length === 0) { %>
+                        <div class="noResultsMessage">검색 내용을 찾을 수 없습니다.</div>
+                    <% } else { %>
+                        <% for (let i = 0; i < data.artist.length; i++) { %>
+                            <div class="artistSearchResult">
+                                <a href="#" class="artistSearchLink"><img class="artistSearchImg" src="<%= data.artist[i].cover_url %>"></a>
+                                <a href="#" class="artistSearchName"><%= data.artist[i].name %></a>
+                                <a href="#" class="artistSearchName"><%= data.artist[i].title %></a>
+                                <a href="#" class="artistSearchName"><%= data.artist[i].artist %></a>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div class="divName">LYRICS</div>
+                <div class="lyricsSearch">
+                    <% if (data.lyrics.length === 0) { %>
+                        <div class="noResultsMessage">검색 내용을 찾을 수 없습니다.</div>
+                    <% } else { %>
+                        <% for (let i = 0; i < data.lyrics.length; i++) { %>
+                            <div class="lyricsSearchResult">
+                                <a href="#" class="lyricsSearchLink"><img class="lyricsSearchImg" src="<%= data.lyrics[i].cover_url %>"></a>
+                                <a href="#" class="lyricsSearchName"><%= data.lyrics[i].name %></a>
+                                <a href="#" class="lyricsSearchTitle"><%= data.lyrics[i].title %></a>
+                                <a href="#" class="lyricsSearchArtist"><%= data.lyrics[i].artist %></a>
+                                <a href="#" class="lyricsSearchLyrics"><%= data.lyrics[i].lyrics %></a>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
             </div>
         </div>
     </section>

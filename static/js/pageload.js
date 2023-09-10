@@ -15,8 +15,9 @@
 
     $(".search_bar").on('keydown', function(e){
         var search_term = document.querySelector(".search_bar").value;
+        const encodedQ = encodeURIComponent(search_term);
         if(e.keyCode == 13){
-            let move_href = "/search?q=" + search_term;
+            let move_href = "/search?q=" + encodedQ;
             console.log(move_href);
             history.pushState(null, null, move_href);
             $('main').load(move_href+ " main>section");

@@ -1,5 +1,5 @@
-const { Song, ChatRoom } = require('../database/db');
-const jwt = require("jsonwebtoken");
+const { Song, ChatRoom, Playlist } = require('../database/db');
+const { Sequelize, Op } = require('sequelize');
 
 exports.controller = {
   mainPage: async (req, res) => {
@@ -71,6 +71,8 @@ exports.controller = {
       res.render('index', { data });
     } catch (error) {
       // 오류 처리
+      console.log(error)
+      res.status(500).send({ message: 'Internal Server Error' });
     }
   },
   getChatListPage: async (req, res) => {
@@ -90,7 +92,64 @@ exports.controller = {
 
     //   console.log(allChatRoom.dataValues.name);
   },
-  getSearchPage: (req, res) => {
-    res.render('search');
+  getSearchPage: async (req, res) => {
+    try {
+      const q = req.query.q;
+      console.log(q);
+  
+      // Chatroom 톡방, 태그
+      const chatroomResults = await ChatRoom.findAll({
+        attributes: ['name', 'cover_img'],
+        where: {
+          [Op.or]: [
+            { name: { [Op.like]: `%${q}%` } },
+            { tag: { [Op.like]: `%${q}%` } },
+          ],
+        },
+      });
+  
+      // Playlist 이름
+      const playlistResults = await Playlist.findAll({
+        attributes: ['name', 'userid', 'like'],
+        where: {
+          name: { [Op.like]: `%${q}%` },
+        },
+      });
+  
+      // 아티스트, 곡 제목 검색
+      const artistAndTitleResults = await Song.findAll({
+        attributes: ['title', 'id', 'artist', 'cover_url', 'song_url'],
+        where: {
+          [Op.or]: [
+            { title: { [Op.like]: `%${q}%` } },
+            { artist: { [Op.like]: `%${q}%` } },
+          ],
+        },
+      });
+  
+      // 가사 검색
+      const lyricsResults = await Song.findAll({
+        attributes: ['title', 'id', 'artist', 'cover_url', 'song_url', 'lyrics'],
+        where: {
+          lyrics: { [Op.like]: `%${q}%` },
+        },
+      });
+  
+      // 데이터를 객체에 추가
+      const data = {
+        chatroom: chatroomResults.map(result => result.dataValues),
+        playlist: playlistResults.map(result => result.dataValues),
+        artist: artistAndTitleResults.map(result => result.dataValues),
+        title: artistAndTitleResults.map(result => result.dataValues),
+        lyrics: lyricsResults.map(result => result.dataValues),
+      };
+      console.log(data);
+  
+      res.render('search', { data });
+  
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
   },
 };
