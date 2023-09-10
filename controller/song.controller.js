@@ -121,9 +121,10 @@ exports.controller = {
         lyrics: song.lyrics, 
         genre: song.genre, 
         song_url: song.song_url,
+        cover_url:song.cover_url,
       }
 
-      res.send(songResult);
+      res.send({result:true, songResult});
 
     } catch (error) {
       console.log(error)

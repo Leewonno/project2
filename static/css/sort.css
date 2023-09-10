@@ -132,9 +132,70 @@
     width: 35px;
 }
 
-.song_detail_button, .song_list_button, .song_mylist_button {
+.song_detail_button, .song_list_button {
     border: none;
     background-color: #ffff;
     cursor: pointer;
     font-size: 23px;
+}
+
+#myPlaylist {
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hidden {
+    display: none;
+}
+
+.myPlaylistCover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 400px;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    background-color: #ffff;
+}
+
+.wrapperMyPlaylist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.mainMyPlaylist {
+    text-align: center;
+    width: 250px;
+}
+
+.wrapperPlaylist {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.playlistTitle {
+    margin: 12px;
+}
+
+.wrapperPlaylistButton {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.playlistButton {
+    border: none;
+    background-color: #ffff;
+    margin: 12px;
 }
