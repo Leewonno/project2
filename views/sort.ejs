@@ -107,6 +107,25 @@
                 </tbody>
             </table>
         </div>
+
+        
+
+        <div id="myPlaylist" class="hidden">
+            <div class="myPlaylistCover">
+                <div class="wrapperPlaylist">
+                    <div class="playlistTitle">플레이리스트</div>
+                    <button type="button" class="playlistButton">X</button>
+                </div>
+                <br>
+                <div class="wrapperMyPlaylist">
+                    <div class="mainMyPlaylist">나의 플레이리스트</div>
+                    <div class="mainMyPlaylist">나의 플레이리스트2</div>
+                    <div class="mainMyPlaylist">나의 플레이리스트3</div>
+                </div>
+                
+            </div>
+        </div>
+        
     </section>
 
     <%- contentFor('player') %>
@@ -168,7 +187,23 @@
 
                 // const newURL = `/sort?sort=${sortBy}`;
                 // window.history.pushState(null, null, newURL);
+                const listModal = document.querySelector("#myPlaylist");
+                const modalOpen = document.querySelector(".song_list_button");
+                const modalClose = document.querySelector(".playlistButton");
+            
+
+                modalOpen.addEventListener("click", (e) => {
+                    listModal.classList.remove('hidden');
+                });
+
+                modalClose.addEventListener("click", (e) => {
+                    listModal.classList.add('hidden');
+                });
+                listModal.addEventListener("click", (e) => {
+                    listModal.classList.add('hidden');
+                })
             })
+            
         }
         
         function startGenreToggle() {
@@ -246,6 +281,8 @@
                 console.error("Error fetching data:", error);
             }
         }
+
+
     </script>
 </body>
 </html>
