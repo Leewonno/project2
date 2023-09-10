@@ -29,7 +29,7 @@ exports.postPlayListLike = async (req, res) => {
     }
 
     const [pLike, created] = await models.P_like.findOrCreate({
-      where: { p_id: id, userid: "gahyeon2" },
+      where: { p_id: id, userid: userId },
     });
 
     const playlist = await models.Playlist.findOne({ where: { id } });
