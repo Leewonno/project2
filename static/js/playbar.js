@@ -141,9 +141,25 @@ async function playlist(num){
     //     url:"/playlist"
     // })
     // 플리 받아왔다는 가정하에
+    now_play = 0;
     pl = ["9", "14", "16"];
-    
-    
+    music(pl[now_play]);
+}
+
+async function nextPlay(){
+    now_play++;
+    if(now_play > pl.length - 1){
+        now_play = 0;
+    }
+    music(pl[now_play]);
+}
+
+async function prevPlay(){
+    now_play--;
+    if(now_play < 0){
+        now_play = pl.length - 1;
+    }
+    music(pl[now_play]);
 }
 
 $('.modal_open').click(function(e) {
