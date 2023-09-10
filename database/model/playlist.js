@@ -34,6 +34,7 @@ const Playlist = function (sequelize, DataTypes) {
             defaultValue: 0,
             allowNull: false
         },
+
     }, {
         tableName: 'playlist',
         timestamps: false,
