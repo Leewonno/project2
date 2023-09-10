@@ -19,37 +19,6 @@ exports.getPlayListPage = async (req, res) => {
   }
 };
 
-// exports.postPlayListLike = async (req, res) => {
-//   try {
-//     const userId = req.userid;
-//     const id = req.body.id;
-
-//     if (typeof id === 'undefined' || id === null) {
-//       return res.status(400).send({ message: 'Invalid p_id' });
-//     }
-
-//     const [pLike, created] = await models.P_like.findOrCreate({
-//       where: { p_id: id, userid: "gahyeon2" },
-//     });
-
-//     const playlist = await models.Playlist.findOne({ where: { id } });
-
-//     if (!created) {
-//       await playlist.destroy();
-//       playlist.like -= 1;
-//       await playlist.like.save();
-//       res.json({ count: playlist.like, liked: false, message: "like cancel success" });
-//     } else {
-//       playlist.like += 1;
-//       await playlist.like.save();
-//       res.json({ count: playlist.like, liked: true, message: "like success" });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// };
-
 exports.postPlayListLike = async (req, res) => {
   try {
     const userId = req.userid;
@@ -60,7 +29,7 @@ exports.postPlayListLike = async (req, res) => {
     }
 
     const [pLike, created] = await models.P_like.findOrCreate({
-      where: { p_id: id, userid: "gahyeon2" },
+      where: { p_id: id, userid: userId },
     });
 
     const playlist = await models.Playlist.findOne({ where: { id } });
