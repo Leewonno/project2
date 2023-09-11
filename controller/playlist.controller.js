@@ -117,7 +117,6 @@ exports.deletePlayList = async (req, res) => {
   }
 };
 
-
 exports.postPlayListPage = async (req, res) => {
   try {
     const playlist = await models.Playlist.create({
@@ -128,5 +127,41 @@ exports.postPlayListPage = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error creating playlist' });
+  }
+};
+
+exports.postPlayListSong = async (req,res) => {
+  try {
+    const playlistId = req.body.id;
+    const songIds = req.body.song_ids;
+
+    const row = await models.Playlist.findOne({
+      where: { id: playlistId },
+      attributes: ['song_ids'],
+    });
+
+    console.log(row.song_ids);
+
+    let addSongId
+    if (row.song_ids === null) {
+      addSongId = songIds;
+    } else {
+      addSongId = row.song_ids + "," + songIds ;
+    };
+
+    console.log(addSongId);
+
+    const [songs, added] = await models.Playlist.update(
+      { song_ids: addSongId },
+      { where: { id: playlistId } }
+    );
+
+    console.log(songs, added);
+
+    res.json({message: 'Add songs at Playlist successfully'});
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error Add songs at Playlist' });
   }
 };
