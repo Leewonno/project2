@@ -7,6 +7,7 @@ const { auth } = require('../middleware/auth.middleware')
 // 렌더링
 router.get('/signin', controller.getSigninPage);
 router.get('/signup', controller.getSignupPage);
+router.get('/signup/valid', controller.validateUserId);
 router.get('/profile', auth.verifyAuthentication, controller.getProfilePage);
 
 // 기능 개발

@@ -1,61 +1,55 @@
+const { where } = require('sequelize');
 const models = require('../database/db');
 const jwt = require("jsonwebtoken");
 
 exports.getPlayListPage = async (req, res) => {
   try {
     const userId = req.userid;
-    console.log(userId);
+  //  console.log(userId);
 
+    const myPlaylistInfo = [];
+    const likeListInfo = [];
+    let result = false;
+
+    // 내가 만든 플레이리스트 목록 
     const playlists = await models.Playlist.findAll({
       where: {userid: userId},
+    }); // -> 배열로 플레이리스트 id 값 
+    // 
+    for (const playlist of playlists) {
+      const like = await models.P_like.findOne({ where: { p_id: playlist.id }});
+      if(like) {
+        result = true
+      } else {
+        result = false
+      }
+      const item = {
+        name: playlist.name,
+        result: result
+      }
+      myPlaylistInfo.push(item);
+    }
+    const likedPlaylists = await models.P_like.findAll({
+      where: { userid: userId },
+      attributes: ['p_id'],
     });
 
-    console.log(playlists);
-
-    const playlistLikes = [];
-
-    for (const playlist of playlists) {
-      const playlistId = playlist.id;
-
-      const likePlaylists = await models.P_like.findAll({
-        where: {userid: userId, p_id: playlistId },
-      });
-
-      let result = false;
-
-      if(likePlaylists){
-        result = true
+    for( const likeList of likedPlaylists) {
+      const playlist = await models.Playlist.findOne({ where: { id: likeList.p_id} })
+      const item = {
+        name: playlist.name,
+        result: true
       }
-
-      const likedPlaylists = await models.P_like.findAll({
-        where: {userid: userId},
-        where: {
-          userid: userId,
-        },
-        attributes: ['p_id'],
-      });
-      
-      const playlistLike = likedPlaylists.map(item => ({
-        playlist: null,
-        result: true,
-      }));
-
-      const playlistInfo = {
-        playlist,
-        result,
-        playlistLike,
-      }
-
-      playlistLikes.push(playlistInfo);
-
-      console.log(playlistLikes);
-
-      
-
-      console.log('선택된 p_id 값:', likedPlaylists.map(item => item.p_id));
-      
-      res.render('playlist', {playlistLikes});
+      likeListInfo.push(item);
     }
+    data = {
+      myPlaylist: myPlaylistInfo,
+      likedPlaylist: likeListInfo,
+    }
+    console.log(data.myPlaylist)
+    console.log(data.likedPlaylist)
+    res.render('playlist', {data});
+    
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving playlists');
@@ -117,7 +111,6 @@ exports.deletePlayList = async (req, res) => {
   }
 };
 
-
 exports.postPlayListPage = async (req, res) => {
   try {
     const playlist = await models.Playlist.create({
@@ -129,4 +122,41 @@ exports.postPlayListPage = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Error creating playlist' });
   }
-}
+
+};
+
+exports.postPlayListSong = async (req,res) => {
+  try {
+    const playlistId = req.body.id;
+    const songIds = req.body.song_ids;
+
+    const row = await models.Playlist.findOne({
+      where: { id: playlistId },
+      attributes: ['song_ids'],
+    });
+
+    console.log(row.song_ids);
+
+    let addSongId
+    if (row.song_ids === null) {
+      addSongId = songIds;
+    } else {
+      addSongId = row.song_ids + "," + songIds ;
+    };
+
+    console.log(addSongId);
+
+    const [songs, added] = await models.Playlist.update(
+      { song_ids: addSongId },
+      { where: { id: playlistId } }
+    );
+
+    console.log(songs, added);
+
+    res.json({message: 'Add songs at Playlist successfully'});
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error Add songs at Playlist' });
+  }
+};

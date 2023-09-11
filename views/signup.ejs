@@ -18,8 +18,13 @@
                     <div class="signupCover">
                         <form name="signupForm" class="signupForm">
                             <input type="text" id="userid" placeholder="아이디"><br>
+                            <div id="signupHidden" class="signupHidden">아이디를 사용하셔도 됩니다.</div>
+                            <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복확인</button><br>
                             <input type="password" id="pw" placeholder="비밀번호"><br>
+                            <button type="button" class="pw_match_button" onclick="pw_check()">유효성</button><br>
                             <input type="password" id="pw2" placeholder="비밀번호확인"><br>
+                            <div id="pwMatch" class="pwMatch">비밀번호가 일치합니다.</div>
+                            <button type="button" class="match_check_button" onclick="pw_match_check()">중복확인</button><br>
                             <input type="text" id="mail" placeholder="이메일"><br>
                             <input type="text" id="name" placeholder="이름"><br>
                             <input type="text" id="nick" placeholder="닉네임"><br>
@@ -53,36 +58,31 @@
     </footer>
 
     <script id="sc">
+
+        var ids_overlap = false;
+        var pw_confirm = false;
+        var pw_overlap = false;
+
         
         async function signup() {
             const form = document.forms["signupForm"];
             const id = document.querySelector("#userid");
             const pw = document.querySelector("#pw");
             const pw2 = document.querySelector("#pw2");
-            const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
-            let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-            if(idPattern.test(id.value)) {
-                alert("ID를 사용하셔도 됩니다");
-                id.style.color = "blue"
-                id.textContent = "Strong"
-            } else {
-                alert(`ID를 다시 입력해주세요.\nID는 영어 소문자와 숫자로 구성되어야 합니다`);
-                id.style.color = "red"
-                id.focus();
-            }
-            if(!pwPattern.test(pw.value, pw2.value)) {
-                alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+ 
+            if(!ids_overlap) {
+                alert("중복체크를 해주세요");
                 return;
             }
-            if(pw.value !== pw2.value) {
-                alert("비밀번호를 확인해주세요");
-                pw.focus();
+
+            if(!pw_confirm) {
+                alert("유효성 검사를 해주세요");
                 return;
-            } else if(pw.value === "" || pw2.value === "") {
-                alert("비밀번호를 입력해주세요");
+            }
+
+            if(!pw_overlap) {
+                alert("중복체크를 해주세요");
                 return;
-            } else {
-                alert("비밀번호가 일치합니다.");
             }
             const res = await axios ({
                 method: "post",
@@ -107,6 +107,72 @@
                 document.location.reload();
             }
         };
+
+
+        async function id_overlap_check() {
+            const form = document.forms["signupForm"];
+            const id = document.querySelector("#userid");
+            const confirm = document.querySelector("#signupHidden");
+            const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
+            
+            if(idPattern.test(id.value)) {
+                id.style.color = "blue"
+                id.textContent = "Strong"
+            } else {
+                alert(`ID를 다시 입력해주세요.\nID는 영어 소문자와 숫자로 구성되어야 합니다`);
+                id.style.color = "red"
+                id.focus();
+                return;
+            }
+
+            const res = await axios({
+                method: "get",
+                url: "/signup/valid",
+                params: {
+                    userid:id.value
+                }
+            })
+
+            if(res.data.result) {
+                ids_overlap = true;
+                confirm.classList.remove("signupHidden");
+                confirm.textContent = "이 아이디는 사용가능합니다.";
+                confirm.style.color = "blue";
+            } else {
+                confirm.classList.remove("signupHidden"); 
+                confirm.textContent = "이 아이디는 사용불가합니다.";
+                confirm.style.color = "red";
+            }
+        }
+        
+        function pw_check() {
+            const pw = document.querySelector("#pw");
+            const pw2 = document.querySelector("#pw2");
+            let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+            if(!pwPattern.test(pw.value, pw2.value)) {
+                alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+            } else {
+                pw_confirm = true;
+                alert("사용가능한 비밀번호입니다.");
+            }
+        }
+
+        function pw_match_check() {
+            const match_pw = document.querySelector("#pw").value;
+            const match_pw2 = document.querySelector("#pw2").value;
+            const match_word = document.querySelector("#pwMatch");
+
+            if(match_pw === match_pw2) {
+                pw_overlap = true;
+                match_word.classList.remove("pwMatch");
+                match_word.textContent = "비밀번호가 일치합니다";
+            } else {
+                match_word.classList.remove("pwMatch");
+                match_word.textContent = "비밀번호가 불일치합니다";
+            }
+        }
+       
 
     </script>
     
