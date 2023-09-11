@@ -92,25 +92,6 @@ exports.postPlayListLike = async (req, res) => {
   }
 };
 
-exports.deletePlayList = async (req, res) => {
-  try {
-    const playlistId = req.body.id;
-
-    const playlist = await models.Playlist.findOne({ where: { id: playlistId } });
-
-    if (!playlist) {
-      return res.status(404).json({ message: 'Playlist not found' });
-    }
-
-    await playlist.destroy();
-
-    res.json({ result: true, message: 'Playlist deleted successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-};
-
 exports.postPlayListPage = async (req, res) => {
   try {
     const playlist = await models.Playlist.create({
@@ -158,5 +139,47 @@ exports.postPlayListSong = async (req,res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error Add songs at Playlist' });
+  }
+};
+
+exports.postPlayListEdit = async (req,res) => {
+  try {
+    const playlistId = req.body.id;
+    const songIds = req.body.song_ids;
+
+    const [songs, edited] = await models.Playlist.update(
+      { song_ids: songIds },
+      { where: { id: playlistId } }
+    );
+
+    console.log(songs, edited);
+
+    res.json({message: 'Playlist Edit successfully'});
+
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Playlist Edit Error' });
+  }
+}
+
+exports.deletePlayList = async (req, res) => {
+  try {
+    const playlistId = req.body.id;
+
+    const playlist = await models.Playlist.findOne({ where: { id: playlistId } });
+    const p_like = await models.P_like.findOne({where: { p_id: playlistId }})
+
+    if (!playlist) {
+      return res.status(404).json({ message: 'Playlist not found' });
+    }
+
+    await playlist.destroy();
+    await p_like.destroy();
+
+    res.json({ result: true, message: 'Playlist deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
