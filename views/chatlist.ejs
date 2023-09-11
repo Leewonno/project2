@@ -12,13 +12,34 @@
         <div class="column_first">
           <div class="my_talk">
             <a href="" onclick="talk(roomname)">참여중인 톡방</a>
-            <a href="" onclick="talk(`nmixx`)">NMIXX</a>
-            <a href="" onclick="talk(`newjeans`)">newjeans</a>
+            <% for(let i = 0; i<joinChat.length; i++){%>
+              <div>
+                <img src="" alt="">
+                <a href = "" onclick="talk('<%=joinChat[i].name %>')"><%=joinChat[i].name%></a>
+              </div>
+            <%}%>
           </div>
         </div>
         <div class="column_second">
-          <div class="category_talk">주제별 톡방</div>
-          <div class="recommand_talk">톡방 추천</div>
+          <div class="category_talk">주제별 톡방
+            <select id="tag_select">
+              <option value="girlgroup" id="gG">girlgroup</option>
+              <option value="boygroup" id="bG">boygroup</option>
+              <option value="Wsolo" id="wS">Female Solo</option>
+              <option value="Msolo" id="mS">Male Solo</option>
+            </select>
+            <button onclick="select()">선택</button>
+            <div id = "s"></div>
+          </div>
+          <div class="recommand_talk">톡방 추천
+            <% for(let i = 0; i<best.length; i++){%>
+              <div>
+                <img src="" alt="">
+                <a href = "" onclick="talk('<%=best[i].name %>')"><%=best[i].name%></a>
+                <p>멤버 수: <%=best[i].member %></p>
+              </div>
+            <%}%>
+          </div>
         </div>
     </section>
 
@@ -26,7 +47,52 @@
     <%- contentFor('player') %>
    
     <script id="sc">
-        function talk(roomname) {
+      let chat_tag;
+      const category = document.querySelector(".category_talk");
+      const tag_select = document.querySelector("#tag_select");
+      let s = document.querySelector("#s");
+        (function () {
+        axios({
+          method: 'POST',
+          url: '/chat/list',
+          data:{
+            tag: "girlgroup"
+          }
+        }).then((res) => {
+          chat_tag = res.data.tag;
+          console.log("ass",chat_tag)
+          for(let i =0; i<chat_tag.length;i++){
+            let cg = document.createElement('div')
+            cg.innerHTML = `<img src="" alt="">
+                  <a href = "" onclick="talk('${chat_tag[i].name}')">${chat_tag[i].name}</a>
+                  <p>멤버 수: ${chat_tag[i].member} </p>`
+            s.appendChild(cg)
+          }
+        });
+      })();
+
+      const select = ()=>{    
+        axios({
+          method: 'POST',
+          url: '/chat/list',
+          data:{
+            tag: tag_select.value
+          }
+        }).then((res) => {
+          chat_tag = res.data.tag;
+          console.log("ass",chat_tag)
+          s.innerHTML = ""
+          for(let i =0; i<chat_tag.length;i++){
+            let cg = document.createElement('div')
+            cg.innerHTML = `<img src="" alt="">
+                  <a href = "" onclick="talk('${chat_tag[i].name}')">${chat_tag[i].name}</a>
+                  <p>멤버 수: ${chat_tag[i].member} </p>`
+            s.appendChild(cg)
+          }
+        });
+      }
+
+      function talk(roomname) {
           window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
         }
 
