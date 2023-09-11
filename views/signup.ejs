@@ -116,7 +116,6 @@
             const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
             
             if(idPattern.test(id.value)) {
-                alert("ID를 사용하셔도 됩니다");
                 id.style.color = "blue"
                 id.textContent = "Strong"
             } else {
@@ -127,14 +126,14 @@
             }
 
             const res = await axios({
-                method: "post",
-                url: "/signup",
-                data: {
-                    id:id
+                method: "get",
+                url: "/signup/valid",
+                params: {
+                    userid:id.value
                 }
             })
 
-            if(res.data === true) {
+            if(res.data.result) {
                 ids_overlap = true;
                 confirm.classList.remove("signupHidden");
                 confirm.textContent = "이 아이디는 사용가능합니다.";
