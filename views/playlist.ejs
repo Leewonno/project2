@@ -17,7 +17,7 @@
                     <input type="checkbox" id="new_playlist" hidden>
                 </div>
                 <ul class="my_list">
-                    <% for (let i=0; i < playlistLikes.length; i++) { %>
+                    <% for (let i = 0; i < playlistLikes.length; i++) { %>
                     <li>
                         <div class="my_list_album">
                             <div class="list_image">
@@ -59,7 +59,7 @@
                                     <span><%= playlistLikes[i].playlist.dataValues.name %></span>
                                 </a>
                             </div>
-                            <div class="playlist_like" id="playlist_like" onclick="like()">
+                            <div class="playlist_like" id="playlist_like" onclick="like('<%= playlistLikes[i].playlist.id %>')">
                                 <% if (playlistLikes[i].result) { %>
                                     <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
                                   <% } else { %>
