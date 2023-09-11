@@ -73,17 +73,6 @@
     -webkit-appearance: none;
 }
 
-/* .music_bar[type="range"]::-webkit-slider-thumb:hover {
-    position: relative;
-    bottom: 5px;
-    border: 3px solid #20248e;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #20248e;
-    z-index: 1;
-} */
-
 .musicbar_wrapper:hover .music_bar[type=range]{
     top: 0px;
     transition: all 0.3s;
@@ -177,6 +166,17 @@
 .volume_button + .volume_bar {
     margin-left: 1px;
 }
+
+#volume_status[type=range] {
+    -webkit-appearance: none;
+    position: relative;
+    height: 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    top: 20px;
+    background-color: #3e9bb7;
+}
+
 
 /* playlist창 띄우기 */
 .modal_open {
