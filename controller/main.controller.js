@@ -1,4 +1,4 @@
-const { Song, ChatRoom, Playlist } = require('../database/db');
+const { Song, ChatRoom, Playlist, Chat_member } = require('../database/db');
 const { Sequelize, Op } = require('sequelize');
 
 exports.controller = {
@@ -71,21 +71,40 @@ exports.controller = {
       res.render('index', { data });
     } catch (error) {
       // 오류 처리
-      console.log(error)
+      console.log(error);
       res.status(500).send({ message: 'Internal Server Error' });
     }
   },
   getChatListPage: async (req, res) => {
     const acr = [];
     try {
-      const allChatRoom = await ChatRoom.findAll();
+      //   const allChatRoom = await ChatRoom.findAll();
+      //   console.log('id', req.userid);
+      //   for (let i = 0; i < allChatRoom.length; i++) {
+      //     acr.push(allChatRoom[i].dataValues.name);
+      //   }
 
-      for (let i = 0; i < allChatRoom.length; i++) {
-        acr.push(allChatRoom[i].dataValues.name);
+      //   console.log('sdfa', acr);
+
+      //   res.render('chatlist', { data: acr });
+
+      let id = req.userid;
+      let joinChatarray = [];
+      let room_bestArray = [];
+      console.log(id);
+      const joinchat = await Chat_member.findAll({ where: { userid: id } });
+      if (joinchat) {
+        for (let i = 0; i < joinchat.length; i++) {
+          let rName = await ChatRoom.findOne({ where: { id: joinchat[i].chatroom_id } });
+          joinChatarray.push({ name: rName.name, cover_img: rName.cover_img });
+        }
       }
-      console.log('sdfa', acr);
-
-      res.render('chatlist', { data: acr });
+      const bestRoom = await ChatRoom.findAll({ order: [['member', 'DESC']], limit: 5 });
+      for (let i = 0; i < bestRoom.length; i++) {
+        room_bestArray.push({ name: bestRoom[i].name, cover_img: bestRoom[i].cover_img, member: bestRoom[i].member });
+      }
+      console.log(joinchat);
+      res.render('chatlist', { joinChat: joinChatarray, best: room_bestArray });
     } catch (error) {
       console.log(error);
     }
@@ -96,18 +115,15 @@ exports.controller = {
     try {
       const q = req.query.q;
       console.log(q);
-  
+
       // Chatroom 톡방, 태그
       const chatroomResults = await ChatRoom.findAll({
         attributes: ['name', 'cover_img'],
         where: {
-          [Op.or]: [
-            { name: { [Op.like]: `%${q}%` } },
-            { tag: { [Op.like]: `%${q}%` } },
-          ],
+          [Op.or]: [{ name: { [Op.like]: `%${q}%` } }, { tag: { [Op.like]: `%${q}%` } }],
         },
       });
-  
+
       // Playlist 이름
       const playlistResults = await Playlist.findAll({
         attributes: ['name', 'userid', 'like'],
@@ -115,18 +131,15 @@ exports.controller = {
           name: { [Op.like]: `%${q}%` },
         },
       });
-  
+
       // 아티스트, 곡 제목 검색
       const artistAndTitleResults = await Song.findAll({
         attributes: ['title', 'id', 'artist', 'cover_url', 'song_url'],
         where: {
-          [Op.or]: [
-            { title: { [Op.like]: `%${q}%` } },
-            { artist: { [Op.like]: `%${q}%` } },
-          ],
+          [Op.or]: [{ title: { [Op.like]: `%${q}%` } }, { artist: { [Op.like]: `%${q}%` } }],
         },
       });
-  
+
       // 가사 검색
       const lyricsResults = await Song.findAll({
         attributes: ['title', 'id', 'artist', 'cover_url', 'song_url', 'lyrics'],
@@ -134,19 +147,18 @@ exports.controller = {
           lyrics: { [Op.like]: `%${q}%` },
         },
       });
-  
+
       // 데이터를 객체에 추가
       const data = {
-        chatroom: chatroomResults.map(result => result.dataValues),
-        playlist: playlistResults.map(result => result.dataValues),
-        artist: artistAndTitleResults.map(result => result.dataValues),
-        title: artistAndTitleResults.map(result => result.dataValues),
-        lyrics: lyricsResults.map(result => result.dataValues),
+        chatroom: chatroomResults.map((result) => result.dataValues),
+        playlist: playlistResults.map((result) => result.dataValues),
+        artist: artistAndTitleResults.map((result) => result.dataValues),
+        title: artistAndTitleResults.map((result) => result.dataValues),
+        lyrics: lyricsResults.map((result) => result.dataValues),
       };
       console.log(data);
-  
+
       res.render('search', { data });
-  
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: 'Internal Server Error' });

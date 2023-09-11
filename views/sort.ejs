@@ -268,7 +268,7 @@
                     artistCell.innerHTML = `<div class="wrap_song"><div class="artist">${song.artist}</div></div>`;
                     playtimeCell.innerHTML = `<div class="wrap_song"><div class="replay time">${song.playtime}</div></div>`;
                     listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
-                    playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
+                    playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button" onclick="modelOpenBtn()><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
 
                     row.appendChild(rankCell);
                     row.appendChild(albumCell);

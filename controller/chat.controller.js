@@ -7,7 +7,6 @@ let chatRoom;
 let userID;
 let Rname;
 let chatInfo;
-let chatJoin;
 
 exports.chat = async (req, res) => {
   room = await req.query.room;
@@ -78,6 +77,9 @@ exports.connection = (io, socket) => {
         userid: userID,
         chatroom_id: chatRoom.id,
       });
+      const chatRoomMember = await models.ChatRoom.findOne({ where: { id: chatRoom.id } });
+      chatRoomMember.member += 1;
+      await chatRoomMember.save();
     }
 
     chatInfo = await models.Chat.findAll({ raw: true, where: { chatroom_id: chatRoom.id } });
@@ -114,21 +116,26 @@ exports.connection = (io, socket) => {
   });
   socket.on('deleteInfo', async () => {
     await models.Chat_member.destroy({
-      where: { userid: userID },
+      where: { userid: userID, chatroom_id: chatRoom.id },
     });
+    const chatRoomMember = await models.ChatRoom.findOne({ where: { id: chatRoom.id } });
+    chatRoomMember.member -= 1;
+    await chatRoomMember.save();
   });
 };
 
-exports.chatJoin_info = async (req, res) => {
-  let id = req.body.token;
-  id = jwt.decode(id).userid;
-  const joinChatarray = [];
-  const joinchat = await models.Chat_member.findAll({ where: { userid: id } });
-  if (joinchat) {
-    for (let i = 0; i < joinchat.length; i++) {
-      let rName = await models.ChatRoom.findOne({ where: { id: joinchat[i].chatroom_id } });
-      joinChatarray.push(rName.name);
-    }
+exports.chat_tag = async (req, res) => {
+  let chat_tagArray = [];
+
+  const chat_tag = await models.ChatRoom.findAll({
+    where: { tag: req.body.tag },
+    order: [['member', 'DESC']],
+    limit: 5,
+  });
+  for (let i = 0; i < chat_tag.length; i++) {
+    chat_tagArray.push({ name: chat_tag[i].name, cover_img: chat_tag[i].cover_img, member: chat_tag[i].member });
   }
-  res.json({ result: joinChatarray });
+
+  console.log('ds', chat_tagArray);
+  res.send({ tag: chat_tagArray });
 };
