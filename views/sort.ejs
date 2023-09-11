@@ -118,9 +118,11 @@
                 </div>
                 <br>
                 <div class="wrapperMyPlaylist">
-                    <div class="mainMyPlaylist">나의 플레이리스트</div>
-                    <div class="mainMyPlaylist">나의 플레이리스트2</div>
-                    <div class="mainMyPlaylist">나의 플레이리스트3</div>
+                <% for (let i=0; i < playlists.length; i++) { %>
+                    <div class="mainMyPlaylist"><%= playlists[i].dataValues.name %></div>
+                    <!-- <div class="mainMyPlaylist">나의 플레이리스트2</div>
+                    <div class="mainMyPlaylist">나의 플레이리스트3</div> -->
+                <% } %>
                 </div>
                 
             </div>
