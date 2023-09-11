@@ -10,6 +10,7 @@ router.get('/playlist', auth.verifyAuthentication, controller.getPlayListPage); 
 router.post('/playlist', auth.verifyAuthentication, controller.postPlayListPage);
 router.post('/playlist/like', auth.verifyAuthentication, controller.postPlayListLike);
 router.post('/playlist/song', auth.verifyAuthentication, controller.postPlayListSong);
+router.post('/playlist/edit', auth.verifyAuthentication, controller.postPlayListEdit);
 router.delete('/playlist', auth.verifyAuthentication, controller.deletePlayList);
 // 기능 개발
 
