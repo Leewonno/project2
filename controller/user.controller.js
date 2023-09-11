@@ -41,8 +41,9 @@ exports.getProfilePage = (req, res) => {
 
 exports.validateUserId = async (req, res) => {
   try {
-    const { userid } = req.body;
+    const { userid } = req.query;
     const validUserId = await models.User.findOne({ where: {userid: userid} });
+  
     if(validUserId) {
       res.send({ result: false, message: "userid duplicate error" })
     } else { 

@@ -116,7 +116,6 @@
             const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
             
             if(idPattern.test(id.value)) {
-                alert("ID를 사용하셔도 됩니다");
                 id.style.color = "blue"
                 id.textContent = "Strong"
             } else {
@@ -127,20 +126,20 @@
             }
 
             const res = await axios({
-                method: "post",
-                url: "/signup",
-                data: {
-                    id:id
+                method: "get",
+                url: "/signup/valid",
+                params: {
+                    userid:id.value
                 }
             })
 
-            if(res.data === true) {
+            if(res.data.result) {
                 ids_overlap = true;
                 confirm.classList.remove("signupHidden");
                 confirm.textContent = "이 아이디는 사용가능합니다.";
                 confirm.style.color = "blue";
             } else {
-                confirm.classList.remove("signupHidden");
+                confirm.classList.remove("signupHidden"); 
                 confirm.textContent = "이 아이디는 사용불가합니다.";
                 confirm.style.color = "red";
             }
@@ -155,6 +154,7 @@
                 alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
             } else {
                 pw_confirm = true;
+                alert("사용가능한 비밀번호입니다.");
             }
         }
 
