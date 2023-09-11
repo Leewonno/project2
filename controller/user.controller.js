@@ -40,21 +40,29 @@ exports.getProfilePage = (req, res) => {
 };
 
 exports.postSignUp = async (req, res) => {
-  const img = 'https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png';
-  const user = await models.User.create({
-    userid: req.body.userid,
-    pw: await bcryptPassword(req.body.pw),
-    email: req.body.email,
-    grade: req.body.grade,
-  });
-  await models.Profile.create({
-    userid: req.body.userid,
-    name: req.body.name,
-    nickname: req.body.nickname,
-    birth: req.body.birth,
-    gender: req.body.gender,
-    profile_img: img,
-  });
+  try {
+    const img = 'https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png';
+    const { userid, pw, email, grade, name, nickname, birth, gender } = req.body;
+    const validUserId = await models.User.findOne({ where: {userid: userid} });
+
+    if(validUserId) {
+      res.send({result: false, message: "userid duplicate error"})
+    } else {    
+        const user = await models.User.create({
+          userid, pw: await bcryptPassword(pw), email, grade, 
+          profile: {
+            name, nickname, birth, gender, profile_img: img
+          }
+        }, {
+          include: models.Profile
+        });
+        console.log(user);
+      res.send({result: true, message: "signup success !"});
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
 };
 
 exports.postSignIn = async (req, res) => {

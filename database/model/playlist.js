@@ -19,6 +19,10 @@ const Playlist = function (sequelize, DataTypes) {
         song_ids: {
             type: DataTypes.STRING,
         },
+        tags: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         create_date: {
             type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
