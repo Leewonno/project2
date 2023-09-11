@@ -119,7 +119,7 @@
                 <br>
                 <div class="wrapperMyPlaylist">
                 <% for (let i=0; i < playlists.length; i++) { %>
-                    <div class="mainMyPlaylist"><%= playlists[i].dataValues.name %></div>
+                    <div class="mainMyPlaylist" onclick="playlistAdd('<%= playlists[i].dataValues.id %>', addSong)"><%= playlists[i].dataValues.name %></div>
                 <% } %>
                 </div>
                 
@@ -131,7 +131,7 @@
     <%- contentFor('player') %>
 
     <script id="sc">
-
+        var addSong;
         // sortSongs('date'); // 기본적으로 날짜 순으로 정렬
 
         var sort = window.location.search; 
@@ -171,7 +171,7 @@
                     artistCell.innerHTML = `<div class="wrap_song"><div class="artist">${song.artist}</div></div>`;
                     playtimeCell.innerHTML = `<div class="wrap_song"><div class="replay time">${song.playtime}</div></div>`;
                     listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
-                    playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button" onclick="modelOpenBtn()"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
+                    playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button" onclick="modelOpenBtn('${song.id}')"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
 
                     row.appendChild(rankCell);
                     row.appendChild(albumCell);
@@ -208,7 +208,8 @@
             
         }
 
-        function modelOpenBtn() {
+        function modelOpenBtn(id) {
+            addSong = id;
             const modalOpen = document.querySelector("#myPlaylist");
             modalOpen.classList.remove("hidden")
 

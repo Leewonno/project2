@@ -153,10 +153,10 @@ exports.postPlayListSong = async (req,res) => {
 
     console.log(songs, added);
 
-    res.json({message: 'Add songs at Playlist successfully'});
+    res.json({result:true, message: 'Add songs at Playlist successfully'});
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error Add songs at Playlist' });
+    res.status(500).json({result:false, message: 'Error Add songs at Playlist' });
   }
 };
