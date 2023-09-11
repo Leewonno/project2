@@ -2,6 +2,23 @@ const { where } = require('sequelize');
 const models = require('../database/db');
 const jwt = require("jsonwebtoken");
 
+exports.getPlaylist = async (req, res)=>{
+  try{
+    const id = req.query.id;
+    const playlists = await models.Playlist.findOne({
+      where: {id},
+    }); // -> 배열로 플레이리스트 id 값 
+
+    console.log(playlists);
+    res.send(playlists);
+
+  }
+  catch(err){
+    res.send(false);
+    console.log(err);
+  }
+}
+
 exports.getPlayListPage = async (req, res) => {
   try {
     const userId = req.userid;
@@ -24,6 +41,7 @@ exports.getPlayListPage = async (req, res) => {
         result = false
       }
       const item = {
+        id: playlist.id,
         name: playlist.name,
         result: result
       }
@@ -37,6 +55,7 @@ exports.getPlayListPage = async (req, res) => {
     for( const likeList of likedPlaylists) {
       const playlist = await models.Playlist.findOne({ where: { id: likeList.p_id} })
       const item = {
+        id:playlist.id,
         name: playlist.name,
         result: true
       }

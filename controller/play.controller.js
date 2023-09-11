@@ -7,7 +7,11 @@ aws.config.update({
   region: process.env.AWS_REGOIN,
 });
 
-const s3 = new aws.S3();
+const s3 = new aws.S3({
+  httpOptions: {
+    timeout: 300000, // 300초 (5분) 타임아웃 설정
+  }
+});
 
 exports.getPlaytest = (req, res) => {
   res.render('playtest');
@@ -37,7 +41,7 @@ exports.getPlaySong = (req, res, next) => {
       const parts = range.replace(/bytes=/, '').split('-');
       const start = parseInt(parts[0], 10);
 
-      const MAX_CHUNK_SIZE = 250 * 1000;
+      const MAX_CHUNK_SIZE = 750 * 1000;
       const _end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
       const end = Math.min(_end, start + MAX_CHUNK_SIZE - 1);
 
@@ -70,7 +74,6 @@ exports.getPlaySong = (req, res, next) => {
 
     
       s3Stream.pipe(res);
-      next();
     }
     catch(err){
       console.log(err);
