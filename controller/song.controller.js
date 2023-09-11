@@ -1,4 +1,5 @@
 const { Song, S_like, User, Comment, Profile } = require('../database/db');
+const models = require('../database/db');
 const { formatDateTime } = require('../utils/formatToKST');
 
 exports.controller = {
@@ -15,8 +16,15 @@ exports.controller = {
     
     const uniqueGenres = [...new Set(genres.map(song => song.genre))];
     
+    const userId = req.userid;
+    console.log(userId);
+    const playlists = await models.Playlist.findAll({
+      where: {userid: userId},
+    });
+    console.log('playlists', playlists);
+
     console.log(uniqueGenres)
-    res.render('sort', {genre: uniqueGenres});
+    res.render('sort', {genre: uniqueGenres, playlists});
   },
 
   uploadImg: (req, res) => {
