@@ -132,7 +132,7 @@
 
     <script id="sc">
 
-        sortSongs('date'); // 기본적으로 날짜 순으로 정렬
+        // sortSongs('date'); // 기본적으로 날짜 순으로 정렬
 
         var sort = window.location.search; 
         var string = new URLSearchParams(sort);
@@ -151,9 +151,9 @@
                 while (tbody.firstChild) {
                     tbody.removeChild(tbody.firstChild);
                 }
-
-                for (let i = 0; i < res.data.length; i++) {
-                    const song = res.data[i];
+                console.log(res.data.songs.length);
+                for (let i = 0; i < res.data.songs.length; i++) {
+                    const song = res.data.songs[i];
                     const row = document.createElement("tr");
                     row.className = "song_detail";
 
@@ -241,8 +241,8 @@
                     tbody.removeChild(row);
                 });
 
-                for (let i = 0; i < res.data.length; i++) {
-                    const song = res.data[i];
+                for (let i = 0; i < res.data.songs.length; i++) {
+                    const song = res.data.songs[i];
                     const row = document.createElement("tr");
                     row.className = "song_detail";
 
