@@ -71,7 +71,8 @@ exports.connection = (io, socket) => {
     // console.log('so', socket);
     console.log('userid', socket.user);
     console.log('room', socket.room);
-    let chat_member = await models.Chat_member.findOne({ where: { userid: userID, chatroom_id: socket.room } });
+    let chat_member = await models.Chat_member.findOne({ where: { userid: userID, chatroom_id: chatRoom.id } });
+    console.log('mem', chat_member);
     if (!chat_member) {
       await models.Chat_member.create({
         userid: userID,
