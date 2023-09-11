@@ -122,6 +122,7 @@ exports.postPlayListPage = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Error creating playlist' });
   }
+
 };
 
 exports.postPlayListSong = async (req,res) => {

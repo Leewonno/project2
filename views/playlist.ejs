@@ -17,6 +17,7 @@
                     <input type="checkbox" id="new_playlist" hidden>
                 </div>
                 <ul class="my_list">
+
                     <% for (let i=0; i < data.myPlaylist.length; i++) { %>
                     <li>
                         <div class="my_list_album">
@@ -59,6 +60,7 @@
                                     <span><%= data.likedPlaylist[i].name %></span>
                                 </a>
                             </div>
+
                             <div class="playlist_like" id="playlist_like" onclick="like()">
                                 <% if (data.likedPlaylist[i].result) { %>
                                     <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
