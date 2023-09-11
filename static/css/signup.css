@@ -69,6 +69,11 @@
     height: 80px;
 }
 
+.signupHidden, .pwMatch {
+    display: none;
+}
+
+
 /* 반응형 */
 @media screen and (max-width: 650px) {
     .signupMain .signupPage {
