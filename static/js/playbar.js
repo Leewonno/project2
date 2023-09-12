@@ -9,8 +9,14 @@ const currentTime = document.querySelector(".player_time_current");
 const totalTime = document.querySelector(".player_time_total");
 const timelineBar = document.querySelector(".music_bar");
 const musicbarBackground = document.querySelector(".musicbar_background");
+
+const volume_range = document.querySelector(".range_bars");
+
 let draggableElements = document.querySelectorAll('.modal_playlist_detail');
 
+
+let volumeRange = volume_bar.value
+volume_range.style.width = `${volumeRange}%`
 
 let volume = audio.volume;
 let volume_stick = volume_bar.value
@@ -75,6 +81,11 @@ audio.addEventListener("timeupdate", function(e) {
 timelineBar.addEventListener("click", function(e) {
     const {target: {value}} = e;
     audio.currentTime = value;
+})
+
+volume_bar.addEventListener("mousemove", function(e) {
+    const volumeRange = volume_bar.value
+    volume_range.style.width = `${volumeRange}%`
 })
 
 
