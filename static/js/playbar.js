@@ -97,15 +97,19 @@ volume_bar.addEventListener("click", function(e) {
 
 // playlist창 띄우기
 function openModal() {
+    const open = document.querySelector('.open_playlist');
     const modal = document.querySelector('.modal_open');
     modal.style.bottom = '0';
     modal.removeAttribute('hidden');
+    open.setAttribute('onclick', 'closeModal()');
   };
   
 function closeModal() {
+    const open = document.querySelector('.open_playlist');
     const modal = document.querySelector('.modal_open');
     modal.style.bottom = '-100%';
     modal.setAttribute('hidden', 'true');
+    open.setAttribute('onclick', 'openModal()');
   };
 
 async function music(song_id){
