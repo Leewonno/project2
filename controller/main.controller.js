@@ -1,4 +1,4 @@
-const { Song, ChatRoom, Playlist, Chat_member } = require('../database/db');
+const { Song, ChatRoom, Playlist, Chat_member, P_like } = require('../database/db');
 const { Sequelize, Op } = require('sequelize');
 
 exports.controller = {
@@ -7,7 +7,7 @@ exports.controller = {
       const limit = 6;
       const playlistData = [];
       const whereClause = {};
-      const attributes = [ 'id', 'title', 'artist', 'cover_url', 'song_url']
+      const attributes = [ 'id', 'title', 'artist', 'cover_url', 'song_url', 'like']
 
       const recentSongs = await getSongData(whereClause, attributes, limit, [['release_date', 'DESC']]);
       const likedSongs = await getSongData(whereClause, attributes, limit, [['like', 'DESC']]);
@@ -20,7 +20,7 @@ exports.controller = {
       })
       
       const playlists = await Playlist.findAndCountAll({
-        attributes: ['name', 'song_ids', 'id'],
+        attributes: ['name', 'song_ids', 'id', 'like'],
         limit: limit,
         order: [['like', 'DESC']],
       })
@@ -53,12 +53,17 @@ exports.controller = {
           id: playlist.id,
           name: playlist.name,
           cover: coverArr,
+          like: playlist.like,
           result: coverResult
         }
         playlistData.push(playItem);
       }
+      console.log(playlistData);
 
-      // 데이터를 객체에 추가
+      if(req.userid) {
+        const pLike = await P_like.findOne({ where: { p_id: playlistData.id} });
+      }
+      // 데이터를  객체에 추가
       const data = {
         recent: recentSongs.rows.map(result => result.dataValues),
         like: likedSongs.rows.map(result => result.dataValues),

@@ -9,37 +9,77 @@
   <body>
     <%- contentFor('body') %>
     <section class="index_section">
-      <button type="button" onclick="playlist('6')">플레이리스트 테스트</button>
-      <div class="main_page">
-        <div class="column_first">
-          최신순음악
 
+      <div class="main_page">
+        <div class="row_first">
+          <div class="recent_div">최신순 음악</div>
+          <div class="recent_btn"><a href="/sort?sort=date">더보기</a></div>
           <div class="recent_music" id="recent_music">
             <% for (let i = 0; i < data.recent.length; i++) { %>
               <div class="recent_element">
                 <img src="<%= data.recent[i].cover_url %>" onclick="music('<%= data.recent[i].id %>')">
                 <a class="recent_title" href="/song?id=<%= data.recent[i].id %>"><%= data.recent[i].title %></a>
-                <div class="artist"><%= data.recent[i].artist %></div>
+                <div class="recent_artist"><%= data.recent[i].artist %></div>
               </div>
             <% } %>
           </div>
-          장르 음악 > 댄스
-          <div class="genre_music">
-              <% for (let i = 0; i < data.genre.length; i++) { %>
-                <div class="genre_element">
-                  <img src="<%= data.genre[i].cover_url %>" onclick="music('<%= data.genre[i].id %>')">
-                  <a class="recent_title" href="/song?id=<%= data.genre[i].id %>"><%= data.genre[i].title %></a>
-                  <div class="artist"><%= data.genre[i].artist %></div>
+          </div>
+
+          <!-- 2. 인기순 -->
+          <div class="row_fifth">
+            <div class="popular_div">인기순 음악</div>
+            <div class="popular_btn"><a href="/sort?sort=like">더보기</a></div>
+            <div class="popular_music">
+              <% for (let i = 0; i < data.like.length; i++) { %>
+                <div class="popular_element">
+                  <div class="popular_like">
+                    <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
+                    <div class="popular_like_cnt"><%= data.like[i].like %></div>
+                  </div>  
+                  <img src="<%= data.like[i].cover_url %>" onclick="music('<%= data.like[i].id %>')">
+                  <a class="popular_title" href="/song?id=<%= data.like[i].id %>"><%= data.like[i].title %></a>
+                  <div class="popular_artist"><%= data.like[i].artist %></div>
                 </div>
               <% } %>
+            </div>
           </div>
-        
+
+          <!-- 3. 아티스트 톡 채널  -->
+          <div class="row_second">
+            <div class="talk_div">아티스트 톡 채널</div>
+            <div class="talk_btn">더보기</div>
+              <div class="talk_room">
+                <% for (let i = 0; i < data.chatRoom.length; i++) { %>
+                  <div class="talk_element">
+                    <div class="talk_image">
+                      <img src="<%= data.chatRoom[i].cover_img %>" onclick="">
+                    </div>
+                    <a class="talk_name" href="/chat/list"><%= data.chatRoom[i].name %></a>
+                    <div class="talk_tag"><%= data.chatRoom[i].tag %></div>
+                  </div>
+                <% } %>
+            </div>
+          </div>
+
+
+          <div class="row_third">
+            <div class="genre_div">장르 음악</div>
+            <div class="genre_btn">장르</div>
+            <div class="genre_music"> 
+                <% for (let i = 0; i < data.genre.length; i++) { %>
+                  <div class="genre_element">
+                    <img src="<%= data.genre[i].cover_url %>" onclick="music('<%= data.genre[i].id %>')">
+                    <a class="genre_title" href="/song?id=<%= data.genre[i].id %>"><%= data.genre[i].title %></a>
+                    <div class="genre_artist"><%= data.genre[i].artist %></div>
+                  </div>
+                <% } %>
+            </div>
         </div>
 
-        <div class="column_second">
-          아티스트 톡 채널
-          <div class="talk_room"></div>
-          추천 플레이리스트
+       
+        <div class="row_fourth">
+          <div class="playlist_div">추천 플레이리스트</div>
+          <div class="playlist_btn">더보기</div>
           <div class="recommand_playlist">
             <% for (let i = 0; i < data.playlist.length; i++) { %>
               <div class="playlist_element">
@@ -49,29 +89,21 @@
                         <img src="<%= data.playlist[i].cover[j] %>">
                       <% } %>
                   </div>
-              <% } else { %>
+            <% } else { %>
                 <div class="playlist_cover-2"  onclick="music('<%= data.playlist[i].id %>')">
                     <img src="<%= data.playlist[i].cover[0] %>">
                 </div>
-              <% } %>
+            <% } %>
                 <div class="playlist_name"><%= data.playlist[i].name %></div>
+                <div class="playlist_like">
+                  <i class="fa-solid fa-heart" style="color: #FCD06B;"></i> 
+                  <div class="like_cnt"><%= data.playlist[i].like %></div>
+                </div>
               </div>
             <% } %> 
           </div>
         </div>
 
-        <div class="column_third">
-          <div class="popular_music">인기순 음악
-            <% for (let i = 0; i < data.like.length; i++) { %>
-              <div class="popular_element">
-                <img src="<%= data.like[i].cover_url %>" onclick="music('<%= data.like[i].id %>')">
-                <a class="popular_title" href="/song?id=<%= data.like[i].id %>"><%= data.like[i].title %></a>
-                <div class="popular_artist"><%= data.like[i].artist %></div>
-                <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
-              </div>
-            <% } %>
-          </div>
-        </div>
       </div>
     </section>
 
