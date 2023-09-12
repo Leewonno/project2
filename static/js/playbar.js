@@ -1,3 +1,5 @@
+// const { SELECT } = require("sequelize/types/query-types");
+
 const audio = document.getElementById("player");
 const play = document.getElementById("play");
 const play_icon = document.getElementById("play_icon");
@@ -88,6 +90,10 @@ volume_bar.addEventListener("mousemove", function(e) {
     volume_range.style.width = `${volumeRange}%`
 })
 
+volume_bar.addEventListener("click", function(e) {
+    const volumeRange = volume_bar.value
+    volume_range.style.width = `${volumeRange}%`
+})
 
 // playlist창 띄우기
 function openModal() {
@@ -117,10 +123,10 @@ async function music(song_id){
         params:{
             id:song_id
         }
-    })
+    });
 
     if(res.data.result){
-        const {song_url, title, artist, album, lyrics, genre, cover_url} = res.data.songResult;
+        const {song_url, title, artist, album, lyrics, genre, cover_url, id} = res.data.songResult;
 
         p_song_cover.src = cover_url;
         p_artist_name.textContent = artist;
@@ -169,10 +175,12 @@ async function playlist(num){
         })
 
         if(res.data.result){
-            const {song_url, title, artist, album, lyrics, genre, cover_url} = res.data.songResult;
-
+            const {song_url, title, artist, album, lyrics, genre, cover_url, id} = res.data.songResult;
+            
             const html = `
-            <li class="modal_playlist_detail">
+
+            <li class="modal_playlist_detail" id= "${id}" >
+            <input class= "inputValue" value= "${id}" type="hidden">
             <a class="modal_playlist_detail_imgs" href="#">
               <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
             </a>
@@ -180,19 +188,11 @@ async function playlist(num){
               <span class="modal_playlist_detail_title">${title}</span>
               <span class="modal_playlist_detail_artist">${artist}</span>
             </a>
-            <div class="container">
-              <input type="checkbox" class="toggle"hidden>
-              <label for="toggle" class="label">
-                <i class="fa-solid fa-ellipsis-vertical" style="color: #ffffff;"></i>
-              </label>
-              <ul class="menu">
-                  <li class="menu-item"><i class="fa-solid fa-music" style="color: #000000;"></i><a href="#" class="menu-name">곡 정보</a></li>
-                  <li class="menu-item"><i class="fa-solid fa-cart-plus" style="color: #000000;"></i><a href="#" class="menu-name">내 리스트에 담기</a></li>
-                  <li class="menu-item"><i class="fa-regular fa-heart" style="color: #000000;"></i><a href="#" class="menu-name">좋아요</a></li>
-                  <li class="menu-item"><i class="fa-solid fa-trash" style="color: #000000;"></i><a href="#" class="menu-name">삭제</a></li>
-              </ul>
+            <div class="container" onclick="songDelete(${id})">
+                <a href="#" class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
             </div>
           </li>`
+
           draggableElements = document.querySelectorAll('.modal_playlist_detail');
           document.querySelector('.modal_playlist_song').innerHTML = "";
           document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforebegin",html);
@@ -204,6 +204,25 @@ async function playlist(num){
     }
 
     music(pl[now_play]);
+}
+
+async function songDelete(num) {
+    const songids = document.getElementById(num)
+    songids.remove();
+    const deleteSongId = document.querySelectorAll('.inputValue');
+
+    // console.log('deleteSongId');
+
+    let updateSongList = ""
+    for ( let i=0; i < deleteSongId.length; i++ ) {
+        if ( i == 0 ) {
+            updateSongList += deleteSongId[i].value ;
+        } else {
+        updateSongList +=  ("," + deleteSongId[i].value) ;
+        }
+    };
+
+    console.log('updateSongList' ,updateSongList)
 }
 
 async function nextPlay(){
@@ -245,6 +264,7 @@ function dragStart(e) {
   this.style.opacity = '0.5';
 
   e.dataTransfer.effectAllowed = 'move';
+  console.log(this.innerHTML);
   e.dataTransfer.setData('text/html', this.innerHTML);
 }
 

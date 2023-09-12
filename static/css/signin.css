@@ -15,9 +15,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #FCD06B;
     width: 500px;
     height: 600px;
+    border: 3px solid #FCD06B;
 }
 
 .signinMain .signinLogo{
@@ -33,10 +33,10 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    border: 1px solid black;
+    border: 2px solid #FCD06B;
     width: 400px;
     height: 200px;
-    background-color: #e8b631;
+    border-radius: 16px;
     
 }
 
@@ -48,20 +48,41 @@
 .signinMain #id, .signinMain #pw {
     width: 300px;
     height: 50px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+
+.signinMain #id:focus, .signinMain #pw:focus {
+    border-bottom: 2px solid #FCD06B;
 }
 
 .signinMain .signinPageBtns {
     display: flex;
     justify-content: space-between;
     margin-top: 400px;
+    
 }
 
-.signinMain #signinBtn, .roadSignup {
+.signinMain #signinBtn {
     width: 180px;
     height: 70px;
     margin: 20px;
     background-color: #FCD06B;
-    border: 1px solid black;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+
+.signinMain .roadSignup {
+    width: 180px;
+    height: 70px;
+    margin: 20px;
+    background-color: white;
+    border: 2px solid #FCD06B;
+    color:#FCD06B;
+    cursor: pointer;
 }
 
 .roadSignup {
