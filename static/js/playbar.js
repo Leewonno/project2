@@ -173,26 +173,14 @@ async function playlist(num){
 
             const html = `
             <li class="modal_playlist_detail">
-            <a class="modal_playlist_detail_imgs" href="#">
-              <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
-            </a>
-            <a class="modal_playlist_detail_titles">
-              <span class="modal_playlist_detail_title">${title}</span>
-              <span class="modal_playlist_detail_artist">${artist}</span>
-            </a>
-            <div class="container">
-              <input type="checkbox" class="toggle"hidden>
-              <label for="toggle" class="label">
-                <i class="fa-solid fa-ellipsis-vertical" style="color: #ffffff;"></i>
-              </label>
-              <ul class="menu">
-                  <li class="menu-item"><i class="fa-solid fa-music" style="color: #000000;"></i><a href="#" class="menu-name">곡 정보</a></li>
-                  <li class="menu-item"><i class="fa-solid fa-cart-plus" style="color: #000000;"></i><a href="#" class="menu-name">내 리스트에 담기</a></li>
-                  <li class="menu-item"><i class="fa-regular fa-heart" style="color: #000000;"></i><a href="#" class="menu-name">좋아요</a></li>
-                  <li class="menu-item"><i class="fa-solid fa-trash" style="color: #000000;"></i><a href="#" class="menu-name">삭제</a></li>
-              </ul>
-            </div>
-          </li>`
+                <a class="modal_playlist_detail_imgs" href="#">
+                    <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
+                </a>
+                <a class="modal_playlist_detail_titles">
+                    <span class="modal_playlist_detail_title">${title}</span>
+                    <span class="modal_playlist_detail_artist">${artist}</span>
+                </a>
+            </li>`
           draggableElements = document.querySelectorAll('.modal_playlist_detail');
           document.querySelector('.modal_playlist_song').innerHTML = "";
           document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforebegin",html);
@@ -245,6 +233,7 @@ function dragStart(e) {
   this.style.opacity = '0.5';
 
   e.dataTransfer.effectAllowed = 'move';
+  console.log(this.innerHTML);
   e.dataTransfer.setData('text/html', this.innerHTML);
 }
 

@@ -33,7 +33,8 @@
             <div class="talk"></div>
         </div><br>
         <div class="songMain2">
-            <div class="lyrics"><%= data.lyrics %></div>
+            <input type="hidden" value="<%= data.lyrics %>" id="lyrics_value">
+            <div class="lyrics"></div>
             <div class="anotherSong"></div>
             <div class="songComment">
                 <form name="commentCreate">
@@ -74,7 +75,12 @@
     </section>
 
     <script id="sc">
+        
+        document.querySelector(".lyrics").insertAdjacentHTML("afterbegin", document.getElementById("lyrics_value").value)
+
+        
         async function likeBtn() {
+            console.log(this)
             const pushLike = document.querySelector(".like");
             const id = document.getElementById("song_id").value;
           try {
@@ -185,6 +191,8 @@
                 window.location.reload();
             }
         }
+
+        
 
       </script>
 

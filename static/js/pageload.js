@@ -37,10 +37,9 @@ function scriptSend(hrefs){
         $scriptTags.each(function() {
             var script = document.createElement('script');
             script.id = "sc";
-            script.type = 'text/javascript';
             script.text = $(this).text();
             if(script.text.length>0){
-                document.getElementById("sc").remove();
+                document.querySelector("#sc").remove();
                 document.body.appendChild(script);
             }
             
