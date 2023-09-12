@@ -30,7 +30,7 @@ exports.chat = async (req, res) => {
 exports.chatP = async (req, res) => {
   Rname = req.cookies.token;
   Rname = jwt.decode(Rname).userid;
-  res.send({ userid: Rname });
+  res.send({ userid: Rname, roomName: chatRoom.name, member: chatRoom.member, cover_img: chatRoom.cover_img });
 };
 
 exports.chat_upload_render = (req, res) => {
@@ -81,14 +81,13 @@ exports.connection = (io, socket) => {
       chatRoomMember.member += 1;
       await chatRoomMember.save();
     }
-
+    socket.to(socket.room).emit('notice', `${socket.user}님이 입장하셨습니다`, socket.user);
     chatInfo = await models.Chat.findAll({ raw: true, where: { chatroom_id: chatRoom.id } });
     // console.log('info', chatInfo.userid);
     for (let i = 0; i < chatInfo.length; i++) {
       // console.log(i + '번쨰' + chatInfo[i].userid);
       socket.emit('newMessage', chatInfo[i].content, chatInfo[i].userid);
     }
-    socket.to(socket.room).emit('notice', `${socket.user}님이 입장하셨습니다`, socket.user);
   });
 
   socket.on('sendMessage', async (message) => {

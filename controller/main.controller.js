@@ -77,35 +77,39 @@ exports.controller = {
   },
 
   getChatListPage: async (req, res) => {
-    const acr = [];
     try {
-      //   const allChatRoom = await ChatRoom.findAll();
-      //   console.log('id', req.userid);
-      //   for (let i = 0; i < allChatRoom.length; i++) {
-      //     acr.push(allChatRoom[i].dataValues.name);
-      //   }
-
-      //   console.log('sdfa', acr);
-
-      //   res.render('chatlist', { data: acr });
-
       let id = req.userid;
       let joinChatarray = [];
       let room_bestArray = [];
       console.log(id);
-      const joinchat = await Chat_member.findAll({ where: { userid: id } });
-      if (joinchat) {
-        for (let i = 0; i < joinchat.length; i++) {
-          let rName = await ChatRoom.findOne({ where: { id: joinchat[i].chatroom_id } });
-          joinChatarray.push({ name: rName.name, cover_img: rName.cover_img });
-        }
-      }
       const bestRoom = await ChatRoom.findAll({ order: [['member', 'DESC']], limit: 5 });
       for (let i = 0; i < bestRoom.length; i++) {
         room_bestArray.push({ name: bestRoom[i].name, cover_img: bestRoom[i].cover_img, member: bestRoom[i].member });
       }
-      console.log(joinchat);
-      res.render('chatlist', { joinChat: joinChatarray, best: room_bestArray });
+
+      let chat_tagArray = [];
+
+      const chat_tag = await ChatRoom.findAll({
+        where: { tag: 'girlgroup' },
+        order: [['member', 'DESC']],
+        limit: 5,
+      });
+      for (let i = 0; i < chat_tag.length; i++) {
+        chat_tagArray.push({ name: chat_tag[i].name, cover_img: chat_tag[i].cover_img, member: chat_tag[i].member });
+      }
+      console.log(chat_tagArray);
+      if (!id) {
+        res.render('chatlist', { joinChat: null, best: room_bestArray, tag: chat_tagArray });
+      } else {
+        const joinchat = await Chat_member.findAll({ where: { userid: id } });
+        if (joinchat) {
+          for (let i = 0; i < joinchat.length; i++) {
+            let rName = await ChatRoom.findOne({ where: { id: joinchat[i].chatroom_id } });
+            joinChatarray.push({ name: rName.name, cover_img: rName.cover_img });
+          }
+        }
+        res.render('chatlist', { joinChat: joinChatarray, best: room_bestArray, tag: chat_tagArray });
+      }
     } catch (error) {
       console.log(error);
     }
