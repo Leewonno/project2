@@ -9,7 +9,11 @@ const currentTime = document.querySelector(".player_time_current");
 const totalTime = document.querySelector(".player_time_total");
 const timelineBar = document.querySelector(".music_bar");
 const musicbarBackground = document.querySelector(".musicbar_background");
+
 const volume_range = document.querySelector(".range_bars");
+
+let draggableElements = document.querySelectorAll('.modal_playlist_detail');
+
 
 let volumeRange = volume_bar.value
 volume_range.style.width = `${volumeRange}%`
@@ -144,13 +148,16 @@ let now_play = 0;
 let pl =[];
 
 async function playlist(num){
-    // axios({
-    //     method:"get",
-    //     url:"/playlist"
-    // })
-    // 플리 받아왔다는 가정하에
+    const playlist = await axios({
+        method:"get",
+        url:"/playlist/getid",
+        params:{
+            id:num
+        }
+    })
+
     now_play = 0;
-    pl = ["9", "14", "16", "25", "26"];
+    pl = playlist.data.song_ids.split(',');
 
     for(let i = 0; i<pl.length; i++){
         const res = await axios({
@@ -174,8 +181,8 @@ async function playlist(num){
               <span class="modal_playlist_detail_artist">${artist}</span>
             </a>
             <div class="container">
-              <input type="checkbox" class="toggle" id="toggle" hidden>
-              <label for="toggle" class="label" id="label">
+              <input type="checkbox" class="toggle"hidden>
+              <label for="toggle" class="label">
                 <i class="fa-solid fa-ellipsis-vertical" style="color: #ffffff;"></i>
               </label>
               <ul class="menu">
@@ -186,11 +193,13 @@ async function playlist(num){
               </ul>
             </div>
           </li>`
-
+          draggableElements = document.querySelectorAll('.modal_playlist_detail');
+          document.querySelector('.modal_playlist_song').innerHTML = "";
           document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforebegin",html);
         }
         else{
-            alert("불러오는 중 오류가 발생했습니다.")
+            alert("불러오는 중 오류가 발생했습니다.");
+            document.location.reload();
         }   
     }
 
@@ -260,7 +269,6 @@ function handleDrop(e) {
   return false;
 }
 
-const draggableElements = document.querySelectorAll('.modal_playlist_detail');
 
 draggableElements.forEach((elem) => {
   elem.addEventListener('dragstart', dragStart);

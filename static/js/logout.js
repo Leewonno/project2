@@ -13,6 +13,7 @@ if (jwtCookie!=null) {
     signin.href = '#';
     signin.setAttribute('onclick', 'logout()');
     user.insertAdjacentHTML('afterbegin', `<a href="/profile">프로필</a>`)
+    user.insertAdjacentHTML('afterbegin', `<a href="/playlist">플레이리스트</a>`)
 } else {
     signin.textContent = 'LOGIN'
 };

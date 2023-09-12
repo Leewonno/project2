@@ -47,31 +47,31 @@
     <%- contentFor('player') %>
    
     <script id="sc">
-      let chat_tag;
-      const category = document.querySelector(".category_talk");
-      const tag_select = document.querySelector("#tag_select");
-      let s = document.querySelector("#s");
-        (function () {
-        axios({
-          method: 'POST',
-          url: '/chat/list',
-          data:{
-            tag: "girlgroup"
-          }
-        }).then((res) => {
-          chat_tag = res.data.tag;
-          console.log("ass",chat_tag)
-          for(let i =0; i<chat_tag.length;i++){
-            let cg = document.createElement('div')
-            cg.innerHTML = `<img src="" alt="">
-                  <a href = "" onclick="talk('${chat_tag[i].name}')">${chat_tag[i].name}</a>
-                  <p>멤버 수: ${chat_tag[i].member} </p>`
-            s.appendChild(cg)
-          }
-        });
-      })();
+      var chat_tag;
+      var tag_select = document.querySelector("#tag_select");
+      function talk(roomname) {
+          window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
+        }
+      axios({
+        method: 'POST',
+        url: '/chat/list',
+        data:{
+          tag: "girlgroup"
+        }
+      }).then((res) => {
+        chat_tag = res.data.tag;
+        console.log("ass",chat_tag)
+        for(let i =0; i<chat_tag.length;i++){
+          let cg = document.createElement('div')
+          cg.innerHTML = `<img src="" alt="">
+                <a href = "" onclick="talk('${chat_tag[i].name}')">${chat_tag[i].name}</a>
+                <p>멤버 수: ${chat_tag[i].member} </p>`;
+          document.querySelector("#s").appendChild(cg)
+        }
+      });
+        
 
-      const select = ()=>{    
+      function select(){    
         axios({
           method: 'POST',
           url: '/chat/list',
@@ -81,20 +81,17 @@
         }).then((res) => {
           chat_tag = res.data.tag;
           console.log("ass",chat_tag)
-          s.innerHTML = ""
+          document.querySelector("#s").innerHTML = ""
           for(let i =0; i<chat_tag.length;i++){
             let cg = document.createElement('div')
             cg.innerHTML = `<img src="" alt="">
                   <a href = "" onclick="talk('${chat_tag[i].name}')">${chat_tag[i].name}</a>
-                  <p>멤버 수: ${chat_tag[i].member} </p>`
-            s.appendChild(cg)
+                  <p>멤버 수: ${chat_tag[i].member} </p>`;
+            document.querySelector("#s").appendChild(cg)
           }
         });
       }
 
-      function talk(roomname) {
-          window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
-        }
 
     </script>
 
