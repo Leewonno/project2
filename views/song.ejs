@@ -36,38 +36,42 @@
             <div class="lyrics"><%= data.lyrics %></div>
             <div class="anotherSong"></div>
             <div class="songComment">
-                <form name="commentCreate">
-                    <label>댓글 </label>
+                <form name="commentCreate" class="commentCreate">
                     <br>
 
                     <% if (user && user.userid) { %>
                      
                         <img class="comment_profile" src="<%= user.profile_img %>" alt="User Profile Img">
                         <div class="comment_user"><%= user.nickname %>(<%= user.userid %>)</div>
-                        <input type="text" name="commentText" id="commentText" value="">
+                        <textarea type="text" name="commentText" id="commentText" ></textarea>
                         <button type="button" id="submitBtn" onclick="createComments()">등록</button>
                     </form>
                     <% } else { %>
                         <img src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png" alt="User Profile Img">
                         <div class="comment_user"></div>
-                        <input type="text" name="commentText" id="commentText" value="로그인 후 이용해주세요" disabled>
-                        <button type="button" id="submitBtn" disabled>등록</button>
+                        <textarea type="text" name="commentText" id="commentText" disabled>로그인 후 이용해주세요</textarea>
+                        <div>
+                            <button type="button" id="submitBtn" disabled>등록</button>
+                        </div>
+                        
                     <% } %>
-
                 </form>
+                
             </div>
+            <br>
             <div class="songCommentList" id="commentList">
                 <% for (let i = 0; i < comments.length; i++) { %>
                     <div class="commentItem">
                         <div class="commentListImg"><img src="<%= comments[i].profile_img %>"></div>
                         <div class="comment_user"><%= comments[i].nickname %>(<%= comments[i].userid %>)</div>
                         <div class="commentList_date"><%= comments[i].create_date %></div>
-                        <input type="text" class="commentList_content" value="<%= comments[i].content %>" id="<%= comments[i].id %>" readonly>
+                        <textarea type="text" class="commentList_content" id="<%= comments[i].id %>" readonly><%= comments[i].content %></textarea>
                         <% if (user && user.userid === comments[i].userid) { %>
-                            <button type="button" onclick="updateComment('<%= comments[i].id %>')">수정</button>
+                            <button type="button" class="modifyBtn" onclick="updateComment('<%= comments[i].id %>')">수정</button>
                             <button type="button" class="deleteBtn" onclick="deleteComment('<%= comments[i].id %>')">삭제</button>
                         <% } %>
                     </div>
+                    <br>
                 <% } %>
             </div>
         </div>
@@ -114,13 +118,13 @@
                     const newCommentItem = document.createElement("div");
                     newCommentItem.classList.add("commentItem");
                     newCommentItem.innerHTML = `
-                        <img src="${comment.profile_img}">
-                        <div class="comment_user">${comment.nickname}(${comment.userid})</div>
-                        <div class="commentList_date">${comment.create_date}</div>
-                        <input type="text" class="commentList_content" value="${comment.content}" id="${comment.id}" readonly>
-                        <button type="button" onclick="updateComment('${comment.id}')">수정</button>
-                        <button type="button" onclick="deleteComment('${comment.id}')">삭제</button>
-                    `;
+                            <img src="${comment.profile_img}">
+                            <div class="comment_user">${comment.nickname}(${comment.userid})</div>
+                            <div class="commentList_date">${comment.create_date}</div>
+                            <textarea type="text" class="commentList_content" id="${comment.id}" readonly>${comment.content}</textarea>
+                            <button type="button" class="modifyBtn" onclick="updateComment('${comment.id}')">수정</button>
+                            <button type="button" class="deleteBtn" onclick="deleteComment('${comment.id}')">삭제</button>
+                        `;
                     commentList.insertBefore(newCommentItem, commentList.firstChild);
                 } else {
                     // 오류 처리
