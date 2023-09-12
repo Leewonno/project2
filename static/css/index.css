@@ -4,6 +4,10 @@
     justify-content: center;
     margin-bottom: 100px;
 }
+a {
+    color: rgb(91, 91, 91); 
+    text-decoration: none; 
+}
 
 .main_page{
     width: auto;
@@ -11,8 +15,8 @@
 }
 
 .index_section .column_first{
-    width: 400px;
-    height: 500px;
+    width: 500px;
+    height: 1000px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -20,57 +24,78 @@
     margin-right: 10px;
 }
 
-.index_section .column_first .recent_music{
-    background-color: lightgray;
+.index_section .column_first .recent_music {
+    background-color: #fff1d1;
     width: 100%;
-    height: 240px;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-gap: 10px; 
+    border-radius: 5px;
 }
 
-.index_section .column_first .recent_music .recent_element{
-    width: 130px;
+.index_section .column_first .recent_music .recent_element {
     cursor: pointer;
+    align-items: center;
+    text-align: center;
+    margin: 20px;
 }
 
-.index_section .column_first .recent_music .recent_element > a{
+.index_section .column_first .recent_music .recent_element > a {
     text-decoration: none;
 }
 
-.index_section .column_first .recent_music .recent_element > img{
-    width: 50px;
-    height: 50px;
-}
-
-.index_section .column_first .recent_music .recent_title{
-
-}
-
-.index_section .column_first .recent_music .recent_artist{
-
-}
-
-.index_section .column_first .genre_music .genre_element{
-    display: flex;
-}
-
-
-.index_section .column_first .genre_music .genre_element > img{
-    width: 50px;
-    height: 50px;
-    margin: 3px;
-}
-
-
-.index_section .column_first .genre_music{
-    background-color: lightgray;
+.index_section .column_first .recent_music .recent_element > img {
     width: 100%;
-    height: 240px;
+    height: auto; /* 이미지의 가로세로 비율 유지 */
+}
+
+.index_section .column_first .recent_music .recent_title {
+    margin-top: 10px; 
+}
+
+.index_section .column_first .recent_music .recent_artist {
+    font-size: 14px; 
+}
+
+.genre_music {
+    background-color: #fff1d1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-gap: 20px;
+}
+
+.genre_element {
+    cursor: pointer;
+    display: flex;
+    /* 세로 배치임 */
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+    margin: 20px;
+}
+
+.genre_element > a {
+    text-decoration: none;
+}
+
+.genre_element > img {
+    width: 100%; 
+    height: auto;
+}
+
+.recent_title {
+    margin-top: 10px;
+    font-size: 16px; 
+}
+
+.artist {
+    font-size: 14px; 
 }
 
 .index_section .column_second{
     width: 400px;
-    height: 500px;
+    height: 800px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -79,15 +104,49 @@
 }
 
 .index_section .column_second .talk_room{
-    background-color: lightgray;
+    background-color: #fff1d1;
     width: 100%;
     height: 240px;
 }
 
-.index_section .column_second .recommand_playlist{
-    background-color: lightgray;
+.index_section .column_second .recommand_playlist {
+    background-color: #fff1d1;
     width: 100%;
-    height: 240px;
+    display: grid;
+    /* 열 3개로 */
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px; 
+}
+
+.index_section .column_second .recommand_playlist .playlist_element {
+    cursor: pointer;
+}
+
+.index_section .column_second .recommand_playlist .playlist_element > .playlist_cover-2  img{
+    width: 100%;
+    height: auto;
+}
+
+.index_section .column_second .recommand_playlist .playlist_element .playlist_name {
+    margin-top: 10px;
+}
+
+.index_section .column_second .recommand_playlist .playlist_element .playlist_cover-1 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto; 
+    width: 100%; 
+    height: auto;
+}
+
+.index_section .column_second .recommand_playlist .playlist_element .playlist_cover-1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+.index_section .column_second .recommand_playlist .playlist_element .playlist_name {
+    text-align: center;
+    margin-top: 10px;
 }
 
 .index_section .column_third{
@@ -98,7 +157,7 @@
 }
 
 .index_section .column_third .popular_music{
-    background-color: lightgray;
+    background-color: #fff1d1;
     width: 100%;
     height: 100%;
 }

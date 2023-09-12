@@ -5,69 +5,69 @@ exports.controller = {
   mainPage: async (req, res) => {
     try {
       const limit = 6;
+      const playlistData = [];
       const whereClause = {};
+      const attributes = [ 'id', 'title', 'artist', 'cover_url', 'song_url']
 
-      // 최신순으로 정렬된 데이터 가져오기
-      const recentSongs = await Song.findAndCountAll({
-        where: whereClause,
+      const recentSongs = await getSongData(whereClause, attributes, limit, [['release_date', 'DESC']]);
+      const likedSongs = await getSongData(whereClause, attributes, limit, [['like', 'DESC']]);
+      const genreSongs = await getSongData({ genre: '댄스' }, attributes, limit, [['like', 'DESC']]);
+
+      const chatMembers = await ChatRoom.findAndCountAll({
+        attributes: ['name', 'tag', 'id', 'cover_img'],
         limit: limit,
-        order: [['release_date', 'DESC']],
-      });
-
-      // 좋아요순으로 정렬된 데이터 가져오기
-      const likedSongs = await Song.findAndCountAll({
-        where: whereClause,
+        order: [['member', 'DESC']],
+      })
+      
+      const playlists = await Playlist.findAndCountAll({
+        attributes: ['name', 'song_ids', 'id'],
         limit: limit,
         order: [['like', 'DESC']],
-      });
+      })
+    
+      for(const playlist of playlists.rows) {
+        const coverArr = [];
+        let coverResult = false;
 
-      // 장르는 임의로 지정해줘야 함
-      const genreSongs = await Song.findAndCountAll({
-        where: { genre: '록/메탈' },
-        limit: limit,
-        order: [['release_date', 'DESC']],
-      });
+        if(playlist.song_ids) {
+          // 1. 먼저 song_ids 문자열을 새로운 배열로 만들기
+          let numbers = playlist.dataValues.song_ids.match(/\d+/g);
+
+          // 2. 배열의 길이 체크해서 0~3이면 numbers[0] 인덱스 주소만 가져오게, 4이상이면 3번째 인덱스까지만 나올 수 있게 
+          if (numbers.length >= 4) {
+            // numbers 배열의 길이가 4 이상인 경우, 3번째 인덱스까지 가져오기
+            coverResult = true
+            for (let i = 0; i < Math.min(4, numbers.length); i++) {
+              const song = await Song.findOne({ where: { id: numbers[i] } });
+              coverArr.push(song.cover_url);
+            }
+          } else if (numbers.length > 0) {
+            // numbers 배열의 길이가 0에서 3 사이인 경우, 0번째 인덱스만 가져오기
+            const song = await Song.findOne({ where: { id: numbers[0] } })
+            coverArr.push(song.cover_url)
+          } 
+        } else if (playlist.song_ids = null) {
+          coverArr = ['https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png'];
+        }
+        const playItem = {
+          id: playlist.id,
+          name: playlist.name,
+          cover: coverArr,
+          result: coverResult
+        }
+        playlistData.push(playItem);
+      }
 
       // 데이터를 객체에 추가
       const data = {
-        recent: [],
-        like: [],
-        genre: [],
+        recent: recentSongs.rows.map(result => result.dataValues),
+        like: likedSongs.rows.map(result => result.dataValues),
+        genre: genreSongs.rows.map(result => result.dataValues),
+        chatRoom: chatMembers.rows.map(result => result.dataValues),
+        playlist: playlistData
       };
 
-      for (const date of recentSongs.rows) {
-        data.recent.push({
-          id: date.id,
-          title: date.title,
-          artist: date.artist,
-          cover_url: date.cover_url,
-          song_url: date.song_url,
-        });
-      }
-
-      for (const song of likedSongs.rows) {
-        data.like.push({
-          id: song.id,
-          title: song.title,
-          artist: song.artist,
-          cover_url: song.cover_url,
-          song_url: song.song_url,
-        });
-      }
-
-      for (const song of genreSongs.rows) {
-        data.genre.push({
-          id: song.id,
-          title: song.title,
-          artist: song.artist,
-          cover_url: song.cover_url,
-          song_url: song.song_url,
-        });
-      }
-
-      console.log(data);
-      // console.log(jwt.decode(token))
-
+      console.log(data.chatRoom)
       res.render('index', { data });
     } catch (error) {
       // 오류 처리
@@ -75,6 +75,7 @@ exports.controller = {
       res.status(500).send({ message: 'Internal Server Error' });
     }
   },
+
   getChatListPage: async (req, res) => {
     const acr = [];
     try {
@@ -115,15 +116,19 @@ exports.controller = {
           name: { [Op.like]: `%${q}%` },
         },
       });
-  
-      // 아티스트, 곡 제목 검색
-      const artistAndTitleResults = await Song.findAll({
+
+      const  artistResults = await Song.findAll({
         attributes: ['title', 'id', 'artist', 'cover_url', 'song_url'],
         where: {
-          [Op.or]: [
-            { title: { [Op.like]: `%${q}%` } },
-            { artist: { [Op.like]: `%${q}%` } },
-          ],
+          artist: { [Op.like]: `%${q}%` }
+        },
+      });
+  
+      // 아티스트, 곡 제목 검색
+      const titleResults = await Song.findAll({
+        attributes: ['title', 'id', 'artist', 'cover_url', 'song_url'],
+        where: {
+            title: { [Op.like]: `%${q}%` } ,
         },
       });
   
@@ -139,17 +144,21 @@ exports.controller = {
       const data = {
         chatroom: chatroomResults.map(result => result.dataValues),
         playlist: playlistResults.map(result => result.dataValues),
-        artist: artistAndTitleResults.map(result => result.dataValues),
-        title: artistAndTitleResults.map(result => result.dataValues),
+        artist: artistResults.map(result => result.dataValues),
+        title: titleResults.map(result => result.dataValues),
         lyrics: lyricsResults.map(result => result.dataValues),
       };
       console.log(data);
   
       res.render('search', { data });
-  
+   
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: 'Internal Server Error' });
     }
   },
 };
+
+async function getSongData(whereClause, attributes, limit, order) {
+  return await Song.findAndCountAll({ where: whereClause, attributes, limit, order });
+}
