@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>톡방</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-        <!-- 모든 CSS 레이아웃에서 불러오기 -->
-        
-        <%- style %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>톡방</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <!-- 모든 CSS 레이아웃에서 불러오기 -->
 
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    </head>
-    <body>
-        <header class="talk_header">
-            <div class="header_name">
-                <div class="talk_name">톡방이름</div>
-                <div class="talk_member">접속자 수</div>
-            </div>
-            <div class="header_button">
-                <button type="button" class="talk_search">검색</button>
-                <button type="button" class="talk_menu" onclick="open_menu()">메뉴</button>
-            </div>
-        </header>
+    <%- style %>
 
-        <main><%- defineContent('chat-body') %></main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <header class="talk_header">
+      <div class="header_name">
+        <div class="talk_name"></div>
+        <div class="talk_member"></div>
+      </div>
+      <div class="header_button">
+        <button type="button" class="talk_search">검색</button>
+        <button type="button" class="talk_menu" onclick="open_menu()">메뉴</button>
+      </div>
+    </header>
 
-        <footer>
-            톡 푸터
-        </footer>
+    <main><%- defineContent('chat-body') %></main>
 
-        <%- script %>
-        
-    </body>
+    <footer>톡 푸터</footer>
+
+    <%- script %>
+  </body>
 </html>
