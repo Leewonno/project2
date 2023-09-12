@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/chat.css" />
     <title>채팅방</title>
+    <style>
+      #noticeId {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
     <%- contentFor('chat-body') %>
     <div id="msg">
-      <div id="notice"></div>
       <div class="talk_menu_bar" hidden>
         <div class="share_button">
           <button type="button" onclick="close_menu()">메뉴닫기</button>
-          <button>공유</button>
+          <button onclick="share_url()">공유</button>
         </div>
         <br />
         <div class="menu_main">
-          <div class="talk_profile">톡방커버</div>
+          <div class="talk_profile"><img src="" alt="" class="profile_img" /></div>
           <div class="talk_members">참여자정보</div>
-          <button class="talk_out">나가기</button>
+          <button class="talk_out" onclick="leaveChat()">나가기</button>
         </div>
       </div>
+      <div id="notice"></div>
     </div>
     <form id="chat">
-      <button onclick="leaveChat()">임시 채팅방 나가기 버튼</button>
       <input type="text" id="message" placeholder="메세지 입력" />
       <button class="chat_send_message">입력</button>
     </form>
@@ -48,8 +53,10 @@
       const roomForm = document.querySelector('#room');
       const chatForm = document.querySelector('#chat');
       const msg = document.querySelector('#msg');
-      const notice = document.querySelector('#notice');
-      let myName;
+      const share = document.querySelector('#share_button');
+
+      let myName, roomName, member, cover_img, current;
+      // msg.scrollTop = msg.scrollHeight;
       // const roomName = roomForm.querySelector('#roomName');
       (function () {
         axios({
@@ -57,44 +64,64 @@
           url: '/chat',
         }).then((res) => {
           myName = res.data.userid;
+          roomName = res.data.roomName;
+          member = res.data.member;
+          cover_img = res.data.cover_img;
+          console.log('mN', myName);
+          console.log('rM', roomName);
+          console.log('mM', member);
+          console.log('ci', cover_img);
+          document.querySelector('.talk_name').innerHTML = `톡방이름: ${roomName}`;
+          document.querySelector('.talk_member').innerHTML = `접속자수: ${member}`;
+          document.querySelector('.profile_img').src = `${cover_img}`;
         });
         socket.emit('create');
       })();
+      window.scrollTo(0, msg.scrollHeight);
 
       //메세지 띄우기
       socket.on('newMessage', (message, userid) => {
         console.log(message, userid);
         const div = document.createElement('div');
+        const p1 = document.createElement('p');
         const p = document.createElement('p');
         console.log('test', userid);
-        if (myName == userid) {
-          //내가입력한 텍스트
-          div.classList.add('hello');
-        } else {
-          console.log('my', myName);
-          console.log('user', userid);
-          div.classList.add('hellow');
+        if (message) {
+          if (myName == userid) {
+            //내가입력한 텍스트
+            div.classList.add('hello');
+            p.textContent = `${message}`;
+          } else {
+            console.log('my', myName);
+            console.log('user', userid);
+            div.classList.add('hellow');
+            p1.innerHTML = `${userid} `;
+            p.innerHTML = `${message}`;
+          }
+          div.appendChild(p1);
+          div.appendChild(p);
+          msg.appendChild(div);
+          current = document.querySelectorAll('p');
+          console.log(current[0]);
+
+          current[current.length - 1].scrollIntoView(true);
         }
-        p.textContent = `${userid} : ${message}`;
-        div.appendChild(p);
-        msg.appendChild(div);
       });
 
       //입장 메세지 이벤트
       socket.on('notice', (message, userid) => {
         const div = document.createElement('div');
         const p = document.createElement('p');
-
+        p.id = 'noticeId';
         // console.log('my', myName);
         p.textContent = message;
         div.appendChild(p);
-        notice.appendChild(div);
+        msg.appendChild(div);
       });
 
       ///폼 이벤트
       chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
         const message = document.querySelector('#message');
         console.log('cl', myName);
         const msg = {
@@ -103,11 +130,26 @@
         };
         socket.emit('sendMessage', msg);
         message.value = '';
+        current = document.querySelectorAll('p');
+        console.log(current[0]);
+
+        current[current.length - 1].scrollIntoView(true);
       });
 
       const leaveChat = () => {
         socket.emit('deleteInfo');
         window.close();
+      };
+
+      const share_url = () => {
+        var url = '';
+        var textarea = document.createElement('textarea');
+        document.body.appendChild(textarea);
+        url = window.document.location.href;
+        textarea.value = url;
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
       };
     </script>
   </body>

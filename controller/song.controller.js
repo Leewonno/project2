@@ -9,22 +9,28 @@ exports.controller = {
   },
 
   getSortPage: async (req, res) => {
-    const genres = await Song.findAll({
-      attributes: ['genre'],
-      raw: true
-    });
-    
-    const uniqueGenres = [...new Set(genres.map(song => song.genre))];
-    
-    const userId = req.userid;
-    console.log(userId);
-    const playlists = await models.Playlist.findAll({
-      where: {userid: userId},
-    });
-    console.log('playlists', playlists);
+    try {
+      
+      const genres = await Song.findAll({ attributes: ['genre'], raw: true });
+      
+      const uniqueGenres = [...new Set(genres.map(song => song.genre))];
+      let playlists = [];
 
-    console.log(uniqueGenres)
-    res.render('sort', {genre: uniqueGenres, playlists});
+      if(req.userid) {
+        console.log(req.userid);
+        playlists = await models.Playlist.findAll({
+          where: {userid: req.userid},
+        });
+        console.log('playlists', playlists);
+        console.log(uniqueGenres)
+      } 
+      res.render('sort', {genre: uniqueGenres, playlists});
+    } catch (error) {
+      console.error(error);
+      // 기타 오류
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+
   },
 
   uploadImg: (req, res) => {
@@ -109,6 +115,7 @@ exports.controller = {
         genre: song.genre, 
         song_url: song.song_url,
         cover_url:song.cover_url,
+        id: song.id,
       }
 
       res.send({result:true, songResult});

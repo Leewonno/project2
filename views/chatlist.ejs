@@ -4,20 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>채팅방 목록</title>
+    <style>
+      .joinchat{
+        display: flex;
+      }
+      #s{
+        display: flex;
+      }
+      .recommand{
+        display: flex;
+      }
+    </style>
   </head>
   <body>
     <%- contentFor('body') %>
     <section class="talk_section">
       <div class="talk_list">
         <div class="column_first">
-          <div class="my_talk">
-            <a href="" onclick="talk(roomname)">참여중인 톡방</a>
-            <% for(let i = 0; i<joinChat.length; i++){%>
-              <div>
-                <img src="" alt="">
-                <a href = "" onclick="talk('<%=joinChat[i].name %>')"><%=joinChat[i].name%></a>
-              </div>
-            <%}%>
+          <div class="my_talk">참여중인톡방
+            <div class="joinchat">
+              <% if (!joinChat){%>
+                <p>로그인이 필요합니다.</p>
+              <%}else{%>
+                <% for(let i = 0; i<joinChat.length; i++){%>
+                  <div onclick="talk('<%=joinChat[i].name %>')">
+                    <img src="<%=joinChat[i].cover_img%>" alt="">
+                    <p><%=joinChat[i].name%></p>
+                  </div>
+                <%}%>
+              <%}%>
+            </div>
           </div>
         </div>
         <div class="column_second">
@@ -28,18 +44,29 @@
               <option value="Wsolo" id="wS">Female Solo</option>
               <option value="Msolo" id="mS">Male Solo</option>
             </select>
-            <button onclick="select()">선택</button>
-            <div id = "s"></div>
+            <button onclick="select_tag()">선택</button>
+            <div id = "s" >
+              <% for(let i = 0; i<tag.length; i++){%>
+                <div onclick="talk('<%=tag[i].name %>')">
+                  <img src="<%=tag[i].cover_img%>" alt="">
+                  <p><%=tag[i].name%></p>
+                  <p>멤버 수: <%=tag[i].member %></p>
+                </div>
+              <%}%>
+            </div>
           </div>
           <div class="recommand_talk">톡방 추천
-            <% for(let i = 0; i<best.length; i++){%>
-              <div>
-                <img src="" alt="">
-                <a href = "" onclick="talk('<%=best[i].name %>')"><%=best[i].name%></a>
-                <p>멤버 수: <%=best[i].member %></p>
-              </div>
-            <%}%>
-          </div>
+            <div class="recommand">
+
+              <% for(let i = 0; i<best.length; i++){%>
+                <div onclick="talk('<%=best[i].name %>')">
+                  <img src="<%=best[i].cover_img%>" alt="">
+                  <p><%=best[i].name%></p>
+                  <p>멤버 수: <%=best[i].member %></p>
+                </div>
+              <%}%>
+            </div>
+            </div>
         </div>
     </section>
 
@@ -47,45 +74,29 @@
     <%- contentFor('player') %>
    
     <script id="sc">
-      var chat_tag;
-      var tag_select = document.querySelector("#tag_select");
+
       function talk(roomname) {
           window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
         }
-      axios({
-        method: 'POST',
-        url: '/chat/list',
-        data:{
-          tag: "girlgroup"
-        }
-      }).then((res) => {
-        chat_tag = res.data.tag;
-        console.log("ass",chat_tag)
-        for(let i =0; i<chat_tag.length;i++){
-          let cg = document.createElement('div')
-          cg.innerHTML = `<img src="" alt="">
-                <a href = "" onclick="talk('${chat_tag[i].name}')">${chat_tag[i].name}</a>
-                <p>멤버 수: ${chat_tag[i].member} </p>`;
-          document.querySelector("#s").appendChild(cg)
-        }
-      });
-        
 
-      function select(){    
+      function select_tag(){    
         axios({
           method: 'POST',
           url: '/chat/list',
           data:{
-            tag: tag_select.value
+            tag: document.querySelector("#tag_select").value
           }
         }).then((res) => {
-          chat_tag = res.data.tag;
+          const chat_tag = res.data.tag;
           console.log("ass",chat_tag)
           document.querySelector("#s").innerHTML = ""
+
           for(let i =0; i<chat_tag.length;i++){
             let cg = document.createElement('div')
-            cg.innerHTML = `<img src="" alt="">
-                  <a href = "" onclick="talk('${chat_tag[i].name}')">${chat_tag[i].name}</a>
+            cg.setAttribute("onclick", `talk('${chat_tag[i].name}')`)
+            
+            cg.innerHTML = `<img src="${chat_tag[i].cover_img}" >
+                  <p>${chat_tag[i].name}</p>
                   <p>멤버 수: ${chat_tag[i].member} </p>`;
             document.querySelector("#s").appendChild(cg)
           }

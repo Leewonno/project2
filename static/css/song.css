@@ -66,25 +66,91 @@
 
 .songComment {
     width: 958px;
-    height: 80px;
     background-color: lightgray;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.songComment form {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.songComment form .comment_user {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100px;
 }
 
 .songComment img{
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
 }
 
-.commentItem {
+.songComment textarea {
+    position: absolute;
+    margin-top: 100px;
     width: 958px;
-    height: 80px;
-    background-color: lightgray;
-    margin-bottom: 20px;
-    display: flex;
+    height: 100px;
+    resize: none;
+    background: #FCD06B;
 }
 
-.commentItem img {
-    width: 50px;
+.songComment button {
+    position: absolute;
+    margin-top: 100px;
+    width: 63px;
     height: 50px;
+    right: 0;
+    top: 100px;
+}
+
+.songCommentList .commentItem {
+    display: flex;
+    position: relative;
+    width: 958px;
+    background-color: lightgray;
+    margin-bottom: 150px;
+}
+
+.songCommentList .commentItem img {
+    width: 100px;
+    height: 100px;
+}
+
+.songCommentList .comment_user {
+    display: flex;
+    align-items: center;
+}
+
+.songCommentList .commentList_date {
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: 10px;
+}
+
+.songCommentList .commentList_content {
+    position: absolute;
+    margin-top: 100px;
+    width: 958px;
+    height: 100px;
+    resize: none;
+}
+
+.songCommentList .modifyBtn {
+    position: absolute;
+    width: 63px;
+    height: 50px;
+    right: 63px;
+    top: 200px;
+}
+
+.songCommentList .deleteBtn {
+    position: absolute;
+    width: 63px;
+    height: 50px;
+    right: 0px;
+    top: 200px;
 }

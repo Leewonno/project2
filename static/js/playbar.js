@@ -1,3 +1,5 @@
+// const { SELECT } = require("sequelize/types/query-types");
+
 const audio = document.getElementById("player");
 const play = document.getElementById("play");
 const play_icon = document.getElementById("play_icon");
@@ -88,6 +90,10 @@ volume_bar.addEventListener("mousemove", function(e) {
     volume_range.style.width = `${volumeRange}%`
 })
 
+volume_bar.addEventListener("click", function(e) {
+    const volumeRange = volume_bar.value
+    volume_range.style.width = `${volumeRange}%`
+})
 
 // playlist창 띄우기
 function openModal() {
@@ -117,10 +123,10 @@ async function music(song_id){
         params:{
             id:song_id
         }
-    })
+    });
 
     if(res.data.result){
-        const {song_url, title, artist, album, lyrics, genre, cover_url} = res.data.songResult;
+        const {song_url, title, artist, album, lyrics, genre, cover_url, id} = res.data.songResult;
 
         p_song_cover.src = cover_url;
         p_artist_name.textContent = artist;
@@ -169,18 +175,24 @@ async function playlist(num){
         })
 
         if(res.data.result){
-            const {song_url, title, artist, album, lyrics, genre, cover_url} = res.data.songResult;
-
+            const {song_url, title, artist, album, lyrics, genre, cover_url, id} = res.data.songResult;
+            
             const html = `
-            <li class="modal_playlist_detail">
-                <a class="modal_playlist_detail_imgs" href="#">
-                    <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
-                </a>
-                <a class="modal_playlist_detail_titles">
-                    <span class="modal_playlist_detail_title">${title}</span>
-                    <span class="modal_playlist_detail_artist">${artist}</span>
-                </a>
-            </li>`
+
+            <li class="modal_playlist_detail" id= "${id}" >
+            <input class= "inputValue" value= "${id}" type="hidden">
+            <a class="modal_playlist_detail_imgs" href="#">
+              <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
+            </a>
+            <a class="modal_playlist_detail_titles">
+              <span class="modal_playlist_detail_title">${title}</span>
+              <span class="modal_playlist_detail_artist">${artist}</span>
+            </a>
+            <div class="container" onclick="songDelete(${id})">
+                <a href="#" class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
+            </div>
+          </li>`
+
           draggableElements = document.querySelectorAll('.modal_playlist_detail');
           document.querySelector('.modal_playlist_song').innerHTML = "";
           document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforebegin",html);
@@ -192,6 +204,25 @@ async function playlist(num){
     }
 
     music(pl[now_play]);
+}
+
+async function songDelete(num) {
+    const songids = document.getElementById(num)
+    songids.remove();
+    const deleteSongId = document.querySelectorAll('.inputValue');
+
+    // console.log('deleteSongId');
+
+    let updateSongList = ""
+    for ( let i=0; i < deleteSongId.length; i++ ) {
+        if ( i == 0 ) {
+            updateSongList += deleteSongId[i].value ;
+        } else {
+        updateSongList +=  ("," + deleteSongId[i].value) ;
+        }
+    };
+
+    console.log('updateSongList' ,updateSongList)
 }
 
 async function nextPlay(){

@@ -71,10 +71,10 @@
         <div class="playbar">
           <div class="player_song">
             <div class="song_img">
-              <img class="m_song_cover" src="" alt="앨범사진" />
+              <img class="m_song_cover" src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/%ED%94%8C%EB%A0%88%EC%9D%B4%EB%B0%94_%EA%B8%B0%EB%B3%B8.png" alt="앨범사진" />
             </div>
             <div class="song_info">
-              <a class="song_title"></a>
+              <a class="song_title">재생목록이 비어있습니다.</a>
               <a class="artist_name"></a>
             </div>
           </div>
@@ -93,9 +93,9 @@
 
             <div class="player_side">
               <div class="player_time">
-                <span class="player_time_current" style="color: white">00:00</span>
-                <span class="player_time_duration" style="color: white">/</span>
-                <span class="player_time_total" style="color: white"></span>
+                <span class="player_time_current" >00:00</span>
+                <span class="player_time_duration" >/</span>
+                <span class="player_time_total"></span>
               </div>
             </div>
           </div>
@@ -110,10 +110,6 @@
                 <span class="range_bar"><span class="range_bars"></span></span>
                 <input type="range" min="0" max="100" id="volume_status" />
               </div>
-              
-              <!-- <button type="button" class="volume_bar" id="voulme_status">
-                        <i class="fa-solid fa-minus" style="color: #ffffff;"></i>
-                    </button> -->
               <button type="button" onclick="openModal()" class="open_playlist">
                 <i class="fa-solid fa-sliders" style="color: #ffffff"></i>
               </button>
@@ -140,6 +136,12 @@
             <a href="#" class="song_img">
               <img class="song_cover" src="https://image.bugsm.co.kr/album/images/1000/203260/20326024.jpg" alt="앨범사진">
             </a>
+            <!-- 좋아요 기능 -->
+            <input type="hidden" id="songLike">
+              <i class="fa-solid fa-heart" style="color: #ff6666;"></i>
+              <i class="fa-regular fa-heart" style="color: #ff6666;"></i>
+            </input>
+            <!--  -->
           </div>
         </div>
         <div class="modal_right">
@@ -157,71 +159,18 @@
           </div>
           <div class="modal_palylist_songs">
             <ul class="modal_playlist_song">
-              <li class="modal_playlist_detail">
-                <a class="modal_playlist_detail_imgs">
+              <li id="1" class="modal_playlist_detail">
+                <a class="modal_playlist_detail_imgs" href="#">
                   <img class="modal_playlist_detail_img" src="https://image.bugsm.co.kr/album/images/1000/203260/20326024.jpg" alt="앨범커버사진">
                 </a>
                 <a class="modal_playlist_detail_titles" href="#">
                   <span class="modal_playlist_detail_title">자나깨나 (Feat. 조이 of Red Velvet)</span>
                   <span class="modal_playlist_detail_artist">Crush</span>
                 </a>
-                <div class="container">
-                  <input type="checkbox" class="toggle" id="toggle" hidden>
-                  <label for="toggle" class="label" id="label">
-                    <i class="fa-solid fa-ellipsis-vertical" style="color: #ffffff;"></i>
-                  </label>
-                  <ul class="menu">
-                      <li class="menu-item"><i class="fa-solid fa-music" style="color: #000000;"></i><a href="#" class="menu-name">곡 정보</a></li>
-                      <li class="menu-item"><i class="fa-solid fa-cart-plus" style="color: #000000;"></i><a href="#" class="menu-name">내 리스트에 담기</a></li>
-                      <li class="menu-item"><i class="fa-regular fa-heart" style="color: #000000;"></i><a href="#" class="menu-name">좋아요</a></li>
-                      <li class="menu-item"><i class="fa-solid fa-trash" style="color: #000000;"></i><a href="#" class="menu-name">삭제</a></li>
-                  </ul>
+                <div class="container" onclick="songDelete('1')">
+                  <a href="#" class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
                 </div>
               </li>
-              <!--  -->
-              <li class="modal_playlist_detail">
-                <a class="modal_playlist_detail_imgs" href="#">
-                  <img class="modal_playlist_detail_img" src="https://image.bugsm.co.kr/album/images/1000/203260/20326024.jpg" alt="앨범커버사진">
-                </a>
-                <a class="modal_playlist_detail_titles" href="#">
-                  <span class="modal_playlist_detail_title">깨나 (Feat. 조이 of Red Velvet)</span>
-                  <span class="modal_playlist_detail_artist">Crush</span>
-                </a>
-                <div class="container">
-                  <input type="checkbox" class="toggle" id="toggle1" hidden>
-                  <label for="toggle1" class="label" id="label">
-                    <i class="fa-solid fa-ellipsis-vertical" style="color: #ffffff;"></i>
-                  </label>
-                  <ul class="menu">
-                      <li class="menu-item"><i class="fa-solid fa-music" style="color: #000000;"></i><a href="#" class="menu-name">곡 정보</a></li>
-                      <li class="menu-item"><i class="fa-solid fa-cart-plus" style="color: #000000;"></i><a href="#" class="menu-name">내 리스트에 담기</a></li>
-                      <li class="menu-item"><i class="fa-regular fa-heart" style="color: #000000;"></i><a href="#" class="menu-name">좋아요</a></li>
-                      <li class="menu-item"><i class="fa-solid fa-trash" style="color: #000000;"></i><a href="#" class="menu-name">삭제</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li class="modal_playlist_detail">
-                <a class="modal_playlist_detail_imgs" href="#">
-                  <img class="modal_playlist_detail_img" src="https://image.bugsm.co.kr/album/images/1000/203260/20326024.jpg" alt="앨범커버사진">
-                </a>
-                <a class="modal_playlist_detail_titles" href="#">
-                  <span class="modal_playlist_detail_title">자나깨나</span>
-                  <span class="modal_playlist_detail_artist">Crush</span>
-                </a>
-                <div class="container">
-                  <input type="checkbox" class="toggle" id="toggle" hidden>
-                  <label for="toggle" class="label" id="label">
-                    <i class="fa-solid fa-ellipsis-vertical" style="color: #ffffff;"></i>
-                  </label>
-                  <ul class="menu">
-                      <li class="menu-item"><i class="fa-solid fa-music" style="color: #000000;"></i><a href="#" class="menu-name">곡 정보</a></li>
-                      <li class="menu-item"><i class="fa-solid fa-cart-plus" style="color: #000000;"></i><a href="#" class="menu-name">내 리스트에 담기</a></li>
-                      <li class="menu-item"><i class="fa-regular fa-heart" style="color: #000000;"></i><a href="#" class="menu-name">좋아요</a></li>
-                      <li class="menu-item"><i class="fa-solid fa-trash" style="color: #000000;"></i><a href="#" class="menu-name">삭제</a></li>
-                  </ul>
-                </div>
-              </li>
-              
             </ul>
           </div>
         </div>

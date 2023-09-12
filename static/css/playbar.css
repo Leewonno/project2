@@ -22,11 +22,18 @@
 
 .song_info a {
     text-decoration: none;
-    color: white;
+    color: lightgray;
 }
 
 .player_controller{
     display: flex;
+    /* justify-content: center; */
+    align-content: center;
+    /* width: 260px; */
+    position: fixed;
+    align-items: center;
+    justify-items: center;
+    left: 40%;
 }
 
 .musicbar_wrapper {
@@ -92,12 +99,12 @@
 
 .musicbar_wrapper:hover ::-webkit-slider-thumb {
     position: relative;
-    bottom: 5px;
-    border: 3px solid #20248e;
-    width: 20px;
-    height: 20px;
+    /* bottom: 5px;
+    border: 1px solid #20248e;
+    width: 3px;
+    height: 3px; */
     border-radius: 50%;
-    background-color: #20248e;
+    background-color: #ffffff;
     z-index: 1;
   }
 
@@ -126,6 +133,12 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
+    color: white;
+    font-size: 11px;
+}
+
+.player_side .player_time_total {
+    color: rgb(187, 186, 186);
 }
 
 .player_song {
@@ -136,6 +149,15 @@
 .song_info {
     display: flex;
     flex-direction: column;
+}
+
+.song_info .song_title {
+    font-size: 18px;
+    margin-bottom: 5px
+};
+
+.song_info .artist_name {
+    font-size: 14px;
 }
 
 .song_img {
@@ -174,31 +196,31 @@
 
 .range_bar {
     position: absolute;
-	z-index: 1;
-	left: 2px;
-	top: 21px;
-	width: 100%;
-	height: 5px;
-	border-radius: 5px;
-	background-color: #c6aee7;
-	overflow: hidden;
+   z-index: 1;
+   left: 2px;
+   top: 21px;
+   width: 100%;
+   height: 5px;
+   border-radius: 5px;
+   background-color: gray;
+   overflow: hidden;
 }
 .range_bars {
     display: block;
-	width: 0;
-	height: 100%;
-	background-color: #6200ee;
+   width: 0;
+   height: 100%;
+   background-color: white;
 }
 
 #volume_status[type=range] {
     position: relative;
-	z-index: 2;
-	-webkit-appearance: none;
-	width: 100%;
-	height: 10px;
-	border-radius: 5px;
-	outline: none;
-	background-color: transparent;
+   z-index: 2;
+   -webkit-appearance: none;
+   width: 100%;
+   height: 10px;
+   border-radius: 5px;
+   outline: none;
+   background-color: transparent;
     margin-top: 20px;
 }
 
@@ -210,24 +232,24 @@
 
 #volume_status[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background: #FCD06B;
+    /* background: #FCD06B; */
     width: 28px;
     height: 28px;
     border-radius: 50%;
     margin-top: -12px;
     cursor:pointer;
-    border: 4px solid #fff;
+    /* border: 4px solid #fff; */
     transition: 3s;
-    box-shadow: 0 0 0 0 #edd69f;
+    /* box-shadow: 0 0 0 0 #edd69f; */
 }
 
 #volume_status[type=range]:hover::-webkit-slider-thumb {
-    background: #ec8282;
-    box-shadow: 0 0 20px #ede626;
+    /* background: #ec8282; */
+    /* box-shadow: 0 0 20px #ede626; */
 }
 
 #volume_status[type=range]:active::-webkit-slider-thumb {
-    box-shadow: 0 0 0 10px #f0c769;
+    /* box-shadow: 0 0 0 10px #f0c769; */
 }
 
 /* playlist창 띄우기 */
@@ -286,7 +308,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
+    margin-top: 80px;
 }
 
 .modal_open .modal .modal_left .content_box .song_title {
@@ -299,11 +321,11 @@
 }
 
 .modal_open .modal .modal_left .content_box .song_artist {
-    font-size: inherit;
+    font-size: 13px;
     font-weight: inherit;
     line-height: inherit;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 16px;
     margin-bottom: 15px;
 }
 
@@ -311,6 +333,10 @@
     width: 50%;
     height: 50%;
     margin: 20px 20px;
+}
+
+.modal_left i {
+    font-size: 28px;
 }
 
 .modal_open .modal .modal_right {
@@ -334,7 +360,7 @@
 }
 
 .wrap {
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
 }
@@ -377,7 +403,23 @@
     background-color: #333;
     margin-top: 20px;
     margin-right: 20px;
+    height: 65%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
+
+.modal_palylist_songs::-webkit-scrollbar {
+    width: 6px;  /* 스크롤바의 너비 */
+  }
+.modal_palylist_songs::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #848484; /* 스크롤바의 색상 */
+    border-radius: 10px;
+  }
+   
+.modal_palylist_songs::-webkit-scrollbar-track {
+    background: #84848447;  /*스크롤바 뒷 배경 색상*/
+  }
 
 .edit {
     margin-right: 50px;
@@ -410,6 +452,8 @@
     align-items: center;
     gap: 20px;
     margin-bottom: 10px;
+    margin-top: 3px;
+    margin-left: 3px;
     cursor: all-scroll;
   }
   
@@ -449,11 +493,12 @@
     cursor: pointer;
 }
 
-.container .label i{
+.container i{
     border-radius: 100%;
     position: relative;
     transition: 0.3s ease-in-out;
-    font-size: 28px;
+    font-size: 20px;
+    margin-right: 3px;
 }
 
 .menu {
@@ -532,5 +577,10 @@
 .playbar_wrapper .song_img .m_song_cover{
     width: 80%;
     height: 80%;
-    border: 1px solid white;
+    border: 1px solid none;
+    margin-bottom: 0px;
+}
+
+.music_bar, .song_img, .song_title, .artist_name , .player_controller button , .player_side_rigth :hover {
+    cursor: pointer;
 }
