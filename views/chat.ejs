@@ -54,7 +54,9 @@
       const chatForm = document.querySelector('#chat');
       const msg = document.querySelector('#msg');
       const share = document.querySelector('#share_button');
-      let myName, roomName, member, cover_img;
+
+      let myName, roomName, member, cover_img, current;
+      // msg.scrollTop = msg.scrollHeight;
       // const roomName = roomForm.querySelector('#roomName');
       (function () {
         axios({
@@ -75,6 +77,7 @@
         });
         socket.emit('create');
       })();
+      window.scrollTo(0, msg.scrollHeight);
 
       //메세지 띄우기
       socket.on('newMessage', (message, userid) => {
@@ -82,17 +85,23 @@
         const div = document.createElement('div');
         const p = document.createElement('p');
         console.log('test', userid);
-        if (myName == userid) {
-          //내가입력한 텍스트
-          div.classList.add('hello');
-        } else {
-          console.log('my', myName);
-          console.log('user', userid);
-          div.classList.add('hellow');
+        if (message) {
+          if (myName == userid) {
+            //내가입력한 텍스트
+            div.classList.add('hello');
+          } else {
+            console.log('my', myName);
+            console.log('user', userid);
+            div.classList.add('hellow');
+          }
+          p.textContent = `${userid} : ${message}`;
+          div.appendChild(p);
+          msg.appendChild(div);
+          current = document.querySelectorAll('p');
+          console.log(current[0]);
+
+          current[current.length - 1].scrollIntoView(true);
         }
-        p.textContent = `${userid} : ${message}`;
-        div.appendChild(p);
-        msg.appendChild(div);
       });
 
       //입장 메세지 이벤트
@@ -109,7 +118,6 @@
       ///폼 이벤트
       chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
         const message = document.querySelector('#message');
         console.log('cl', myName);
         const msg = {
@@ -118,6 +126,10 @@
         };
         socket.emit('sendMessage', msg);
         message.value = '';
+        current = document.querySelectorAll('p');
+        console.log(current[0]);
+
+        current[current.length - 1].scrollIntoView(true);
       });
 
       const leaveChat = () => {

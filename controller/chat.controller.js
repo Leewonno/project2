@@ -99,13 +99,15 @@ exports.connection = (io, socket) => {
       where: { userid: socket.user },
     });
     console.log('user', userInfo.nickname);
-    const userChat = await models.Chat.create({
-      chatroom_id: chatRoom.id,
-      userid: socket.user,
-      content: message.message,
-      type: 'u',
-      nickname: userInfo.nickname,
-    });
+    if (message.message) {
+      const userChat = await models.Chat.create({
+        chatroom_id: chatRoom.id,
+        userid: socket.user,
+        content: message.message,
+        type: 'u',
+        nickname: userInfo.nickname,
+      });
+    }
     io.to(socket.room).emit('newMessage', message.message, socket.user);
   });
 

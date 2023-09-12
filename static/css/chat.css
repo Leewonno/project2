@@ -1,127 +1,127 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
 
 #msg::-webkit-scrollbar {
-    width: 0px;
+  width: 0px;
 }
 #msg::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
-    border-radius: 20px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
+  background-color: #2f3542;
+  border-radius: 20px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
 }
 #msg::-webkit-scrollbar-track {
-    display: none;
-    /* background-color: grey;
+  display: none;
+  /* background-color: grey;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white; */
 }
 
-#msg{
-    height: 100vh;
-    overflow-y: scroll;
+#msg {
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 #chat {
-    position: absolute;
-    bottom: 0px;
-    display: flex;
-    width: 100%;
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  width: 100%;
 }
 #chat input {
-    width: 90%;
+  width: 90%;
 }
 
 .chat_send_message {
-    width: 10%;
+  width: 10%;
 }
 
 .talk_header {
-    display: flex;
-    width: 100%;
-    background-color: blueviolet;
-    padding: 3px;
+  display: flex;
+  width: 100%;
+  background-color: blueviolet;
+  padding: 3px;
+  position: fixed;
 }
 
 .header_name {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .header_button {
-    display: flex;
-    justify-content:flex-end;
-    gap: 10px;
-    width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 100%;
 }
 
-.talk_name, .talk_member {
-    width: 70px;
+.talk_name,
+.talk_member {
+  width: 70px;
 }
 
 .infor_message {
-    text-align: center;
-    padding: 10px;
+  text-align: center;
+  padding: 10px;
 }
-
 
 /* hidden talk_menu */
 
 .talk_menu_bar {
-    width: 300px;
-    height: auto;
-    background-color: beige;
-    position: fixed;
-    z-index: 1;
-    transform: translate(0, -112px);
+  width: 300px;
+  height: auto;
+  background-color: beige;
+  position: fixed;
+  z-index: 1;
+  transform: translate(0, -112px);
 }
 
 .menu_main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 70px;
-    height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+  height: auto;
 }
 
 .share_button {
-    display: flex;
-    justify-content: space-between;
-    width: 300px;
-    height: auto;
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  height: auto;
 }
 
 .talk_profile {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: brown;
-    text-align: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: brown;
+  text-align: center;
 }
 
 .talk_members {
-    width: 150px;
-    height: 200px;
-    background-color:chartreuse;
+  width: 150px;
+  height: 200px;
+  background-color: chartreuse;
 }
 
 .hello {
-    display: flex;
-    justify-content: flex-end;
-    background-color: yellow;
-    width: fit-content;
-    margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  background-color: yellow;
+  width: fit-content;
+  margin-left: auto;
 }
 
 .hellow {
-    display: flex;
-    justify-content: flex-start;
-    background-color: beige;
-    width: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  background-color: beige;
+  width: fit-content;
 }
