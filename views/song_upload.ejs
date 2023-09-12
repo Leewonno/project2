@@ -12,7 +12,7 @@
             <input type="text" id="title" placeholder="곡 제목">
             <input type="text" id="artist" placeholder="아티스트 명">
             <input type="text" id="album" placeholder="앨범 명">
-            <textarea id="lyrics" placeholder="가사"></textarea>
+            <div id="lyrics" contenteditable="true"></div>
             <input type="text" id="writer" placeholder="작사가">
             <input type="text" id="composer" placeholder="작곡가">
             <select id="genre">
@@ -30,11 +30,15 @@
                 <option>클래식</option>
                 <option>재즈</option>
                 <option>CCM</option>
+                <option>J-POP</option>
+                <option>C-POP</option>
             </select>
             <input type="text" id="playtime" placeholder="재생시간">
             <input type="date" id="release_date" placeholder="발매일">
             <!-- 노래 커버 이미지 업로드 -->
+            이미지
             <input type="file" id="cover" name="imgfile"><button type="button" onclick="imgUpload()">업로드</button>
+            노래
             <input type="file" id="song" name="songfile"><button type="button" onclick="audioUpload()">업로드</button>            
         </form>
         <button type="button" onclick="upload()">업로드</button>
@@ -104,7 +108,7 @@
             const title = document.getElementById("title").value;
             const artist = document.getElementById("artist").value;
             const album = document.getElementById("album").value;
-            const lyrics = document.getElementById("lyrics").value;
+            const lyrics = document.getElementById('lyrics').innerHTML;
             const writer = document.getElementById("writer").value;
             const composer = document.getElementById("composer").value;
             const genre = document.getElementById("genre").value;
@@ -153,6 +157,35 @@
 
             console.log("실행");
         }
+
+        document.getElementById('lyrics').addEventListener('paste', function(event) {
+            event.preventDefault();
+
+            // 클립보드에서 복사된 텍스트 얻기
+            var pastedData = event.clipboardData ||  window.clipboardData;
+            var pastedText = pastedData.getData('text/html');
+
+            // 스타일 속성만 제거하고 내용을 유지하는 함수
+            function removeStyle(html) {
+                var tmp = document.createElement('div');
+                tmp.innerHTML = html;
+                
+                // 모든 요소의 style 속성 제거
+                var elementsWithStyle = tmp.querySelectorAll('*[style]');
+                    elementsWithStyle.forEach(function (element) {
+                    element.removeAttribute('style');
+                });
+                
+                return tmp.innerHTML;
+            }
+
+            // 스타일이 제거된 텍스트를 contenteditable 요소에 삽입
+            var sanitizedText = removeStyle(pastedText);
+            document.execCommand('insertHTML', false, sanitizedText);
+
+            // window.document.execCommand('insertHTML', false,  div);
+
+        });
     </script>
 </body>
 </html>

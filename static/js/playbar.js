@@ -178,6 +178,7 @@ async function playlist(num){
             const {song_url, title, artist, album, lyrics, genre, cover_url, id} = res.data.songResult;
             
             const html = `
+
             <li class="modal_playlist_detail" id= "${id}" >
             <input class= "inputValue" value= "${id}" type="hidden">
             <a class="modal_playlist_detail_imgs" href="#">
@@ -191,6 +192,7 @@ async function playlist(num){
                 <a href="#" class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
             </div>
           </li>`
+
           draggableElements = document.querySelectorAll('.modal_playlist_detail');
           document.querySelector('.modal_playlist_song').innerHTML = "";
           document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforebegin",html);
@@ -262,6 +264,7 @@ function dragStart(e) {
   this.style.opacity = '0.5';
 
   e.dataTransfer.effectAllowed = 'move';
+  console.log(this.innerHTML);
   e.dataTransfer.setData('text/html', this.innerHTML);
 }
 
