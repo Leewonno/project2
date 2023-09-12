@@ -115,6 +115,7 @@ exports.controller = {
         genre: song.genre, 
         song_url: song.song_url,
         cover_url:song.cover_url,
+        id: song.id,
       }
 
       res.send({result:true, songResult});
