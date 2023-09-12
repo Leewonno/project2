@@ -90,6 +90,10 @@ volume_bar.addEventListener("mousemove", function(e) {
     volume_range.style.width = `${volumeRange}%`
 })
 
+volume_bar.addEventListener("click", function(e) {
+    const volumeRange = volume_bar.value
+    volume_range.style.width = `${volumeRange}%`
+})
 
 // playlist창 띄우기
 function openModal() {
