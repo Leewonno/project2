@@ -117,6 +117,8 @@
   background-color: yellow;
   width: fit-content;
   margin-left: auto;
+  flex-direction: column;
+  margin-top: 5px;
 }
 
 .hellow {
@@ -124,4 +126,6 @@
   justify-content: flex-start;
   background-color: beige;
   width: fit-content;
+  flex-direction: column;
+  margin-top: 5px;
 }
