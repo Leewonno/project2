@@ -73,17 +73,6 @@
     -webkit-appearance: none;
 }
 
-/* .music_bar[type="range"]::-webkit-slider-thumb:hover {
-    position: relative;
-    bottom: 5px;
-    border: 3px solid #20248e;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #20248e;
-    z-index: 1;
-} */
-
 .musicbar_wrapper:hover .music_bar[type=range]{
     top: 0px;
     transition: all 0.3s;
@@ -176,6 +165,69 @@
 
 .volume_button + .volume_bar {
     margin-left: 1px;
+}
+
+.range_container {
+    position: relative;
+    
+}
+
+.range_bar {
+    position: absolute;
+	z-index: 1;
+	left: 2px;
+	top: 21px;
+	width: 100%;
+	height: 5px;
+	border-radius: 5px;
+	background-color: #c6aee7;
+	overflow: hidden;
+}
+.range_bars {
+    display: block;
+	width: 0;
+	height: 100%;
+	background-color: #6200ee;
+}
+
+#volume_status[type=range] {
+    position: relative;
+	z-index: 2;
+	-webkit-appearance: none;
+	width: 100%;
+	height: 10px;
+	border-radius: 5px;
+	outline: none;
+	background-color: transparent;
+    margin-top: 20px;
+}
+
+#volume_status[type=range]::-webkit-slider-runnable-track {
+    /* background: #FCD06B; */
+    height: 5px;
+    border-radius: 4px;
+}
+
+#volume_status[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #FCD06B;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-top: -12px;
+    cursor:pointer;
+    border: 4px solid #fff;
+    transition: 3s;
+    box-shadow: 0 0 0 0 #edd69f;
+}
+
+#volume_status[type=range]:hover::-webkit-slider-thumb {
+    background: #ec8282;
+    box-shadow: 0 0 20px #ede626;
+}
+
+#volume_status[type=range]:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 10px #f0c769;
 }
 
 /* playlist창 띄우기 */

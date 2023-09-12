@@ -17,8 +17,9 @@
                     <input type="checkbox" id="new_playlist" hidden>
                 </div>
                 <ul class="my_list">
-                    <% for (let i=0; i < playlistLikes.length; i++) { %>
-                    <li>
+
+                    <% for (let i=0; i < data.myPlaylist.length; i++) { %>
+                    <li onclick="playlist('<%= data.myPlaylist[i].id %>')">
                         <div class="my_list_album">
                             <div class="list_image">
                                 <a href="#"></a>
@@ -26,11 +27,11 @@
                             </div>
                             <div class="my_list_text">
                                 <a href="#">
-                                    <span><%= playlistLikes[i].playlist.name %></span>
+                                    <span><%= data.myPlaylist[i].name %></span>
                                 </a>
                             </div>
-                            <div class="playlist_like" id="playlist_like" onclick="like('<%= playlistLikes[i].playlist.id %>')">
-                                <% if(playlistLikes[i].result) { %>
+                            <div class="playlist_like" id="<%= data.myPlaylist[i].id %>" onclick="like('<%= data.myPlaylist[i].id %>')">
+                                <% if(data.myPlaylist[i].result) { %>
                                     <i class="fa-solid fa-heart" style = "color: #FCD06B";></i>
                                 <% } else { %>
                                     <i class="fa-regular fa-heart" style = "color: #FCD06B";></i>
@@ -47,8 +48,8 @@
                     <h3 class="title">좋아요한 Palylist</h3>
                 </div>
                 <ul class="my_list">
-                    <% for (let i=0; i < playlistLikes.length; i++) { %>
-                    <li>
+                    <% for (let i=0; i < data.likedPlaylist.length; i++) { %>
+                    <li onclick="playlist('<%= data.likedPlaylist[i].id %>')">
                         <div class="my_list_album">
                             <div class="list_image">
                                 <a href="#"></a>
@@ -56,11 +57,12 @@
                             </div>
                             <div class="my_list_text">
                                 <a href="#">
-                                    <span><%= playlistLikes[i].playlist.dataValues.name %></span>
+                                    <span><%= data.likedPlaylist[i].name %></span>
                                 </a>
                             </div>
-                            <div class="playlist_like" id="playlist_like" onclick="like()">
-                                <% if (playlistLikes[i].result) { %>
+
+                            <div class="playlist_like" id="<%= data.likedPlaylist[i].id %>" onclick="like('<%= data.likedPlaylist[i].id %>')">
+                                <% if (data.likedPlaylist[i].result) { %>
                                     <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
                                   <% } else { %>
                                     <i class="fa-regular fa-heart" style="color: #FCD06B;"></i>
@@ -112,7 +114,8 @@
         }
 
         async function like(num) {
-            const like_element = document.querySelector(".playlist_like");
+            const like_element = document.getElementById(num);
+            // like_element.id = num;
             const id = num;
             const res = await axios({
                 method: "post",

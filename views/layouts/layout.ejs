@@ -106,7 +106,11 @@
                 ><i class="fa-solid fa-volume-low" style="color: #ffffff" id="volume_button"></i
               ></label>
               <input type="checkbox" id="mute_button" hidden />
-              <input type="range" min="0" max="100" id="volume_status" />
+              <div class="range_container">
+                <span class="range_bar"><span class="range_bars"></span></span>
+                <input type="range" min="0" max="100" id="volume_status" />
+              </div>
+              
               <!-- <button type="button" class="volume_bar" id="voulme_status">
                         <i class="fa-solid fa-minus" style="color: #ffffff;"></i>
                     </button> -->
@@ -233,5 +237,6 @@
     <script src="/js/pageload.js"></script>
     <script src="/js/playbar.js"></script>
     <script src="/js/logout.js"></script>
+    <script src="/js/playlistAdd.js"></script>
   </body>
 </html>
