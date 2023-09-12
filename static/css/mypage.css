@@ -17,22 +17,22 @@
     align-items: center;
     width:500px;
     height:630px;
-    background-color: lightgray;
 }
 
 .mypageMain .mypageCover {
     width: 400px;
     height: 550px;
     padding: 24px;
-    background-color: rgb(179, 182, 182);
-    position: absolute;   
+    border: 3px solid #FCD06B;
+    border-radius: 16px;
+    position: absolute;
 }
 
 .mypageMain .profilePage {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    gap: 20px;
 }
 
 .mypageMain .avatar {
@@ -68,9 +68,7 @@
 }
 
 .mypageMain .avatar .upload_btn{
-    position:absolute;
-    bottom: 0;
-    right: -50px;
+    display: none;
 }
     
 .mypageMain .img {
