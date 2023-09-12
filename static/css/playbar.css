@@ -22,7 +22,7 @@
 
 .song_info a {
     text-decoration: none;
-    color: white;
+    color: lightgray;
 }
 
 .player_controller{
@@ -92,12 +92,12 @@
 
 .musicbar_wrapper:hover ::-webkit-slider-thumb {
     position: relative;
-    bottom: 5px;
-    border: 3px solid #20248e;
-    width: 20px;
-    height: 20px;
+    /* bottom: 5px;
+    border: 1px solid #20248e;
+    width: 3px;
+    height: 3px; */
     border-radius: 50%;
-    background-color: #20248e;
+    background-color: #ffffff;
     z-index: 1;
   }
 
@@ -126,6 +126,7 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
+    color: lightgray;
 }
 
 .player_song {
@@ -136,6 +137,15 @@
 .song_info {
     display: flex;
     flex-direction: column;
+}
+
+.song_info .song_title {
+    font-size: 18px;
+    margin-bottom: 5px;
+};
+
+.song_info .artist_name {
+    font-size: 14px;
 }
 
 .song_img {
@@ -292,18 +302,18 @@
 .modal_open .modal .modal_left .content_box .song_title {
     width: 100%;
     margin-bottom: 8px;
-    font-size: 22px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 25px;
     text-decoration: none;
 }
 
 .modal_open .modal .modal_left .content_box .song_artist {
-    font-size: inherit;
+    font-size: 12px;
     font-weight: inherit;
     line-height: inherit;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 16px;
     margin-bottom: 15px;
 }
 
@@ -532,5 +542,9 @@
 .playbar_wrapper .song_img .m_song_cover{
     width: 80%;
     height: 80%;
-    border: 1px solid white;
+    border: 1px solid none;
+}
+
+.music_bar, .song_img, .song_title, .artist_name , .player_controller button , .player_side_rigth :hover {
+    cursor: pointer;
 }
