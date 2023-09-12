@@ -117,7 +117,7 @@ async function music(song_id){
         params:{
             id:song_id
         }
-    })
+    });
 
     if(res.data.result){
         const {song_url, title, artist, album, lyrics, genre, cover_url} = res.data.songResult;
