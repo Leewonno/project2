@@ -43,7 +43,7 @@
           <input type="text" class="search_bar" />
         </div>
         <div class="user">
-          <a id="signin" href="/signin">login</a>
+          <a id="signin" href="/signin">LOGIN</a>
           <!-- <i class="fa-regular fa-user" style="color: #000000;"></i> -->
         </div>
       </div>
@@ -127,7 +127,7 @@
         <div class="modal_left">
           <div class="content_box">
             <a href="#" class="song_title">
-              <span class="song_name"></span>
+              <span class="song_name">재생중인 노래가 없습니다</span>
             </a>
             <a href="#" class="song_artist">
               <span class="song_singer"></span>
@@ -136,15 +136,16 @@
               <img class="song_cover" src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/%ED%94%8C%EB%A0%88%EC%9D%B4%EB%B0%94_%EA%B8%B0%EB%B3%B8.png" alt="앨범사진">
             </a>
             <!-- 좋아요 기능 -->
-            <input type="hidden" id="songLike">
-              <i class="fa-solid fa-heart" style="color: #ff6666;"></i>
+            <div class="playbar_like">
               <i class="fa-regular fa-heart" style="color: #ff6666;"></i>
-            </input>
+            </div>
+            <!-- <input type="hidden" id="songLike">
+            </input> -->
             <!--  -->
           </div>
         </div>
         <div class="modal_right">
-          <div class="playlistname">MY playlist 청량한 여름 노래</div>
+          <div class="playlistname">MY playlist</div>
           <div class="wrap">
             <div class="modal_search">
               <i class="fa-solid fa-magnifying-glass" style="color: #dfdada; margin-right: -30px"></i>
@@ -186,5 +187,6 @@
     <script src="/js/playbar.js"></script>
     <script src="/js/logout.js"></script>
     <script src="/js/playlistAdd.js"></script>
+    <script src="/js/like.js"></script>
   </body>
 </html>
