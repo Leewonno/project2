@@ -49,28 +49,64 @@
     margin-bottom: 10px;
 }
 
-.my_list_text {
-    
-}
-
-.new_pl_md{
+.new_pl_md {
     display: none;
-    position: absolute;
-    top: 70px;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgb(193, 193, 193, 0.5);
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+}
+  
+.new_pl_close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #555;
 }
 
-.new_pl_close{
-    color: white;
+.new_pl_input {
+    margin-top: 20px;
+    text-align: left;
 }
 
-.new_pl_input{
-    
+.new_pl_input label {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.new_pl_input input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.new_pl_md button {
+    background-color: #ffc353;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    margin-top: 10px;
+    align-self: center;
+}
+
+.new_pl_md button:hover {
+    background-color: #ffa600;
 }
 
 /* 좋아요버튼 */
