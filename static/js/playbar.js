@@ -231,7 +231,9 @@ async function playlist(num){
         elem.addEventListener('dragover', handleDragOver);
         elem.addEventListener('dragenter', (e) => e.preventDefault());
         elem.addEventListener('drop', handleDrop);
+
       });
+    
 
     music(pl[now_play]);
 }
@@ -260,6 +262,32 @@ async function songDelete(num) {
     
     console.log('updateSongList' ,updateSongList)
 };
+
+async function updateSong(){
+    const updateSongId = document.querySelectorAll('.inputValue');
+
+    // console.log('deleteSongId');
+
+    let updateSongList = ""
+    for ( let i=0; i < updateSongId.length; i++ ) {
+        if ( i == 0 ) {
+            updateSongList += updateSongId[i].value ;
+        } else {
+        updateSongList +=  ("," + updateSongId[i].value) ;
+        }
+    };
+
+    const res = await axios({
+        method:"post",
+        url:"playlist/edit",
+        data: {
+            id: playlist_num,
+            song_ids: updateSongList
+        }
+    })
+
+    console.log('updateSongList' ,updateSongList)
+}
 
 async function nextPlay(){
     now_play++;
@@ -319,6 +347,8 @@ function handleDragOver(e) {
   } else {
     container.insertBefore(dragSrcElement, this.nextElementSibling);
   }
+
+  
 }
 
 // 드롭이 완료될 때 호출되는 함수
@@ -332,6 +362,7 @@ function handleDrop(e) {
   
   // 드롭 완료 후 요소를 다시 표시하기 위해 opacity를 원래대로 설정
   dragSrcElement.style.opacity = '1';
+  updateSong()
 
   return false;
 }
