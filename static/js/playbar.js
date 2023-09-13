@@ -200,16 +200,10 @@ async function playlist(num){
             </div>
           </li>`
 
-
-        
-
           draggableElements = document.querySelectorAll('.modal_playlist_detail');
           document.querySelector('.modal_playlist_song').innerHTML = "";
           document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforebegin",html);
 
-          p_song_cover.addEventListener("click", function() {
-            window.location.href = `/song?id=${id}`;
-        });
         }
         else{
             alert("불러오는 중 오류가 발생했습니다.");
