@@ -68,7 +68,7 @@
 .music_bar[type='range']::-webkit-slider-runnable-track {
     width: 100%;
     height: 60%;
-    background-color: #FCD06B;
+    background-color: #ffc353;
     cursor: pointer;
     
 }
@@ -99,12 +99,12 @@
 
 .musicbar_wrapper:hover ::-webkit-slider-thumb {
     position: relative;
-    /* bottom: 5px;
-    border: 1px solid #20248e;
-    width: 3px;
-    height: 3px; */
-    border-radius: 50%;
-    background-color: #ffffff;
+    bottom: 5px;
+    border: 1px solid #ffc353;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #ffc353;
     z-index: 1;
   }
 
@@ -162,6 +162,7 @@
 
 .song_img {
     margin-right: 10px;
+    width: 800px;
 }
 
 .player_side_rigth button{
@@ -350,7 +351,7 @@
     display: block;
     text-overflow: ellipsis;
     width: 360px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: #fff;
     white-space: nowrap;

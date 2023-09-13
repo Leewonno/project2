@@ -176,7 +176,9 @@ async function playlist(num){
         params:{
             id:num
         }
-    })
+    });
+
+    document.querySelector('.playlistname').innerHTML = `${playlist.data.name}`;
 
     now_play = 0;
     pl = playlist.data.song_ids.split(',');
@@ -244,9 +246,15 @@ async function songDelete(num) {
         updateSongList +=  ("," + deleteSongId[i].value) ;
         }
     };
-
+    
+    const res = await axios({
+        method: "POST",
+        url: "/playlist/edit",
+        data: {song_ids: updateSongList, id: playlist_num }
+    });
+    
     console.log('updateSongList' ,updateSongList)
-}
+};
 
 async function nextPlay(){
     now_play++;
