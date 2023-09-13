@@ -1,60 +1,320 @@
-/* *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-} */
+
 img {
     width: 70px;
     height: 70px;
 }
+.search_section {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+}
 .searchPage{
-    display: flex;
+    display: grid;
     justify-content: center;
-    padding: 24px;
+    width: 1200px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
-.searchCover {
+.noResultsMessage {
+    font-size: 15px;
+    line-height: auto;
+    margin-top: 20px;
+}
+.q_box{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 1000px;
-    height: auto;
-    /* background-color: lightgray; */
-    gap: 30px;
 }
 
-.searchResult {
-    padding-right: 580px;
+.q_box .search_q {
+    font-weight: 900;
 }
 
-.talkSearch, .titleSearch, .artistSearch, .lyricsSearch, .playListSearch {
-    display: flex;
-    justify-content: flex-start;
+.q_box .searchResult {
+    color: #676767;
+    font-weight: 80;
+}
+.q_box .search_q, .searchResult {
+    font-size: 30px;
+    margin-right: 6px;
+}
+
+.search_chat, .search_playlist, .search_title, .search_artist, .search_lyrics {
+    color: rgb(51, 51, 51); 
+    font-weight: 900;
+    font-size: 20px;
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+
+/* .talkSearch, .titleSearch, .lyricsSearch, .playListSearch {
+    display: grid;
+    justify-content: start;
     align-items: center;
     width: 900px;
-    height: 100px;
-    background-color: antiquewhite;
+    height: 200px;
+    background-color: white;
     gap: 50px;
-}
-
-.talkSearchResult {
-    display: flex;
-    gap: 10px;
-}
-/* .searchPage .searchCover .searchResult .artistSearch .artistSearchResult  */
-
-/* .searchPage .searchCover .artistSearchLink .artistSearchResult .artistSearchLink img{
-    width: 50px;
-    height: 50px;
 } */
-.talkSearchLink {
+
+/* 1. 채팅방 */
+.search_section .first .talkSearch {
+    background: rgb(255, 255, 255);
+    width: 1200px;
+    height: auto;
+    display: grid;
+    /* border: #999999 solid 1px; */
+    grid-template-columns: repeat(6, 1fr); 
+    /* grid-gap: 90px;  */
+    border-radius: 5px;
+    margin-top: 0;
+    text-align: center;
+}
+
+.search_section .first .talkSearch .talkSearchResultElement {
+    cursor: pointer;
     display: flex;
-    justify-content: center;
+    flex-direction: column; 
     align-items: center;
+    text-align: center;
     margin: 20px;
-    width: 80px;
-    height: 80px;
+}
+
+.search_section .first .talkSearch .talkSearchResultElement > a {
+    text-decoration: none;
+}
+
+.search_section .first .talkSearch .talkSearchResultElement > img {
+    width: 100px; 
+    height: 100px;
     border-radius: 50%;
-    background-color: coral;
+    margin-bottom: 20px;
+}
+
+.search_section .first .talkSearch .talkSearchName {
+    margin-top: 10px;
+    font-size: 16px; 
+    color: #676767;
+    font-weight: 900;
+}
+
+
+/* 2. 플레이리스트 */
+.search_section .second .playListSearch {
+    background: white;
+    width: 1200px;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: center;
+    grid-gap: 0
+}
+
+.search_section .second .playListSearch .playListSearchElement {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+    margin: 20px;
+}
+
+.search_section .second .playListSearch .playListSearchElement > .playlist_cover-2  img{
+    width: 100px; 
+    height: 100px;
+    border-radius: 5px;
+}
+
+.search_section .second .playListSearch .playListSearchElement .playListSearchName {
+    margin-top: 30px;
+    color: #444343;
+}
+
+.search_section .second .playListSearch .playListSearchElement .playlist_cover-1 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto; 
+    width: 100%; 
+    height: auto;
+}
+
+.search_section .second .playListSearch .playListSearchElement .playlist_cover-1 {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; 
+    border-radius: 2px;
+    grid-gap: 0;
+}
+
+.search_section .second .playListSearch .playListSearchElement .playlist_cover-1 img {
+    width: 100%;
+    height: auto;
+}
+
+.search_section .second .playListSearch .playListSearchElement .playListSearchLike {
+    display: flex;
+    margin-top: 5px;
+}
+
+.search_section .second .playListSearch .playListSearchElement .playListSearchLike > i, .like_cnt {
+    margin: 3px;
+    color: #676767;
+
+}
+.search_section .second .playListSearch .playListSearchElement .playListSearchLike > .like_cnt {
+    font-size: 14px;
+}
+
+
+/* 3. 타이틀 */
+.search_section .third .titleSearch {
+    background: rgb(255, 255, 255);
+    width: 1200px;
+    height: auto;
+    gap: 0;
+    margin: 0;
+    border-top: #a0a0a0 0.2px solid;
+}
+
+.search_section .third .titleSearch .titleSearchResultElement {
+    cursor: pointer;
+    display: flex; 
+    align-items: center;
+    text-align: center;
+    line-height: auto;
+    border-bottom: #a0a0a0 0.2px solid;
+    width: 1200px;
+    margin-bottom: 0;
+}
+
+.search_section .third .titleSearch .titleSearchResultElement > a {
+    text-decoration: none;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.search_section .third .titleSearch .titleSearchResultElement > img {
+    width: 70px; 
+    height: 70px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.search_section .third .titleSearch .titleSearchTitle {
+    margin-top: 10px;
+    font-size: 16px; 
+    color: #f4ab00;
+    font-weight: 900;
+}
+
+.search_section .third .titleSearch .titleSearchArtist {
+    margin-top: 10px;
+    font-size: 14px; 
+    color: #676767;
+    line-height: 100px;
+}
+
+/* 4. 아티스트  */
+
+.search_section .fourth .artistSearch {
+    background: rgb(255, 255, 255);
+    width: 1200px;
+    height: auto;
+    display: grid;
+    /* border: #999999 solid 1px; */
+    grid-template-columns: repeat(6, 1fr); 
+    /* grid-gap: 90px;  */
+    border-radius: 5px;
+    margin-top: 0;
+    text-align: center;
+}
+
+.search_section .fourth .artistSearch .artistSearchResultElement {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+    margin: 20px;
+}
+
+.search_section .fourth .artistSearch .artistSearchResultElement .artistbox > a {
+    text-decoration: none;
+}
+
+.search_section .fourth .artistSearch .artistSearchResultElement > img {
+    width: 100px; 
+    height: 100px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.search_section .fourth .artistSearch .artistSearchArtist {
+    margin-top: 10px;
+    font-size: 16px; 
+    color: #f4ab00;
+    font-weight: 900;
+}
+
+.search_section .fourth .artistSearch .artistSearchTitle {
+    font-size: 14px; 
+    color: #676767;
+}
+
+/* 5. 가사 */
+/* 3. 타이틀 */
+.search_section .fifth .lyricsSearch {
+    background: rgb(255, 255, 255);
+    width: 1200px;
+    height: auto;
+    gap: 0;
+    margin: 0;
+    border-top: #a0a0a0 0.2px solid;
+}
+
+.search_section .fifth .lyricsSearch .lyricsSearchResultElement {
+    cursor: pointer;
+    display: flex; 
+    /* justify-content: space-between; */
+    align-items: center;
+    text-align: center;
+    line-height: auto;
+    border-bottom: #a0a0a0 0.2px solid;
+    width: 1200px;
+    margin-bottom: 0;
+}
+
+.search_section .fifth .lyricsSearch .lyricsSearchResultElement > a {
+    text-decoration: none;
+    margin-left: 20px;
+    margin-right: 10px;
+    color: #676767;
+}
+
+.search_section .fifth .lyricsSearch .lyricsSearchResultElement > img {
+    width: 70px; 
+    height: 70px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.search_section .fifth .lyricsSearch .lyricsSearchArtist {
+    font-size: 14px; 
+    color: #676767;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.search_section .fifth .lyricsSearch .lyricsSearchLyrics {
+    font-size: 14px; 
+    color: #f4ab00;
+    line-height: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: 900;
 }

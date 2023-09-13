@@ -143,6 +143,9 @@ exports.controller = {
     try {
       const q = req.query.q;
       console.log(q);
+      const limit = 6;
+      const playlistData = [];
+      let likeResult = false;
 
       // Chatroom 톡방, 태그
       const chatroomResults = await ChatRoom.findAll({
@@ -150,21 +153,86 @@ exports.controller = {
         where: {
           [Op.or]: [{ name: { [Op.like]: `%${q}%` } }, { tag: { [Op.like]: `%${q}%` } }],
         },
+        limit
       });
 
       // Playlist 이름
       const playlistResults = await Playlist.findAll({
-        attributes: ['name', 'userid', 'like'],
+        attributes: ['name', 'song_ids', 'id', 'like', 'userid'],
         where: {
           name: { [Op.like]: `%${q}%` },
         },
+        limit
       });
+    
+      for(const playlist of playlistResults) {
+        const coverArr = [];
+        let coverResult = false;
+
+        if(playlist.song_ids) {
+          // 1. 먼저 song_ids 문자열을 새로운 배열로 만들기
+          let numbers = playlist.dataValues.song_ids.match(/\d+/g);
+
+          // 2. 배열의 길이 체크해서 0~3이면 numbers[0] 인덱스 주소만 가져오게, 4이상이면 3번째 인덱스까지만 나올 수 있게 
+          if (numbers.length >= 4) {
+            // numbers 배열의 길이가 4 이상인 경우, 3번째 인덱스까지 가져오기
+            coverResult = true
+            for (let i = 0; i < Math.min(4, numbers.length); i++) {
+              const song = await Song.findOne({ where: { id: numbers[i] } });
+              coverArr.push(song.cover_url);
+            }
+          } else if (numbers.length > 0) {
+            // numbers 배열의 길이가 0에서 3 사이인 경우, 0번째 인덱스만 가져오기
+            const song = await Song.findOne({ where: { id: numbers[0] } })
+            coverArr.push(song.cover_url)
+          } 
+        } else if (playlist.song_ids = null) {
+          coverArr = ['https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png'];
+        }
+
+              // 유저 플리 좋아요 체크 
+        if (req.userid) {
+          const likeData = await P_like.findOne({ where: { p_id: playlist.id, userid: req.userid } })
+          console.log(':::::::::::::::::::::',likeData); 
+            if(likeData) {
+              likeResult = true
+            } else {
+              likeResult =false
+            }
+        }
+        console.log(likeResult);
+
+        const playItem = {
+          id: playlist.id,
+          name: playlist.name,
+          cover: coverArr,
+          like: playlist.like,
+          result: coverResult,
+          likeResult: likeResult,
+          userid: playlist.userid
+        }
+        playlistData.push(playItem);
+      }
+      console.log(playlistData);
+
+
+
+
+
+
+
+
+
+
+
+
 
       const  artistResults = await Song.findAll({
         attributes: ['title', 'id', 'artist', 'cover_url', 'song_url'],
         where: {
           artist: { [Op.like]: `%${q}%` }
         },
+        limit
       });
   
       const titleResults = await Song.findAll({
@@ -172,6 +240,7 @@ exports.controller = {
         where: {
             title: { [Op.like]: `%${q}%` } ,
         },
+        limit
       });
 
       // 가사 검색
@@ -180,15 +249,17 @@ exports.controller = {
         where: {
           lyrics: { [Op.like]: `%${q}%` },
         },
+        limit
       });
 
       // 데이터를 객체에 추가
       const data = {
         chatroom: chatroomResults.map(result => result.dataValues),
-        playlist: playlistResults.map(result => result.dataValues),
+        playlist: playlistData,
         artist: artistResults.map(result => result.dataValues),
         title: titleResults.map(result => result.dataValues),
         lyrics: lyricsResults.map(result => result.dataValues),
+        q: q
       };
       console.log(data);
 
