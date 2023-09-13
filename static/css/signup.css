@@ -88,9 +88,13 @@
     display: none;
 }
 
-.signupPage #signupCheckImg {
+#signupHidden {
     position: relative;
-    bottom: 55px;
+}
+
+.signupPage #signupCheckImg {
+    position: absolute;
+    bottom: 35px;
     left: 290px;
 }
 
@@ -101,18 +105,22 @@
     margin-left: 8px;
 }
 
+.signupPage #pwMatch {
+    position: absolute;
+    top: 250px;
+    left: 100px;
+}
+
 
 /* 반응형 */
 @media screen and (max-width: 650px) {
     .signupMain .signupPage {
-        width: 470px;
         height: 600px;
-        border-radius: 16px;
     }
 
     .signupMain .signupCover {
         width: 380px;
-        height: 530px;
+        height: 640px;
     }
 
     .signupMain .signupLogo {
@@ -125,9 +133,31 @@
         align-items: center;
     }
 
+    .signupPage #signupMatch {
+        width: 200px;
+        font-size: 12px;
+        bottom: 507px;
+    }
+
+    .signupPage #signupHidden {
+        position: relative;
+    }
+
+    .signupPage #signupCheckImg {
+        position: absolute;
+        bottom: 35px;
+        left: 80px;
+    }
+
     .signupMain #userid, .signupMain #pw, .signupMain #pw2, .signupMain #mail, .signupMain #name, .signupMain #nick {
         width: 200px;
         height: 30px;
+    }
+
+    .signupPage #pwMatch {
+        position: absolute;
+        top: 225px;
+        left: 88px;
     }
 
     .signupMain .signupBtn {
