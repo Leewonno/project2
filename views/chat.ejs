@@ -4,11 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/chat.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
     <title>채팅방</title>
     <style>
       #noticeId {
         display: flex;
         justify-content: center;
+      }
+
+      .talk_menu_bar button {
+        background: none;
+        border-style: none;
+      }
+
+      .closeMenu {
+        margin-left: 10px;
+      }
+      .share {
+        margin-right: 10px;
+      }
+      .talk_name {
+        width: 100px;
       }
     </style>
   </head>
@@ -17,14 +45,21 @@
     <div id="msg">
       <div class="talk_menu_bar" hidden>
         <div class="share_button">
-          <button type="button" onclick="close_menu()">메뉴닫기</button>
-          <button onclick="share_url()">공유</button>
+          <button type="button" onclick="close_menu()" class="closeMenu">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+          <button onclick="share_url()" class="share">
+            <span class="material-symbols-outlined"> ios_share </span>
+          </button>
         </div>
         <br />
         <div class="menu_main">
           <div class="talk_profile"><img src="" alt="" class="profile_img" /></div>
-          <div class="talk_members">참여자정보</div>
-          <button class="talk_out" onclick="leaveChat()">나가기</button>
+          <div class="talk_name"></div>
+          <button class="talk_out" onclick="leaveChat()">
+            <span class="material-symbols-outlined"> logout </span>
+            <p>나가기</p>
+          </button>
         </div>
       </div>
       <div id="notice"></div>
@@ -54,29 +89,28 @@
       const chatForm = document.querySelector('#chat');
       const msg = document.querySelector('#msg');
       const share = document.querySelector('#share_button');
-
+      const talkName = document.querySelector('#talk_name');
       let myName, roomName, member, cover_img, current;
       // msg.scrollTop = msg.scrollHeight;
       // const roomName = roomForm.querySelector('#roomName');
-      (function () {
-        axios({
-          method: 'POST',
-          url: '/chat',
-        }).then((res) => {
-          myName = res.data.userid;
-          roomName = res.data.roomName;
-          member = res.data.member;
-          cover_img = res.data.cover_img;
-          console.log('mN', myName);
-          console.log('rM', roomName);
-          console.log('mM', member);
-          console.log('ci', cover_img);
-          document.querySelector('.talk_name').innerHTML = `톡방이름: ${roomName}`;
-          document.querySelector('.talk_member').innerHTML = `접속자수: ${member}`;
-          document.querySelector('.profile_img').src = `${cover_img}`;
-        });
-        socket.emit('create');
-      })();
+      axios({
+        method: 'POST',
+        url: '/chat',
+      }).then((res) => {
+        myName = res.data.userid;
+        roomName = res.data.roomName;
+        member = res.data.member;
+        cover_img = res.data.cover_img;
+        console.log('mN', myName);
+        console.log('rM', roomName);
+        console.log('mM', member);
+        console.log('ci', cover_img);
+        document.querySelector('.talk_name').innerHTML = `${roomName} <br>${member}명 접속중`;
+        document.querySelector('.talk_member').innerHTML = `접속자수: ${member}`;
+        document.querySelector('.profile_img').src = `${cover_img}`;
+        console.log('ddd', document.querySelector('.profile_img').src);
+      });
+      socket.emit('create');
       window.scrollTo(0, msg.scrollHeight);
 
       //메세지 띄우기
@@ -85,7 +119,9 @@
         const div = document.createElement('div');
         const p1 = document.createElement('p');
         const p = document.createElement('p');
+        let p2;
         console.log('test', userid);
+
         if (message) {
           if (myName == userid) {
             //내가입력한 텍스트
@@ -95,17 +131,19 @@
             console.log('my', myName);
             console.log('user', userid);
             div.classList.add('hellow');
-            p1.innerHTML = `${userid} `;
+
+            p1.classList.add('hellowId');
+
+            p1.innerHTML = `${userid}`;
             p.innerHTML = `${message}`;
           }
-          div.appendChild(p1);
+
+          msg.appendChild(p1);
           div.appendChild(p);
           msg.appendChild(div);
-          current = document.querySelectorAll('p');
-          console.log(current[0]);
-
-          current[current.length - 1].scrollIntoView(true);
         }
+        current = document.querySelectorAll('p');
+        current[current.length - 1].scrollIntoView(true);
       });
 
       //입장 메세지 이벤트
