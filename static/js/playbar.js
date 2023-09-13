@@ -159,12 +159,6 @@ async function music(song_id){
         // modalDetailTitle[i].href = `/song?id=${id}`;
         modalDetailTitle[i].setAttribute('href', `/song?id=${id}`);
         }
-
-        const songListDetail = document.getElementsByClassName('modal_playlist_detail_title');
-        for (let i = 0; i < songListDetail.length; i++) {
-            songListDetail[i].setAttribute('href', `/song?id=${id}`);
-        }
-
     } 
     else{
         alert("재생 중 오류가 발생했습니다.")
@@ -217,7 +211,7 @@ async function playlist(num){
                     <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
                 </a>
                 <div class="modal_playlist_detail_titles">
-                    <a class="modal_playlist_detail_title" href= "#" >${title}</a>
+                    <a class="modal_playlist_detail_title" href= "/song?id=${id}">${title}</a>
                     <a class="modal_playlist_detail_artist">${artist}</a>
                 </div>
                 <div class="container" onclick="songDelete(${id})">
