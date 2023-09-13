@@ -58,15 +58,25 @@
 
           <div class="row_third">
             <div class="genre_div">장르 음악</div>
-            <div class="genre_btn">장르</div>
-            <div class="genre_music"> 
-                <% for (let i = 0; i < data.genre.length; i++) { %>
-                  <div class="genre_element">
-                    <img src="<%= data.genre[i].cover_url %>" onclick="music('<%= data.genre[i].id %>')">
-                    <a class="genre_title" href="/song?id=<%= data.genre[i].id %>"><%= data.genre[i].title %></a>
-                    <div class="genre_artist"><%= data.genre[i].artist %></div>
-                  </div>
+            <div class="genre_btn" onclick="startGenreToggle()">장르</div>
+
+
+            <div id="genre_menu_btn" class="genre_menu_btn" style="display: none;" >
+              <ul class="genre_menu_ul">
+                <% for (let i = 0; i < data.genreMenu.length; i++) { %>
+                    <li class="genre_menu_li">
+                        <span class="genre_menu_a" onclick="getByMenuGenre('<%= data.genreMenu[i] %>');"><%= data.genreMenu[i] %></span>
+                    </li>
                 <% } %>
+            </ul>
+            </div>
+
+            <div class="genre_music"> 
+                  <div class="genre_element">
+                    <img class="genre_img" src="" onclick="music('')">
+                    <a class="genre_title" href="/song?id="></a>
+                    <div class="genre_artist"></div>
+                  </div>
             </div>
         </div>
 
@@ -137,6 +147,61 @@
           } catch (error) {
             console.error('좋아요 토글에 실패했습니다.', error);
           }
+        }
+
+        function startGenreToggle() {
+            var genreMenu = document.getElementById("genre_menu_btn");
+           
+            console.log("Before toggle: " + genreMenu.style.display);
+            if (genreMenu.style.display === "none" || genreMenu.style.display === "") {
+                genreMenu.style.display = "block";
+            } else {
+                genreMenu.style.display = "none";
+            }
+            console.log("After toggle: " + genreMenu.style.display);        
+        }
+
+        async function getByMenuGenre(genre) {
+            try {
+
+                const res = await axios({
+                    method: "get",
+                    url: `/byGenre?genre=${genre}`,
+                });
+                const genre_music = document.querySelector(".genre_music");
+                genre_music.innerHTML = ''; // Clear existing content
+
+                for (const item of res.data.genreData.genre) {
+                    // Create elements for each item in the genreData.genre array
+                    const genre_element = document.createElement("div");
+                    genre_element.classList.add("genre_element");
+
+                    const img = document.createElement("img");
+                    img.classList.add("genre_img");
+                    img.src = item.cover_url; // Set the image source
+                    img.onclick = () => music(item.id); // Add click event for playing music
+
+                    const genre_title = document.createElement("a");
+                    genre_title.classList.add("genre_title");
+                    genre_title.href = `/song?id=${item.id}`;
+                    genre_title.textContent = item.title; // Set the title
+
+                    const genre_artist = document.createElement("div");
+                    genre_artist.classList.add("genre_artist");
+                    genre_artist.textContent = item.artist; // Set the artist
+
+                    // Append the created elements to the genre_element
+                    genre_element.appendChild(img);
+                    genre_element.appendChild(genre_title);
+                    genre_element.appendChild(genre_artist);
+
+                    // Append the genre_element to the genre_music
+                    genre_music.appendChild(genre_element);
+                }
+              
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
     </script>
 
