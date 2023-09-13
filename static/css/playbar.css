@@ -20,10 +20,15 @@
     background-color:transparent;
 }
 
-.song_info .artist_name a {
+.song_info .song_title a {
     text-decoration: none;
     color: white;
     font-size: 22px;
+}
+
+.song_info .artist_name a {
+    text-decoration: none;
+    color: white;
 }
 
 .player_controller{
@@ -154,7 +159,8 @@
 
 .song_info .song_title {
     font-size: 18px;
-    margin-bottom: 5px
+    margin-bottom: 5px;
+    font-size: 22px;
 };
 
 .song_info .artist_name {
@@ -310,13 +316,15 @@
     margin-top: 80px;
 }
 
-.modal_open .modal .modal_left .content_box .song_title {
+.modal_open .modal .modal_left .content_box a {
     width: 100%;
     margin-bottom: 8px;
     font-size: 22px;
     font-weight: 600;
     line-height: 25px;
     text-decoration: none;
+    color: white;
+
 }
 
 .modal_open .modal .modal_left .content_box .song_artist {
@@ -582,4 +590,6 @@
 
 .music_bar, .song_img, .song_title, .artist_name , .player_controller button , .player_side_rigth :hover {
     cursor: pointer;
+    color: white;
+    text-decoration: none;
 }
