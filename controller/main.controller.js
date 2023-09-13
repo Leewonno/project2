@@ -10,9 +10,13 @@ exports.controller = {
       const whereClause = {};
       const attributes = [ 'id', 'title', 'artist', 'cover_url', 'song_url', 'like']
 
+      const genres = await Song.findAll({ attributes: ['genre'], raw: true });
+      const uniqueGenres = [...new Set(genres.map(song => song.genre))];
+      console.log(uniqueGenres)
+
       const recentSongs = await getSongData(whereClause, attributes, limit, [['release_date', 'DESC']]);
       const likedSongs = await getSongData(whereClause, attributes, limit, [['like', 'DESC']]);
-      const genreSongs = await getSongData({ genre: '댄스' }, attributes, limit, [['like', 'DESC']]);
+    //  const genreSongs = await getSongData({ genre: '댄스' }, attributes, limit, [['release_date', 'DESC']]);
 
       const chatMembers = await ChatRoom.findAndCountAll({
         attributes: ['name', 'tag', 'id', 'cover_img'],
@@ -79,9 +83,10 @@ exports.controller = {
       const data = {
         recent: recentSongs.rows.map(result => result.dataValues),
         like: likedSongs.rows.map(result => result.dataValues),
-        genre: genreSongs.rows.map(result => result.dataValues),
+      //  genre: genreSongs.rows.map(result => result.dataValues),
         chatRoom: chatMembers.rows.map(result => result.dataValues),
         playlist: playlistData,
+        genreMenu: uniqueGenres
         
       };
 
@@ -230,6 +235,26 @@ exports.controller = {
       res.status(500).send({ message: 'Internal Server Error' });
     }
   },
+
+  getByMenuGenre: async (req, res) => {
+    try {
+      const limit = 6;
+      const sort = req.query.genre;
+      const whereClause = { genre: sort };
+      const attributes = [ 'id', 'title', 'artist', 'cover_url', 'song_url', 'like']
+
+      const genreSongs = await getSongData(whereClause, attributes, limit, [['release_date', 'DESC']]);
+
+      const genreData = {
+        genre: genreSongs.rows.map(result => result.dataValues)
+      }
+      res.status(200).send({ genreData });
+    } catch (error) {
+         console.log(error)
+      // 기타 오류
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  }
 };
 
 async function getSongData(whereClause, attributes, limit, order) {
