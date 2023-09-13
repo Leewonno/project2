@@ -46,10 +46,10 @@
             <div class="talk_btn"><a href="/chat/list">더보기</a></div>
             <div class="talk_room">
               <% for (let i = 0; i < data.chatRoom.length; i++) { %>
-                <div class="talk_element">
+                <div class="talk_room_element">
                   <img src="<%= data.chatRoom[i].cover_img %>" onclick="">
-                  <a class="talk_name" href="/chat/list"><%= data.chatRoom[i].name %></a>
-                  <div class="talk_tag"><%= data.chatRoom[i].tag %></div>
+                  <a class="talk_room_name" href="/chat/list"><%= data.chatRoom[i].name %></a>
+                  <div class="talk_room_tag"><%= data.chatRoom[i].tag %></div>
                 </div>
               <% } %>
             </div>
