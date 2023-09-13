@@ -20,9 +20,10 @@
     background-color:transparent;
 }
 
-.song_info a {
+.song_info .artist_name a {
     text-decoration: none;
-    color: lightgray;
+    color: white;
+    font-size: 22px;
 }
 
 .player_controller{
