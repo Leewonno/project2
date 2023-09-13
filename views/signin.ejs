@@ -23,7 +23,7 @@
           </div>
           <div class="signinPageBtns">
             <button type="button" id="signinBtn" onclick="signinF()" style="font-size: 16px">로그인</button><br />
-            <a href="/signup" class="roadSignup">회원가입</a>
+            <button type="button" class="roadSignup" onclick="signupF()">회원가입</button>
           </div>
         </section>
       </div>
@@ -62,9 +62,11 @@
         }
       }
 
-      function signup() {
-        document.location.href = '/signup';
+      function signupF() {
+        window.location.href = '/signup';
       }
+
+
     </script>
   </body>
 </html>
