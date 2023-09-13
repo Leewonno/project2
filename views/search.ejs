@@ -166,21 +166,18 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-  // 모든 lyricsSearchLyrics 클래스를 가진 요소를 선택합니다.
-  const lyricsElements = document.querySelectorAll(".lyricsSearchLyrics");
+        const lyricsElements = document.querySelectorAll(".lyricsSearchLyrics");
 
-  // 각 요소에 대한 처리를 수행합니다.
-  lyricsElements.forEach((element) => {
-    const text = element.textContent; // 요소의 텍스트 가져오기
+        lyricsElements.forEach((element) => {
+            const text = element.textContent; 
 
-    // 문자열이 10글자 이상인 경우
-    if (text.length > 10) {
-      // 10글자까지 잘라서 표시합니다.
-      const trimmedText = text.substring(0, 60) + "...";
-      element.textContent = trimmedText; // 요소에 가공된 텍스트 추가
-    }
-  });
-});
+            // 문자열이 10글자 이상인 경우
+            if (text.length > 10) {
+            const trimmedText = text.substring(0, 60) + "...";
+            element.textContent = trimmedText;
+            }
+        });
+        });
 
     </script>
 </body>
