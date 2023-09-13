@@ -27,6 +27,7 @@ header{
     align-items: center;
     border-bottom: 1px solid gray;
     background: linear-gradient(to top, #ffdcb7, #ffefc6);
+    margin-bottom: 30px;
 }
 
 header a {

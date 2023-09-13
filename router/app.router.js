@@ -4,7 +4,7 @@ const { controller } = require('../controller/main.controller');
 const controller1 = require('../controller/chat.controller');
 const { auth } = require('../middleware/auth.middleware');
 
-router.get('/', controller.mainPage);
+router.get('/', auth.verifyAuthentication, controller.mainPage);
 router.get('/chat/list', auth.verifyAuthentication, controller.getChatListPage);
 router.get('/search', controller.getSearchPage);
 
@@ -16,4 +16,9 @@ router.get('/chat', controller1.chat);
 router.post('/chat', controller1.chatP);
 
 router.post('/chat/list', controller1.chat_tag);
+
+// 플레이리스트 좋아요 기능
+// 좋아요 토글
+router.post('/playlist/like', auth.verifyAuthentication, controller.likeToggle);
+
 module.exports = router;
