@@ -18,7 +18,8 @@
                     <div class="signupCover">
                         <form name="signupForm" class="signupForm">
                             <input type="text" id="userid" placeholder="아이디"><br>
-                            <div id="signupHidden" class="signupHidden">아이디를 사용하셔도 됩니다.</div>
+                            <div id="signupHidden" class="signupHidden"><i class="fa-solid fa-check" id="signupCheckImg"></i></div>
+                            <div id="signupMatch" class="signupMatch">ID는 영어 소문자와 숫자로 6글자 이상으로 구성되어야 합니다</div>
                             <input type="password" id="pw" class="signupPw" placeholder="비밀번호"><br>
                             <input type="password" id="pw2" class="signupPw2" placeholder="비밀번호확인"><br>
                             <div id="pwMatch" class="pwMatch">비밀번호가 일치합니다.</div>
@@ -107,24 +108,25 @@
             }
         };
 
-        document.querySelector("html").addEventListener("click", async function (e) {
+        document.querySelector(".signupPage").addEventListener("click", async function (e) {
             if (e.target.id == e.currentTarget.querySelector("#userid").id) {
                 console.log("True");
             }
             else {
                 const form = document.forms["signupForm"];
                 const id = document.querySelector("#userid");
+                const match = document.querySelector("#signupMatch")
                 const confirm = document.querySelector("#signupHidden");
-                const idPattern = new RegExp("^[a-z][0-9a-z]{4,14}$");
+                const checkImg = document.querySelector("#signupCheckImg");
+                const idPattern = new RegExp("^[a-z][0-9a-z]{5,15}$");
                 
-                if(idPattern.test(id.value)) {
-                    id.style.color = "blue"
-                    id.textContent = "Strong"
-                } else {
-                    alert(`ID를 다시 입력해주세요.\nID는 영어 소문자와 숫자로 구성되어야 합니다`);
-                    id.style.color = "red"
+                if(!idPattern.test(id.value)) {
+                    match.classList.remove("signupMatch");
+                    match.style.color = "red"
                     id.focus();
-                    return;
+                    
+                } else {
+                    match.classList.add("signupMatch");
                 }
 
                 const res = await axios({
@@ -136,18 +138,40 @@
                 })
 
                 if(res.data.result && idPattern.test(id.value)) {
+                    console.log("aa")
                     ids_overlap = true;
                     confirm.classList.remove("signupHidden");
-                    confirm.textContent = "이 아이디는 사용가능합니다.";
-                    confirm.style.color = "blue";
+                    checkImg.className = "fa-solid fa-check";
+                    checkImg.style.color = "blue";
+                    id.style.color = "blue";
                 } else {
                     confirm.classList.remove("signupHidden"); 
-                    confirm.textContent = "이 아이디는 사용불가합니다.";
-                    confirm.style.color = "red";
+                    checkImg.className = "fa-solid fa-exclamation";
+                    checkImg.style.color = "red";
                     id.style.color = "red";
                 }
 
             }
+        });
+
+        document.querySelector("#userid").addEventListener("input", async function (e) {
+            const form = document.forms["signupForm"];
+            const id = document.querySelector("#userid");
+            const match = document.querySelector("#signupMatch")
+            const confirm = document.querySelector("#signupHidden");
+            const checkImg = document.querySelector("#signupCheckImg");
+            const idPattern = new RegExp("^[a-z][0-9a-z]{5,15}$");
+                
+            if(!idPattern.test(id.value)) {
+                match.classList.remove("signupMatch");
+                match.style.color = "red"
+                id.focus();
+                    
+            } else {
+                match.classList.add("signupMatch");
+            }
+
+            confirm.classList.add("signupHidden");
         });
 
         document.querySelector(".signupPw").addEventListener("input", function (e) {
