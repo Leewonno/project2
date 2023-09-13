@@ -11,7 +11,6 @@ const currentTime = document.querySelector(".player_time_current");
 const totalTime = document.querySelector(".player_time_total");
 const timelineBar = document.querySelector(".music_bar");
 const musicbarBackground = document.querySelector(".musicbar_background");
-
 const volume_range = document.querySelector(".range_bars");
 
 let draggableElements = document.querySelectorAll('.modal_playlist_detail');
@@ -24,6 +23,10 @@ let volume = audio.volume;
 let volume_stick = volume_bar.value
 
 audio.volume = 0.5;
+
+let now_play = 0;
+let pl =[];
+let playlist_num;
 
 play.addEventListener('click', (e)=>{
     if(play.checked == true){
@@ -121,8 +124,6 @@ async function music(song_id){
     const artist_name = document.querySelector(".song_info .artist_name");
     const song_name = document.querySelector(".song_info .song_title");
 
-    
-
     const res = await axios({
         method:"GET",
         url:"/song/play",
@@ -130,7 +131,6 @@ async function music(song_id){
             id:song_id
         }
     });
-
 
     if(res.data.result){
         const {song_url, title, artist, album, lyrics, genre, cover_url, id} = res.data.songResult;
@@ -169,9 +169,7 @@ async function music(song_id){
 }
 
 
-let now_play = 0;
-let pl =[];
-let playlist_num;
+
 
 async function playlist(num){
     playlist_num = num;
@@ -214,7 +212,7 @@ async function playlist(num){
                     <a class="modal_playlist_detail_title" href= "/song?id=${id}">${title}</a>
                     <a class="modal_playlist_detail_artist">${artist}</a>
                 </div>
-                <div class="container" onclick="songDelete(${id})">
+                <div class="container" onclick="songDelete(this, ${id})">
                     <a class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
                 </div>
             </li>`
@@ -238,7 +236,8 @@ async function playlist(num){
     music(pl[now_play]);
 }
 
-async function songDelete(num) {
+async function songDelete(temp, num) {
+    console.log(temp);
     const songids = document.getElementById(num)
     songids.remove();
     const deleteSongId = document.querySelectorAll('.inputValue');
@@ -259,13 +258,24 @@ async function songDelete(num) {
         url: "/playlist/edit",
         data: {song_ids: updateSongList, id: playlist_num }
     });
-    
-    console.log('updateSongList' ,updateSongList)
+
+    now_play--;
+    pl = updateSongList.split(',');
+    // console.log('updateSongList' ,updateSongList)
 };
 
-async function updateSong(){
+async function updateSong(temp){
+    // console.log("up", temp)
     const updateSongId = document.querySelectorAll('.inputValue');
-
+    
+    let check_count;
+    
+    for(let i=0; i < updateSongId.length; i++){
+        if(temp == updateSongId[i].parentNode){
+            check_count = i;
+        }
+    }
+    // console.log("바뀐 위치", up_count)
     // console.log('deleteSongId');
 
     let updateSongList = ""
@@ -286,7 +296,9 @@ async function updateSong(){
         }
     })
 
-    console.log('updateSongList' ,updateSongList)
+    // console.log('updateSongList' ,updateSongList);
+    now_play = check_count;
+    pl = updateSongList.split(',');
 }
 
 async function nextPlay(){
@@ -362,7 +374,8 @@ function handleDrop(e) {
   
   // 드롭 완료 후 요소를 다시 표시하기 위해 opacity를 원래대로 설정
   dragSrcElement.style.opacity = '1';
-  updateSong()
+    //console.log(this);
+  updateSong(this);
 
   return false;
 }
