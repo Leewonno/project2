@@ -1,14 +1,14 @@
 
-    $(document).on('click', 'a', function(e){
+    $(document).on('click', 'a', async function(e){
         history.pushState(null, null, e.target.href);
-        $('main').load(e.target.href + " main>section");
+        await $('main').load(e.target.href + " main>section");
         scriptSend(e.target.href);
         e.preventDefault();
     })
 
-    $(window).on('popstate', function(e){
+    $(window).on('popstate', async function(e){
         console.log(location.href);
-        $('main').load(location.href+ " main>section");
+        await $('main').load(location.href+ " main>section");
         scriptSend(location.href);
     })
 
@@ -34,7 +34,7 @@ function scriptSend(hrefs){
 
         // 선택된 <script> 태그를 현재 페이지에 추가합니다.
         $scriptTags.each(function() {
-            document.getElementById("sc").textContent = $(this).text();
+            // document.getElementById("sc").textContent = $(this).text();
             var script = document.createElement('script');
             script.id = "sc";
             script.text = $(this).text();
