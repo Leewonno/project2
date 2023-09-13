@@ -16,9 +16,11 @@
 }
 
 .talk_list .column_first .my_talk {
-  background-color: lightgray;
+  background-color: white;
   width: 100%;
   min-height: 300px;
+  border: 1px solid;
+  box-shadow: 9px 9px 9px rgb(172, 172, 172);
 }
 
 .talk_list .column_second {
@@ -27,13 +29,17 @@
 }
 
 .talk_list .column_second .category_talk {
-  background-color: lightgray;
+  background-color: white;
   width: 590px;
   height: 300px;
+  border: 1px solid;
+  box-shadow: 9px 9px 9px rgb(172, 172, 172);
 }
 
 .talk_list .column_second .recommand_talk {
-  background-color: lightgray;
+  background-color: white;
   width: 590px;
   height: 300px;
+  border: 1px solid;
+  box-shadow: 9px 9px 9px rgb(172, 172, 172);
 }
