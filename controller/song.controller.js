@@ -328,10 +328,22 @@ exports.controller = {
 
   getCommentsByPage: async (req, res) => {
     try {
-      
+      const pageSize = 10;
+      const page = req.query.page;
+      const song_id = req.query.song_id;
+
+      const data = await getCommentsBySongId(song_id, page, pageSize);
+
+      if(data){
+        res.send({result:true, data})
+      }
+      else{
+        res.send({result:false})
+      }
+
     } catch (error) {
       console.log(error);
-      res.status(500).send({ message: 'Internal Server Error' });
+      res.status(500).send({ result:false ,message: 'Internal Server Error' });
     }
   },
 
@@ -348,7 +360,6 @@ exports.controller = {
       res.status(500).send({ message: 'Internal Server Error' });
     }
   }
-
 }
 
 async function getCommentsBySongId(songId, page, pageSize) {

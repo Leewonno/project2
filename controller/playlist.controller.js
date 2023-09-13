@@ -6,12 +6,10 @@ exports.getPlaylist = async (req, res)=>{
   try{
     const id = req.query.id;
     const playlists = await models.Playlist.findOne({
-      where: {id},
+      where: {id },
     }); // -> 배열로 플레이리스트 id 값 
 
-    console.log(playlists);
     res.send(playlists);
-
   }
   catch(err){
     res.send(false);
@@ -114,13 +112,14 @@ exports.postPlayListLike = async (req, res) => {
 exports.postPlayListPage = async (req, res) => {
   try {
     const playlist = await models.Playlist.create({
+      tags:req.body.pl_tag,
       name: req.body.pl_name,
       userid: req.userid,
     });
-    res.json({ message: 'Playlist created successfully' });
+    res.json({ result:true, message: 'Playlist created successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error creating playlist' });
+    res.status(500).json({ result:false, message: 'Error creating playlist' });
   }
 
 };
@@ -166,19 +165,27 @@ exports.postPlayListEdit = async (req,res) => {
     const playlistId = req.body.id;
     const songIds = req.body.song_ids;
 
-    const [songs, edited] = await models.Playlist.update(
+    const row = await models.Playlist.update(
       { song_ids: songIds },
       { where: { id: playlistId } }
     );
 
-    console.log(songs, edited);
-
-    res.json({message: 'Playlist Edit successfully'});
-
-
+      if (row) {
+        res.json({res:true , message: 'Song Delete successfully'})
+      } else {
+        res.json({ res:false, message: 'Playlist Edit Error' })
+      }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Playlist Edit Error' });
+  }
+}
+
+exports.postPlaylistSongDelete = async (req,res) => {
+  try{
+
+  } catch (error) {
+
   }
 }
 

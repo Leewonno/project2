@@ -98,7 +98,7 @@ exports.connection = (io, socket) => {
     const userInfo = await models.Profile.findOne({
       where: { userid: socket.user },
     });
-    console.log('user', userInfo.nickname);
+
     if (message.message) {
       const userChat = await models.Chat.create({
         chatroom_id: chatRoom.id,
@@ -131,8 +131,8 @@ exports.chat_tag = async (req, res) => {
   const chat_tag = await models.ChatRoom.findAll({
     where: { tag: req.body.tag },
     order: [['member', 'DESC']],
-    limit: 5,
   });
+
   for (let i = 0; i < chat_tag.length; i++) {
     chat_tagArray.push({ name: chat_tag[i].name, cover_img: chat_tag[i].cover_img, member: chat_tag[i].member });
   }

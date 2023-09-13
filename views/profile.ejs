@@ -31,6 +31,7 @@
                     <input type="text" id="nickname" placeholder="닉네임" value="<%= data.nickname %>"><br>
                     <input type="password" id="pw" placeholder="비밀번호"><br>
                     <input type="password" id="pw2" placeholder="비밀번호확인"><br>
+                    <div id="profileHidden" class="profileHidden">비밀번호가 맞지않습니다</div>
                     <button type="button" class="mainBtn" onclick="edit()">회원정보변경</button>
                 </form><br><br>
                 <section class="mypageBtns">
@@ -153,6 +154,22 @@
             console.log(res.data.location)
             img.src = res.data.location;
         }
+
+        document.querySelector(".profileHidden").addEventListener("input", function(e) {
+            const profile_pw = document.querySelector("#pw").value;
+            const profile_pw2 = document.querySelector("#pw2").value;
+            const profile_word = document.querySelector("#profileHidden");
+
+            if(profile_pw !== profile_pw2 || profile_pw.value === "" || profile_pw2.value === "") {
+                profile_word.classList.remove("profileHidden");
+                profile_word.textContent = "비밀번호를 확인해주세요";
+                profile_word.style.color = "red";
+            } else {
+                profile_word.classList.remove("profileHidden");
+                profile_word.textContent = "비밀번호가 일치합니다";
+                profile_word.style.color = "blue";
+            }
+        });
     </script>
     
 </body>
