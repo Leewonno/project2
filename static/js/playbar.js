@@ -153,7 +153,14 @@ async function music(song_id){
 
         document.querySelector('.playbar_like').setAttribute('onclick', `s_like('${song_id}')`)
         await s_like_check(id);
-    }
+
+        const modalDetailTitle = document.getElementsByClassName('song_name');
+        for (let i = 0; i < modalDetailTitle.length; i++) {
+        // modalDetailTitle[i].href = `/song?id=${id}`;
+        modalDetailTitle[i].setAttribute('href', `/song?id=${id}`);
+        }
+        // history.pushState({}, null, url);
+    } 
     else{
         alert("재생 중 오류가 발생했습니다.")
     }
@@ -212,8 +219,7 @@ async function playlist(num){
                     <a class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
                 </div>
             </li>`
-          document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforeend",html);
-
+          document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforeend",html);  
         }
         else{
             alert("불러오는 중 오류가 발생했습니다.");
