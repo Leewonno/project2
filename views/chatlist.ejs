@@ -7,12 +7,18 @@
     <style>
       .joinchat{
         display: flex;
+        justify-content: space-evenly;
+        margin-top: 5%;
       }
       #s{
         display: flex;
+        justify-content: space-evenly;
+        margin-top: 10%;
       }
       .recommand{
         display: flex;
+        justify-content: space-evenly;
+        margin-top: 10%;
       }
     </style>
   </head>
@@ -38,13 +44,12 @@
         </div>
         <div class="column_second">
           <div class="category_talk">주제별 톡방
-            <select id="tag_select">
-              <option value="girlgroup" id="gG">girlgroup</option>
-              <option value="boygroup" id="bG">boygroup</option>
-              <option value="Wsolo" id="wS">Female Solo</option>
-              <option value="Msolo" id="mS">Male Solo</option>
-            </select>
-            <button onclick="select_tag()">선택</button>
+            
+            <button value="girlgroup" id="gG" onclick="select_tag(`girlgroup`)">girlgroup</button>
+            <button value="boygroup" id="bG" onclick="select_tag(`boygroup`)">boygroup</button>
+            <button value="Wsolo" id="wS" onclick="select_tag(`Wsolo`)">Female Solo</button>
+            <button value="Msolo" id="mS" onclick="select_tag(`Msolo`)">Male Solo</button>
+            
             <div id = "s" >
               <% for(let i = 0; i<tag.length; i++){%>
                 <div onclick="talk('<%=tag[i].name %>')">
@@ -79,12 +84,12 @@
           window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
         }
 
-      function select_tag(){    
+      function select_tag(tagName){    
         axios({
           method: 'POST',
           url: '/chat/list',
           data:{
-            tag: document.querySelector("#tag_select").value
+            tag: tagName
           }
         }).then((res) => {
           const chat_tag = res.data.tag;

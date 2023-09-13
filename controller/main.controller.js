@@ -1,9 +1,10 @@
-const { Song, ChatRoom, Playlist, Chat_member, P_like } = require('../database/db');
+const { Song, ChatRoom, Playlist, Chat_member, P_like, User } = require('../database/db');
 const { Sequelize, Op } = require('sequelize');
 
 exports.controller = {
   mainPage: async (req, res) => {
     try {
+      let likeResult = false;
       const limit = 6;
       const playlistData = [];
       const whereClause = {};
@@ -49,27 +50,39 @@ exports.controller = {
         } else if (playlist.song_ids = null) {
           coverArr = ['https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/n_img.png'];
         }
+
+              // 유저 플리 좋아요 체크 
+        if (req.userid) {
+          const likeData = await P_like.findOne({ where: { p_id: playlist.id, userid: req.userid } })
+          console.log(':::::::::::::::::::::',likeData); 
+            if(likeData) {
+              likeResult = true
+            } else {
+              likeResult =false
+            }
+        }
+        console.log(likeResult);
+
         const playItem = {
           id: playlist.id,
           name: playlist.name,
           cover: coverArr,
           like: playlist.like,
-          result: coverResult
+          result: coverResult,
+          likeResult: likeResult
         }
         playlistData.push(playItem);
       }
       console.log(playlistData);
 
-      if(req.userid) {
-        const pLike = await P_like.findOne({ where: { p_id: playlistData.id} });
-      }
       // 데이터를  객체에 추가
       const data = {
         recent: recentSongs.rows.map(result => result.dataValues),
         like: likedSongs.rows.map(result => result.dataValues),
         genre: genreSongs.rows.map(result => result.dataValues),
         chatRoom: chatMembers.rows.map(result => result.dataValues),
-        playlist: playlistData
+        playlist: playlistData,
+        
       };
 
       console.log(data.chatRoom)
@@ -178,6 +191,42 @@ exports.controller = {
 
     } catch (error) {
       console.log(error);
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  },
+
+  // 플레이리스트 좋아요
+  likeToggle: async (req, res) => {
+    try {
+
+      const user = await User.findOne({
+          where: { userid: req.userid },})  
+      
+      const { id } = req.body;
+      console.log(id, req.userid);
+  
+      const existLike = await P_like.findOne({ where: { p_id: id, userid: req.userid } });
+      console.log('existLike', existLike);
+      const playlist = await Playlist.findOne({ where: { id }});
+      console.log('playlist', playlist)
+  
+      if(existLike) {
+        await P_like.destroy({ where: { p_id: id, userid: req.userid } });
+        playlist.like -= 1;
+        await playlist.save();
+        console.log(playlist.like)
+        res.send({ count: playlist.like, liked: false, message: "like cancel success" });
+      } else {
+        await P_like.create({ p_id: id, userid: req.userid });
+        playlist.like += 1;
+        await playlist.save();
+        console.log(playlist.like)
+        res.send({ count: playlist.like, liked: true, message: "like success" });
+      }
+  
+    } catch (error) {
+      console.log(error)
+      // 기타 오류
       res.status(500).send({ message: 'Internal Server Error' });
     }
   },

@@ -112,13 +112,14 @@ exports.postPlayListLike = async (req, res) => {
 exports.postPlayListPage = async (req, res) => {
   try {
     const playlist = await models.Playlist.create({
+      tags:req.body.pl_tag,
       name: req.body.pl_name,
       userid: req.userid,
     });
-    res.json({ message: 'Playlist created successfully' });
+    res.json({ result:true, message: 'Playlist created successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error creating playlist' });
+    res.status(500).json({ result:false, message: 'Error creating playlist' });
   }
 
 };

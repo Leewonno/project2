@@ -32,10 +32,6 @@
             <div class="popular_music">
               <% for (let i = 0; i < data.like.length; i++) { %>
                 <div class="popular_element">
-                  <div class="popular_like">
-                    <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
-                    <div class="popular_like_cnt"><%= data.like[i].like %></div>
-                  </div>  
                   <img src="<%= data.like[i].cover_url %>" onclick="music('<%= data.like[i].id %>')">
                   <a class="popular_title" href="/song?id=<%= data.like[i].id %>"><%= data.like[i].title %></a>
                   <div class="popular_artist"><%= data.like[i].artist %></div>
@@ -47,17 +43,15 @@
           <!-- 3. 아티스트 톡 채널  -->
           <div class="row_second">
             <div class="talk_div">아티스트 톡 채널</div>
-            <div class="talk_btn">더보기</div>
-              <div class="talk_room">
-                <% for (let i = 0; i < data.chatRoom.length; i++) { %>
-                  <div class="talk_element">
-                    <div class="talk_image">
-                      <img src="<%= data.chatRoom[i].cover_img %>" onclick="">
-                    </div>
-                    <a class="talk_name" href="/chat/list"><%= data.chatRoom[i].name %></a>
-                    <div class="talk_tag"><%= data.chatRoom[i].tag %></div>
-                  </div>
-                <% } %>
+            <div class="talk_btn"><a href="/chat/list">더보기</a></div>
+            <div class="talk_room">
+              <% for (let i = 0; i < data.chatRoom.length; i++) { %>
+                <div class="talk_element">
+                  <img src="<%= data.chatRoom[i].cover_img %>" onclick="">
+                  <a class="talk_name" href="/chat/list"><%= data.chatRoom[i].name %></a>
+                  <div class="talk_tag"><%= data.chatRoom[i].tag %></div>
+                </div>
+              <% } %>
             </div>
           </div>
 
@@ -79,7 +73,6 @@
        
         <div class="row_fourth">
           <div class="playlist_div">추천 플레이리스트</div>
-          <div class="playlist_btn">더보기</div>
           <div class="recommand_playlist">
             <% for (let i = 0; i < data.playlist.length; i++) { %>
               <div class="playlist_element">
@@ -89,17 +82,26 @@
                         <img src="<%= data.playlist[i].cover[j] %>">
                       <% } %>
                   </div>
-            <% } else { %>
-                <div class="playlist_cover-2"  onclick="music('<%= data.playlist[i].id %>')">
-                    <img src="<%= data.playlist[i].cover[0] %>">
-                </div>
-            <% } %>
-                <div class="playlist_name"><%= data.playlist[i].name %></div>
-                <div class="playlist_like">
-                  <i class="fa-solid fa-heart" style="color: #FCD06B;"></i> 
-                  <div class="like_cnt"><%= data.playlist[i].like %></div>
-                </div>
+                <% } else { %>
+                    <div class="playlist_cover-2"  onclick="music('<%= data.playlist[i].id %>')">
+                        <img src="<%= data.playlist[i].cover[0] %>">
+                    </div>
+                <% } %>
+              <div class="playlist_name"><%= data.playlist[i].name %></div>
+                
+              <div class="playlist_like" id="<%= data.playlist[i].id %>" onclick="likeBtn('<%= data.playlist[i].id %>')">
+
+                    <% if (data.playlist[i].likeResult) { %>
+                      <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
+                      <div class="like_cnt"><%= data.playlist[i].like %></div>
+                    <% } else { %>
+                      <i class="fa-regular fa-heart" style="color: #FCD06B;"></i>
+                      <div class="like_cnt"><%= data.playlist[i].like %></div> 
+                  <% } %>        
+                       
               </div>
+
+            </div>
             <% } %> 
           </div>
         </div>
@@ -108,33 +110,34 @@
     </section>
 
     <script id="sc">
-        // $(document).ready(function(){
-        //   axios({
-        //     method:"GET",
-        //     url:"/song/sort",
-        //     params:{
-        //       sort:"date"
-        //     }
-        //   }).then((res)=>{
-        //     console.log(res.data[0]);
-        //     for(let i = 0; i < res.data.length; i++){
-        //       let s_url = res.data[i].song_url;
-        //       console.log(s_url)
-        //       let temp = s_url.split('/');
-        //       temp = temp[3] + "/" + temp[4];
-        //       const html = `
-        //       <div class="recent_element">
-        //           <img src="${res.data[i].cover_url}" onclick="music('${temp}')">
-        //           <a class="recent_title" href="/song/detail?id=${res.data[i].id}">${res.data[i].title}<a>
-        //           <div class="artist">${res.data[i].artist}</div>
-        //       </div>`
-    
-        //       $('#recent_music').append(html);
-        //     }
-        //   }).catch((err)=>{
-        //     console.log(err);
-        //   })
-        // });
+
+        async function likeBtn(p_id) {
+          const like_element = document.getElementById(p_id);
+          const id = p_id;
+
+          try {
+            const response = await axios.post('/playlist/like', {
+                id: id,
+            });
+            
+            console.log(response)
+            if (response.data.liked) {
+                console.log(response.data.liked)
+                // 좋아요가 토글되었을 때 아이콘을 채워진 하트로 변경
+                like_element.innerHTML = `
+                <i class="fa-solid fa-heart" style="color: #FCD06B;"></i> 
+                <div class="like_cnt">${response.data.count}</div>`;
+            } else {
+                console.log(response.data.liked)
+              // 좋아요가 취소되었을 때 아이콘을 빈 하트로 변경
+              like_element.innerHTML = `
+                <i class="fa-regular fa-heart" style="color: #FCD06B;"></i> 
+                <div class="like_cnt">${response.data.count}</div>`;
+            }
+          } catch (error) {
+            console.error('좋아요 토글에 실패했습니다.', error);
+          }
+        }
     </script>
 
   </body>
