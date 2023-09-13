@@ -16,7 +16,7 @@ exports.controller = {
 
       const recentSongs = await getSongData(whereClause, attributes, limit, [['release_date', 'DESC']]);
       const likedSongs = await getSongData(whereClause, attributes, limit, [['like', 'DESC']]);
-    //  const genreSongs = await getSongData({ genre: '댄스' }, attributes, limit, [['release_date', 'DESC']]);
+      const genreSongs = await getSongData({ genre: '댄스' }, attributes, limit, [['release_date', 'DESC']]);
 
       const chatMembers = await ChatRoom.findAndCountAll({
         attributes: ['name', 'tag', 'id', 'cover_img'],
@@ -83,7 +83,7 @@ exports.controller = {
       const data = {
         recent: recentSongs.rows.map(result => result.dataValues),
         like: likedSongs.rows.map(result => result.dataValues),
-      //  genre: genreSongs.rows.map(result => result.dataValues),
+        genre: genreSongs.rows.map(result => result.dataValues),
         chatRoom: chatMembers.rows.map(result => result.dataValues),
         playlist: playlistData,
         genreMenu: uniqueGenres
