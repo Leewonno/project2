@@ -60,7 +60,6 @@
             const id = document.querySelector("#userid");
             const pw = document.querySelector("#pw");
             const pw2 = document.querySelector("#pw2");
-            
             let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 
             if(!pwPattern.test(pw.value, pw2.value)) {
@@ -108,8 +107,8 @@
             }
         };
 
-        document.querySelector(".signupPage").addEventListener("click", async function (e) {
-            if (e.target.id == e.currentTarget.querySelector("#userid").id) {
+        document.querySelector("body").addEventListener("click", async function (e) {
+            if (e.target.id == e.currentTarget.querySelector("#userid").id || e.target == e.currentTarget.querySelector("header")) {
                 console.log("True");
             }
             else {
@@ -124,7 +123,7 @@
                     match.classList.remove("signupMatch");
                     match.style.color = "red"
                     id.focus();
-                    
+                    return;
                 } else {
                     match.classList.add("signupMatch");
                 }
@@ -137,8 +136,7 @@
                     }
                 })
 
-                if(res.data.result && idPattern.test(id.value)) {
-                    console.log("aa")
+                if(res.data.result) {
                     ids_overlap = true;
                     confirm.classList.remove("signupHidden");
                     checkImg.className = "fa-solid fa-check";
@@ -157,14 +155,14 @@
         document.querySelector("#userid").addEventListener("input", async function (e) {
             const form = document.forms["signupForm"];
             const id = document.querySelector("#userid");
-            const match = document.querySelector("#signupMatch")
+            const match = document.querySelector("#signupMatch");
             const confirm = document.querySelector("#signupHidden");
             const checkImg = document.querySelector("#signupCheckImg");
             const idPattern = new RegExp("^[a-z][0-9a-z]{5,15}$");
                 
             if(!idPattern.test(id.value)) {
                 match.classList.remove("signupMatch");
-                match.style.color = "red"
+                match.style.color = "red";
                 id.focus();
                     
             } else {
@@ -179,7 +177,7 @@
             const match_pw2 = document.querySelector("#pw2").value;
             const match_word = document.querySelector("#pwMatch");
 
-            if(match_pw !== match_pw2 || match_pw.value === "" || match_pw2 === "") {
+            if(match_pw !== match_pw2 || match_pw.value === "" || match_pw2.value === "") {
                 match_word.classList.remove("pwMatch");
                 match_word.textContent = "비밀번호를 확인해주세요";
                 match_word.style.color = "red";

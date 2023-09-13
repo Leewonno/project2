@@ -133,6 +133,10 @@
     color: #FCD06B;
 }
 
+.mypageForm .profileHidden {
+    display: hidden;
+}
+
 @media screen and (max-width: 650px) {
     .mypageMain .mypage {
         width: 400px;
