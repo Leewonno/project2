@@ -115,9 +115,12 @@
 .talk_profile {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   /* background-color: brown; */
   text-align: center;
+}
+.talk_profile img {
+  border-radius: 50%;
 }
 
 .hello {
