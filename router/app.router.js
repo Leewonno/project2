@@ -17,6 +17,8 @@ router.post('/chat', controller1.chatP);
 
 router.post('/chat/list', controller1.chat_tag);
 
+// 장르별 요소 버튼 기능 
+router.get('/byGenre', controller.getByMenuGenre);
 // 플레이리스트 좋아요 기능
 // 좋아요 토글
 router.post('/playlist/like', auth.verifyAuthentication, controller.likeToggle);

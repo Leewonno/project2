@@ -29,9 +29,14 @@
                 <form class="mypageForm">
                     <input type="text" id="name" placeholder="이름" value="<%= data.name %>"><br>
                     <input type="text" id="nickname" placeholder="닉네임" value="<%= data.nickname %>"><br>
-                    <input type="password" id="pw" placeholder="비밀번호"><br>
-                    <input type="password" id="pw2" placeholder="비밀번호확인"><br>
-                    <div id="profileHidden" class="profileHidden">비밀번호가 맞지않습니다</div>
+                    <input type="password" id="pw" placeholder="비밀번호"></i><br>
+                    <div class="passwordConfirm">
+                        <input type="password" id="pw2" placeholder="비밀번호확인">
+                        <div id="profileHidden" class="profileHidden"></div>
+                    </div>
+                    <div class="profileMatchWrraper">
+                        <div id="profileMatch" class="profileMatch"></div>
+                    </div><br>
                     <button type="button" class="mainBtn" onclick="edit()">회원정보변경</button>
                 </form><br><br>
                 <section class="mypageBtns">
@@ -55,6 +60,7 @@
             const nick = document.querySelector("#nickname");
 
             if(pw.value.length === 0 ) {
+                
                 const res1 = await axios({
                     method: 'PATCH',
                     url: '/profile',
@@ -79,12 +85,12 @@
             let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
             if(!pwPattern.test(pw.value, pw2.value)) {
                 alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
+                return;
             }
-            if(pw.value !== pw2.value ) {
+            if(pw.value !== pw2.value || pw.value === "" || pw2.value === "" ) {
                 alert("비밀번호를 확인해주세요");
                 pw.focus();
-            } else if(pw.value === "" || pw2.value === "") {
-                alert("비밀번호를 입력해주세요");
+                return;
             } else {
                 alert("비밀번호가 일치합니다.");
             };
@@ -155,19 +161,68 @@
             img.src = res.data.location;
         }
 
-        document.querySelector(".profileHidden").addEventListener("input", function(e) {
+        document.querySelector("#pw").addEventListener("input", function(e) {
             const profile_pw = document.querySelector("#pw").value;
             const profile_pw2 = document.querySelector("#pw2").value;
             const profile_word = document.querySelector("#profileHidden");
 
             if(profile_pw !== profile_pw2 || profile_pw.value === "" || profile_pw2.value === "") {
                 profile_word.classList.remove("profileHidden");
-                profile_word.textContent = "비밀번호를 확인해주세요";
+                profile_word.className = "fa-solid fa-exclamation";
                 profile_word.style.color = "red";
             } else {
                 profile_word.classList.remove("profileHidden");
-                profile_word.textContent = "비밀번호가 일치합니다";
+                profile_word.className = "fa-solid fa-check";
                 profile_word.style.color = "blue";
+            }
+            profile_word.classList.add("profileHidden");
+        });
+
+        document.querySelector("#pw2").addEventListener("input", function(e) {
+            const profile_pw = document.querySelector("#pw").value;
+            const profile_pw2 = document.querySelector("#pw2").value;
+            const profile_word = document.querySelector("#profileHidden");
+
+            if(profile_pw !== profile_pw2 || profile_pw.value === "" || profile_pw2.value === "") {
+                profile_word.classList.remove("profileHidden");
+                profile_word.className = "fa-solid fa-exclamation";
+                profile_word.style.color = "red";
+            } else {
+                profile_word.classList.remove("profileHidden");
+                profile_word.className = "fa-solid fa-check";
+                profile_word.style.color = "blue";
+            }
+        });
+
+        document.querySelector("body").addEventListener("click", function(e) {
+            const profile_pw = document.querySelector("#pw").value;
+            const profile_pw2 = document.querySelector("#pw2").value;
+            const profile_match = document.querySelector("#profileMatch");
+            let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+            if(!pwPattern.test(pw.value)) {
+                profile_match.classList.remove("profileMatch");
+                profile_match.textContent = "비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.";
+                profile_match.style.color = "red";
+                return;
+            } else {
+                profile_match.classList.add("profileMatch");
+            }
+        });
+
+        document.querySelector("body").addEventListener("click", function(e) {
+            const profile_pw = document.querySelector("#pw").value;
+            const profile_pw2 = document.querySelector("#pw2").value;
+            const profile_match = document.querySelector("#profileMatch");
+            let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+            if(!pwPattern.test(pw2.value)) {
+                profile_match.classList.remove("profileMatch");
+                profile_match.textContent = "비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.";
+                profile_match.style.color = "red";
+                return;
+            } else {
+                profile_match.classList.add("profileMatch");
             }
         });
     </script>

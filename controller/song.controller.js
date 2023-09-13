@@ -131,7 +131,7 @@ exports.controller = {
     try {
       const page = parseInt(req.query.page) || 1;
       const sort = req.query.sort;
-      const pageSize = 10;
+      const pageSize = 20;
       const limit = pageSize;
       const offset = (page - 1) * pageSize;
       const whereClause = {};
@@ -170,7 +170,7 @@ exports.controller = {
       const page = parseInt(req.query.page) || 1;
       const sort = req.query.genre;
       const whereClause = { genre: sort };
-      const pageSize = 10;
+      const pageSize = 20;
       const limit = pageSize;
       const offset = (page - 1) * pageSize;
 

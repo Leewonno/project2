@@ -84,6 +84,7 @@
 
 .talk_profile img {
   width: 100px;
+  border-radius: 50%;
 }
 .talk_menu {
   border-style: none;
@@ -118,9 +119,6 @@
   /* border-radius: 50%; */
   /* background-color: brown; */
   text-align: center;
-}
-.talk_profile img {
-  border-radius: 50%;
 }
 
 .hello {
