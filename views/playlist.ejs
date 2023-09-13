@@ -79,7 +79,8 @@
             <div class="new_pl_close">X</div>
             <div class="new_pl_input">
                 <label for="pl_name">플레이리스트 이름</label>
-                <input type="text" id="pl_name">
+                <input type="text" id="pl_name" placeholder="이름">
+                <input type="text" id="pl_tag" placeholder="tag">
             </div>
             <button type="button" onclick="mn()">생성</button>
         </div>
@@ -92,6 +93,7 @@
         const new_pl_md = document.querySelector(".new_pl_md");
         const new_pl_md_close = document.querySelector(".new_pl_close");
         const new_pl_name = document.querySelector("#pl_name");
+        const new_pl_tag = document.querySelector('#pl_tag');
 
         new_pl.addEventListener('click', (e)=>{
             new_pl_md.style.display = "flex";
@@ -106,10 +108,19 @@
                 method: "post",
                 url: "/playlist",
                 data: {
-                    pl_name: new_pl_name.value
+                    pl_tag : new_pl_tag.value,
+                    pl_name : new_pl_name.value
                 }
             });
             
+            if(res.data.result){
+                alert("성공");
+                new_pl_tag.value = "";
+                new_pl_name.value = "";
+            }
+            else{
+                alert("오류 발생");
+            }
             console.log(res);
         }
 

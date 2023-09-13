@@ -196,7 +196,68 @@
             }
         }
 
-        
+        var loading = false;
+        var scrollHeight_original = document.documentElement.scrollHeight;
+        var scroll_count = 0;
+        var page = 1;
+
+        window.addEventListener('scroll', async function() {
+            if(scroll_count==0){
+                scrollHeight_original = document.documentElement.scrollHeight;
+                scroll_count = scroll_count + 1;
+            }
+
+            // 스크롤 이벤트 핸들러
+            var scrollTop = document.documentElement.scrollTop; // 현재 스크롤 위치
+            var scrollHeight = document.documentElement.scrollHeight; // 전체 문서 높이
+
+            if(scrollHeight_original == scrollHeight){
+            }
+            else{
+                scroll_count = 0;
+                loading = false;
+            }
+
+            if (Math.ceil(scrollTop + window.innerHeight) >= scrollHeight && !loading) {
+                loading = true;
+                await commentLoad();                    
+            }
+            
+        });
+
+        async function commentLoad(){
+            page++;
+
+            const res = await axios({
+                method:"GET",
+                url:"/song/sort/comment",
+                params:{
+                    page:page,
+                    song_id: document.getElementById("song_id").value,
+                }
+            })
+
+            if(res.data.result){
+                for(let i = 0; i<res.data.data.comments.length; i++){
+                    const comment = res.data.data.comments[i];
+                    const commentList = document.getElementById("commentList");
+                    const html = `
+                        <div class="commentItem">
+                            <img src="${comment.profile_img}">
+                            <div class="comment_user">${comment.nickname}(${comment.userid})</div>
+                            <div class="commentList_date">${comment.create_date}</div>
+                            <textarea type="text" class="commentList_content" id="${comment.id}" readonly>${comment.content}</textarea>
+                            <button type="button" class="modifyBtn" onclick="updateComment('${comment.id}')">수정</button>
+                            <button type="button" class="deleteBtn" onclick="deleteComment('${comment.id}')">삭제</button>
+                        </div>
+                        `;
+                    commentList.innerHTML += html;
+                }
+            }
+            else{
+                alert("데이터를 가져오는 중 오류가 발생했습니다.")
+            }
+        }
 
       </script>
 
