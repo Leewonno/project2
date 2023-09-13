@@ -55,7 +55,7 @@
         <br />
         <div class="menu_main">
           <div class="talk_profile"><img src="" alt="" class="profile_img" /></div>
-          <div class="talk_name"></div>
+          <div class="room_name"></div>
           <button class="talk_out" onclick="leaveChat()">
             <span class="material-symbols-outlined"> logout </span>
             <p>나가기</p>
@@ -90,6 +90,7 @@
       const msg = document.querySelector('#msg');
       const share = document.querySelector('#share_button');
       const talkName = document.querySelector('#talk_name');
+      const roomname = document.querySelector('.room_name');
       let myName, roomName, member, cover_img, current;
       // msg.scrollTop = msg.scrollHeight;
       // const roomName = roomForm.querySelector('#roomName');
@@ -106,7 +107,9 @@
         console.log('mM', member);
         console.log('ci', cover_img);
         document.querySelector('.talk_name').innerHTML = `${roomName} <br>${member}명 접속중`;
-        document.querySelector('.talk_member').innerHTML = `접속자수: ${member}`;
+        // let cg = document.createElement('div');
+        roomname.innerHTML = `<p>${roomName}</p>`;
+        // talkName.appendChild(cg);
         document.querySelector('.profile_img').src = `${cover_img}`;
         console.log('ddd', document.querySelector('.profile_img').src);
       });
