@@ -121,6 +121,8 @@ async function music(song_id){
     const artist_name = document.querySelector(".song_info .artist_name");
     const song_name = document.querySelector(".song_info .song_title");
 
+    
+
     const res = await axios({
         method:"GET",
         url:"/song/play",
@@ -128,6 +130,7 @@ async function music(song_id){
             id:song_id
         }
     });
+
 
     if(res.data.result){
         const {song_url, title, artist, album, lyrics, genre, cover_url, id} = res.data.songResult;
@@ -208,6 +211,7 @@ async function playlist(num){
                 </div>
             </li>`
           document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforeend",html);
+
         }
         else{
             alert("불러오는 중 오류가 발생했습니다.");
