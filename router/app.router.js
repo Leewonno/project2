@@ -6,7 +6,7 @@ const { auth } = require('../middleware/auth.middleware');
 
 router.get('/', auth.verifyAuthentication, controller.mainPage);
 router.get('/chat/list', auth.verifyAuthentication, controller.getChatListPage);
-router.get('/search', controller.getSearchPage);
+router.get('/search', auth.verifyAuthentication, controller.getSearchPage);
 
 // 채팅방 만들기 임시
 router.get('/chat/upload', controller1.chat_upload_render);
