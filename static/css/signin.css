@@ -100,32 +100,33 @@
         display: flex;
         justify-content: center;
         align-items: center;
-      }
-
-      .signinMain .signinPage {
-        width: 400px;
-        height: 500px;
-        margin-top: 50px;
-      }
-
-      .signinMain .signinCover {
-        bottom: 150px;
-        width: 300px;
-        height: 230px;
-      }
-
-      .signinMain #id, .signinMain #pw {
-        width: 200px;
-      }
-
-      .signinMain .signinPageBtns {
-        display: flex;
-        margin-top: 350px;
-        
     }
 
-      .signinMain #signinBtn, .roadSignup {
+    .loginSection .signinMain {
+        margin-top: 0px;
+    }
+
+    .signinMain .signinPage {
+        width: 400px;
+        height: 500px;
+        border-radius: 16px;
+    }
+
+    .signinMain .signinCover {
+        width: 300px;
+    }
+
+    .signinMain #id, .signinMain #pw {
+        width: 200px;
+    }
+
+    .signinMain .signinPageBtns {
+        display: flex;
+        margin-top: 350px;
+    }
+
+    .signinMain #signinBtn, .signinMain .roadSignup {
         width: 130px;
         height: 50px;
-      }
+    }
 }
