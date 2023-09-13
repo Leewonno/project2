@@ -22,6 +22,9 @@ router.get('/sort', auth.verifyAuthentication, controller.getSortPage);
 router.get('/song/sort', controller.getSongBySort);
 router.get('/song/sort/genre', controller.getSongByGenre);
 
+// 댓글 페이징
+router.get('/song/sort/comment', controller.getCommentsByPage)
+
 // 곡 재생 정보 반환
 router.get('/song/play', controller.getPlaySongData);
 

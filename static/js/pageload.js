@@ -1,16 +1,15 @@
 
     $(document).on('click', 'a', function(e){
         history.pushState(null, null, e.target.href);
-        scriptSend(e.target.href);
         $('main').load(e.target.href + " main>section");
+        scriptSend(e.target.href);
         e.preventDefault();
     })
 
     $(window).on('popstate', function(e){
         console.log(location.href);
-        scriptSend(location.href);
         $('main').load(location.href+ " main>section");
-        
+        scriptSend(location.href);
     })
 
     $(".search_bar").on('keydown', function(e){
@@ -35,6 +34,7 @@ function scriptSend(hrefs){
 
         // 선택된 <script> 태그를 현재 페이지에 추가합니다.
         $scriptTags.each(function() {
+            document.getElementById("sc").textContent = $(this).text();
             var script = document.createElement('script');
             script.id = "sc";
             script.text = $(this).text();
@@ -44,5 +44,20 @@ function scriptSend(hrefs){
             }
             
         });
+
+        
     });
+
+    // fetch(hrefs)
+    // .then(response => response.text())
+    // .then(data => {
+    //     var $data = $(data);
+    //     // jQuery 객체에서 <script> 태그를 선택합니다.
+    //     var $scriptTags = $data.filter('script');
+    //     console.log($scriptTags)
+
+    //     console.log(data);
+    //     // 받아온 데이터로 DOM을 업데이트합니다.
+    //     document.getElementById("sc").innerHTML = data;
+    // });
 }
