@@ -4,6 +4,7 @@
     /* box-sizing: border-box; */
 }
 
+
 .mypageMain {
     display: flex;
     justify-content: center;
@@ -110,12 +111,14 @@
 }
 
 .mypageMain .mainBtn {
+    position: relative;
     width: 300px;
     height: 50px;
     border: none;
     background-color: #FCD06B;
     cursor: pointer;
     color: white;
+    top: 27px;
 }
 
 .mypageMain .mypageBtns {
@@ -133,9 +136,38 @@
     color: #FCD06B;
 }
 
-.mypageForm .profileHidden {
-    display: hidden;
+.mypageMain .passwordConfirm {
+    position: relative;
 }
+
+.mypageMain .profileHidden {
+    display: none;
+}
+
+.mypageMain #profileHidden {
+    position: absolute;
+    left: 280px;
+    bottom: 10px;
+} 
+
+.mypageMain .profileMatchWrraper {
+    position: relative;
+    width: 300px;
+}
+
+.mypageMain #profileMatch {
+    position: absolute;
+    width: 290px;
+    top: 0;
+    left: 0;
+}
+
+.mypageMain .profileMatch {
+    display: none;
+};
+
+
+
 
 @media screen and (max-width: 650px) {
     .mypageMain .mypage {

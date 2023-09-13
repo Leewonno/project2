@@ -7,9 +7,12 @@
     <style>
       .joinchat{
         display: flex;
-        justify-content: space-evenly;
-        margin-top: 5%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
       }
+
+  
+    
       #s{
         display: flex;
         justify-content: space-evenly;
@@ -20,6 +23,65 @@
         justify-content: space-evenly;
         margin-top: 10%;
       }
+      .talk_section img{
+        width: 160px; 
+        height: 160px;
+        border-radius: 50%;
+        border: 1px solid;
+        
+      }
+      .my_talk img{
+        position: absolute
+      }
+      .talk_section .imgdiv{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 160px;
+        height: 160px;
+        transition: all 0.3s;
+      }
+      .talk_section .imgdiv:hover{
+        transform:scale(1.2);
+      }
+      .imgdiv:hover p{
+        display: flex;
+      }
+
+      .category_talk .imgdiv, .recommand .imgdiv{
+        width: 100px;
+        height: 100px;
+      }
+
+      .category_talk img, .recommand img{
+        width: 100%;
+        height: 100%;
+      } 
+      .talk_section p{
+        text-align: center;
+      }
+      .my_talk div{
+        margin-left: 5px;
+    
+        margin-right: 5px;
+        margin-bottom: 10px;
+      }
+
+      .imgdiv p{
+        position: absolute;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: rgb(0,0,0,0.6);
+        color: white;
+      }
+
+
+      
     </style>
   </head>
   <body>
@@ -30,10 +92,10 @@
           <div class="my_talk">참여중인톡방
             <div class="joinchat">
               <% if (!joinChat){%>
-                <p>로그인이 필요합니다.</p>
+                <span>로그인이 필요합니다.</span>
               <%}else{%>
                 <% for(let i = 0; i<joinChat.length; i++){%>
-                  <div onclick="talk('<%=joinChat[i].name %>')">
+                  <div class = "imgdiv" onclick="talk('<%=joinChat[i].name %>')">
                     <img src="<%=joinChat[i].cover_img%>" alt="">
                     <p><%=joinChat[i].name%></p>
                   </div>
@@ -52,10 +114,10 @@
             
             <div id = "s" >
               <% for(let i = 0; i<tag.length; i++){%>
-                <div onclick="talk('<%=tag[i].name %>')">
-                  <img src="<%=tag[i].cover_img%>" alt="">
-                  <p><%=tag[i].name%></p>
-                  <p>멤버 수: <%=tag[i].member %></p>
+                <div class = "imgdiv"  onclick="talk('<%=tag[i].name %>')">
+                  <img class ="tagimage"src="<%=tag[i].cover_img%>" alt="">
+                  
+                  <p><%=tag[i].name%><br>접속자 수: <%=tag[i].member %></a>
                 </div>
               <%}%>
             </div>
@@ -64,10 +126,10 @@
             <div class="recommand">
 
               <% for(let i = 0; i<best.length; i++){%>
-                <div onclick="talk('<%=best[i].name %>')">
+                <div class = "imgdiv"  onclick="talk('<%=best[i].name %>')">
                   <img src="<%=best[i].cover_img%>" alt="">
                   <p><%=best[i].name%></p>
-                  <p>멤버 수: <%=best[i].member %></p>
+                  <p>접속자 수: <%=best[i].member %></p>
                 </div>
               <%}%>
             </div>
@@ -79,6 +141,7 @@
     <%- contentFor('player') %>
    
     <script id="sc">
+      
 
       function talk(roomname) {
           window.open(`/chat?room=${roomname}`, 'Child', 'width=400, height=500, top=50, left=50');
@@ -102,7 +165,7 @@
             
             cg.innerHTML = `<img src="${chat_tag[i].cover_img}" >
                   <p>${chat_tag[i].name}</p>
-                  <p>멤버 수: ${chat_tag[i].member} </p>`;
+                  <p>접속자 수: ${chat_tag[i].member} </p>`;
             document.querySelector("#s").appendChild(cg)
           }
         });

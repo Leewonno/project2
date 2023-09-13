@@ -159,7 +159,6 @@ async function music(song_id){
         // modalDetailTitle[i].href = `/song?id=${id}`;
         modalDetailTitle[i].setAttribute('href', `/song?id=${id}`);
         }
-        // history.pushState({}, null, url);
     } 
     else{
         alert("재생 중 오류가 발생했습니다.")
@@ -211,10 +210,10 @@ async function playlist(num){
                 <a class="modal_playlist_detail_imgs">
                     <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
                 </a>
-                <a class="modal_playlist_detail_titles">
-                    <span class="modal_playlist_detail_title">${title}</span>
-                    <span class="modal_playlist_detail_artist">${artist}</span>
-                </a>
+                <div class="modal_playlist_detail_titles">
+                    <a class="modal_playlist_detail_title" href= "/song?id=${id}">${title}</a>
+                    <a class="modal_playlist_detail_artist">${artist}</a>
+                </div>
                 <div class="container" onclick="songDelete(${id})">
                     <a class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
                 </div>

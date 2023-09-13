@@ -89,11 +89,11 @@
     <%- contentFor('player') %>
 
     <script id="sc">
-        const new_pl = document.getElementById("new_playlist");
-        const new_pl_md = document.querySelector(".new_pl_md");
-        const new_pl_md_close = document.querySelector(".new_pl_close");
-        const new_pl_name = document.querySelector("#pl_name");
-        const new_pl_tag = document.querySelector('#pl_tag');
+        var new_pl = document.getElementById("new_playlist");
+        var new_pl_md = document.querySelector(".new_pl_md");
+        var new_pl_md_close = document.querySelector(".new_pl_close");
+        var new_pl_name = document.querySelector("#pl_name");
+        var new_pl_tag = document.querySelector('#pl_tag');
 
         new_pl.addEventListener('click', (e)=>{
             new_pl_md.style.display = "flex";
