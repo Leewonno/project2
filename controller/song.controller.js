@@ -333,6 +333,20 @@ exports.controller = {
       console.log(error);
       res.status(500).send({ message: 'Internal Server Error' });
     }
+  },
+
+  getLike: async (req, res)=>{
+    try {
+      const likeData = await S_like.findOne({ where: { song_id: req.query.id, userid: req.userid } })
+      if(likeData){
+        res.send({result:true});
+      }else{
+        res.send({result:false});
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
   }
 
 }

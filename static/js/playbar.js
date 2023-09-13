@@ -147,17 +147,26 @@ async function music(song_id){
         now.play();
         play.checked = true;
         play_icon.className = "fa-solid fa-pause";
+
+        document.querySelector('.playbar_like').setAttribute('onclick', `s_like('${song_id}')`)
+        await s_like_check(id);
     }
     else{
         alert("재생 중 오류가 발생했습니다.")
-    }   
+    }
+
+    
+    
 }
 
 
 let now_play = 0;
 let pl =[];
+let playlist_num;
 
 async function playlist(num){
+    playlist_num = num;
+    console.log("플리 id", playlist_num);
     const playlist = await axios({
         method:"get",
         url:"/playlist/getid",
@@ -168,6 +177,9 @@ async function playlist(num){
 
     now_play = 0;
     pl = playlist.data.song_ids.split(',');
+
+
+    document.querySelector('.modal_playlist_song').innerHTML = "";
 
     for(let i = 0; i<pl.length; i++){
         const res = await axios({
@@ -182,30 +194,33 @@ async function playlist(num){
             const {song_url, title, artist, album, lyrics, genre, cover_url, id} = res.data.songResult;
             
             const html = `
-
-            <li class="modal_playlist_detail" id= "${id}" >
-            <input class= "inputValue" value= "${id}" type="hidden">
-            <a class="modal_playlist_detail_imgs" href="#">
-              <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
-            </a>
-            <a class="modal_playlist_detail_titles">
-              <span class="modal_playlist_detail_title">${title}</span>
-              <span class="modal_playlist_detail_artist">${artist}</span>
-            </a>
-            <div class="container" onclick="songDelete(${id})">
-                <a href="#" class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
-            </div>
-          </li>`
-
-          draggableElements = document.querySelectorAll('.modal_playlist_detail');
-          document.querySelector('.modal_playlist_song').innerHTML = "";
-          document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforebegin",html);
+            <li class="modal_playlist_detail" id= "${id}" draggable="true">
+                <input class= "inputValue" value= "${id}" type="hidden">
+                <a class="modal_playlist_detail_imgs">
+                    <img class="modal_playlist_detail_img" src="${cover_url}" alt="앨범커버사진">
+                </a>
+                <a class="modal_playlist_detail_titles">
+                    <span class="modal_playlist_detail_title">${title}</span>
+                    <span class="modal_playlist_detail_artist">${artist}</span>
+                </a>
+                <div class="container" onclick="songDelete(${id})">
+                    <a class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
+                </div>
+            </li>`
+          document.querySelector('.modal_playlist_song').insertAdjacentHTML("beforeend",html);
         }
         else{
             alert("불러오는 중 오류가 발생했습니다.");
             document.location.reload();
         }   
     }
+    draggableElements = document.querySelectorAll('.modal_playlist_detail');
+    draggableElements.forEach((elem) => {
+        elem.addEventListener('dragstart', handleDragStart);
+        elem.addEventListener('dragover', handleDragOver);
+        elem.addEventListener('dragenter', (e) => e.preventDefault());
+        elem.addEventListener('drop', handleDrop);
+      });
 
     music(pl[now_play]);
 }
@@ -260,42 +275,52 @@ $('.modal_open').click(function(e) {
 
 
 /* -------------------------------------- 드래그 앤 드롭 움직이기 -------------------------------------- */ 
-let dragElement = null;
+let dragSrcElement = null;
 
 // 드래그가 시작될 때 호출되는 함수
-function dragStart(e) {
-  dragElement = this;
+function handleDragStart(e) {
+  dragSrcElement = this;
+  
+  // 요소를 드래그 중에만 표시되도록 opacity를 조절
   this.style.opacity = '0.5';
 
   e.dataTransfer.effectAllowed = 'move';
-  console.log(this.innerHTML);
   e.dataTransfer.setData('text/html', this.innerHTML);
 }
 
 // 드래그 중 마우스 포인터 위치를 확인하여 순서 변경
 function handleDragOver(e) {
   e.preventDefault();
+  const container = e.target.closest('.modal_palylist_songs');
+  const mouseY = e.clientY;
+  const rect = container.getBoundingClientRect();
+  const midY = (rect.bottom - rect.top) / 2;
+  
+  // 마우스 포인터 위치에 따라 div 요소의 위치 변경
+  if (mouseY < midY) {
+    container.insertBefore(dragSrcElement, this);
+  } else {
+    container.insertBefore(dragSrcElement, this.nextElementSibling);
+  }
 }
 
 // 드롭이 완료될 때 호출되는 함수
 function handleDrop(e) {
-  if (dragElement != this) {
-    console.log(this)
+  if (dragSrcElement != this) {
     // 드래그한 요소와 드롭 대상 요소의 내용을 교체합니다.
     const temp = this.innerHTML;
-    this.innerHTML = dragElement.innerHTML;
-    dragElement.innerHTML = temp;
+    this.innerHTML = dragSrcElement.innerHTML;
+    dragSrcElement.innerHTML = temp;
   }
-
+  
   // 드롭 완료 후 요소를 다시 표시하기 위해 opacity를 원래대로 설정
-  dragElement.style.opacity = '1';
+  dragSrcElement.style.opacity = '1';
 
   return false;
 }
 
-
 draggableElements.forEach((elem) => {
-  elem.addEventListener('dragstart', dragStart);
+  elem.addEventListener('dragstart', handleDragStart);
   elem.addEventListener('dragover', handleDragOver);
   elem.addEventListener('dragenter', (e) => e.preventDefault());
   elem.addEventListener('drop', handleDrop);

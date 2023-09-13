@@ -33,4 +33,7 @@ router.post('/song/comment', auth.verifyAuthentication, controller.createComment
 router.patch('/song/comment', auth.verifyAuthentication, controller.updateComment);
 router.delete('/song/comment', auth.verifyAuthentication, controller.deleteComment);
 
+// 좋아요 확인
+router.get('/song/like/check', auth.verifyAuthentication, controller.getLike);
+
 module.exports = router;
