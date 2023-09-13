@@ -35,10 +35,6 @@
                   <img src="<%= data.like[i].cover_url %>" onclick="music('<%= data.like[i].id %>')">
                   <a class="popular_title" href="/song?id=<%= data.like[i].id %>"><%= data.like[i].title %></a>
                   <div class="popular_artist"><%= data.like[i].artist %></div>
-                  <div class="popular_like">
-                    <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
-                    <div class="popular_like_cnt"><%= data.like[i].like %></div>
-                  </div>  
                 </div>
               <% } %>
             </div>
@@ -48,16 +44,14 @@
           <div class="row_second">
             <div class="talk_div">아티스트 톡 채널</div>
             <div class="talk_btn"><a href="/chat/list">더보기</a></div>
-              <div class="talk_room">
-                <% for (let i = 0; i < data.chatRoom.length; i++) { %>
-                  <div class="talk_element">
-                    <div class="talk_image">
-                      <img src="<%= data.chatRoom[i].cover_img %>" onclick="">
-                    </div>
-                    <a class="talk_name" href="/chat/list"><%= data.chatRoom[i].name %></a>
-                    <div class="talk_tag"><%= data.chatRoom[i].tag %></div>
-                  </div>
-                <% } %>
+            <div class="talk_room">
+              <% for (let i = 0; i < data.chatRoom.length; i++) { %>
+                <div class="talk_element">
+                  <img src="<%= data.chatRoom[i].cover_img %>" onclick="">
+                  <a class="talk_name" href="/chat/list"><%= data.chatRoom[i].name %></a>
+                  <div class="talk_tag"><%= data.chatRoom[i].tag %></div>
+                </div>
+              <% } %>
             </div>
           </div>
 

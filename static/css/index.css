@@ -4,15 +4,13 @@
     justify-content: center;
     margin-bottom: 100px;
 }
-a {
-    color: rgb(91, 91, 91); 
-    text-decoration: none; 
-}
 
 .main_page{
     width: 100%;
     display: gird;
-    padding: 40px;
+    padding-left: 50px;
+    padding-right: 50px;
+
 }
 
 
@@ -32,7 +30,7 @@ a {
     margin-left: 10px;
 }
 /* 더보기 버튼 -> 장르 버튼 분리 필요 */
-.recent_btn, .popular_btn, .genre_btn, .playlist_btn, .talk_btn{
+.recent_btn, .popular_btn, .genre_btn, .talk_btn{
     cursor: pointer;
     width: 98px;
     height: 45px;
@@ -42,8 +40,7 @@ a {
     margin-top: 0;
     font-size: 15px;
     background-color: rgb(255, 255, 255);
-    border: 1px solid #f6c85d;
-    color: #545454;
+    border: 1px solid #545454;
     border-radius: 18px;
     text-align: center;
 }
@@ -54,17 +51,18 @@ a {
     border-color: #f6c85d;
     color: #ffffff;
 }
+.recent_btn:hover a {
+    color: #ffffff;
+}
 .popular_btn:hover {
     background-color: #f6c85d;
     border-color: #f6c85d;
     color: #ffffff;
 }
-.genre_btn:hover {
-    background-color: #f6c85d;
-    border-color: #f6c85d;
+.popular_btn:hover a {
     color: #ffffff;
 }
-.playlist_btn:hover {
+.genre_btn:hover {
     background-color: #f6c85d;
     border-color: #f6c85d;
     color: #ffffff;
@@ -74,8 +72,9 @@ a {
     border-color: #f6c85d;;
     color: #ffffff;
 }
-
-
+.talk_btn:hover a {
+    color: #ffffff;
+}
 
 
 /* 1. 장르순 */
@@ -123,7 +122,8 @@ a {
 
 /* 2. 인기순  */
 .index_section .row_fifth .popular_music {
-    background: linear-gradient(to top, #ffdcb7, #ffefc6);
+
+    /* background: linear-gradient(to top, #ffc353, #ffd4a5); */
     width: 100%;
     height: auto;
     display: grid;
@@ -132,13 +132,13 @@ a {
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
+    border: #999999 solid 1px;
     box-shadow: 9px 9px 9px rgb(172, 172, 172);
 }
 
 .index_section .row_fifth .popular_music .popular_element {
     cursor: pointer;
     display: flex;
-    /* 세로 배치임 */
     flex-direction: column; 
     align-items: center;
     text-align: center;
@@ -177,36 +177,49 @@ a {
 }
 
 
-/* 3.. 톡방 */
+/* 3. 톡방 */
 .index_section .row_second .talk_room {
-    background-color: #fff1d1;
     width: 100%;
+    height: auto;
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
-    grid-gap: 20px;
+    /* grid-gap: 90px;  */
+    border-radius: 5px;
+    margin-top: 0;
+    text-align: center;
+    border: #999999 solid 1px;
+    box-shadow: 9px 9px 9px rgb(172, 172, 172);
 }
 .index_section .row_second .talk_room .talk_element {
     cursor: pointer;
-    display: flex;
-    /* 세로 배치임 */
-    flex-direction: column; 
     align-items: center;
     text-align: center;
     margin: 20px;
 }
-
-.index_section .row_second .talk_room .talk_element > img {
-    border: 50px;
+/* .index_section .row_second .talk_room .recent_element > a {
+    text-decoration: none;
+} */
+.index_section .row_second .talk_room .recent_element > img {
+    width: 100%;
+    height: auto; /* 이미지의 가로세로 비율 유지 */
+    /* margin-top: 20px; */
+    margin-bottom: 20px;
+    border-radius: 50%;
 }
-
+.index_section .row_second .talk_room .talk_name {
+    margin-top: 30px; 
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-size: 16px; 
+    font-weight: 800;
+    color: #444343;
+}
+.index_section .row_second .talk_room .talk_tag {
+    font-size: 14px; 
+    color: #676767;
+}
 /* 3. 장르  */
 .index_section .row_third .genre_music {
-    /* background-color: #fff1d1;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); 
-    grid-gap: 20px; */
-
     background: rgb(255, 255, 255);
     width: 100%;
     height: auto;
@@ -223,7 +236,6 @@ a {
 .index_section .row_third .genre_music .genre_element {
     cursor: pointer;
     display: flex;
-    /* 세로 배치임 */
     flex-direction: column; 
     align-items: center;
     text-align: center;
@@ -252,43 +264,26 @@ a {
 }
 
 /* 4. 플레이리스트  */
-/* .index_section .column_second .recommand_playlist .playlist_element i, .popular_artist {
-    font-size: 14px; 
-} */
-
-/* .index_section .row_fourth .recommand_playlist .playlist_element .playlist_like {
-    margin-top: 0;
-} */
-
 .index_section .row_fourth .recommand_playlist {
-    /* background-color: #fff1d1;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-gap: 20px;  */
     background: white;
     width: 100%;
     height: auto;
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
-    /* background: linear-gradient(to top, #ffc353, #ffd4a5); */
-    /* grid-gap: 90px;  */
+    margin-top: 20px;
     border-radius: 5px;
-    margin-top: 0;
     text-align: center;
-    /* box-shadow: 9px 9px 9px rgb(172, 172, 172); */
+    border: #999999 solid 1px;
+    box-shadow: 9px 9px 9px rgb(172, 172, 172);
 }
 
 .index_section .row_fourth .recommand_playlist .playlist_element {
     cursor: pointer;
     display: flex;
-    /* 세로 배치임 */
     flex-direction: column; 
     align-items: center;
     text-align: center;
     margin: 20px;
-    border: #999999 1px solid;
-    border-radius: 4px;
 }
 
 .index_section .row_fourth .recommand_playlist .playlist_element > .playlist_cover-2  img{
@@ -319,12 +314,16 @@ a {
 
 .index_section .row_fourth .recommand_playlist .playlist_element .playlist_like {
     display: flex;
-        margin-top: 0;
+    margin-top: 5px;
 }
 
 .index_section .row_fourth .recommand_playlist .playlist_element .playlist_like > i, .like_cnt {
     margin: 3px;
     color: #676767;
+
+}
+.index_section .row_fourth .recommand_playlist .playlist_element .playlist_like > .like_cnt {
+    font-size: 14px;
 }
 
 
