@@ -167,10 +167,10 @@
 
                     rankCell.innerHTML = `<div class="wrap"><span class="ranck">${i + 1}</span></div>`;
                     albumCell.innerHTML = `<div class="wrap_song"><a href="#"><img src="${song.cover_url}"></a></div>`;
-                    titleCell.innerHTML = `<div class="wrap_song"><div class="song_name">${song.title}</div></div>`;
+                    titleCell.innerHTML = `<div class="wrap_song"><div class="song_name"><a href="/song?id=${song.id}">${song.title}</a></div></div>`;
                     artistCell.innerHTML = `<div class="wrap_song"><div class="artist">${song.artist}</div></div>`;
                     playtimeCell.innerHTML = `<div class="wrap_song"><div class="replay time">${song.playtime}</div></div>`;
-                    listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
+                    listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button" onclick="music(${song.id})"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
                     playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button" onclick="modelOpenBtn('${song.id}')"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
 
                     row.appendChild(rankCell);
@@ -265,11 +265,11 @@
 
                     rankCell.innerHTML = `<div class="wrap"><span class="rank">${i + 1}</span></div>`;
                     albumCell.innerHTML = `<div class="wrap_song"><a href="#"><img src="${song.cover_url}"></a></div>`;
-                    titleCell.innerHTML = `<div class="wrap_song"><div class="song_name">${song.title}</div></div>`;
+                    titleCell.innerHTML = `<div class="wrap_song"><div class="song_name"><a href="/song?id=${song.id}">${song.title}</a></div></div>`;
                     artistCell.innerHTML = `<div class="wrap_song"><div class="artist">${song.artist}</div></div>`;
                     playtimeCell.innerHTML = `<div class="wrap_song"><div class="replay time">${song.playtime}</div></div>`;
-                    listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
-                    playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button" onclick="modelOpenBtn()><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
+                    listenButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_detail_button" onclick="music(${song.id})"><i class="fa-solid fa-play" style="color: #FCD06B" id="song_play_icon"></i></button></div>`;
+                    playlistButtonCell.innerHTML = `<div class="wrap_song"><button type="button" class="song_list_button" onclick="modelOpenBtn()"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></button></div>`;
 
                     row.appendChild(rankCell);
                     row.appendChild(albumCell);
