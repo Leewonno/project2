@@ -12,6 +12,13 @@
 
 .main_page{
     width: 1200px;
+<<<<<<< HEAD
+    display: grid;
+    padding-left: 50px;
+    padding-right: 50px;
+
+=======
+>>>>>>> develop
 }
 
 
