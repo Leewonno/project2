@@ -21,7 +21,10 @@
           <div class="recent_music" id="recent_music">
             <% for (let i = 0; i < data.recent.length; i++) { %>
               <div class="recent_element">
-                <img src="<%= data.recent[i].cover_url %>" onclick="music('<%= data.recent[i].id %>')">
+                <div class="imgBox">
+                  <div class="cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="music('<%= data.recent[i].id %>')"></i></div>
+                  <img src="<%= data.recent[i].cover_url %>">
+                </div>
                 <a class="recent_title" href="/song?id=<%= data.recent[i].id %>"><%= data.recent[i].title %></a>
                 <div class="recent_artist"><%= data.recent[i].artist %></div>
               </div>
@@ -38,7 +41,12 @@
             <div class="popular_music">
               <% for (let i = 0; i < data.like.length; i++) { %>
                 <div class="popular_element">
-                  <img src="<%= data.like[i].cover_url %>" onclick="music('<%= data.like[i].id %>')">
+
+                  <div class="imgBox">
+                    <div class="cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="music('<%= data.like[i].id %>')"></i></div>
+                    <img src="<%= data.like[i].cover_url %>">
+                  </div>
+
                   <a class="popular_title" href="/song?id=<%= data.like[i].id %>"><%= data.like[i].title %></a>
                   <div class="popular_artist"><%= data.like[i].artist %></div>
                 </div>
@@ -84,7 +92,12 @@
             <div class="genre_music"> 
               <% for (let i = 0; i < data.genre.length; i++) { %>
                   <div class="genre_element">
-                    <img class="genre_img" src="<%= data.genre[i].cover_url %>" onclick="music('')">
+
+                    <div class="imgBox">
+                      <div class="cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="music('<%= data.genre[i].id %>')"></i></div>
+                      <img class="genre_img" src="<%= data.genre[i].cover_url %>">
+                    </div>
+
                     <a class="genre_title" href="/song?id=<%= data.genre[i].id %>"><%= data.genre[i].title %></a>
                     <div class="genre_artist"><%= data.genre[i].artist %></div>
                   </div>
@@ -101,16 +114,20 @@
             <% for (let i = 0; i < data.playlist.length; i++) { %>
               <div class="playlist_element">
                 <% if (data.playlist[i].result) { %>
-                  <div class="playlist_cover-1"  onclick="music('<%= data.playlist[i].id %>')">
+                  <div class="playlist_cover-1">
+                      <div class="playlist_cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="music('<%= data.playlist[i].id %>')"></i></div>
                       <% for (let j = 0; j < data.playlist[i].cover.length; j++) { %>
-                        <img src="<%= data.playlist[i].cover[j] %>">
+                      <img src="<%= data.playlist[i].cover[j] %>">
                       <% } %>
                   </div>
-                <% } else { %>
-                    <div class="playlist_cover-2"  onclick="music('<%= data.playlist[i].id %>')">
-                        <img src="<%= data.playlist[i].cover[0] %>">
-                    </div>
-                <% } %>
+              <% } else { %>
+                  <div class="playlist_cover-2">
+                      <div class="playlist_cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="music('<%= data.playlist[i].id %>')"></i></div>
+                      <img src="<%= data.playlist[i].cover[0] %>">
+                  </div>
+              <% } %>
+
+
               <div class="playlist_name"><%= data.playlist[i].name %></div>
                 
               <div class="playlist_like" id="<%= data.playlist[i].id %>" onclick="likeBtn('<%= data.playlist[i].id %>')">
@@ -189,33 +206,45 @@
                     url: `/byGenre?genre=${encodedGenre}`,
                 });
                 const genre_music = document.querySelector(".genre_music");
-                genre_music.innerHTML = ''; // Clear existing content
-
+                genre_music.innerHTML = ''; 
                 for (const item of res.data.genreData.genre) {
-                    // Create elements for each item in the genreData.genre array
                     const genre_element = document.createElement("div");
                     genre_element.classList.add("genre_element");
 
+                    const imgBox = document.createElement("div");
+                    imgBox.classList.add("imgBox");
+
+                    const coverImg = document.createElement("div");
+                    coverImg.classList.add("cover_img");
+
+                    const playIcon = document.createElement("i");
+                    playIcon.classList.add("fa-solid", "fa-play");
+                    playIcon.style.color = "white";
+                    playIcon.onclick = () => music(item.id);
+
+                    coverImg.appendChild(playIcon);
+
                     const img = document.createElement("img");
                     img.classList.add("genre_img");
-                    img.src = item.cover_url; // Set the image source
-                    img.onclick = () => music(item.id); // Add click event for playing music
+                    img.src = item.cover_url;
+
+                    imgBox.appendChild(coverImg);
+                    imgBox.appendChild(img);
 
                     const genre_title = document.createElement("a");
                     genre_title.classList.add("genre_title");
                     genre_title.href = `/song?id=${item.id}`;
-                    genre_title.textContent = item.title; // Set the title
+                    genre_title.textContent = item.title; 
 
                     const genre_artist = document.createElement("div");
                     genre_artist.classList.add("genre_artist");
-                    genre_artist.textContent = item.artist; // Set the artist
+                    genre_artist.textContent = item.artist; 
 
-                    // Append the created elements to the genre_element
-                    genre_element.appendChild(img);
+
+                    genre_element.appendChild(imgBox);
                     genre_element.appendChild(genre_title);
                     genre_element.appendChild(genre_artist);
 
-                    // Append the genre_element to the genre_music
                     genre_music.appendChild(genre_element);
                 }
               

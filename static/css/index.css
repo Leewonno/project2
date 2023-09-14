@@ -114,19 +114,50 @@
     color: #ffffff;
 }
 
+/* 앨범 커버 호버하면 재생 버튼 */
+
+.imgBox {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.imgBox > img {
+    width: 130px;
+    height: 130px;
+    height: auto;
+    border-radius: 5px;
+}
+.imgBox > .cover_img {
+    display: none;
+}
+
+.imgBox:hover .cover_img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    background-color: rgb(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+
 /* 1. 장르순 */
 
 .index_section .row_first .recent_music {
-    background: rgb(255, 255, 255);
     width: 100%;
     height: auto;
     display: grid;
-    border: #999999 solid 1px;
     grid-template-columns: repeat(6, 1fr); 
-    grid-gap: 20px; 
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
+    border: #999999 solid 1px;
     box-shadow: 9px 9px 9px rgb(172, 172, 172);
 }
 .index_section .row_first .recent_music .recent_element {
@@ -138,17 +169,10 @@
 .index_section .row_first .recent_music .recent_element > a {
     text-decoration: none;
 }
-.index_section .row_first .recent_music .recent_element > img {
-    width: 100%;
-    height: auto; /* 이미지의 가로세로 비율 유지 */
-    /* margin-top: 20px; */
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
+
 .index_section .row_first .recent_music .recent_title {
-    margin-bottom: 20px;
+    margin-top: 10px;
     font-size: 16px; 
-    font-weight: 800;
     color: #444343;
     
 }
@@ -159,13 +183,10 @@
 
 /* 2. 인기순  */
 .index_section .row_fifth .popular_music {
-
-    /* background: linear-gradient(to top, #ffc353, #ffd4a5); */
     width: 100%;
     height: auto;
     display: grid;
     grid-template-columns: repeat(6, 1fr); 
-    /* grid-gap: 90px;  */
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
@@ -244,8 +265,9 @@
 }
 
 .index_section .row_second .talk_room .talk_room_element > img {
-    width: 100%; 
-    height: auto;
+    width: 130px;
+    height: 130px;
+    object-fit: cover; 
     border: #999999 solid 1px;
     border-radius: 50%;
     margin-bottom: 20px;
@@ -329,6 +351,21 @@
     text-align: center;
     margin: 20px;
 }
+.index_section .row_fourth .recommand_playlist .playlist_element .playlist_cover-1 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto; 
+    width: 130px;
+    height: 130px;
+    margin-top: 20px;
+}
+
+.index_section .row_fourth .recommand_playlist .playlist_element .playlist_cover-1 img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; 
+    border-radius: 2.5px;
+}
 
 .index_section .row_fourth .recommand_playlist .playlist_element > .playlist_cover-2  img{
     width: 100%;
@@ -339,21 +376,6 @@
 .index_section .row_fourth .recommand_playlist .playlist_element .playlist_name {
     margin-top: 30px;
     color: #444343;
-}
-
-.index_section .row_fourth .recommand_playlist .playlist_element .playlist_cover-1 {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto; 
-    width: 100%; 
-    height: auto;
-}
-
-.index_section .row_fourth .recommand_playlist .playlist_element .playlist_cover-1 img {
-    width: 100%;
-    height: auto;
-    object-fit: cover; 
-    border-radius: 2px;
 }
 
 .index_section .row_fourth .recommand_playlist .playlist_element .playlist_like {
@@ -370,6 +392,61 @@
     font-size: 14px;
 }
 
+/* 앨범 커버 호버하면 재생 버튼 */
+
+.playlist_cover-1 {
+
+    position: relative;
+}
+
+.playlist_cover-1 > img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.playlist_cover-1 > .playlist_cover_img {
+    display: none;
+}
+
+.playlist_cover-1:hover .playlist_cover_img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    background-color: rgb(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.playlist_cover-2 {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin-top: 20px;
+}
+
+.playlist_cover-2 > img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.playlist_cover-2 > .playlist_cover_img {
+    display: none;
+}
+
+.playlist_cover-2:hover .playlist_cover_img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    background-color: rgb(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
 
 @media screen and (max-width: 650px) {
     .index_section{
