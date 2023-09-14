@@ -107,6 +107,7 @@
             }
         };
 
+        //아이디 유효성검사 및 중복검사
         document.querySelector("body").addEventListener("click", async function (e) {
             if (e.target.id == e.currentTarget.querySelector("#userid").id || e.target == e.currentTarget.querySelector("header")) {
                 console.log("True");
@@ -152,6 +153,7 @@
             }
         });
 
+        //아이디 유효성 검사
         document.querySelector("#userid").addEventListener("input", async function (e) {
             const form = document.forms["signupForm"];
             const id = document.querySelector("#userid");
@@ -172,6 +174,17 @@
             confirm.classList.add("signupHidden");
         });
 
+        //아이디 지울때 색 검정으로
+        document.querySelector("#userid").addEventListener("input", async function (e) {
+            const form = document.forms["signupForm"];
+            const id = document.querySelector("#userid");
+
+            if(id.value) {
+                id.style.color = "black";
+            }
+        });
+
+        //비밀번호 일치
         document.querySelector(".signupPw").addEventListener("input", function (e) {
             const match_pw = document.querySelector("#pw").value;
             const match_pw2 = document.querySelector("#pw2").value;
@@ -189,6 +202,7 @@
             }
         });
 
+        //비밀번호 일치
         document.querySelector(".signupPw2").addEventListener("input", function (e) {
             const match_pw = document.querySelector("#pw").value;
             const match_pw2 = document.querySelector("#pw2").value;
@@ -206,21 +220,6 @@
             }
         });
 
-
-        // function pw_check() {
-        //     const pw = document.querySelector("#pw");
-        //     const pw2 = document.querySelector("#pw2");
-        //     let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-
-        //     if(!pwPattern.test(pw.value, pw2.value)) {
-        //         alert("비밀번호를 다시 입력해주세요. \n 비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.");
-        //     } else {
-        //         pw_confirm = true;
-        //         alert("사용가능한 비밀번호입니다.");
-        //     }
-        // }
-
-        
     </script>
     
 </body>

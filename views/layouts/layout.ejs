@@ -28,8 +28,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
-     <header>
-        <div class="header_box">
+    <header>
+      <div class="header_box">
         <div class="left">
           <div class="logo"><a href="/">MangoZ</a></div>
         </div>
@@ -37,7 +37,7 @@
           <div class="go">
             <a href="/sort?sort=date">최신음악</a>
             <a href="/sort?sort=like">인기음악</a>
-            <a href="/chat/list">A-Talk</a>
+            <a href="/chat/list">A-TALK</a>
           </div>
           <div class="search">
             <i class="fa-solid fa-magnifying-glass" style="color: #000000; margin-right: -30px"></i>
@@ -71,7 +71,11 @@
         <div class="playbar">
           <div class="player_song">
             <div class="song_img">
-              <img class="m_song_cover" src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/%ED%94%8C%EB%A0%88%EC%9D%B4%EB%B0%94_%EA%B8%B0%EB%B3%B8.png" alt="앨범사진" />
+              <img
+                class="m_song_cover"
+                src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/%ED%94%8C%EB%A0%88%EC%9D%B4%EB%B0%94_%EA%B8%B0%EB%B3%B8.png"
+                alt="앨범사진"
+              />
             </div>
             <div class="song_info">
               <a class="song_title">재생목록이 비어있습니다.</a>
@@ -82,7 +86,9 @@
             <button type="button" class="button" id="pre" onclick="prevPlay()">
               <i class="fa-solid fa-backward-step" style="color: #ffffff"></i>
             </button>
-            <label for="play"><i class="fa-regular fa-circle-play fa-lg" style="color: #ffffff" id="play_icon"></i></label>
+            <label for="play"
+              ><i class="fa-regular fa-circle-play fa-lg" style="color: #ffffff" id="play_icon"></i
+            ></label>
             <input type="checkbox" id="play" hidden />
 
             <button type="button" class="button" id="next" onclick="nextPlay()">
@@ -91,8 +97,8 @@
 
             <div class="player_side">
               <div class="player_time">
-                <span class="player_time_current" >00:00</span>
-                <span class="player_time_duration" >/</span>
+                <span class="player_time_current">00:00</span>
+                <span class="player_time_duration">/</span>
                 <span class="player_time_total"></span>
               </div>
             </div>
@@ -121,7 +127,7 @@
     <div class="modal_open" hidden>
       <div class="modal">
         <button class="button_close" onclick="closeModal()">
-          <i class="fa-solid fa-x" style="color: #ffffff;"></i>
+          <i class="fa-solid fa-x" style="color: #ffffff"></i>
         </button>
         <div class="modal_left">
           <div class="content_box">
@@ -131,11 +137,17 @@
             <a href="#" class="song_artist">
               <span class="song_singer"></span>
             </a>
-              <label for="play" class="modal_song_play"><i id="modal_play_icon" class="fa-solid fa-play" style="color: white;"></i></label>
-              <img class="song_cover" src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/%ED%94%8C%EB%A0%88%EC%9D%B4%EB%B0%94_%EA%B8%B0%EB%B3%B8.png" alt="앨범사진">
+            <label for="play" class="modal_song_play"
+              ><i id="modal_play_icon" class="fa-solid fa-play" style="color: white"></i
+            ></label>
+            <img
+              class="song_cover"
+              src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/%ED%94%8C%EB%A0%88%EC%9D%B4%EB%B0%94_%EA%B8%B0%EB%B3%B8.png"
+              alt="앨범사진"
+            />
             <!-- 좋아요 기능 -->
             <div class="playbar_like">
-              <i class="fa-regular fa-heart" style="color: #ff6666;"></i>
+              <i class="fa-regular fa-heart" style="color: #ff6666"></i>
             </div>
             <!-- <input type="hidden" id="songLike"> -->
           </div>
@@ -149,7 +161,7 @@
             </div>
             <div class="edit">
               <button class="song_edit">
-                <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+                <i class="fa-solid fa-bars" style="color: #ffffff"></i>
               </button>
             </div>
           </div>
@@ -157,14 +169,18 @@
             <ul class="modal_playlist_song">
               <li id="1" class="modal_playlist_detail">
                 <a class="modal_playlist_detail_imgs" href="#">
-                  <img class="modal_playlist_detail_img" src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/%ED%94%8C%EB%A0%88%EC%9D%B4%EB%B0%94_%EA%B8%B0%EB%B3%B8.png" alt="앨범커버사진">
+                  <img
+                    class="modal_playlist_detail_img"
+                    src="https://kdt-wonno2.s3.ap-northeast-2.amazonaws.com/img/%ED%94%8C%EB%A0%88%EC%9D%B4%EB%B0%94_%EA%B8%B0%EB%B3%B8.png"
+                    alt="앨범커버사진"
+                  />
                 </a>
                 <div class="modal_playlist_detail_titles" href="#">
                   <a class="modal_playlist_detail_title">곡을 추가해주세요.</a>
                   <a class="modal_playlist_detail_artist"></a>
                 </div>
                 <div class="container" onclick="songDelete('1')">
-                  <a href="#" class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></a>
+                  <a href="#" class="menu-name"><i class="fa-regular fa-trash-can" style="color: #ffffff"></i></a>
                 </div>
               </li>
             </ul>
@@ -177,19 +193,17 @@
     <!-- 플레이리스틀 추가 모달창 -->
     <div id="myPlaylist" class="hidden">
       <div class="myPlaylistCover">
-          <div class="wrapperPlaylist">
-              <div class="playlistTitle">플레이리스트</div>
-              <button type="button" class="playlistButton"><i class="fa-regular fa-circle-xmark"></i></button>
-          </div>
-          <br>
-          <div class="wrapperMyPlaylist">
-            
-          </div>
+        <div class="wrapperPlaylist">
+          <div class="playlistTitle">플레이리스트</div>
+          <button type="button" class="playlistButton"><i class="fa-regular fa-circle-xmark"></i></button>
+        </div>
+        <br />
+        <div class="wrapperMyPlaylist"></div>
       </div>
     </div>
 
     <audio id="player">
-      <source src="" type="audio/mpeg">
+      <source src="" type="audio/mpeg" />
     </audio>
 
     <%- script %>
@@ -199,6 +213,6 @@
     <script src="/js/playlistAdd.js"></script>
     <script src="/js/like.js"></script>
     <script src="/js/chat.js"></script>
-    
+    <script src="/js/index.js"></script>
   </body>
 </html>
