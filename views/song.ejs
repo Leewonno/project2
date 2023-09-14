@@ -22,8 +22,9 @@
                     </span>
                 </div>
                 <div class="o_i">
+                    <input type="hidden" value="<%= data.id %>" id="song_id">
                     <span class="like" onclick="likeBtn()">
-                        <input type="hidden" value="<%= data.id %>" id="song_id">
+                        
                         <% if (likeResult) { %>
                             <i class="fa-solid fa-heart" style="color: #ff6666;"></i><div class="like_count"><%= data.like %></div>
                         <% } else { %>
@@ -105,11 +106,11 @@
             if (response.data.liked) {
                 console.log(response.data.liked)
                 // 좋아요가 토글되었을 때 아이콘을 채워진 하트로 변경
-                pushLike.innerHTML = '<i class="fa-solid fa-heart" style="color: #ff6666;" ></i> ' + response.data.count;
+                pushLike.innerHTML = '<i class="fa-solid fa-heart" style="color: #ff6666;" ></i><div class="like_count">' + response.data.count + '</div>';
             } else {
                 console.log(response.data.liked)
               // 좋아요가 취소되었을 때 아이콘을 빈 하트로 변경
-              pushLike.innerHTML = '<i class="fa-regular fa-heart" style="color: #ff6666;"></i> ' + response.data.count;
+              pushLike.innerHTML = '<i class="fa-regular fa-heart" style="color: #ff6666;"></i><div class="like_count">' + response.data.count + "</div>";
             }
           } catch (error) {
             console.error('좋아요 토글에 실패했습니다.', error);
