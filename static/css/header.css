@@ -1,87 +1,84 @@
 @font-face {
-    font-family: 'NanumSquareNeo-Variable';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'NanumSquareNeo-Variable';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'EBSHMJESaeronRA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/EBSHMJESaeronRA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'EBSHMJESaeronRA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/EBSHMJESaeronRA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-*{
-    font-family: 'NanumSquareNeo-Variable';
-    margin: 0;
-    padding: 0;
+* {
+  font-family: 'NanumSquareNeo-Variable';
+  margin: 0;
+  padding: 0;
 }
 
-header{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    border-bottom: 1px solid gray;
-    /* box-shadow: 0 2px 4px 0 rgba(247, 255, 233, 0.24); */
+header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  border-bottom: 1px solid gray;
+  /* box-shadow: 0 2px 4px 0 rgba(247, 255, 233, 0.24); */
 }
 
-.header_box{
-    width: 1200px;
-    height: 70px;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* background: linear-gradient(to top, #ffdcb7, #ffefc6); */
-    /* margin-bottom: 30px; */
+.header_box {
+  width: 1200px;
+  height: 70px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background: linear-gradient(to top, #ffdcb7, #ffefc6); */
+  /* margin-bottom: 30px; */
 }
 
 header a {
-    text-decoration: none;
-    color: rgb(81, 81, 81);
-    transition: all 0.3s;
+  text-decoration: none;
+  color: rgb(81, 81, 81);
+  transition: all 0.3s;
 }
 
 header a:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 header .logo {
-    font-size: 35px;
+  font-size: 35px;
 }
 
-header .logo > a{
-    font-family: 'EBSHMJESaeronRA';
-    color: black;
-    font-weight: 600;
+header .logo > a {
+  font-family: 'EBSHMJESaeronRA';
+  color: black;
+  font-weight: 600;
 }
 
-header .left{
-
+header .right {
+  display: flex;
+  align-items: center;
 }
 
-header .right{
-    display: flex;
-    align-items: center;
+header .right > div {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-header .right > div{
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-header .right .go{
-    margin-right: 30px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
+header .right .go {
+  margin-right: 30px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
 header .right .go > a {
-    margin-left: 5px;
-    margin-right: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 /* header .right .search{
@@ -96,30 +93,29 @@ header .right .go > a {
     opacity: 1;
 } */
 
-header .right .search > i{
-    margin-right: -30px;
+header .right .search > i {
+  margin-right: -30px;
 }
-
 
 header .search_bar {
-    width: 220px;
-    height: 30px;
-    background-color: transparent;
-    outline: none;
-    font-size: 16px;
-    border-radius: 15px;
-    border: solid 1px rgba(0, 0, 0, 0.3);
-    padding-left: 35px;
-    padding-right: 15px;
+  width: 220px;
+  height: 30px;
+  background-color: transparent;
+  outline: none;
+  font-size: 16px;
+  border-radius: 15px;
+  border: solid 1px rgba(0, 0, 0, 0.3);
+  padding-left: 35px;
+  padding-right: 15px;
 }
 
-header .right .user{
-    display: flex;
-    align-items: center;
+header .right .user {
+  display: flex;
+  align-items: center;
 }
 
-header .right .user a{
-    font-size: 17px;
-    margin-left: 5px;
-    margin-right: 5px;
+header .right .user a {
+  font-size: 17px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
