@@ -42,13 +42,13 @@
                                 <% for (let i = 0; i < data.playlist.length; i++) { %>
                                     <div class="playListSearchElement">
                                         <% if (data.playlist[i].result) { %>
-                                            <div class="playlist_cover-1"  onclick="music('<%= data.playlist[i].id %>')">
+                                            <div class="playlist_cover-1"  onclick="playlist('<%= data.playlist[i].id %>')">
                                                 <% for (let j = 0; j < data.playlist[i].cover.length; j++) { %>
                                                 <img src="<%= data.playlist[i].cover[j] %>">
                                                 <% } %>
                                             </div>
                                         <% } else { %>
-                                            <div class="playlist_cover-2"  onclick="music('<%= data.playlist[i].id %>')">
+                                            <div class="playlist_cover-2"  onclick="playlist('<%= data.playlist[i].id %>')">
                                                 <img src="<%= data.playlist[i].cover[0] %>">
                                             </div>
                                         <% } %>

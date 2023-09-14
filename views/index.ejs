@@ -115,14 +115,14 @@
               <div class="playlist_element">
                 <% if (data.playlist[i].result) { %>
                   <div class="playlist_cover-1">
-                      <div class="playlist_cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="music('<%= data.playlist[i].id %>')"></i></div>
+                      <div class="playlist_cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="playlist('<%= data.playlist[i].id %>')"></i></div>
                       <% for (let j = 0; j < data.playlist[i].cover.length; j++) { %>
                       <img src="<%= data.playlist[i].cover[j] %>">
                       <% } %>
                   </div>
               <% } else { %>
                   <div class="playlist_cover-2">
-                      <div class="playlist_cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="music('<%= data.playlist[i].id %>')"></i></div>
+                      <div class="playlist_cover_img"><i class="fa-solid fa-play" style="color: white;" onclick="playlist('<%= data.playlist[i].id %>')"></i></div>
                       <img src="<%= data.playlist[i].cover[0] %>">
                   </div>
               <% } %>
