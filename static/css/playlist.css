@@ -4,6 +4,8 @@
     padding: 20px; 
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3px;
+    padding: 30px;
 }
 
 #my_playlist {
@@ -14,9 +16,26 @@
     display: flex;
     flex-wrap: nowrap;
 }
-
+@media all and (max-width : 650px) {
+    .my_list {
+        flex-wrap: wrap;
+        gap: 50px;
+    }
+}
+ 
 #cont-wrap li {
     list-style: none;
+}
+@media all and (max-width : 650px) {
+    #cont-wrap li {
+        flex-wrap: wrap;
+        gap: 50px;
+    }
+}
+
+.my_list_text a {
+    text-decoration: none;
+    color: black;
 }
 
 .page_header {
