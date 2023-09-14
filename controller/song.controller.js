@@ -14,23 +14,33 @@ exports.controller = {
       const genres = await Song.findAll({ attributes: ['genre'], raw: true });
       
       const uniqueGenres = [...new Set(genres.map(song => song.genre))];
-      let playlists = [];
-
-      if(req.userid) {
-        console.log(req.userid);
-        playlists = await models.Playlist.findAll({
-          where: {userid: req.userid},
-        });
-        console.log('playlists', playlists);
-        console.log(uniqueGenres)
-      } 
-      res.render('sort', {genre: uniqueGenres, playlists});
+      console.log(uniqueGenres)
+      
+      res.render('sort', {genre: uniqueGenres});
     } catch (error) {
       console.error(error);
       // 기타 오류
       res.status(500).send({ message: 'Internal Server Error' });
     }
 
+  },
+
+  getPlaylist: async (req, res)=>{
+    console.log(req, res);
+    let playlists = [];
+    try{
+      if(req.userid) {
+        playlists = await models.Playlist.findAll({
+          where: {userid: req.userid},
+        });
+        // console.log('playlists', playlists);
+        
+      } 
+      res.send({playlists});
+    }catch(err){
+      console.log(err);
+    }
+    
   },
 
   uploadImg: (req, res) => {

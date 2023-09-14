@@ -60,7 +60,8 @@
 .signinMain .signinPageBtns {
     display: flex;
     justify-content: space-between;
-    margin-top: 400px;
+    position: relative;
+    top: 200px;
     
 }
 
@@ -103,30 +104,36 @@
     }
 
     .loginSection .signinMain {
-        margin-top: 0px;
+        width: 80%;
+        margin-top: 30px;
     }
 
     .signinMain .signinPage {
-        width: 400px;
+        width: 80%;
         height: 500px;
         border-radius: 16px;
     }
 
     .signinMain .signinCover {
-        width: 300px;
+        width: 50%;
+    }
+
+    .signinMain .signinForm {
+        width: 80%;
     }
 
     .signinMain #id, .signinMain #pw {
-        width: 200px;
+        width: 100%;
     }
 
     .signinMain .signinPageBtns {
         display: flex;
-        margin-top: 350px;
+        top: 170px;
+        width: 90%;
+        justify-content: space-between;
     }
 
     .signinMain #signinBtn, .signinMain .roadSignup {
-        width: 130px;
         height: 50px;
     }
 }

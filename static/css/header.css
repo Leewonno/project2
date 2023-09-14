@@ -23,6 +23,8 @@ header{
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    border-bottom: 1px solid gray;
+    /* box-shadow: 0 2px 4px 0 rgba(247, 255, 233, 0.24); */
 }
 
 .header_box{
@@ -32,14 +34,18 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid gray;
     /* background: linear-gradient(to top, #ffdcb7, #ffefc6); */
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 header a {
     text-decoration: none;
     color: rgb(81, 81, 81);
+    transition: all 0.3s;
+}
+
+header a:hover {
+    transform: scale(1.1);
 }
 
 header .logo {
@@ -48,7 +54,7 @@ header .logo {
 
 header .logo > a{
     font-family: 'EBSHMJESaeronRA';
-    color: #ffec83;
+    color: black;
     font-weight: 600;
 }
 
@@ -58,7 +64,7 @@ header .left{
 
 header .right{
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 }
 
 header .right > div{

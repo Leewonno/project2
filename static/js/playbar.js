@@ -13,6 +13,8 @@ const timelineBar = document.querySelector(".music_bar");
 const musicbarBackground = document.querySelector(".musicbar_background");
 const volume_range = document.querySelector(".range_bars");
 
+const modal_play_icon = document.getElementById("modal_play_icon");
+
 let draggableElements = document.querySelectorAll('.modal_playlist_detail');
 
 
@@ -28,17 +30,33 @@ let now_play = 0;
 let pl =[];
 let playlist_num;
 
+// modal_play_icon.addEventListener('click', (e)=>{
+//     console.log(play.checked)
+//     if(play.checked == true){
+//         audio.play();
+//         play_icon.className = "fa-solid fa-pause";
+//         modal_play_icon.className = "fa-solid fa-pause";
+//         play.setAttribute('checked', false);
+//     }
+//     else{
+//         audio.pause();
+//         play_icon.className = "fa-regular fa-circle-play fa-lg";
+//         modal_play_icon.className = "fa-solid fa-play";
+//         play.setAttribute('checked', true);
+//     }
+// })
+
 play.addEventListener('click', (e)=>{
+    console.log(play.checked)
     if(play.checked == true){
-        console.log(audio.duration);
-        console.log(audio.currentTime);
-        console.log("aa", volume_bar.value)
         audio.play();
         play_icon.className = "fa-solid fa-pause";
+        modal_play_icon.className = "fa-solid fa-pause";
     }
     else{
         audio.pause();
         play_icon.className = "fa-regular fa-circle-play fa-lg";
+        modal_play_icon.className = "fa-solid fa-play";
     }
 })
 
@@ -59,6 +77,7 @@ mute.addEventListener("click", (e) => {
 
 audio.addEventListener('ended', (e)=>{
     play_icon.className = "fa-regular fa-circle-play fa-lg";
+    modal_play_icon.className = "fa-regular fa-circle-play fa-lg";
 })
 
 volume_status.addEventListener("mousemove", function(e) {
