@@ -140,6 +140,7 @@
                             <button type="button" class="modifyBtn" onclick="updateComment('${comment.id}')">수정</button>
                             <button type="button" class="deleteBtn" onclick="deleteComment('${comment.id}')">삭제</button>
                         `;
+                    // commentList.insertAdjacentHTML("beforeend",newCommentItem)
                     commentList.insertBefore(newCommentItem, commentList.firstChild);
                 } else {
                     // 오류 처리

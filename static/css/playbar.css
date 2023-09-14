@@ -170,6 +170,14 @@
 .song_img {
     margin-right: 10px;
     width: 800px;
+    position: relative;
+}
+
+.song_img .modal_song_play{
+    position: absolute;
+    margin-right: 10px;
+    width: 50%;
+    background-color: rgb(0, 0, 0, 0.6);
 }
 
 .player_side_rigth button{
@@ -600,6 +608,8 @@
     border: 1px solid none;
     margin-bottom: 0px;
 }
+
+
 
 .music_bar, .song_img, .song_title, .artist_name , .player_controller button , .player_side_rigth :hover {
     cursor: pointer;

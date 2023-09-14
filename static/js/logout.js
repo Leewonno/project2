@@ -7,13 +7,14 @@ if (jwtCookie) {
 }
 const signin = document.querySelector('#signin');
 const user = document.querySelector('.user');
+const go = document.querySelector('.go');
 
 if (jwtCookie!=null) {
     signin.textContent = 'LOGOUT';
     signin.href = '#';
     signin.setAttribute('onclick', 'logout()');
-    user.insertAdjacentHTML('afterbegin', `<a href="/profile"><i class="fa-regular fa-user" style="color: #000000;"></i></a>`)
-    user.insertAdjacentHTML('afterbegin', `<a href="/playlist">플레이리스트</a>`)
+    user.insertAdjacentHTML('afterbegin', `<a href="/profile">프로필</a>`)
+    go.insertAdjacentHTML('beforeend', `<a href="/playlist">PLAYLIST</a>`)
 } else {
     signin.textContent = 'LOGIN'
 };
