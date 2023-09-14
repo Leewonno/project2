@@ -244,7 +244,6 @@
     display: grid;
     border: #999999 solid 1px;
     grid-template-columns: repeat(6, 1fr); 
-    grid-gap: 20px; 
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
@@ -280,7 +279,7 @@
 }
 
 .index_section .row_second .talk_room .talk_room_element .talk_room_tag {
-    font-size: 14px; 
+    font-size: 8px; 
     color: #676767;
 }
 /* 3. 장르  */
@@ -450,7 +449,10 @@
 
 @media screen and (max-width: 650px) {
     .index_section{
-        
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 100px;
     }
     
     .index_section .main_page{
@@ -458,47 +460,176 @@
         width: 100%;
         align-items: center;
     }
-    
-    .index_section .column_first{
-        width: 90%;
-        height: auto;
-        justify-content: normal;
+    .imgBox {
+        width: 130px;
+        height: 130px;
         margin-bottom: 20px;
+        border-radius: 5px;
+        position: relative;
+    }
+    
+    .imgBox > img {
+        width: 130px;
+        height: 130px;
+        height: auto;
+        border-radius: 5px;
+    }
+    
+    /* 1. 최신순 */
+    .index_section .row_first .recent_music{
+        grid-template-columns: repeat(2, 1fr); 
+        text-align: center;
+        width: 100%;
+        height: auto;
+        display: grid;
     }
 
-    .index_section .column_first > div, .column_second > div, .column_third > div{
-        margin-bottom: 20px;
+    .index_section .row_first .recent_music .recent_element {
+        cursor: pointer;
+        align-items: center;
+        text-align: center;
+        margin: 30px;
     }
-    
-    .index_section .column_first .recent_music{
-        height: 200px;
+    .index_section .row_first .recent_music .recent_title {
+        margin-top: 10px;
+        font-size: 16px; 
+        color: #444343;
+        
     }
-    
-    .index_section .column_first .genre_music{
-        height: 200px;
+    .index_section .row_first .recent_music .recent_artist {
+        font-size: 14px; 
+        color: #676767;
     }
-    
-    .index_section .column_second{
-        width: 90%;
+
+        .index_section .row_first .recent_music{
+        grid-template-columns: repeat(2, 1fr); 
+        text-align: center;
+        width: 100%;
         height: auto;
-        justify-content: normal;
-        margin-bottom: 20px;
+        display: grid;
     }
-    
-    .index_section .column_second .talk_room{
-        height: 200px;
+
+    .index_section .row_first .recent_music .recent_element {
+        cursor: pointer;
+        align-items: center;
+        text-align: center;
+        margin: 30px;
     }
-    
-    .index_section .column_second .recommand_playlist{
-        height: 200px;
+    .index_section .row_first .recent_music .recent_title {
+        margin-top: 10px;
+        font-size: 16px; 
+        color: #444343;
+        
     }
-    
-    .index_section .column_third{
-        width: 90%;
+    .index_section .row_first .recent_music .recent_artist {
+        font-size: 14px; 
+        color: #676767;
+    }
+
+
+    /*  2. 인기순 */
+    .index_section .row_fifth .popular_music{
+        grid-template-columns: repeat(2, 1fr); 
+        text-align: center;
+        width: 100%;
         height: auto;
+        display: grid;
     }
-    
-    .index_section .column_third .popular_music{
-        height: 500px;
+
+    .index_section .row_fifth .popular_music .popular_element {
+        cursor: pointer;
+        align-items: center;
+        text-align: center;
+        margin: 30px;
     }
+    .index_section .row_fifth .popular_music .popular_title {
+        margin-top: 10px;
+        font-size: 16px; 
+        color: #444343;
+        
+    }
+    .index_section .row_fifth .popular_music .popular_artist {
+        font-size: 14px; 
+        color: #676767;
+    }
+
+    /* 3. 아티스트 톡방 */
+    .index_section .row_second .talk_room{
+        grid-template-columns: repeat(2, 1fr); 
+        text-align: center;
+        width: 100%;
+        height: auto;
+        display: grid;
+    }
+
+    .index_section .row_second .talk_room .talk_room_element {
+        cursor: pointer;
+        align-items: center;
+        text-align: center;
+        margin: 30px;
+    }
+    .index_section .row_second .talk_room .talk_room_name {
+        margin-top: 10px;
+        font-size: 16px; 
+        color: #444343;
+        
+    }
+    .index_section .row_second .talk_room .talk_room_tag {
+        font-size: 14px; 
+        color: #676767;
+    }
+
+    /* 4. 장르순 */
+    .index_section .row_third .genre_music{
+        grid-template-columns: repeat(2, 1fr); 
+        text-align: center;
+        width: 100%;
+        height: auto;
+        display: grid;
+    }
+
+    .index_section .row_third .genre_music .genre_element {
+        cursor: pointer;
+        align-items: center;
+        text-align: center;
+        margin: 30px;
+    }
+    .index_section .row_third .genre_music .genre_title {
+        margin-top: 10px;
+        font-size: 16px; 
+        color: #444343;
+        
+    }
+    .index_section .row_third .genre_music .genre_artist {
+        font-size: 14px; 
+        color: #676767;
+    }
+
+    /* 5. 플레이리스트 */
+    .index_section .row_fourth .recommand_playlist{
+        grid-template-columns: repeat(2, 1fr); 
+        text-align: center;
+        width: 100%;
+        height: auto;
+        display: grid;
+    }
+
+    .index_section .row_fourth .recommand_playlist .playlist_element {
+        cursor: pointer;
+        align-items: center;
+        text-align: center;
+        margin: 20px;
+    }
+    .index_section .row_fourth .recommand_playlist .playlist_name {
+        margin-top: 5px;
+        font-size: 16px; 
+        color: #444343;
+        
+    }
+    .index_section .row_fourth .recommand_playlist .playlist_like {
+        font-size: 14px; 
+        color: #676767;
+    }
+
+
 }
