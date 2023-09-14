@@ -19,6 +19,7 @@ router.post('/song/upload', controller.insertSongByAdmin);
 
 // 곡 정렬 페이지 + 페이징 처리 -> 노션 확인
 router.get('/sort', auth.verifyAuthentication, controller.getSortPage);
+router.get('/song/playlist', auth.verifyAuthentication, controller.getPlaylist);
 router.get('/song/sort', controller.getSongBySort);
 router.get('/song/sort/genre', controller.getSongByGenre);
 
