@@ -22,7 +22,7 @@
                             <div id="signupMatch" class="signupMatch">ID는 영어 소문자와 숫자로 6글자 이상으로 구성되어야 합니다</div>
                             <input type="password" id="pw" class="signupPw" placeholder="비밀번호"><br>
                             <input type="password" id="pw2" class="signupPw2" placeholder="비밀번호확인"><br>
-                            <div id="pwMatch" class="pwMatch">비밀번호가 일치합니다.</div>
+                            <div id="pwMatch" class="pwMatch"></div>
                             <input type="text" id="mail" placeholder="이메일"><br>
                             <input type="text" id="name" placeholder="이름"><br>
                             <input type="text" id="nick" placeholder="닉네임"><br>
@@ -176,7 +176,6 @@
 
         //아이디 지울때 색 검정으로
         document.querySelector("#userid").addEventListener("input", async function (e) {
-            const form = document.forms["signupForm"];
             const id = document.querySelector("#userid");
 
             if(id.value) {
@@ -190,7 +189,9 @@
             const match_pw2 = document.querySelector("#pw2").value;
             const match_word = document.querySelector("#pwMatch");
 
-            if(match_pw !== match_pw2 || match_pw.value === "" || match_pw2.value === "") {
+            if(match_pw !== match_pw2 || match_pw === "") {
+                console.log("1", match_pw)
+                console.log("2", match_pw2)
                 match_word.classList.remove("pwMatch");
                 match_word.textContent = "비밀번호를 확인해주세요";
                 match_word.style.color = "red";
@@ -208,7 +209,7 @@
             const match_pw2 = document.querySelector("#pw2").value;
             const match_word = document.querySelector("#pwMatch");
 
-            if(match_pw !== match_pw2 || match_pw.value === "" || match_pw2 === "") {
+            if(match_pw !== match_pw2 || match_pw2 === "") {
                 match_word.classList.remove("pwMatch");
                 match_word.textContent = "비밀번호를 확인해주세요"
                 match_word.style.color = "red";
@@ -217,6 +218,28 @@
                 match_word.classList.remove("pwMatch");
                 match_word.textContent = "비밀번호가 일치합니다";
                 match_word.style.color = "blue";
+            }
+        });
+
+        //비밀번호 입력 값 none일 시 문구 안뜨게하기
+        document.querySelector(".signupPw").addEventListener("input", function (e) {
+            const match_pw = document.querySelector("#pw").value;
+            const match_pw2 = document.querySelector("#pw2").value;
+            const match_word = document.querySelector("#pwMatch");
+
+            if(match_pw === "" && match_pw2 === "") {
+                match_word.classList.add("pwMatch");
+            }
+        });
+        
+        //비밀번호 입력 값 none일 시 문구 안뜨게하기
+        document.querySelector(".signupPw2").addEventListener("input", function (e) {
+            const match_pw = document.querySelector("#pw").value;
+            const match_pw2 = document.querySelector("#pw2").value;
+            const match_word = document.querySelector("#pwMatch");
+
+            if(match_pw === "" && match_pw2 === "") {
+                match_word.classList.add("pwMatch");
             }
         });
 
