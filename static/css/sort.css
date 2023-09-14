@@ -99,6 +99,11 @@
     justify-content: center;
 }
 
+.wrap_song .song_name a {
+    text-decoration: none;
+    color: black;
+}
+
 .sort_section .wrap_song, .wrap_song_album {
     display: flex;
     flex-direction: column;
