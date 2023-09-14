@@ -84,13 +84,14 @@
   flex-direction: column;
 }
 
-.talk_list .column_second .recommand_talk span {
+.column_second .Jmember,
+.recommand_talk .Jmember {
   visibility: hidden;
 }
 .imgdiv:hover p {
   display: flex;
 }
-.imgdiv:hover span {
+.imgdiv:hover .Jmember {
   visibility: visible;
 }
 
