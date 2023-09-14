@@ -36,7 +36,8 @@ exports.controller = {
 
         if (playlist.song_ids) {
           // 1. 먼저 song_ids 문자열을 새로운 배열로 만들기
-          let numbers = playlist.dataValues.song_ids.match(/\d+/g);
+          let numbers = playlist.dataValues.song_ids.split(/,\s*/);
+          console.log('::::::::::::::::::::::',numbers)
 
           // 2. 배열의 길이 체크해서 0~3이면 numbers[0] 인덱스 주소만 가져오게, 4이상이면 3번째 인덱스까지만 나올 수 있게
           if (numbers.length >= 4) {
@@ -170,7 +171,7 @@ exports.controller = {
 
         if (playlist.song_ids) {
           // 1. 먼저 song_ids 문자열을 새로운 배열로 만들기
-          let numbers = playlist.dataValues.song_ids.match(/\d+/g);
+          let numbers = playlist.dataValues.song_ids.split(/,\s*/);
 
           // 2. 배열의 길이 체크해서 0~3이면 numbers[0] 인덱스 주소만 가져오게, 4이상이면 3번째 인덱스까지만 나올 수 있게
           if (numbers.length >= 4) {

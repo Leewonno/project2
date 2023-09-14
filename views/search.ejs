@@ -124,7 +124,6 @@
                                         <img class="lyricsSearchImg" src="<%= data.lyrics[i].cover_url %>">
                                         <a class="lyricsSearchTitle"><%= data.lyrics[i].title %></a>
                                         <div class="lyricsSearchArtist"><%= data.lyrics[i].artist %></div>
-                                        <div class="lyricsSearchLyrics"><%= data.lyrics[i].lyrics %></div>
                                     </div>
                                 <% } %>
                         <% } %>
@@ -164,21 +163,6 @@
             console.error('좋아요 토글에 실패했습니다.', error);
           }
         }
-
-        document.addEventListener("DOMContentLoaded", function () {
-        const lyricsElements = document.querySelectorAll(".lyricsSearchLyrics");
-
-        lyricsElements.forEach((element) => {
-            const text = element.textContent; 
-
-            // 문자열이 10글자 이상인 경우
-            if (text.length > 10) {
-            const trimmedText = text.substring(0, 60) + "...";
-            element.textContent = trimmedText;
-            }
-        });
-        });
-
     </script>
 </body>
 </html>
