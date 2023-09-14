@@ -1,11 +1,6 @@
 footer{
-    width: 1200px;
-    height: 100px;
-    margin: 0 auto;
-    background-color: #ffffff; 
+    width: 100%;
     border-top: 1px solid #000000; 
-    padding: 20px 0px 100px 0px; 
-    margin-bottom: 100px;
 }
 @font-face {
     font-family: 'NanumSquareNeo-Variable';
@@ -14,10 +9,45 @@ footer{
     font-style: normal;
 }
 
+.footer_box{
+    width: 1200px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: #ffffff; 
+    padding: 20px 0px 100px 0px; 
+    margin-bottom: 120px;
+}
+
 footer a {
     text-decoration: none;
     color: white;
 }
+
+footer .notice_box{
+    display: flex;
+    margin-bottom: 20px;
+    
+}
+
+footer .notice{
+    padding-left: 10px;
+    margin-right: 10px;
+    border-left: 1px solid lightgray;
+    /* margin-top: 20px; */
+}
+
+footer .notice:nth-child(1){
+    padding-left: 0px;
+    margin-right: 10px;
+    border-left: 0px;
+    /* margin-top: 20px; */
+}
+
+footer .notice a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
 
 footer .left{
 
@@ -25,18 +55,12 @@ footer .left{
 
 footer .left .team{
     color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 footer .left .team_member{
-    color: rgb(0, 0, 0);
-}
-
-footer .left .notice{
-    margin-top: 20px;
-}
-
-footer .left .notice a{
-    text-decoration: none;
     color: rgb(0, 0, 0);
 }
 

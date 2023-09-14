@@ -660,7 +660,6 @@
 .playbar_wrapper .song_img .m_song_cover{
     width: 80%;
     height: 80%;
-    border: 1px solid none;
     margin-bottom: 0px;
 }
 
@@ -670,4 +669,23 @@
     cursor: pointer;
     color: white;
     text-decoration: none;
+}
+
+@media all and (max-width: 650px) {
+    .playbar_wrapper {
+        height: 80px;
+    }
+
+    .playbar_wrapper .song_img{
+        width: 80px;
+        height: 80px;
+    }
+
+    .playbar_wrapper .song_img .m_song_cover{
+
+    }
+
+    .playbar {
+        height: 80px;
+    }
 }

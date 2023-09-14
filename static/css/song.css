@@ -15,7 +15,7 @@
     display: flex;
     justify-content: flex-start;
     width: 1200px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 .albumImg {
@@ -79,8 +79,18 @@
     align-items: flex-end;
 }
 
-.albumInfor .o_i .infor{
+/* .albumInfor .o_i .infor{
     margin-left: 80px;
+} */
+
+.songMiddle{
+    width: 1200px;
+    display: flex;
+    margin-bottom: 100px;
+}
+
+.songMiddle .infor{
+
 }
 
 .albumInfor .title{
@@ -94,41 +104,41 @@
     font-size: 15px;
 }
 
-.albumInfor .album{
+.songMiddle .infor .album{
     font-size: 15px;
     display: flex;
     margin-bottom: 5px;
 }
 
-.albumInfor .writer{
+.songMiddle .infor .writer{
     font-size: 15px;
     display: flex;
     margin-bottom: 5px;
 }
 
-.albumInfor .composer{
+.songMiddle .infor .composer{
     font-size: 15px;
     display: flex;
 }
 
-.albumInfor .genre{
-    font-size: 15px;
-    display: flex;
-    margin-bottom: 5px;
-}
-
-.albumInfor .playtime{
-    font-size: 15px;
-
-}
-
-.albumInfor .release_date{
+.songMiddle .infor .genre{
     font-size: 15px;
     display: flex;
     margin-bottom: 5px;
 }
 
-.albumInfor .colume_name{
+.songMiddle .infor .playtime{
+    font-size: 15px;
+
+}
+
+.songMiddle .infor .release_date{
+    font-size: 15px;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.songMiddle .infor .colume_name{
     width: 50px;
     display: flex;
 }

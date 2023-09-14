@@ -12,14 +12,14 @@
 
 .main_page{
     width: 1200px;
-    display: grid;
+    /* display: grid;
     padding-left: 50px;
-    padding-right: 50px;
+    padding-right: 50px; */
 }
 
 
 /* div 요소 별 제목 */
-.index_section .main_page .recent_header, .popular_header, .talk_header, .genre_header, .playlist_header{
+.index_section .main_page .recent_header, .popular_header, .talk_headers, .genre_header, .playlist_header{
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 1fr;
@@ -43,15 +43,16 @@
 /* 더보기 버튼 -> 장르 버튼 분리 필요 */
 .recent_btn, .popular_btn, .genre_btn, .talk_btn{
     cursor: pointer;
-    width: 98px;
-    height: 45px;
-    line-height: 45px;
+    width: 70px;
+    height: 30px;
     margin-bottom: 20px;
     font-size: 15px;
     background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(119, 119, 119); ;
-    border-radius: 18px;
-    text-align: center;
+    border: 1px solid rgb(119, 119, 119);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 더보기 버튼 호버 */
@@ -96,16 +97,17 @@
 
 .genre_menu_btn .genre_menu_ul .genre_menu_li {
     cursor: pointer;
-    width: 88px;
-    height: 35px;
-    line-height: 35px;
+    height: 25px;
+    width: 60px;
     margin-bottom: 20px;
     font-size: 15px;
     background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(119, 119, 119); ;
-    border-radius: 18px;
-    text-align: center;
+    border: 1px solid rgb(119, 119, 119);
+    border-radius: 15px;
     margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .genre_menu_btn .genre_menu_ul .genre_menu_li:hover {
     background-color: #f6c85d;
@@ -128,6 +130,8 @@
     height: 130px;
     height: auto;
     border-radius: 5px;
+    box-shadow: 5px 5px 5px 0px rgb(172, 172, 172, 0.1);
+    border: 1px solid #e5e5e5;
 }
 .imgBox > .cover_img {
     display: none;
@@ -157,13 +161,14 @@
     margin-top: 0;
     text-align: center;
     border: #999999 solid 1px;
-    box-shadow: 9px 9px 9px rgb(172, 172, 172);
+    box-shadow: 5px 5px 5px rgb(172, 172, 172, 0.1);
 }
 .index_section .row_first .recent_music .recent_element {
     cursor: pointer;
     align-items: center;
-    text-align: center;
+    display: flex;
     margin: 20px;
+    flex-direction: column;
 }
 .index_section .row_first .recent_music .recent_element > a {
     text-decoration: none;
@@ -190,7 +195,7 @@
     margin-top: 0;
     text-align: center;
     border: #999999 solid 1px;
-    box-shadow: 9px 9px 9px rgb(172, 172, 172);
+    box-shadow: 5px 5px 5px rgb(172, 172, 172, 0.1);
 }
 
 .index_section .row_fifth .popular_music .popular_element {
@@ -246,7 +251,7 @@
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
-    box-shadow: 9px 9px 9px rgb(172, 172, 172);
+    box-shadow: 5px 5px 5px rgb(172, 172, 172, 0.1);
 }
 
 .index_section .row_second .talk_room .talk_room_element {
@@ -289,11 +294,10 @@
     display: grid;
     border: #999999 solid 1px;
     grid-template-columns: repeat(6, 1fr); 
-    /* grid-gap: 90px;  */
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
-    box-shadow: 9px 9px 9px rgb(172, 172, 172);
+    box-shadow: 5px 5px 5px rgb(172, 172, 172, 0.1);
 }
 
 .index_section .row_third .genre_music .genre_element {
@@ -338,7 +342,7 @@
     border-radius: 5px;
     text-align: center;
     border: #999999 solid 1px;
-    box-shadow: 9px 9px 9px rgb(172, 172, 172);
+    box-shadow: 5px 5px 5px rgb(172, 172, 172, 0.1);
 }
 
 .index_section .row_fourth .recommand_playlist .playlist_element {

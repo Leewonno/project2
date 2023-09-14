@@ -6,6 +6,7 @@
 
 .sort_section .song_category{
     width: 1200px;
+    margin-bottom: 50px;
 }
 
 .sort_section .sort_menu {
@@ -71,9 +72,13 @@
 /*테이블*/
 
 .sort_section table {
-    display: inline-block;
+    /* display: inline-block;
     text-align: left;
-    padding:  0px 20px;
+    padding:  0px 20px; */
+}
+
+.sort_section .list_thead{
+    /* border-bottom: 1px solid black; */
 }
 
 .sort_section .defult {
@@ -83,7 +88,7 @@
 .sort_section .list {
     margin: 0 auto;
     border-collapse: collapse;
-    width: 80%;
+    width: 100%;
 }
 
 .sort_section .list th, .list td {
@@ -122,7 +127,7 @@
 }
 
 .wrap_song {
-    width: 130px;
+    width: 170px;
     height: 100px;
     text-align: center;
 }
@@ -133,7 +138,7 @@
 }
 
 .wrap_song_album {
-    width: 130px;
+    width: 170px;
 }
 
 .wrap > .rank {
