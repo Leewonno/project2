@@ -31,18 +31,21 @@
                             <i class="fa-regular fa-heart" style="color: #ff6666;"></i><div class="like_count"><%= data.like %></div>
                         <% } %>
                     </span>
-                    <span class="infor">
-                        <div class="album"><div class="colume_name">앨범</div><%= data.album %></div>
-                        <div class="genre"><div class="colume_name">장르</div><%= data.genre %></div>
-                        <div class="release_date"><div class="colume_name">발매</div><%= data.release_date %></div>
-                        <div class="writer"><div class="colume_name">작사</div><%= data.writer %></div>
-                        <div class="composer"><div class="colume_name">작곡</div><%= data.composer %></div>
-                    </span>
+                    
                 </div>
                 <!-- <div class="playtime"><%= data.playtime %></div> -->
                 
             </div>
             <div class="talk" onclick="talk('<%= data.artist %>')"></div>
+        </div>
+        <div class="songMiddle">
+            <span class="infor">
+                <div class="album"><div class="colume_name">앨범</div><%= data.album %></div>
+                <div class="genre"><div class="colume_name">장르</div><%= data.genre %></div>
+                <div class="release_date"><div class="colume_name">발매</div><%= data.release_date %></div>
+                <div class="writer"><div class="colume_name">작사</div><%= data.writer %></div>
+                <div class="composer"><div class="colume_name">작곡</div><%= data.composer %></div>
+            </span>
         </div>
         <div class="songMain2">
             <input type="hidden" value="<%= data.lyrics %>" id="lyrics_value">
