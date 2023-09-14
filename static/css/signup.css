@@ -119,7 +119,7 @@
     }
 
     .signupMain .signupCover {
-        width: 380px;
+        width: 80%;
         height: 640px;
     }
 
@@ -131,37 +131,39 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 70%;
     }
 
     .signupPage #signupMatch {
-        width: 200px;
+        width: 53%;
         font-size: 12px;
         bottom: 507px;
     }
 
     .signupPage #signupHidden {
         position: relative;
+        width: 75%;
     }
 
     .signupPage #signupCheckImg {
         position: absolute;
-        bottom: 35px;
-        left: 80px;
+        right: 0;
+        left: auto;
     }
 
     .signupMain #userid, .signupMain #pw, .signupMain #pw2, .signupMain #mail, .signupMain #name, .signupMain #nick {
-        width: 200px;
+        width: 75%;
         height: 30px;
     }
 
     .signupPage #pwMatch {
         position: absolute;
         top: 225px;
-        left: 88px;
+        left: auto;
     }
 
     .signupMain .signupBtn {
-        width: 200px;
+        width: 75%;
         height: 50px;
     }
 }
