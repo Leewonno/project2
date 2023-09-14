@@ -75,7 +75,7 @@
           const chat_tag = res.data.tag;
           console.log("ass",chat_tag)
           document.querySelector("#s").innerHTML = ""
-
+          
           for(let i =0; i<chat_tag.length;i++){
             let cg = document.createElement('div')
             cg.setAttribute("onclick", `talk('${chat_tag[i].name}')`)

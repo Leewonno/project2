@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const models = require('../database/db');
 const roomList = [];
-
+const { Op } = require('sequelize');
 let room;
 let chatRoom;
 let userID;
@@ -10,21 +10,34 @@ let chatInfo;
 
 exports.chat = async (req, res) => {
   room = await req.query.room;
-  console.log('dd', room);
-  console.log('coo', req.cookies.token);
-  userID = jwt.decode(req.cookies.token).userid;
-  // const n = window.localStorage.getItem('token');
-  try {
-    chatRoom = await models.ChatRoom.findOne({
-      where: { name: room },
-    });
-    // console.log("app",app.locals.layout);
-    res.locals.layout = 'layouts/layout2';
-    // console.log(chatRoom.tag);
-    res.render('chat', { data: chatRoom });
-  } catch (error) {
-    console.log(error);
+  if (!req.cookies.token) {
+    res.send("<script>alert('로그인이 필요합니다.');window.close()</script>");
+    // res.redirect('signin');
+  } else {
+    try {
+      console.log('dd', room);
+      console.log('coo', req.cookies.token);
+      userID = jwt.decode(req.cookies.token).userid;
+      chatRoom = await models.ChatRoom.findOne({
+        where: { name: room },
+      });
+      // console.log("app",app.locals.layout);
+      res.locals.layout = 'layouts/layout2';
+      // console.log(chatRoom.tag);
+    } catch (error) {
+      console.log(error);
+    }
+    const RoomN = await models.ChatRoom.findOne({ where: { name: room } });
+    console.log(RoomN);
+    if (!RoomN) {
+      console.log('존재안함');
+      res.send("<script>alert('nodata');history.back()</script>");
+    } else {
+      res.render('chat', { data: chatRoom });
+    }
   }
+
+  // const n = window.localStorage.getItem('token');
 };
 
 exports.chatP = async (req, res) => {
@@ -129,7 +142,7 @@ exports.chat_tag = async (req, res) => {
   let chat_tagArray = [];
 
   const chat_tag = await models.ChatRoom.findAll({
-    where: { tag: req.body.tag },
+    where: { tag: { [Op.like]: `%${req.body.tag}%` } },
     order: [['member', 'DESC']],
     limit: 5,
   });
