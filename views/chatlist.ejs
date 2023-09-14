@@ -12,51 +12,59 @@
     <section class="talk_section">
       <div class="talk_list">
         <div class="column_first">
-          <div class="my_talk">참여중인톡방
-            <div class="joinchat">
-              <% if (!joinChat){%>
-                <span>로그인이 필요합니다.</span>
-              <%}else{%>
-                <% for(let i = 0; i<joinChat.length; i++){%>
-                  <div class = "imgdiv" onclick="talk('<%=joinChat[i].name %>')">
-                    <img src="<%=joinChat[i].cover_img%>" alt="">
-                    <p><%=joinChat[i].name%></p>
-                  </div>
+          <div>참여중인톡방
+            <div class="my_talk">
+              <div class="joinchat">
+                <% if (!joinChat){%>
+                  <span class="sp">로그인이 필요합니다.</span>
+                <%}else{%>
+                  <% for(let i = 0; i<joinChat.length; i++){%>
+                    <div class = "imgdiv" onclick="talk('<%=joinChat[i].name %>')">
+                      <img src="<%=joinChat[i].cover_img%>" alt="">
+                      <p><%=joinChat[i].name%></p>
+                    </div>
+                  <%}%>
                 <%}%>
-              <%}%>
+              </div>
             </div>
           </div>
         </div>
         <div class="column_second">
-          <div class="category_talk">주제별 톡방
-            
-            <button value="girlgroup" id="gG" onclick="select_tag(`girlgroup`)">girlgroup</button>
-            <button value="boygroup" id="bG" onclick="select_tag(`boygroup`)">boygroup</button>
-            <button value="Wsolo" id="wS" onclick="select_tag(`Wsolo`)">Female Solo</button>
-            <button value="Msolo" id="mS" onclick="select_tag(`Msolo`)">Male Solo</button>
-            
-            <div id = "s" >
-              <% for(let i = 0; i<tag.length; i++){%>
-                <div class = "imgdiv"  onclick="talk('<%=tag[i].name %>')">
-                  <img class ="tagimage"src="<%=tag[i].cover_img%>" alt="">
-                  <p class="test"><%=tag[i].name%></p>
-                  <span>접속자 수: <%=tag[i].member %></span>
-                </div>
-              <%}%>
+          <div>주제별 톡방
+
+            <div class="category_talk">
+              <div class="buttonDiv">
+                <button value="girlgroup" id="gG" onclick="select_tag(`girlgroup`)">여성그룹</button>
+                <button value="boygroup" id="bG" onclick="select_tag(`boygroup`)">남성그룹</button>
+                <button value="Wsolo" id="wS" onclick="select_tag(`Wsolo`)">여성솔로</button>
+                <button value="Msolo" id="mS" onclick="select_tag(`Msolo`)">남성솔로</button>
+              </div>
+              
+              <div id = "s" >
+                <% for(let i = 0; i<tag.length; i++){%>
+                  <div class = "imgdiv"  onclick="talk('<%=tag[i].name %>')">
+                    <img class ="tagimage"src="<%=tag[i].cover_img%>" alt="">
+                    <p class="test"><%=tag[i].name%></p>
+                    <span>접속자 수: <%=tag[i].member %></span>
+                  </div>
+                <%}%>
+              </div>
             </div>
           </div>
-          <div class="recommand_talk">톡방 추천
-            <div class="recommand">
-
-              <% for(let i = 0; i<best.length; i++){%>
-                <div class = "imgdiv"  onclick="talk('<%=best[i].name %>')">
-                  <img src="<%=best[i].cover_img%>" alt="">
-                  <p><%=best[i].name%></p>
-                  <span>접속자 수: <%=best[i].member %></span>
-                </div>
-              <%}%>
-            </div>
-            </div>
+          <div>톡방 추천
+            <div class="recommand_talk">
+              <div class="recommand">
+  
+                <% for(let i = 0; i<best.length; i++){%>
+                  <div class = "imgdiv"  onclick="talk('<%=best[i].name %>')">
+                    <img src="<%=best[i].cover_img%>" alt="">
+                    <p><%=best[i].name%></p>
+                    <span>접속자 수: <%=best[i].member %></span>
+                  </div>
+                <%}%>
+              </div>
+              </div>
+          </div>
         </div>
     </section>
 
@@ -64,6 +72,7 @@
     <%- contentFor('player') %>
    
     <script id="sc">
+      
       function select_tag(tagName){    
         axios({
           method: 'POST',
