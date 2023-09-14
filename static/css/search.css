@@ -1,8 +1,4 @@
 
-img {
-    width: 70px;
-    height: 70px;
-}
 .search_section {
     margin-top: 50px;
     display: flex;
@@ -10,10 +6,9 @@ img {
     margin-bottom: 100px;
 }
 .searchPage{
-    display: grid;
-    justify-content: center;
     width: 1200px;
-    padding-left: 50px;
+    display: grid;
+
     padding-right: 50px;
 }
 
@@ -47,35 +42,25 @@ img {
     margin-bottom: 20px;
 }
 
-
-/* .talkSearch, .titleSearch, .lyricsSearch, .playListSearch {
-    display: grid;
-    justify-content: start;
-    align-items: center;
-    width: 900px;
-    height: 200px;
-    background-color: white;
-    gap: 50px;
-} */
-
 /* 1. 채팅방 */
 .search_section .first .talkSearch {
     background: rgb(255, 255, 255);
-    width: 1200px;
+    width: 100%;
     height: auto;
     display: grid;
-    /* border: #999999 solid 1px; */
     grid-template-columns: repeat(6, 1fr); 
-    /* grid-gap: 90px;  */
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
 }
 
 .search_section .first .talkSearch .talkSearchResultElement {
+    /* cursor: pointer;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    margin: 20px; */
     cursor: pointer;
-    display: flex;
-    flex-direction: column; 
     align-items: center;
     text-align: center;
     margin: 20px;
@@ -86,8 +71,8 @@ img {
 }
 
 .search_section .first .talkSearch .talkSearchResultElement > img {
-    width: 100px; 
-    height: 100px;
+    width: 130px; 
+    height: 130px;
     border-radius: 50%;
     margin-bottom: 20px;
 }
@@ -95,14 +80,13 @@ img {
 .search_section .first .talkSearch .talkSearchName {
     margin-top: 10px;
     font-size: 16px; 
-    color: #676767;
-    font-weight: 900;
+    color: #444343;
 }
 
 
 /* 2. 플레이리스트 */
 .search_section .second .playListSearch {
-    background: white;
+    /* background: white;
     width: 1200px;
     height: auto;
     display: grid;
@@ -110,10 +94,24 @@ img {
     margin-top: 20px;
     border-radius: 5px;
     text-align: center;
-    grid-gap: 0
+    grid-gap: 0 */
+    background: rgb(255, 255, 255);
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    border-radius: 5px;
+    margin-top: 0;
+    text-align: center;
 }
 
 .search_section .second .playListSearch .playListSearchElement {
+    /* cursor: pointer;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+    margin: 20px; */
     cursor: pointer;
     display: flex;
     flex-direction: column; 
@@ -123,8 +121,8 @@ img {
 }
 
 .search_section .second .playListSearch .playListSearchElement > .playlist_cover-2  img{
-    width: 100px; 
-    height: 100px;
+    width: 100%;
+    height: auto;
     border-radius: 5px;
 }
 
@@ -142,16 +140,19 @@ img {
 }
 
 .search_section .second .playListSearch .playListSearchElement .playlist_cover-1 {
-    width: 100px;
-    height: 100px;
-    object-fit: cover; 
-    border-radius: 2px;
-    grid-gap: 0;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto; 
+    width: 130px;
+    height: 130px;
+    margin-top: 20px;
 }
 
 .search_section .second .playListSearch .playListSearchElement .playlist_cover-1 img {
     width: 100%;
     height: auto;
+    object-fit: cover; 
+    border-radius: 2.5px;
 }
 
 .search_section .second .playListSearch .playListSearchElement .playListSearchLike {
@@ -172,11 +173,10 @@ img {
 /* 3. 타이틀 */
 .search_section .third .titleSearch {
     background: rgb(255, 255, 255);
-    width: 1200px;
+    width: 100%;
     height: auto;
     gap: 0;
     margin: 0;
-    border-top: #a0a0a0 0.2px solid;
 }
 
 .search_section .third .titleSearch .titleSearchResultElement {
@@ -186,7 +186,7 @@ img {
     text-align: center;
     line-height: auto;
     border-bottom: #a0a0a0 0.2px solid;
-    width: 1200px;
+    width: 100%;
     margin-bottom: 0;
 }
 
@@ -273,7 +273,6 @@ img {
     height: auto;
     gap: 0;
     margin: 0;
-    border-top: #a0a0a0 0.2px solid;
 }
 
 .search_section .fifth .lyricsSearch .lyricsSearchResultElement {
@@ -283,7 +282,6 @@ img {
     align-items: center;
     text-align: center;
     line-height: auto;
-    border-bottom: #a0a0a0 0.2px solid;
     width: 1200px;
     margin-bottom: 0;
 }
@@ -299,8 +297,7 @@ img {
     width: 70px; 
     height: 70px;
     border-radius: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: 20px;
 }
 
 .search_section .fifth .lyricsSearch .lyricsSearchArtist {
@@ -317,4 +314,32 @@ img {
     margin-left: 20px;
     margin-right: 20px;
     font-weight: 900;
+}
+
+@media screen and (max-width: 650px) {
+
+    .search_section{
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 100px;
+    }
+    
+    .search_section .searchPage{
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .search_section .first .talkSearch {
+        background: rgb(255, 255, 255);
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        border-radius: 5px;
+        margin-top: 0;
+        text-align: center;
+    }
+    
 }
