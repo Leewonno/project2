@@ -176,7 +176,6 @@
                 profile_word.className = "fa-solid fa-check";
                 profile_word.style.color = "blue";
             }
-            profile_word.classList.add("profileHidden");
         });
 
         // 비밀번호 일치검사
@@ -230,16 +229,46 @@
             }
         });
 
-
-        document.querySelector("body").addEventListener("click", function(e) {
+        //비밀번호 값 none일시 문구 안뜨게
+        document.querySelector("#pw").addEventListener("input", function(e) {
             const profile_pw = document.querySelector("#pw").value;
             const profile_pw2 = document.querySelector("#pw2").value;
             const profile_match = document.querySelector("#profileMatch");
            
-            if(profile_pw === "" || profile_pw2 === "") {
-                console.log("123")
+            if(profile_pw === "") {
                 profile_match.classList.add("profileMatch");
-                return;
+            }
+        });
+
+        //비밀번호 값 none일시 문구 안뜨게
+        document.querySelector("#pw2").addEventListener("input", function(e) {
+            const profile_pw = document.querySelector("#pw").value;
+            const profile_pw2 = document.querySelector("#pw2").value;
+            const profile_match = document.querySelector("#profileMatch");
+           
+            if(profile_pw2 === "") {
+                profile_match.classList.add("profileMatch");
+            }
+        });
+
+
+        document.querySelector("#pw").addEventListener("input", function(e) {
+            const profile_pw = document.querySelector("#pw").value;
+            const profile_pw2 = document.querySelector("#pw2").value;
+            const profile_word = document.querySelector("#profileHidden");
+
+            if(profile_pw === "") {
+                profile_word.classList.add("profileHidden");
+            }
+        });
+
+        document.querySelector("#pw2").addEventListener("input", function(e) {
+            const profile_pw = document.querySelector("#pw").value;
+            const profile_pw2 = document.querySelector("#pw2").value;
+            const profile_word = document.querySelector("#profileHidden");
+
+            if(profile_pw2 === "") {
+                profile_word.classList.add("profileHidden");
             }
         });
     </script>
