@@ -1,22 +1,28 @@
 .sort_section {
     display: flex;
+    margin-top: 50px;
     justify-content: center;
+}
+
+.sort_section .song_category{
+    width: 1200px;
 }
 
 .sort_section .sort_menu {
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding-bottom: 20px;
     background-color: #ffff;
-    border-bottom:2px solid #FCD06B;
+    border-bottom: 2px solid #FCD06B;
 }
 .sort_section .genre_menu {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px;
+    margin-right: 20px;
+    padding-top: 15px;
     background-color: #ffff;
+    padding-bottom: 15px;
 }
 
 .sort_section .sort_menu ul.lay_menu {
@@ -28,19 +34,14 @@
 .sort_section .genre_menu ul.genre_ul {
     list-style: none;
     display: flex;
-    justify-content: center;
 }
 
 .sort_section .sort_menu ul.lay_menu li {
-    width: 80px;
-    text-align: center;
-    padding: 10px;
+    margin-right: 20px;
 }
 
 .sort_section .genre_menu ul.genre_ul li {
-    width: 80px;
-    margin: 10px;
-    text-align: center;
+    margin-right: 20px;
 }
 
 .sort_section .sort_menu ul.lay_menu li span {
