@@ -45,7 +45,7 @@
                   <div class = "imgdiv"  onclick="talk('<%=tag[i].name %>')">
                     <img class ="tagimage"src="<%=tag[i].cover_img%>" alt="">
                     <p class="test"><%=tag[i].name%></p>
-                    <span>접속자 수: <%=tag[i].member %></span>
+                    <span class="Jmember">접속자 수: <%=tag[i].member %></span>
                   </div>
                 <%}%>
               </div>
@@ -59,7 +59,7 @@
                   <div class = "imgdiv"  onclick="talk('<%=best[i].name %>')">
                     <img src="<%=best[i].cover_img%>" alt="">
                     <p><%=best[i].name%></p>
-                    <span>접속자 수: <%=best[i].member %></span>
+                    <span class="Jmember">접속자 수: <%=best[i].member %></span>
                   </div>
                 <%}%>
               </div>
@@ -91,7 +91,7 @@
             cg.setAttribute("class","imgdiv")
             // cg.classList.add = "imgdiv"
             cg.innerHTML = `<img src="${chat_tag[i].cover_img}" class ="tagimage" >
-                  <p>${chat_tag[i].name} </p><span> 접속자 수: ${chat_tag[i].member} </span>`;
+                  <p>${chat_tag[i].name} </p><span class ="Jmember"> 접속자 수: ${chat_tag[i].member} </span>`;
             document.querySelector("#s").appendChild(cg)
           }
         });
