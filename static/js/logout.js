@@ -12,7 +12,7 @@ if (jwtCookie!=null) {
     signin.textContent = 'LOGOUT';
     signin.href = '#';
     signin.setAttribute('onclick', 'logout()');
-    user.insertAdjacentHTML('afterbegin', `<a href="/profile">프로필</a>`)
+    user.insertAdjacentHTML('afterbegin', `<a href="/profile"><i class="fa-regular fa-user" style="color: #000000;"></i></a>`)
     user.insertAdjacentHTML('afterbegin', `<a href="/playlist">플레이리스트</a>`)
 } else {
     signin.textContent = 'LOGIN'

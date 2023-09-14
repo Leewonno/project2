@@ -8,40 +8,50 @@
 <body>
     
     <%- contentFor('body') %>
-    <section>
+    <section class="song_section">
         <div class="songMain1">
-            <div class="albumImg" onclick="music('<%= data.id %>')"><img class="cover" src="<%= data.cover_url %>"></div>
-            <div class="albumInfor">
-                <div class="title">[EP] <%= data.title %></div>
-                <div class="artist"><%= data.artist %></div>
-                <div class="album"><%= data.album %></div>
-                <div class="writer">작사 <%= data.writer %></div>
-                <div class="composer">작곡 <%= data.composer %></div>
-                <div class="genre">장르 <%= data.genre %></div>
-                <div class="playtime"><%= data.playtime %></div>
-                <div class="release_date">발매일 <%= data.release_date %></div>
-                <div class="like" onclick="likeBtn()">
-                <input type="hidden" value="<%= data.id %>" id="song_id">
-                    <% if (likeResult) { %>
-                        <i class="fa-solid fa-heart" style="color: #ff6666;"></i> <%= data.like %>
-                    <% } else { %>
-                        <i class="fa-regular fa-heart" style="color: #ff6666;"></i> <%= data.like %>
-                    <% } %>
-              
-                </div>
+            <div class="albumImg">
+                <div class="music_play"><i class="fa-solid fa-play" style="color: white;" onclick="music('<%= data.id %>')"></i></div>
+                <img class="cover" src="<%= data.cover_url %>">
             </div>
-            <div class="talk"></div>
-        </div><br>
+            <div class="albumInfor">
+                <div class="t_a">
+                    <span>
+                        <div class="title"><%= data.title %></div>
+                        <div class="artist"><%= data.artist %></div>
+                    </span>
+                </div>
+                <div class="o_i">
+                    <span class="like" onclick="likeBtn()">
+                        <input type="hidden" value="<%= data.id %>" id="song_id">
+                        <% if (likeResult) { %>
+                            <i class="fa-solid fa-heart" style="color: #ff6666;"></i><div class="like_count"><%= data.like %></div>
+                        <% } else { %>
+                            <i class="fa-regular fa-heart" style="color: #ff6666;"></i><div class="like_count"><%= data.like %></div>
+                        <% } %>
+                    </span>
+                    <span class="infor">
+                        <div class="album"><div class="colume_name">앨범</div><%= data.album %></div>
+                        <div class="genre"><div class="colume_name">장르</div><%= data.genre %></div>
+                        <div class="release_date"><div class="colume_name">발매</div><%= data.release_date %></div>
+                        <div class="writer"><div class="colume_name">작사</div><%= data.writer %></div>
+                        <div class="composer"><div class="colume_name">작곡</div><%= data.composer %></div>
+                    </span>
+                </div>
+                <!-- <div class="playtime"><%= data.playtime %></div> -->
+                
+            </div>
+            <div class="talk" onclick="talk('<%= data.artist %>')"></div>
+        </div>
         <div class="songMain2">
             <input type="hidden" value="<%= data.lyrics %>" id="lyrics_value">
-            <div class="lyrics"></div>
-            <div class="anotherSong"></div>
+            <div class="lyrics">
+                <div class="title">가사</div>
+            </div>
+            <!-- <div class="anotherSong"></div> -->
             <div class="songComment">
                 <form name="commentCreate" class="commentCreate">
-                    <br>
-
                     <% if (user && user.userid) { %>
-                     
                         <img class="comment_profile" src="<%= user.profile_img %>" alt="User Profile Img">
                         <div class="comment_user"><%= user.nickname %>(<%= user.userid %>)</div>
                         <textarea type="text" name="commentText" id="commentText" ></textarea>
@@ -59,8 +69,8 @@
                 </form>
                 
             </div>
-            <br>
             <div class="songCommentList" id="commentList">
+                <div class="title">댓글</div>
                 <% for (let i = 0; i < comments.length; i++) { %>
                     <div class="commentItem">
                         <div class="commentListImg"><img src="<%= comments[i].profile_img %>"></div>
@@ -72,7 +82,6 @@
                             <button type="button" class="deleteBtn" onclick="deleteComment('<%= comments[i].id %>')">삭제</button>
                         <% } %>
                     </div>
-                    <br>
                 <% } %>
             </div>
         </div>
@@ -80,7 +89,7 @@
 
     <script id="sc">
         
-        document.querySelector(".lyrics").insertAdjacentHTML("afterbegin", document.getElementById("lyrics_value").value)
+        document.querySelector(".lyrics").insertAdjacentHTML("beforeend", document.getElementById("lyrics_value").value)
 
         
         async function likeBtn() {

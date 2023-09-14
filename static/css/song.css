@@ -4,44 +4,159 @@
     box-sizing: border-box;
 } */
 
+.song_section{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .songMain1 {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    /* gap: 30px; */
+    justify-content: flex-start;
+    width: 1200px;
+    margin-bottom: 100px;
 }
 
 .albumImg {
-    width: 200px;
-    height: 200px;
-    background-color: lightgray;
+    width: 250px;
+    height: 250px;
+    position: relative;
+    border-radius: 5px;
 }
 .albumImg img {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid #c0c0c0;
+}
+
+.albumImg .music_play{
+    display: none;
+    /* width: 0px;
+    height: 0px;
+    opacity: 0;
+    transition: opacity 0.2s; */
+}
+
+.albumImg:hover .music_play{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    background-color: rgb(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.albumImg i::before{
+    font-size: 35px;
+    cursor: pointer;
+    box-shadow: 0 5px 8px 0 rgba(68,68,68,.1);
 }
 
 .albumInfor {
-    width: 570px;
-    height: 200px;
-    background-color: lightgray;
+    width: 800px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.albumInfor div {
-    margin: 4px;
+.albumInfor .t_a{
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.albumInfor .o_i{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 50px;
+    align-items: flex-end;
+}
+
+.albumInfor .o_i .infor{
+    margin-left: 80px;
+}
+
+.albumInfor .title{
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 50px;
+}
+
+.albumInfor .artist{
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.albumInfor .album{
+    font-size: 15px;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.albumInfor .writer{
+    font-size: 15px;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.albumInfor .composer{
+    font-size: 15px;
+    display: flex;
+}
+
+.albumInfor .genre{
+    font-size: 15px;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.albumInfor .playtime{
+    font-size: 15px;
+
+}
+
+.albumInfor .release_date{
+    font-size: 15px;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.albumInfor .colume_name{
+    width: 50px;
+    display: flex;
 }
 
 .albumInfor .like i{
-    
+    font-size: 30px;
     margin-right: 6px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.albumInfor .like i:hover{
+    transform: scale(1.2);
+}
+
+.albumInfor .like{
+    display: flex;
+    align-items: center;
+}
+
+.albumInfor .like_count{
+    font-size: 25px;
+    margin-left: 10px;
 }
 
 .talk {
-    margin-left: 30px;
     width: 150px;
-    height: 150px;
-    border-radius: 50%;
+    height: 250px;
     background-color: lightgray;
 }
 
@@ -49,25 +164,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    width: 1200px;
+    margin-bottom: 100px;
 }
 
-.lyrics {
-    width: 958px;
-    height: 300px;
-    background-color: lightgray;
+.songMain2 .lyrics {
+    width: 100%;
+    min-height: 300px;
+    margin-bottom: 100px;
+    /* background-color: lightgray; */
 }
 
-.anotherSong {
+.songMain2 .lyrics .title{
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 20px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+/* .songMain2 .anotherSong {
     width: 958px;
     height: 100px;
     background-color: lightgray;
-}
+} */
 
 .songComment {
-    width: 958px;
-    background-color: lightgray;
-    margin-bottom: 40px;
+    width: 1200px;
+    margin-bottom: 200px;
     position: relative;
 }
 
@@ -78,79 +201,133 @@
 
 .songComment form .comment_user {
     display: flex;
-    align-items: center;
-    position: relative;
-    height: 100px;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    margin-left: 10px;
 }
 
 .songComment img{
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #e5e5e5;
 }
 
 .songComment textarea {
     position: absolute;
-    margin-top: 100px;
-    width: 958px;
+    width: 1200px;
     height: 100px;
     resize: none;
-    background: #FCD06B;
+    /* background: #FCD06B; */
+    top: 55px;
+    outline: none;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #e5e5e5;
 }
 
 .songComment button {
     position: absolute;
-    margin-top: 100px;
-    width: 63px;
-    height: 50px;
+    width: 100px;
+    height: 35px;
     right: 0;
-    top: 100px;
+    top: 160px;
+    background-color: #ffec83;
+    border-radius: 30px;
+    border: 1px solid #e5e5e5;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.songComment button:hover{
+    transform: scale(1.1);
+}
+
+.songCommentList{
+    width: 100%;
+}
+
+.songCommentList .title{
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 20px;
+    padding-bottom: 5px;
+    margin-bottom: 50px;
 }
 
 .songCommentList .commentItem {
     display: flex;
     position: relative;
-    width: 958px;
-    background-color: lightgray;
+    width: 1200px;
+    /* background-color: lightgray; */
     margin-bottom: 150px;
 }
 
 .songCommentList .commentItem img {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #e5e5e5;
 }
 
 .songCommentList .comment_user {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    margin-left: 10px;
 }
 
 .songCommentList .commentList_date {
     display: flex;
-    align-items: center;
-    position: relative;
-    left: 10px;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    font-size: 13px;
+    color: #b2b2b2;
 }
 
 .songCommentList .commentList_content {
     position: absolute;
-    margin-top: 100px;
-    width: 958px;
+    width: 1200px;
     height: 100px;
     resize: none;
+    /* background: #FCD06B; */
+    top: 55px;
+    outline: none;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #e5e5e5;
 }
 
 .songCommentList .modifyBtn {
     position: absolute;
-    width: 63px;
-    height: 50px;
-    right: 63px;
-    top: 200px;
+    width: 100px;
+    height: 35px;
+    right: 105px;
+    top: 160px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    border: 2px solid #ffec83;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.songCommentList .modifyBtn:hover{
+    transform: scale(1.1);
 }
 
 .songCommentList .deleteBtn {
     position: absolute;
-    width: 63px;
-    height: 50px;
-    right: 0px;
-    top: 200px;
+    width: 100px;
+    height: 35px;
+    right: 0;
+    top: 160px;
+    background-color: #ffec83;
+    border-radius: 30px;
+    border: 1px solid #e5e5e5;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.songCommentList .deleteBtn:hover{
+    transform: scale(1.1);
 }
