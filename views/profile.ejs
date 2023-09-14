@@ -161,6 +161,7 @@
             img.src = res.data.location;
         }
 
+        // 비밀번호 일치검사
         document.querySelector("#pw").addEventListener("input", function(e) {
             const profile_pw = document.querySelector("#pw").value;
             const profile_pw2 = document.querySelector("#pw2").value;
@@ -178,6 +179,7 @@
             profile_word.classList.add("profileHidden");
         });
 
+        // 비밀번호 일치검사
         document.querySelector("#pw2").addEventListener("input", function(e) {
             const profile_pw = document.querySelector("#pw").value;
             const profile_pw2 = document.querySelector("#pw2").value;
@@ -194,12 +196,13 @@
             }
         });
 
-        document.querySelector("body").addEventListener("click", function(e) {
+        //비밀번호 유효성검사
+        document.querySelector("#pw").addEventListener("input", function(e) {
             const profile_pw = document.querySelector("#pw").value;
             const profile_pw2 = document.querySelector("#pw2").value;
             const profile_match = document.querySelector("#profileMatch");
             let pwPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-
+            
             if(!pwPattern.test(pw.value)) {
                 profile_match.classList.remove("profileMatch");
                 profile_match.textContent = "비밀번호는 영문, 숫자, 특수기호 조합하여 8자리 이상입니다.";
@@ -209,8 +212,9 @@
                 profile_match.classList.add("profileMatch");
             }
         });
-
-        document.querySelector("body").addEventListener("click", function(e) {
+        
+        //비밀번호 유효성검사
+        document.querySelector("#pw2").addEventListener("input", function(e) {
             const profile_pw = document.querySelector("#pw").value;
             const profile_pw2 = document.querySelector("#pw2").value;
             const profile_match = document.querySelector("#profileMatch");
@@ -223,6 +227,19 @@
                 return;
             } else {
                 profile_match.classList.add("profileMatch");
+            }
+        });
+
+
+        document.querySelector("body").addEventListener("click", function(e) {
+            const profile_pw = document.querySelector("#pw").value;
+            const profile_pw2 = document.querySelector("#pw2").value;
+            const profile_match = document.querySelector("#profileMatch");
+           
+            if(profile_pw === "" || profile_pw2 === "") {
+                console.log("123")
+                profile_match.classList.add("profileMatch");
+                return;
             }
         });
     </script>
