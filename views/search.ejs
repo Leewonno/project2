@@ -25,7 +25,7 @@
                         <% } else { %>
                                 <% for (let i = 0; i < data.chatroom.length; i++) { %>
                                 <div class="talkSearchResultElement"> 
-                                   <img class="talkSearchImg" src="<%= data.chatroom[i].cover_img %>">
+                                   <img class="talkSearchImg" src="<%= data.chatroom[i].cover_img %>" id="chatImage">
                                     <a href="/chat/list" class="talkSearchName"><%= data.chatroom[i].name %></a>
                                 </div>
                                 <% } %>
@@ -163,6 +163,22 @@
             console.error('좋아요 토글에 실패했습니다.', error);
           }
         }
+
+        // 이미지 요소를 가져옵니다.
+        var imageElement = document.getElementById("chatImage");
+
+        // 이미지를 클릭했을 때 이벤트 핸들러를 추가합니다.
+        imageElement.addEventListener("click", function() {
+            // 페이지를 '/chat/list'로 이동합니다.
+            window.location.href = '/chat/list';
+        });
+        이제 위의 코드를 HTML 페이지에 추가하면, 이미지를 클릭하면 '/chat/list'로 이동할 것입니다.
+
+
+
+
+
+
     </script>
 </body>
 </html>
