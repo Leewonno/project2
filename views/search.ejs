@@ -24,8 +24,10 @@
                             <div class="noResultsMessage">검색 내용을 찾을 수 없습니다.</div>
                         <% } else { %>
                                 <% for (let i = 0; i < data.chatroom.length; i++) { %>
-                                <div class="talkSearchResultElement"> 
-                                   <img class="talkSearchImg" src="<%= data.chatroom[i].cover_img %>" id="chatImage">
+                                <div class="talkSearchResultElement" href="/chat/list"> 
+                              
+                                        <img class="talkSearchImg" src="<%= data.chatroom[i].cover_img %>" id="chatImage" onclick="redirectToChatList()">
+       
                                     <a href="/chat/list" class="talkSearchName"><%= data.chatroom[i].name %></a>
                                 </div>
                                 <% } %>
@@ -55,7 +57,7 @@
 
                                         <div class="playListSearchName"><%= data.playlist[i].name %></div>
                                         <div class="playListSearchUserId"><%= data.playlist[i].userid %></div>
-                                        <div class="playListSearchLike" id="<%= data.playlist[i].id %>" onclick="likeBtn('<%= data.playlist[i].id %>')">
+                                        <div class="playListSearchLike" id="<%= data.playlist[i].id %>" onclick="likeBtn(<%= data.playlist[i].id %>)">
                                             
                                             <% if (data.playlist[i].likeResult) { %>
                                                 <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
@@ -83,10 +85,10 @@
                                 <div class="titleSearchResultElement">
 
                                         <img class="titleSearchImg" src="<%= data.title[i].cover_url %>" onclick="music('<%= data.title[i].id %>')">
+                                       
                                         <a class="titleSearchTitle" href="/song?id=<%= data.title[i].id %>"><%= data.title[i].title %></a>
                                         <div class="titleSearchArtist"><%= data.title[i].artist %></div>
-                                        <!-- <div><i class="fa-solid fa-play" style="color: #FCD06B"></i></div>
-                                        <div><i class="fa-solid fa-bars" style="color: #FCD06B"></i></div> -->
+                                        <div class="list_icon_title" onclick="modelOpenBtn('<%= data.title[i].id %>')"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></div>
                                 </div>
                             <% } %>
                         <% } %>
@@ -105,6 +107,7 @@
                                         <div class="artistbox">
                                             <div class="artistSearchArtist"><%= data.artist[i].artist %></div>
                                             <a class="artistSearchTitle" href="/song?id=<%= data.artist[i].id %>"><%= data.artist[i].title %></a>
+                                            <div class="list_icon_artist" onclick="modelOpenBtn('<%= data.artist[i].id %>')"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></div>
                                         </div>
                                     </div>
                                 <% } %>
@@ -121,9 +124,10 @@
                         <% } else { %>
                                 <% for (let i = 0; i < data.lyrics.length; i++) { %>
                                     <div class="lyricsSearchResultElement">
-                                        <img class="lyricsSearchImg" src="<%= data.lyrics[i].cover_url %>">
+                                        <img class="lyricsSearchImg" src="<%= data.lyrics[i].cover_url %>" onclick="music('<%= data.lyrics[i].id %>')">
                                         <a class="lyricsSearchTitle"><%= data.lyrics[i].title %></a>
                                         <div class="lyricsSearchArtist"><%= data.lyrics[i].artist %></div>
+                                        <div class="list_icon_lyrics" onclick="modelOpenBtn('<%= data.lyrics[i].id %>')"><i class="fa-solid fa-bars" style="color: #FCD06B"></i></div>
                                     </div>
                                 <% } %>
                         <% } %>
@@ -136,6 +140,7 @@
     <%- contentFor('player') %>
 
     <script id="sc">
+
      async function likeBtn(p_id) {
           const like_element = document.getElementById(p_id);
           const id = p_id;
@@ -164,21 +169,27 @@
           }
         }
 
-        // 이미지 요소를 가져옵니다.
-        var imageElement = document.getElementById("chatImage");
 
-        // 이미지를 클릭했을 때 이벤트 핸들러를 추가합니다.
-        imageElement.addEventListener("click", function() {
-            // 페이지를 '/chat/list'로 이동합니다.
+        function redirectToChatList() {
+    
             window.location.href = '/chat/list';
-        });
-        이제 위의 코드를 HTML 페이지에 추가하면, 이미지를 클릭하면 '/chat/list'로 이동할 것입니다.
+        }
+
+        // const listModal = document.querySelector("#myPlaylist");
+        //             const modalOpen = document.querySelector(".song_list_button");
+        //             const modalClose = document.querySelector(".playlistButton");
 
 
+        //             modalOpen.addEventListener("click", (e) => {
+        //                 listModal.classList.remove('hidden');
+        //             });
 
-
-
-
+        //             modalClose.addEventListener("click", (e) => {
+        //                 listModal.classList.add('hidden');
+        //             });
+        //             listModal.addEventListener("click", (e) => {
+        //                 listModal.classList.add('hidden');
+        //             })
     </script>
 </body>
 </html>
