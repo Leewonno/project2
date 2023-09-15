@@ -57,7 +57,7 @@
 
                                         <div class="playListSearchName"><%= data.playlist[i].name %></div>
                                         <div class="playListSearchUserId"><%= data.playlist[i].userid %></div>
-                                        <div class="playListSearchLike" id="<%= data.playlist[i].id %>" onclick="likeBtn(<%= data.playlist[i].id %>)">
+                                        <div class="playListSearchLike" id="<%= data.playlist[i].id %>" onclick="likeBtn('<%= data.playlist[i].id %>')">
                                             
                                             <% if (data.playlist[i].likeResult) { %>
                                                 <i class="fa-solid fa-heart" style="color: #FCD06B;"></i>
