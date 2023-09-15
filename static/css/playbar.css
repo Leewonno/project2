@@ -165,7 +165,13 @@
     /* font-size: 18px;
     margin-bottom: 5px;
     font-size: 22px; */
-};
+    /* display: block */
+}
+@media all and (max-width: 650px) {
+    .song_info .song_title {
+       color: #000;
+    }
+}
 
 .song_info .artist_name {
     font-size: 14px;
