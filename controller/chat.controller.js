@@ -132,7 +132,9 @@ exports.connection = (io, socket) => {
     await models.Chat_member.destroy({
       where: { userid: userID, chatroom_id: chatRoom.id },
     });
-    const chatRoomMember = await models.ChatRoom.findOne({ where: { id: chatRoom.id } });
+    const chatRoomMember = await models.ChatRoom.findOne({
+      where: { id: chatRoom.id },
+    });
     chatRoomMember.member -= 1;
     await chatRoomMember.save();
   });
