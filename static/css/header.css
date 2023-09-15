@@ -135,5 +135,9 @@ header .right .user a {
   header .search{
     display: none;
   }
+
+  header .logo {
+    margin-left: 5px;
+  }
 }
 
