@@ -105,7 +105,7 @@
     justify-content: center;
 }
 
-.wrap_song .song_name a {
+.wrap_song .song_names a {
     text-decoration: none;
     color: black;
 }
@@ -118,7 +118,7 @@
     height: 90px;
 }
 
-.sort_section .song_name,
+.sort_section .song_names,
 .sort_section .artist {
     display: flex;
     flex-direction: column;
