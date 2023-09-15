@@ -126,8 +126,8 @@ input[type="radio"]:checked + .gender_class {
 
 .signupPage #pwMatch {
     position: absolute;
-    top: 250px;
-    left: 100px;
+    top: 195px;
+    left: 150px;
 }
 
 
@@ -179,6 +179,7 @@ input[type="radio"]:checked + .gender_class {
         position: absolute;
         top: 225px;
         left: auto;
+        font-size: 12px;
     }
 
     .signupMain .signupBtn {
