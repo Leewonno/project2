@@ -67,3 +67,8 @@ footer .left .team_member{
 footer .right{
 
 }
+@media screen and (max-width: 650px) {
+    .footer_box{
+        width: 100%;
+    }
+}

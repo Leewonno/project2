@@ -32,10 +32,12 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    border: 2px solid #FCD06B;
+    border: 1px solid #FCD06B;
     border-radius: 16px;
-    width: 500px;
-    height: 880px;
+    width: 600px;
+    height: 750px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .signupMain .signupForm {
@@ -60,10 +62,27 @@
     display: flex;
     justify-content: center;
 }
+
+.all_gender .gender_class{
+    width: 100%;
+    height: 30px;
+    border: 1px solid #FCD06B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + .gender_class {
+    background-color: #FCD06B;
+    color: white;
+  }
+
 .man_class, .woman_class {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    width: 50%;
+    /* gap: 20px; */
 }
 
 .day {
@@ -72,7 +91,7 @@
 
 .signupMain .signupBtn {
     width: 300px;
-    height: 80px;
+    height: 50px;
     border: none;
     color: white;
     background-color: #FCD06B;
@@ -107,8 +126,8 @@
 
 .signupPage #pwMatch {
     position: absolute;
-    top: 250px;
-    left: 100px;
+    top: 195px;
+    left: 150px;
 }
 
 
@@ -160,10 +179,15 @@
         position: absolute;
         top: 225px;
         left: auto;
+        font-size: 12px;
     }
 
     .signupMain .signupBtn {
         width: 75%;
         height: 50px;
+    }
+
+    .all_gender{
+        width: 80%;
     }
 }

@@ -8,6 +8,8 @@
 .mypageMain {
     display: flex;
     justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
 }
 
 .mypageMain .mypage {
@@ -19,12 +21,13 @@
 }
 
 .mypageMain .mypageCover {
-    width: 400px;
+    width: 500px;
     height: 580px;
     padding: 24px;
-    border: 3px solid #FCD06B;
+    border: 1px solid #FCD06B;
     border-radius: 16px;
     position: absolute;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.02);
 }
 
 .mypageMain .profilePage {
@@ -57,6 +60,7 @@
     align-items: center;
     color: white;
     cursor: pointer;
+    
 }
 
 .mypageMain .avatar .profileImg{
@@ -64,6 +68,7 @@
     height: 100%;
     border-radius: 50%;
     position: absolute;
+    border: 1px solid #e5e5e5;
 }
 
 .mypageMain .avatar .upload_btn{

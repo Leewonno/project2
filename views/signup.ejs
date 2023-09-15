@@ -12,7 +12,7 @@
 
     <%- contentFor('body') %>
         <section class="signupMain">
-            <div class="signupLogo">LOGO</div><br>
+            <div class="signupLogo">회원가입</div><br>
 
             <section class="signupPage">
                     <div class="signupCover">
@@ -28,12 +28,14 @@
                             <input type="text" id="nick" placeholder="닉네임"><br>
                             <div class="all_gender">
                                 <div class="man_class">
-                                    <label for="man">남자</label>
-                                    <input type="radio" id="man" name="gender" value="남자" checked><br>
+                                    
+                                    <input type="radio" id="man" name="gender" value="남자" hidden>
+                                    <label class="gender_class" for="man">남자</label>
                                 </div>
                                 <div class="woman_class">
-                                    <label for="woman">여자</label>
-                                    <input type="radio" id="woman" name="gender" value="여자"><br>
+                                    
+                                    <input type="radio" id="woman" name="gender" value="여자" hidden>
+                                    <label class="gender_class"for="woman">여자</label>
                                 </div>
                             </div><br>
                             <div class="day">
