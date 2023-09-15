@@ -63,6 +63,16 @@
       let myName, roomName, member, cover_img, current;
       // msg.scrollTop = msg.scrollHeight;
       // const roomName = roomForm.querySelector('#roomName');
+
+      const message = document.querySelector('#message');
+      message.addEventListener('input', (e) => {
+        if (message.value.length == 0) {
+          document.querySelector('.chat_send_message').style.backgroundColor = '#e5e5e5';
+        } else {
+          document.querySelector('.chat_send_message').style.backgroundColor = 'yellow';
+        }
+      });
+
       axios({
         method: 'POST',
         url: '/chat',
