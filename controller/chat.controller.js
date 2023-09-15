@@ -95,7 +95,11 @@ exports.connection = (io, socket) => {
       await chatRoomMember.save();
     }
     socket.to(socket.room).emit('notice', `${socket.user}님이 입장하셨습니다`, socket.user);
-    chatInfo = await models.Chat.findAll({ raw: true, where: { chatroom_id: chatRoom.id } });
+    chatInfo = await models.Chat.findAll({
+      raw: true,
+      where: { chatroom_id: chatRoom.id },
+      order: [['create_date', 'ASC']],
+    });
     // console.log('info', chatInfo.userid);
     for (let i = 0; i < chatInfo.length; i++) {
       // console.log(i + '번쨰' + chatInfo[i].userid);
