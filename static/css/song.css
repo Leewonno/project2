@@ -86,7 +86,7 @@
 .songMiddle{
     width: 1200px;
     display: flex;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 .songMiddle .infor{
@@ -164,10 +164,25 @@
     margin-left: 10px;
 }
 
-.talk {
+.songMain1 .talk {
     width: 150px;
     height: 250px;
-    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: lightgray; */
+}
+
+.songMain1 .talk_go{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.01);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .songMain2 {

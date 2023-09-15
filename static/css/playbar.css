@@ -688,4 +688,21 @@
     .playbar {
         height: 80px;
     }
+
+    .player_controller button{
+        font-size: 20px;
+        width: 15px;
+    }
+
+    .player_controller > label{
+        font-size: 20px;
+    }
+
+    #volume_status[type=range]{
+        display: none;
+    }
+
+    .modal_open .modal .modal_left .content_box img{
+        margin: 0;
+    }
 }

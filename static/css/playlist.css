@@ -1,11 +1,13 @@
 #cont-wrap{
     margin: 0 auto;
-    max-width: 1200px; 
-    padding: 20px; 
+    max-width: 1200px;
     background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 3px;
-    padding: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.01);
+    padding: 50px;
+    margin-bottom: 100px;
+    margin-top: 100px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
 }
 
 #my_playlist {
@@ -14,7 +16,8 @@
 
 .my_list {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 @media all and (max-width : 650px) {
     .my_list {
@@ -38,6 +41,24 @@
     color: black;
 }
 
+.new_pl{
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.new_pl:hover{
+    transform: scale(1.05);
+    background-color: #FCD06B;
+    color: white;
+}
+
 .page_header {
     display: flex;
     align-items: center;
@@ -49,19 +70,20 @@
 }
 
 .my_list li:not(.page_header) {
-    margin-right: 20px;
+    margin-right: 9px;
+    margin-left: 9px;
 }
 
 .my_list_album {
-    border: 1px solid #ccc;
+    border: 1px solid #e5e5e5;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     width: 200px;
     height: 250px;
-    margin-left: 50%;
+    border-radius: 10px;
+    margin-bottom: 50px;
 }
 
 .list_image {
@@ -87,9 +109,10 @@
 .new_pl_close {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 20px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 30px;
+    font-weight: 100;
     color: #555;
 }
 
@@ -133,7 +156,8 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    margin-top: 75px;
+    margin-top: 20px;
+    cursor: pointer;
 }
 
 .playlist_like_button {

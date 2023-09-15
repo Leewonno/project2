@@ -17,6 +17,10 @@
   display: none;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 #msg {
   height: 100vh;
   overflow-y: scroll;
@@ -29,23 +33,31 @@
   bottom: 0px;
   display: flex;
   width: 100%;
-  height: 5%;
+  height: 50px;
 }
 #chat input {
   width: 90%;
+  outline: none;
+  border: 1px solid;
+  padding: 5px;
+  font-size: 18px;
 }
 
 .chat_send_message {
   width: 10%;
+  border: 1px solid;
+  outline: none;
+  background-color: #e5e5e5;
 }
 
 .talk_header {
   display: flex;
   width: 100%;
-  background-color: #d0d023;
+  background-color: #efd93a;
   height: 50px;
   top: 0;
   position: fixed;
+  box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.02);
 }
 
 .header_name {
@@ -66,6 +78,21 @@
   width: 70px;
 }
 
+.talk_name{
+  color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  font-weight: 500;
+}
+
+.talk_name .member{
+  font-size: 15px;
+  font-weight: 400;
+  margin-left: 5px;
+}
+
 .infor_message {
   text-align: center;
   padding: 10px;
@@ -76,19 +103,23 @@
 .talk_menu_bar {
   width: 300px;
   height: 100vh;
-  background-color: beige;
+  background-color: whitesmoke;
   position: fixed;
   z-index: 1;
+  top: 0;
 }
 
 .talk_profile img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .talk_menu {
   border-style: none;
   background: none;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .menu_main {
@@ -96,7 +127,7 @@
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
-  gap: 70px;
+  gap: 20px;
   height: 100vh;
 }
 
@@ -124,26 +155,40 @@
 .hello {
   display: flex;
   justify-content: flex-end;
-  background-color: yellow;
+  background-color: #e9f0fc;
   width: fit-content;
   margin-left: auto;
   flex-direction: column;
-  margin-top: 5px;
-  border-radius: 10px;
+  /* margin-top: 5px; */
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 5px;
+  box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.01);
+  margin-bottom: 3px;
 }
 
 .hellow {
   display: flex;
   justify-content: flex-start;
-  background-color: beige;
+  background-color: #efefef;
   width: fit-content;
   flex-direction: column;
-  margin-top: 5px;
-  border-radius: 10px;
+  /* margin-top: 5px; */
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 5px;
+  box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.01);
+  margin-bottom: 3px;
+}
+
+.hellowId{
+  margin-left: 5px;
+  font-size: 14px;
+  color: #8e8e8e;
 }
 
 #msg p {
-  padding: 5px;
+  /* padding: 5px; */
 }
 
 #noticeId {
@@ -155,6 +200,7 @@
   background: none;
   border-style: none;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 
 .closeMenu {
