@@ -183,6 +183,11 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: all 0.3s;
+}
+
+.songMain1 .talk_go:hover{
+    transform: scale(1.1);
 }
 
 .songMain2 {
