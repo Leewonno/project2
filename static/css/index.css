@@ -160,7 +160,7 @@
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
-    border: #999999 solid 1px;
+    border: #e5e5e5 solid 1px;
     box-shadow: 5px 5px 5px rgb(172, 172, 172, 0.1);
 }
 .index_section .row_first .recent_music .recent_element {
@@ -194,7 +194,7 @@
     border-radius: 5px;
     margin-top: 0;
     text-align: center;
-    border: #999999 solid 1px;
+    border: #e5e5e5 solid 1px;
     box-shadow: 5px 5px 5px rgb(172, 172, 172, 0.1);
 }
 
@@ -246,7 +246,7 @@
     width: 100%;
     height: auto;
     display: grid;
-    border: #999999 solid 1px;
+    border: #e5e5e5 solid 1px;
     grid-template-columns: repeat(6, 1fr); 
     border-radius: 5px;
     margin-top: 0;
@@ -271,7 +271,7 @@
     width: 130px;
     height: 130px;
     object-fit: cover; 
-    border: #999999 solid 1px;
+    border: #e5e5e5 solid 1px;
     border-radius: 50%;
     margin-bottom: 20px;
 }
@@ -292,7 +292,7 @@
     width: 100%;
     height: auto;
     display: grid;
-    border: #999999 solid 1px;
+    border: #e5e5e5 solid 1px;
     grid-template-columns: repeat(6, 1fr); 
     border-radius: 5px;
     margin-top: 0;
@@ -341,7 +341,7 @@
     margin-top: 20px;
     border-radius: 5px;
     text-align: center;
-    border: #999999 solid 1px;
+    border: #e5e5e5 solid 1px;
     box-shadow: 5px 5px 5px rgb(172, 172, 172, 0.1);
 }
 
@@ -460,7 +460,7 @@
     
     .index_section .main_page{
         flex-direction: column;
-        width: 100%;
+        width: 90%;
         align-items: center;
     }
     .imgBox {

@@ -12,25 +12,25 @@
     <section class="talk_section">
       <div class="talk_list">
         <div class="column_first">
-          <div>참여중인톡방
-            <div class="my_talk">
-              <div class="joinchat">
-                <% if (!joinChat){%>
-                  <span class="sp">로그인이 필요합니다.</span>
-                <%}else{%>
-                  <% for(let i = 0; i<joinChat.length; i++){%>
-                    <div class = "imgdiv" onclick="talk('<%=joinChat[i].name %>')">
-                      <img src="<%=joinChat[i].cover_img%>" alt="">
-                      <p><%=joinChat[i].name%></p>
-                    </div>
-                  <%}%>
+          <div class="chatlist_title">참여중인톡방</div>
+          <div class="my_talk">
+            <div class="joinchat">
+              <% if (!joinChat){%>
+                <span class="sp">로그인이 필요합니다.</span>
+              <%}else{%>
+                <% for(let i = 0; i<joinChat.length; i++){%>
+                  <div class = "imgdiv" onclick="talk('<%=joinChat[i].name %>')">
+                    <img src="<%=joinChat[i].cover_img%>" alt="">
+                    <p><%=joinChat[i].name%></p>
+                  </div>
                 <%}%>
-              </div>
+              <%}%>
             </div>
           </div>
         </div>
         <div class="column_second">
-          <div>주제별 톡방
+          <div>
+            <div class="chatlist_title">주제별 톡방</div>
 
             <div class="category_talk">
               <div class="buttonDiv">
@@ -45,24 +45,26 @@
                   <div class = "imgdiv"  onclick="talk('<%=tag[i].name %>')">
                     <img class ="tagimage"src="<%=tag[i].cover_img%>" alt="">
                     <p class="test"><%=tag[i].name%></p>
-                    <span class="Jmember">접속자 수: <%=tag[i].member %></span>
+                    <span class="Jmember">멤버 수 <%=tag[i].member %></span>
                   </div>
                 <%}%>
               </div>
             </div>
           </div>
-          <div>톡방 추천
-            <div class="recommand_talk">
-              <div class="recommand">
-  
-                <% for(let i = 0; i<best.length; i++){%>
-                  <div class = "imgdiv"  onclick="talk('<%=best[i].name %>')">
-                    <img src="<%=best[i].cover_img%>" alt="">
-                    <p><%=best[i].name%></p>
-                    <span class="Jmember">접속자 수: <%=best[i].member %></span>
-                  </div>
-                <%}%>
-              </div>
+          
+          <div>
+            <div class="chatlist_title">톡방 추천</div>
+              <div class="recommand_talk">
+                <div class="recommand">
+
+                  <% for(let i = 0; i<best.length; i++){%>
+                    <div class = "imgdiv"  onclick="talk('<%=best[i].name %>')">
+                      <img src="<%=best[i].cover_img%>" alt="">
+                      <p><%=best[i].name%></p>
+                      <span class="Jmember">접속자 수: <%=best[i].member %></span>
+                    </div>
+                  <%}%>
+                </div>
               </div>
           </div>
         </div>

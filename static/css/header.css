@@ -62,6 +62,7 @@ header .logo > a {
 header .right {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 header .right > div {
@@ -119,3 +120,20 @@ header .right .user a {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+@media screen and (max-width: 650px) {
+  .header_box{
+    width: 100%;
+  }
+  header .right .go{
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  header .search{
+    display: none;
+  }
+}
+
